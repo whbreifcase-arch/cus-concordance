@@ -513,8 +513,8 @@ cites the Kernel primitive it reads or writes.
 
 # XVIII · Open-question register (pointer)
 
-Nearly everything is **signed** (William, 2026-07-24) and folded into A/B/C. **One
-thing remains open — the Nerve *trigger*.** Full record in
+**Every decision is signed** (William, 2026-07-24) and folded into A/B/C. **CUS v0.6
+is closed** — no open constitutional questions remain. Full record in
 **[Document E](E_OPEN_DECISIONS.md)**:
 
 ```text
@@ -527,6 +527,7 @@ SIGNED  packet-classification· neutral ID + separate packet_index sidecar (desi
 SIGNED  base-classes         · Small / Medium / Large (no Monstrous, no Cavalry-as-class)
 SIGNED  engagement           · bases touching = engaged · Reach 1–2″ · Disengage 1 AP
 SIGNED  counter              · turn-and-face · no cap · dying swing · Circles faceless
+SIGNED  counter-loop         · a Counter does not itself draw a Counter
 SIGNED  morale-states        · Steady → Shaken → Broken (Broken = Rout by Temperament)
-OPEN    nerve-trigger        · what fires a Nerve test + how it is rolled — undecided
+SIGNED  nerve-trigger        · shock (wounded / ally falls within 3″) → roll 3, count Nerve
 ```

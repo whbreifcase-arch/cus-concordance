@@ -97,7 +97,7 @@
 | Counter | **SIGNED, turn-and-face** (B · 8–9): free figure → Counters, turns to face, engages; deny only via flank/rear on an already-engaged Square; Circles faceless (always Counter); **no cap, dying swing lands** |
 | Engagement | **SIGNED** (B · 8): bases touching = engaged (no band); Disengage 1 AP; Reach threatens 1–2″ and strikes figures moving past |
 | Morale: Fearless-tier / old Nerve wording | **SIGNED** (B · 10): three states **Steady → Shaken → Broken**; Broken = Rout by Temperament; Rally steps up |
-| Nerve **test trigger + resolver** | **Still OPEN** (E·nerve-trigger) — what fires a test and how you roll it |
+| Nerve **test trigger + resolver** | **SIGNED** (B · 10): shock = wounded, or an ally falls within 3″ → roll **3 dice** vs. Nerve; 0 = step down, 1–2 = hold, 3 = step up |
 | Persistent traits (Large/Flying/Fearless/Reach/Amphibious) | **Traits** — referenced passive Definitions (SIGNED, keyword `trait`, B · 14) |
 
 ## 9 · Downstream artifacts (built on the old vocabulary — need migration)

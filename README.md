@@ -31,10 +31,12 @@ base-classes         → Small · Medium · Large (no Monstrous, no Cavalry-as-c
 engagement           → bases touching = engaged · Reach 1–2″ · Disengage 1 AP
 counter              → turn-and-face · no cap · dying swing lands · Circles faceless
 morale-states        → Steady → Shaken → Broken (Broken = Rout by Temperament)
+nerve-trigger        → shock (wounded / ally falls within 3″) → roll 3, count Nerve
+counter-loop         → a Counter does not itself draw a Counter
 ```
 
-**Still open — one thing:** the **Nerve *trigger*** — what fires a Nerve test and how
-you roll it. Everything else is signed. See [Document E](E_OPEN_DECISIONS.md).
+**CUS v0.6 is closed** — every decision is signed. See [Document E](E_OPEN_DECISIONS.md).
+The next change is an amendment, not an open question.
 
 ## What changed at the root (closed rulings — Brief §17)
 

@@ -232,9 +232,9 @@ The **only** ways to deny a Counter are positional:
 per-round limit** on Counters and no `counter_x` economy: a figure Counters **every**
 enemy that attacks it, and Counters **even as it dies.** Worked example — you attack a
 figure, engage, it Counters and kills you; your body is shoved off; that same figure
-is now free and will **Counter the next attacker** who steps up. *(A Counter is a
-response, not an ATTACK, so it does not itself draw a Counter — otherwise two figures
-loop forever. Flagged for confirmation, not yet William-signed.)*
+is now free and will **Counter the next attacker** who steps up. **A Counter does not
+itself draw a Counter (SIGNED, William 2026-07-24)** — a Counter is a *response*, not
+an ATTACK, so two figures never loop forever.
 
 ---
 
@@ -262,11 +262,26 @@ figure does when **leaderless** (its AI fallback) and when it goes **Broken (Rou
 | **Protective** | guards / stays close to the nearest ally | retreats to the nearest ally |
 | **Ravenous** | attacks the nearest figure, any side | turns **Wild** — attacks the nearest figure, friend or foe |
 
-> **⚠ OPEN → E·nerve-trigger.** *What triggers a Nerve test* and *the pass/fail
-> resolver* (how you roll it) are the **only** things still undecided here — William:
-> "idk exactly what or how to trigger nerve tests yet, we'll figure it out."
-> Everything else is signed: the three states, Broken = Rout-by-Temperament, and
-> Rally. Just the **test trigger + resolver** remain open.
+**The Nerve test — SIGNED (William delegated → designed, 2026-07-24).**
+
+*Who tests.* Only **Squares** of Creature Type **Man** or **Beast.** Circles never
+test (heroes hold); **Spirit** and **Construct** never test (fearless).
+
+*Triggers — a shock.* A Square tests Nerve the moment it suffers a shock:
+- it is **Wounded** by an ATTACK (took a hit and lived), **or**
+- a **friendly figure within 3″** is slain or goes **Broken.**
+
+One test per shock. A PACKET may also force a test through an Effect (a Terror rung).
+
+*The roll — in threes.* Roll **3 dice**; each die **≥ the figure's Nerve** value is a
+success. Read the successes against the morale track:
+- **0 successes** → step **down** one state (Steady → Shaken → Broken);
+- **1–2 successes** → **hold** (no change);
+- **3 successes** → step **up** one state (rally through it: Shaken → Steady).
+
+**Broken → the figure Routs** by its Temperament (table above). **Rally** (a leader's
+USE) also steps a figure **up** one state. The test reads like every other roll in CUS
+— a small pool, a success number, count successes — so nothing new is learned.
 
 ---
 
