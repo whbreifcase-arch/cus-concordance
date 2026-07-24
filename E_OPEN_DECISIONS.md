@@ -1,10 +1,11 @@
 # CUS — OPEN DECISIONS
 ### v0.6 · decision register · updated 2026-07-24
 
-> Eight decisions were opened. **Seven are signed** (William, 2026-07-24) and folded
-> into A/B/C. **One is partially open:** the Counter/facing half of combat-aftermath
-> is signed; the **morale machinery** (Nerve/Shaken/Rout/Rally/Wild) is still open.
-> Signed rulings are kept here for the record and mirrored in the cited sections.
+> Eight decisions were opened; the combat-aftermath one has since been resolved down
+> to a single remaining question. **Almost everything is signed** (William,
+> 2026-07-24) and folded into A/B/C. **One thing is still open:** what *triggers* a
+> Nerve test and how you *roll* it. Signed rulings are kept here for the record and
+> mirrored in the cited sections.
 
 ## Status board
 
@@ -13,76 +14,76 @@
 | grade-accumulation | **Model 2 — Discrete** | ✅ SIGNED → A·VI, B·5 |
 | persistent-traits | **Option B — passive Definitions; keyword `trait`** | ✅ SIGNED → B·14, C |
 | tool-vocabulary | **Melee · Ranged · Hybrid** (vibe-check) | ✅ SIGNED → A·VII, B·1 |
-| temperament | **Five words + behaviour table** (delegated → designed) | ✅ SIGNED → A·VII, B·10 |
+| temperament | **Five words + behaviour table** | ✅ SIGNED → A·VII, B·10 |
 | force-ontology | **Force IS a formal primitive** (non-numerical) | ✅ SIGNED → A·II, C |
-| packet-classification | **Neutral ID + `packet_index` sidecar** (delegated → designed) | ✅ SIGNED → A·V |
-| combat-aftermath | **Counter/facing SIGNED · morale OPEN** | 🟡 PARTIAL → B·8–9 signed |
-| base-classes | **Small · Medium · Large** (no Monstrous, no Cavalry-class) | ✅ SIGNED → B·1 |
+| packet-classification | **Neutral ID + `packet_index` sidecar** | ✅ SIGNED → A·V |
+| base-classes | **Small · Medium · Large** | ✅ SIGNED → B·1 |
+| engagement | **Bases touching = engaged; Reach 1–2″; Disengage 1 AP** | ✅ SIGNED → B·8 |
+| counter | **Turn-and-face; no cap; dying swing; Circles faceless** | ✅ SIGNED → B·9 |
+| morale-states | **Steady → Shaken → Broken** (Broken = Rout) | ✅ SIGNED → B·10 |
+| **nerve-trigger** | *what triggers a test + how you roll it* | 🟡 **OPEN** |
 
 ---
 
-## ✅ grade-accumulation — SIGNED: Model 2 (Discrete)
-Resolving Grade *N* resolves **only** the Effects written on Grade *N*. No
-inheritance of lower Grades' Effects. Authoring rule: each Grade line is a complete
-result; repeat an Effect on every line that should have it. *(William: "MODEL 2
-Signed 7/24/26.")* → A·VI, B·5–6.
+## ✅ grade-accumulation — Model 2 (Discrete)
+Grade *N* resolves **only** its own written Effects; no inheritance. *(William: "MODEL
+2 Signed.")* → A·VI, B·5–6.
 
-## ✅ persistent-traits — SIGNED: Option B, keyword `trait`
-Always-true properties are **Traits: referenced passive Definitions** — defined once,
-referenced by `trait_id`, passive (resolve nothing), stateless. `Large` stays a size;
-`unstoppable`, `reach`, `flying`, `fearless`, `amphibious`, `mounted` are traits.
-*(William: "Option B referenced passive definitions. Keyword definition: trait.")*
-→ B·14, C·Trait.
+## ✅ persistent-traits — Option B, keyword `trait`
+Always-true properties are **referenced passive Definitions** (`trait_id`). *(William:
+"Option B … keyword: trait.")* → B·14, C·Trait.
 
-## ✅ tool-vocabulary — SIGNED: Melee · Ranged · Hybrid
-Combat's Tool set, read as **vibe-checks** (ordinal classification like Tempo).
-*Hybrid* = delivers Force meaningfully both in contact and at range. Old `Utility` is
-a Role, not a Tool. *(William: "Melee, Ranged and Hybrid. Vibe Checks.")* → A·VII,
-B·1.
+## ✅ tool-vocabulary — Melee · Ranged · Hybrid
+Combat Tool set, vibe-check; *Hybrid* = contact **and** range. *(William.)* → A·VII, B·1.
 
-## ✅ temperament — SIGNED (William delegated → designed)
-Five: `Cowardly · Resolute · Aggressive · Protective · Ravenous`, each a *preferred
-application of Force*, with a leaderless (AI-fallback) and break/Rout behaviour
-table. *(William: "just do your thing i give u autonomy here. figure it out.")*
-→ A·VII (axis + preference), B·10 (behaviour table).
+## ✅ temperament — five words + behaviour
+`Cowardly · Resolute · Aggressive · Protective · Ravenous`, each a preferred
+application of Force with a leaderless/Broken behaviour table. *(William delegated.)*
+→ A·VII, B·10.
 
-## ✅ force-ontology — SIGNED: Force is a formal primitive
-Force is a first-class Kernel primitive alongside Position, State, Resource — but
-**non-numerical** (no Force stat; read through the four axes, expressed by writing
-State/Position/Resource). *(William: "Primitive.")* → A·II, C·Force.
+## ✅ force-ontology — Force is a formal primitive
+First-class, but **non-numerical**. *(William: "Primitive.")* → A·II, C·Force.
 
-## ✅ packet-classification — SIGNED (William delegated → designed)
-Primary PACKET ID stays neutral; a **separate `packet_index` sidecar** maps each ID
-to retrieval dimensions (`verb`, `module`, `tool`, `targets`, `tags`) so tooling can
-query without parsing IDs. Definition-layer, stateless, one-owner, additive.
-*(William: "You figure out the best way here.")* → A·V.
+## ✅ packet-classification — neutral ID + `packet_index` sidecar
+Retrieval dimensions live outside the ID. *(William delegated.)* → A·V.
 
-## 🟡 combat-aftermath — PARTIAL
-**SIGNED (Counter & facing).** Attack a figure and it **Counters and turns to face
-you — you are now engaged.** A free (unengaged) target **always** gets its swing; the
-first attacker on an open figure eats the Counter. The **only** way to deny a Counter
-is position: catch a figure **already engaged with another enemy** on the **flank or
-rear** it isn't facing (a Flank/Backstab) — *that* is the "stab them on the side"
-case, and it works only because the target is committed elsewhere. Reach without
-contact = no Counter. *(William, 7/24/26, corrected same day.)* → B·8–9.
+## ✅ base-classes — Small · Medium · Large
+No Monstrous (a big creature = Large + `unstoppable` trait); no Cavalry-as-class
+(mounted = elongated geometry, plows one class up). *(William.)* → B·1, B·4.
 
-**STILL OPEN — morale machinery.** The **Nerve test** and the **Shaken · Rout ·
-Rally · Wild thresholds** (when a figure goes Shaken vs. Routs, how Rally clears it,
-the Man/Beast/Spirit/Construct branches), the exact engagement **band distance**, and
-the Counter **economy** (once/round vs. a `counter_x` trait, does a dying figure still
-swing) are unresolved and must be reconciled from contradictory drafts.
+## ✅ engagement — bases touching
+**Bases touching = engaged**, no measured band. Squares face each other; **Circles are
+faceless.** **Disengage = 1 AP.** **Reach** threatens a **1–2″ band** and can strike a
+figure moving past *without* base contact (you can't walk by a spearman). *(William,
+7/24/26.)* → B·8.
 
-> **RULING (morale):** ⬚ *unsigned — awaiting William.*
+## ✅ counter — turn-and-face, no cap, dying swing
+Attack a figure → it Counters and turns to face you → you're now engaged. A free
+target **always** Counters. Deny a Counter only by hitting a **Square already engaged
+elsewhere** on its unfaced flank/rear; a **Circle always Counters** (faceless). **No
+per-round cap**, and **the dying swing lands** — a figure Counters every attacker and
+Counters even as it dies; once its killer's body is shoved off it is free to Counter
+the next attacker. Reach without contact = no Counter. *(William, 7/24/26.)* → B·9.
 
-## ✅ base-classes — SIGNED: Small · Medium · Large
-Three size classes read from the footprint. **No Monstrous** (a "monstrous" figure is
-a **Large** carrying traits such as `unstoppable`). **No Cavalry as a class** —
-mounted is **elongated geometry** on any size, and plows one class larger.
-*(William: "Small Medium and Large no monstrous. No cavalry.")* → B·1, B·4.
+## ✅ morale-states — Steady → Shaken → Broken
+Three states. Squares test; Circles never break. A failed test steps down; **Broken =
+Rout by Temperament** (B·10 table); **Rally** steps back up. *(William, 7/24/26.)* →
+B·10.
+
+## 🟡 nerve-trigger — OPEN (the one remaining)
+**Undecided:** *what triggers a Nerve test* (casualties? a leader dying? proximity?
+a PACKET Effect?) and the **pass/fail resolver** (how you roll it, and whether a pass
+holds / a fail steps down one state). William: "idk exactly what or how to trigger
+nerve tests yet … we'll figure it out."
+
+Also **flagged for confirmation (not yet signed):** *a Counter does not itself draw a
+Counter* — the sensible default that stops two figures looping forever. Confirm or
+override.
+
+> **RULING:** ⬚ *unsigned — awaiting William.*
 
 ---
 
 ### The one thing left
-Only the **morale aftermath** (Nerve → Shaken/Rout/Rally/Wild, plus the engagement
-band and Counter economy) remains open. When you're ready, rule on it the same way
-and I'll sign it into B·10.
+Only **nerve-trigger** remains: what fires a Nerve test and how it's rolled. Rule on
+it the same way and I'll sign it into B·10 — and CUS v0.6 is fully closed.

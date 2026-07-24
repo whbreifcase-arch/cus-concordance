@@ -513,17 +513,20 @@ cites the Kernel primitive it reads or writes.
 
 # XVIII · Open-question register (pointer)
 
-Eight decisions were opened; **seven are now signed** (William, 2026-07-24) and
-folded into A/B/C. **One remains open.** Full record in
+Nearly everything is **signed** (William, 2026-07-24) and folded into A/B/C. **One
+thing remains open — the Nerve *trigger*.** Full record in
 **[Document E](E_OPEN_DECISIONS.md)**:
 
 ```text
 SIGNED  grade-accumulation   · Model 2 (discrete — Grade N resolves only its own Effects)
 SIGNED  persistent-traits    · Option B — referenced passive Definitions; keyword: trait
 SIGNED  tool-vocabulary      · combat Tool set = Melee / Ranged / Hybrid (vibe-check)
-SIGNED  temperament          · five words signed; behaviour designed (B · Temperament)
+SIGNED  temperament          · five words + leaderless/Broken behaviour table (B · 10)
 SIGNED  force-ontology       · Force IS a formal Kernel primitive (non-numerical)
 SIGNED  packet-classification· neutral ID + separate packet_index sidecar (designed)
-PARTIAL combat-aftermath     · Counter/facing SIGNED · morale (Nerve/Rout/Rally/Wild) OPEN
 SIGNED  base-classes         · Small / Medium / Large (no Monstrous, no Cavalry-as-class)
+SIGNED  engagement           · bases touching = engaged · Reach 1–2″ · Disengage 1 AP
+SIGNED  counter              · turn-and-face · no cap · dying swing · Circles faceless
+SIGNED  morale-states        · Steady → Shaken → Broken (Broken = Rout by Temperament)
+OPEN    nerve-trigger        · what fires a Nerve test + how it is rolled — undecided
 ```

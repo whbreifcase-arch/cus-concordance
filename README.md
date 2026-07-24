@@ -27,12 +27,14 @@ tool-vocabulary      → combat Tool set = Melee · Ranged · Hybrid (vibe-check
 temperament          → 5 words + leaderless/Rout behaviour table (delegated → designed)
 force-ontology       → Force IS a formal Kernel primitive (non-numerical)
 packet-classification→ neutral ID + packet_index sidecar (delegated → designed)
-combat-aftermath     → Counter = turn-and-face (SIGNED); morale machinery still OPEN
 base-classes         → Small · Medium · Large (no Monstrous, no Cavalry-as-class)
+engagement           → bases touching = engaged · Reach 1–2″ · Disengage 1 AP
+counter              → turn-and-face · no cap · dying swing lands · Circles faceless
+morale-states        → Steady → Shaken → Broken (Broken = Rout by Temperament)
 ```
 
-**Still open:** the morale aftermath (Nerve → Shaken/Rout/Rally/Wild, engagement band,
-Counter economy). See [Document E](E_OPEN_DECISIONS.md).
+**Still open — one thing:** the **Nerve *trigger*** — what fires a Nerve test and how
+you roll it. Everything else is signed. See [Document E](E_OPEN_DECISIONS.md).
 
 ## What changed at the root (closed rulings — Brief §17)
 

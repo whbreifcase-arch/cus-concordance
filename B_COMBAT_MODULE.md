@@ -24,8 +24,9 @@ The base *is* the label. Pick up the model and read it.
 ```text
 Circle = hero / avatar          Square = crew / commandable body
 ```
-- **Circle** — never tests Nerve, never breaks.
-- **Square** — may test Nerve, may break.
+- **Circle** — hero/avatar. **Faceless** (no facing — can't be flanked). Never tests
+  Nerve, never breaks.
+- **Square** — crew. **Has a facing.** May test Nerve, may break.
 
 ## Size = class  `[Definition]` — SIGNED (William, 2026-07-24)
 **Three classes**, read from the **footprint**. No Monstrous; no Cavalry as a class.
@@ -189,21 +190,23 @@ health track.
 
 # 8 · Engagement & facing  `[Position]` — SIGNED (William, 2026-07-24)
 
-Engagement is a **Position** relationship: moving within the engagement band of an
-enemy makes you sticky. **On engaging, both bases turn to face each other** — an
-engaged figure *faces* the enemy it is engaged with.
+**Bases touching = engaged.** No measured band — if two bases are in contact, the
+figures are engaged, full stop. Engaging turns **Squares** to face each other;
+**Circles are faceless** — a hero has no facing, so angle never matters to or from a
+Circle.
 
-Because facing follows engagement, a figure faces the enemy it is engaged with.
-Attacking a **free** figure pulls it into engagement — it turns to face you and
-Counters (§9). But a figure **already engaged with another enemy** faces *that* foe,
-so a new attacker reaching its **side or rear** strikes an arc it isn't facing (a
-Flank/Backstab). That positional truth is exactly what gates the Counter (§9).
+A figure faces the enemy it is engaged with. Attacking a **free** figure pulls it
+into engagement — it turns to face you and Counters (§9). A **Square already engaged
+with another enemy** faces *that* foe, so a new attacker reaching its **flank or
+rear** strikes an arc it isn't facing (a Flank/Backstab) and draws no Counter. A
+**Circle**, being faceless, always Counters regardless of angle.
 
-Leaving an engagement costs a **Disengage** (an Agency spend and/or a free swing to
-each engager, per the owned procedure). A wall of bodies is several engagements to
-break. **Reach** threatens its band without gluing — it holds differently. *(Exact
-band distances and the Disengage free-swing sit with the open morale aftermath,
-§10.)*
+Leaving an engagement costs a **Disengage — 1 AP.**
+
+**Reach is the exception to base-contact.** A Reach figure threatens a **1–2″ band**
+and may strike a figure that tries to move past within that reach **without base
+contact** — so you can't just walk by a spearman. A Reach strike from outside contact
+is not engagement and draws **no Counter** (§9).
 
 ---
 
@@ -219,30 +222,39 @@ it fires automatically.
 The **only** ways to deny a Counter are positional:
 - **Free target** → **Counters**, turns to face, becomes engaged with you. *(No, you
   can't safely walk up and stab a free figure — it turns and hits back.)*
-- **Already engaged with another enemy, struck on the unfaced side** → **no
-  Counter.** A figure locked with foe X faces X; a new attacker reaching its **flank
-  or rear** strikes an arc it isn't facing (a Flank/Backstab). *This* is the "stab
-  them on the side" case — it works only because the target is committed elsewhere.
+- **Square already engaged with another enemy, struck on its unfaced flank/rear** →
+  **no Counter.** It faces foe X; a new attacker reaching the arc it isn't facing gets
+  the free side-shot. **Circles are faceless** → a Circle **always** Counters, from
+  any angle.
 - **Reach without contact** → **no Counter** (the reach striker is not glued).
 
-*Still part of the open morale aftermath (§10): the Counter **economy** — once per
-round vs. a `counter_x` trait, and whether a figure Counters as it dies — is not yet
-signed.*
+**No cap, and the dying swing lands — SIGNED (William, 2026-07-24).** There is **no
+per-round limit** on Counters and no `counter_x` economy: a figure Counters **every**
+enemy that attacks it, and Counters **even as it dies.** Worked example — you attack a
+figure, engage, it Counters and kills you; your body is shoved off; that same figure
+is now free and will **Counter the next attacker** who steps up. *(A Counter is a
+response, not an ATTACK, so it does not itself draw a Counter — otherwise two figures
+loop forever. Flagged for confirmation, not yet William-signed.)*
 
 ---
 
-# 10 · Nerve, Temperament & break  `[State / Temperament]`
+# 10 · Nerve, morale & break  `[State / Temperament]`
 
-- **Squares test Nerve; Circles do not.** `[Definition: shape]`
-- A failed test degrades or breaks the agent `[State]`.
-- **Rally** restores command or stability.
-- **Creature Type** may alter the break branch.
+**Morale track — SIGNED (William, 2026-07-24): three states** (like everything else,
+in threes).
+```text
+Steady → Shaken → Broken
+```
+- **Squares test Nerve; Circles do not** — and Circles never break. `[Definition: shape]`
+- A failed test steps a Square **down** the track (Steady → Shaken → Broken) `[State]`.
+- **Broken = it Routs**, behaving by its **Temperament** (table below).
+- **Rally** steps a figure back **up** the track (toward Steady).
+- **Creature Type** may alter the branch.
 
-**Temperament behaviour — SIGNED (William delegated → designed, 2026-07-24).** The
-five Kernel Temperaments (A·VII) resolve their combat behaviour here — what a figure
-does when **leaderless** (its AI fallback) and when it **breaks (Routs)**:
+**Temperament behaviour — SIGNED (William delegated → designed, 2026-07-24).** What a
+figure does when **leaderless** (its AI fallback) and when it goes **Broken (Routs)**:
 
-| Temperament | Leaderless — it… | On a Rout — it… |
+| Temperament | Leaderless — it… | On Broken (Rout) — it… |
 |---|---|---|
 | **Cowardly** | keeps distance, avoids danger, strikes only with the odds | flees to its own table edge |
 | **Resolute** | holds or pursues the objective | falls back toward its leader / the objective (does not flee outright) |
@@ -250,12 +262,11 @@ does when **leaderless** (its AI fallback) and when it **breaks (Routs)**:
 | **Protective** | guards / stays close to the nearest ally | retreats to the nearest ally |
 | **Ravenous** | attacks the nearest figure, any side | turns **Wild** — attacks the nearest figure, friend or foe |
 
-> **⚠ OPEN → E·combat-aftermath (morale only).** The **Nerve test** itself and the
-> **Shaken · Rout · Rally · Wild thresholds** — when a figure goes Shaken vs. Routs,
-> how Rally clears it, and the Creature-Type branches (Man/Beast/Spirit/Construct) —
-> remain **unsigned** and must be reconciled from contradictory drafts. The
-> Counter/facing rule (§8–9) and the Temperament *behaviours* above ARE signed; the
-> morale *trigger/threshold* machinery is what is still open.
+> **⚠ OPEN → E·nerve-trigger.** *What triggers a Nerve test* and *the pass/fail
+> resolver* (how you roll it) are the **only** things still undecided here — William:
+> "idk exactly what or how to trigger nerve tests yet, we'll figure it out."
+> Everything else is signed: the three states, Broken = Rout-by-Temperament, and
+> Rally. Just the **test trigger + resolver** remain open.
 
 ---
 

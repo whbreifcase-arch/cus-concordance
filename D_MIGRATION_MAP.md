@@ -94,8 +94,10 @@
 | Armour `None/Light/Medium/Heavy = —/6+/5+/4+` | **Kept** (B · 7), Combat fact — **not** a Kernel primitive |
 | Alternation | **Kept** (B · 12), "attention management" |
 | Formations descriptive | **Kept** (B · 11) |
-| Counter | **SIGNED, turn-and-face** (B · 8–9): attacking a free figure → it Counters, turns to face, becomes engaged; deny a Counter only by striking a figure already engaged elsewhere on its unfaced flank/rear |
-| Nerve · Shaken · Rout · Rally · Wild | **Still OPEN** (morale aftermath) — trigger/threshold machinery unsigned; Temperament *behaviours* are signed |
+| Counter | **SIGNED, turn-and-face** (B · 8–9): free figure → Counters, turns to face, engages; deny only via flank/rear on an already-engaged Square; Circles faceless (always Counter); **no cap, dying swing lands** |
+| Engagement | **SIGNED** (B · 8): bases touching = engaged (no band); Disengage 1 AP; Reach threatens 1–2″ and strikes figures moving past |
+| Morale: Fearless-tier / old Nerve wording | **SIGNED** (B · 10): three states **Steady → Shaken → Broken**; Broken = Rout by Temperament; Rally steps up |
+| Nerve **test trigger + resolver** | **Still OPEN** (E·nerve-trigger) — what fires a test and how you roll it |
 | Persistent traits (Large/Flying/Fearless/Reach/Amphibious) | **Traits** — referenced passive Definitions (SIGNED, keyword `trait`, B · 14) |
 
 ## 9 · Downstream artifacts (built on the old vocabulary — need migration)
