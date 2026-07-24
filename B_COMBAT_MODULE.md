@@ -27,27 +27,36 @@ Circle = hero / avatar          Square = crew / commandable body
 - **Circle** — never tests Nerve, never breaks.
 - **Square** — may test Nerve, may break.
 
-## Size = class  `[Definition]`
-Class is read from the **footprint**, not a hidden keyword.
+## Size = class  `[Definition]` — SIGNED (William, 2026-07-24)
+**Three classes**, read from the **footprint**. No Monstrous; no Cavalry as a class.
 ```text
-Small · Normal · Mounted · Large · Monstrous
+Small · Medium · Large
 ```
 | Class | Square | Circle |
 |---|---:|---:|
 | Small | 20 mm | 25 mm |
-| Normal | 25 mm | 32 mm |
-| Mounted | 20 × 40 mm | oval |
+| Medium | 25 mm | 32 mm |
 | Large | 40 mm | 40 mm |
-| Monstrous | 50 mm | 50 mm / large oval |
 
-*(Exact round & oval standards are `⚠ OPEN → E·base-millimetres`; the vocabulary
-is sound, the millimetres provisional.)*
+A "monstrous" creature is simply a **Large** figure, distinguished by its **traits**
+(§14) — e.g. a plow-through-bodies trait — not by a fourth size.
 
 ## Elongated = mounted  `[Definition]`
-An elongated base communicates mounted geometry: **narrow frontage penetrates
-deeply; wide frontage bulldozes broadly.** There is **no** hidden heavy/light
-cavalry base split — cavalry doctrine emerges from **Role · Tempo · Tool ·
-Temperament · PACKETs · geometry**, not a second size system.
+**Mounted is geometry, not a size class.** An elongated base — an elongated Small,
+Medium, or Large — communicates mounted geometry: **narrow frontage penetrates
+deeply; wide frontage bulldozes broadly.** A mounted figure keeps its size class and
+**plows as one class larger** (the lance, §4). There is **no** heavy/light cavalry
+base split — cavalry doctrine emerges from Role · Tempo · Tool · Temperament ·
+PACKETs · geometry, not a second size system.
+
+## Tool set  `[Definition]` — SIGNED (William, 2026-07-24)
+The Combat Module's Tool vocabulary — *how* a figure delivers Force — is a
+**vibe-check** (ordinal classification, Law 10):
+```text
+Melee · Ranged · Hybrid
+```
+*Hybrid* = a figure that meaningfully delivers Force both in contact and at range.
+Tool never sets purpose; a Melee figure may be Pressure, Anchor, or Utility.
 
 ---
 
@@ -100,13 +109,16 @@ path. Slide the models; don't measure. The cascade:
 change comes from the **PACKET** the Impact resolves `[PACKET→Grade]`. The
 wall-crush is the only place a blocked shove feeds the hit.
 
-Geometry to preserve for testing (Combat facts, not Kernel law):
+Size gating across the three classes (Small · Medium · Large):
 - larger bodies plow smaller; same-size plow grudgingly;
 - **Small does not plow** — it slips through without an ordinary Disengage;
-- **Mounted** plows as one class larger (the lance);
-- **Monstrous** is stopped by **walls, not bodies**;
+- **Mounted (elongated) plows as one class larger** (the lance);
 - a head-on clearing tie is the **mover's choice**;
 - movement continues until Agency/Move is exhausted or the mover jams.
+
+*A figure that should shove through bodies unchecked (the old "Monstrous") carries a
+**trait** (§14) — e.g. `unstoppable` (only a wall stops it) — rather than occupying a
+fourth size class.*
 
 ---
 
@@ -130,12 +142,11 @@ declare target        [Position: legality]
 → resolve Counter / Nerve / aftermath   (owned procedures — §9, §10)
 ```
 
-> **⚠ OPEN → E·grade-accumulation.** Whether resolving Grade *N* also resolves
-> every lower Grade's Effects, or **only** the Effects written at Grade *N*, is an
-> **unresolved owner call.** The Combat Module will not roll dice against a
-> guessed rule — Document E states both models. Until it is signed, resolve a
-> PACKET by reading its written Grade explicitly and, where a PACKET is ambiguous,
-> pause for the table's agreement.
+> **SIGNED (William, 2026-07-24): Model 2 — Discrete.** Read the **single** Grade
+> you reached and resolve **only** the Effects written on that line. A higher Grade
+> does **not** carry up lower Grades' Effects. Authoring rule: write each Grade line
+> as a complete result; if an Effect should appear at several Grades, print it on
+> each. No accumulation, no "best-Wound-plus-every-passed-Effect."
 
 ---
 
@@ -154,7 +165,9 @@ GREATAXE — Dice 3 · Success 5+
 - **Effect** — Wound, Push, Knockdown, Guard, Cleave, Execute, ignore-Armour, …
   the state change a Grade resolves `[State]`.
 
-Do **not** call this a Tier or a Ladder.
+**Discrete (Model 2):** the Greataxe above restates "2 Wounds" at Grade 3 on
+purpose — you read **only** the reached line, so any Effect meant to carry up is
+written on each line. Do **not** call this a Tier or a Ladder.
 
 ---
 
@@ -174,46 +187,72 @@ health track.
 
 ---
 
-# 8 · Engagement  `[Position]`
+# 8 · Engagement & facing  `[Position]` — SIGNED (William, 2026-07-24)
 
-Engagement is a **Position** relationship: moving within the engagement band of
-an enemy makes you sticky. Leaving costs a **Disengage** (an Agency spend and/or a
-free swing granted to each engager, per the owned procedure). A wall of bodies is
-several engagements to break. Reach threatens its band without gluing — it holds
-differently. *(Exact bands and the Disengage penalty are Combat facts; the
-break-away swing is part of `⚠ OPEN → E·combat-aftermath`.)*
+Engagement is a **Position** relationship: moving within the engagement band of an
+enemy makes you sticky. **On engaging, both bases turn to face each other** — an
+engaged figure *faces* the enemy it is engaged with.
 
----
+Because facing follows engagement, a figure faces only the enemies it is engaged
+with. **An enemy you are not engaged with is not facing you** — so you can move up
+and strike its exposed **side or rear** (a Flank/Backstab). That positional truth is
+exactly what gates the Counter (§9).
 
-# 9 · Counter — a WAIT-shaped aftermath  `[WAIT / PACKET]`
-
-A figure struck in melee may resolve a **Counter** — one melee PACKET back at its
-attacker. Structurally a Counter is a **PACKET armed against the trigger "I was
-struck in contact"** — it lives in the WAIT family (deferred resolution), even
-when it fires automatically. Reach (no contact) and Backstab (rear/unaware)
-suppress it.
-
-> **⚠ OPEN → E·combat-aftermath.** The exact Counter economy — once per round vs.
-> Counter X, whether a killed figure still swings, what suppresses it, and how it
-> interacts with ganging — must be reconciled from contradictory drafts before it
-> is signed. Not copied blindly.
+Leaving an engagement costs a **Disengage** (an Agency spend and/or a free swing to
+each engager, per the owned procedure). A wall of bodies is several engagements to
+break. **Reach** threatens its band without gluing — it holds differently. *(Exact
+band distances and the Disengage free-swing sit with the open morale aftermath,
+§10.)*
 
 ---
 
-# 10 · Nerve & break behaviour  `[State / Temperament]`
+# 9 · Counter — gated by facing  `[WAIT / PACKET]` — SIGNED (William, 2026-07-24)
 
-Structure carried forward (procedure **not** finalized):
+A figure struck by an ATTACK may resolve a **Counter** — one melee PACKET back at
+its attacker — **only if it is facing the attacker.** Structurally a Counter is a
+PACKET armed against the trigger "struck by an enemy I face," so it lives in the
+WAIT family (deferred resolution) even when it fires automatically.
+
+Facing follows engagement (§8):
+- **Front / engaged** — the defender faces its attacker → it **Counters.** Engage an
+  enemy front-on and it turns to face you and swings back.
+- **Flank / Rear** — you struck a side the defender was **not** facing (it was
+  unengaged with you, or turned toward another foe) → **no Counter**, plus the
+  positional advantage of the exposed side. *You can walk up and stab an unengaged
+  figure in the flank precisely because it isn't facing you.*
+- **Reach without contact** — the Reach striker is not glued and takes **no Counter.**
+
+*Still part of the open morale aftermath (§10): the Counter **economy** — once per
+round vs. a `counter_x` trait, and whether a figure Counters as it dies — is not yet
+signed.*
+
+---
+
+# 10 · Nerve, Temperament & break  `[State / Temperament]`
+
 - **Squares test Nerve; Circles do not.** `[Definition: shape]`
 - A failed test degrades or breaks the agent `[State]`.
-- **Temperament** biases how a broken or leaderless agent behaves `[Temperament]`
-  — rebuilt around *preferred application of Force*, not as an AI script.
 - **Rally** restores command or stability.
 - **Creature Type** may alter the break branch.
 
-> **⚠ OPEN → E·combat-aftermath.** The exact **Shaken · Rout · Squelch · Wild ·
-> Rally** procedures and the Creature-Type branches are unresolved and
-> contradictory across archived drafts. This module does **not** copy one in.
-> Temperament's controlled list is also `⚠ OPEN → E·temperament-vocabulary`.
+**Temperament behaviour — SIGNED (William delegated → designed, 2026-07-24).** The
+five Kernel Temperaments (A·VII) resolve their combat behaviour here — what a figure
+does when **leaderless** (its AI fallback) and when it **breaks (Routs)**:
+
+| Temperament | Leaderless — it… | On a Rout — it… |
+|---|---|---|
+| **Cowardly** | keeps distance, avoids danger, strikes only with the odds | flees to its own table edge |
+| **Resolute** | holds or pursues the objective | falls back toward its leader / the objective (does not flee outright) |
+| **Aggressive** | advances on the nearest enemy | one last reckless advance at the nearest enemy |
+| **Protective** | guards / stays close to the nearest ally | retreats to the nearest ally |
+| **Ravenous** | attacks the nearest figure, any side | turns **Wild** — attacks the nearest figure, friend or foe |
+
+> **⚠ OPEN → E·combat-aftermath (morale only).** The **Nerve test** itself and the
+> **Shaken · Rout · Rally · Wild thresholds** — when a figure goes Shaken vs. Routs,
+> how Rally clears it, and the Creature-Type branches (Man/Beast/Spirit/Construct) —
+> remain **unsigned** and must be reconciled from contradictory drafts. The
+> Counter/facing rule (§8–9) and the Temperament *behaviours* above ARE signed; the
+> morale *trigger/threshold* machinery is what is still open.
 
 ---
 
@@ -258,17 +297,20 @@ is**; its **Archetype** (Knight, Berserker, Assassin…) is *who* it is — a re
 
 ---
 
-# 14 · Persistent traits — location undecided  `[Definition?]`
+# 14 · Traits — referenced passive Definitions  `[Definition]` — SIGNED (William, 2026-07-24)
 
-Always-true properties a combat figure may carry — **Large, Flying, Mounted,
-Fearless, Amphibious, Reach** — are real, but **where they live is unresolved**:
-Figure Definition attributes, referenced passive Definitions, PACKET-adjacent
-metadata, or a distinct capability layer.
-
-> **⚠ OPEN → E·persistent-traits.** Do **not** force these into PACKET merely
-> because PACKET exists. The Combat Module treats them as Definition-level truths
-> pending the ruling; **Reach** in particular is a PACKET property or trait, no
-> longer a Role.
+Always-true properties a figure carries — **Large, Flying, Mounted, Fearless,
+Amphibious, Reach, Unstoppable, …** — are **Traits: referenced passive Definitions**
+(Option B). A Trait is defined **once** and referenced by ID on a figure, exactly
+like a PACKET but **passive** — it is never an ACTION/WAIT-resolved effect and never
+holds runtime state (Law 5). The player-facing word is **trait**.
+```json
+{ "trait_id": "reach" }        { "trait_id": "unstoppable" }
+```
+A figure lists its `traits: [ ... ]`. Traits are **not** PACKETs (they resolve
+nothing) and **not** size classes — `Large` is a size; `unstoppable` (plow through
+bodies, only a wall stops it — §4) is a **trait** a Large figure may carry. **Reach**
+is a Trait (and/or a PACKET property), no longer a Role.
 
 ---
 

@@ -203,9 +203,11 @@ An agent is read through **four independent relationships with Force:**
 ROLE · TEMPO · TOOL · TEMPERAMENT
 ```
 
-*(Whether **Force** is a formal primitive, a relationship among primitives, or a
-lens is `⚠ OPEN → E·force-ontology`. It has no numerical stat unless a ruling
-grants one.)*
+**SIGNED (William, 2026-07-24): Force is a formal Kernel primitive** — a
+first-class citizen alongside Position, State, and Resource. It remains
+**non-numerical**: there is no Force stat. An agent's Force is *read* through the
+four axes (Role · Tempo · Tool · Temperament) and *expressed* by writing State,
+Position, or a Resource — never by comparing a number called "Force."
 
 ---
 
@@ -304,9 +306,22 @@ canonical: spear_thrust   healing_word   shield_intercept   wall_impact
 ```json
 { "packet_id": "spear_thrust" }
 ```
-A future classification/retrieval registry may live in **separate** JSON; its
-schema, suffixes, and categories are **not designed here** (`⚠ OPEN →
-E·packet-classification`). Do not invent it early.
+**SIGNED (William delegated → designed, 2026-07-24).** Classification lives in a
+**separate sidecar registry** (`packet_index`), never in the ID. The primary ID
+stays neutral; the sidecar maps it to retrieval dimensions so tooling can query
+("all combat Melee packets") without parsing IDs:
+```json
+"spear_thrust": {
+  "verb":    "ACTION",     // MOVE | ACTION | WAIT — how it is normally invoked
+  "module":  "combat",
+  "tool":    "Melee",      // the module Tool it belongs to (combat: Melee/Ranged/Hybrid)
+  "targets": ["agent"],    // legal target kinds
+  "tags":    ["reach"]     // free descriptive tags (incl. traits it pairs with)
+}
+```
+The sidecar is **Definition-layer, stateless** (Law 5) and **one-owner** (the module
+that owns the packets owns their index entries, Law 1). It is **additive**: a packet
+with no index entry is still valid — the index only aids retrieval, never resolution.
 
 ### Provisional shape (conceptual, not frozen)
 ```text
@@ -343,10 +358,12 @@ SPEAR THRUST — Dice 5 · Success 4+
 Player language: *"Three successes — I made Grade 3."* Provisional data field:
 `grades`.
 
-> **⚠ OPEN → E·grade-accumulation.** Whether a higher Grade *also* resolves every
-> lower Grade's Effects, **or** only the Effects written at that Grade, is an
-> **unresolved owner call.** This Constitution does not decide it. Both coherent
-> models are stated in Document E.
+> **SIGNED (William, 2026-07-24): Model 2 — Discrete.** Resolving Grade *N*
+> resolves **only** the Effects written at Grade *N* — a higher Grade does **not**
+> inherit lower Grades' Effects. Each Grade line is a complete, self-contained
+> outcome; if a designer wants an Effect carried up the ladder, they write it on
+> every line that should have it. This makes a PACKET's `grades` read top-to-bottom
+> as independent results, not a running accumulation.
 
 ---
 
@@ -398,10 +415,12 @@ Tool defines **how Force is delivered** — the channel or mechanism through whi
 an agent expresses its Role. Tool does **not** define purpose; the same Tool may
 deliver Pressure, Anchor, or Utility.
 
-> **⚠ OPEN → E·tool-vocabulary.** The old `Melee · Ranged · Utility` set is **not**
-> restored automatically — Utility is now a Role, and melee/ranged may be PACKET
-> properties. The Kernel defines Tool **abstractly** and lets each module declare
-> its own controlled Tool vocabulary. The combat Tool list is unsigned.
+> **SIGNED (William, 2026-07-24).** The Kernel defines Tool **abstractly** and lets
+> each module declare its own controlled Tool vocabulary. **The Combat Module's Tool
+> set is `Melee · Ranged · Hybrid`** — read as **vibe-checks** (an ordinal
+> classification like Tempo, not a measured statistic; Law 10), where *Hybrid*
+> covers a figure that delivers Force meaningfully both in contact and at a
+> distance. Old `Utility` is **not** a Tool — it is now a Role.
 
 ## TEMPERAMENT — preferred application of Force
 Temperament is the agent's **behavioural bias** when several legal applications
@@ -409,10 +428,20 @@ of Force are available: when to commit, where to direct Force, which target to
 prioritise, how much risk to accept, and what it does when command or cohesion
 fails. Temperament describes **preference, not capability.**
 
-Candidate list carried forward (definitions to be rebuilt around *preferred
-application of Force*, not as AI scripts): `Cowardly · Resolute · Aggressive ·
-Protective · Ravenous`. Their use for leaderless and break behaviour is retained;
-the exact behavioural table is `⚠ OPEN → E·temperament-vocabulary`.
+**SIGNED (William delegated → designed, 2026-07-24).** Five Temperaments, each a
+*preferred application of Force*:
+
+| Temperament | Prefers to apply Force… |
+|---|---|
+| **Cowardly** | from safety — minimal risk, keep distance, act only with the odds |
+| **Resolute** | steadily — hold position, commit to the objective, refuse to be drawn |
+| **Aggressive** | forward — at the nearest threat, accepting risk to force the issue |
+| **Protective** | to *prevent* Force on allies — shield, interpose, stay close to kin |
+| **Ravenous** | at whatever is nearest — indiscriminate, heedless of side or cost |
+
+The **leaderless** (AI-fallback) and **break/Rout** consequences of each live in
+the Combat Module (Document B · Temperament table), since those behaviours are
+combat procedures. The five words themselves are the signed Kernel axis.
 
 ---
 
@@ -624,19 +653,19 @@ cites the Kernel primitive it reads or writes.
 
 # XVIII · Open-question register (pointer)
 
-The Kernel deliberately leaves these unresolved. They live, isolated and
-**unanswered**, in **[Document E](E_OPEN_DECISIONS.md)** — do not treat a blank as
-an omission:
+Eight decisions were opened; **seven are now signed** (William, 2026-07-24) and
+folded into A/B/C. **One remains open.** Full record in
+**[Document E](E_OPEN_DECISIONS.md)**:
 
 ```text
-E·grade-accumulation      · higher Grade: inherit lower Effects, or only its own?
-E·persistent-traits       · where do Large / Flying / Fearless live?
-E·tool-vocabulary         · the universal/combat Tool set is unsigned
-E·temperament-vocabulary  · exact list + behavioural consequences
-E·force-ontology          · Force: primitive, relationship, or lens?
-E·packet-classification   · the separate retrieval/classification JSON schema
-E·combat-aftermath        · Counter / Nerve / Shaken / Rout / Rally / Wild branches
-E·base-millimetres        · exact round & oval standards
+SIGNED  grade-accumulation   · Model 2 (discrete — Grade N resolves only its own Effects)
+SIGNED  persistent-traits    · Option B — referenced passive Definitions; keyword: trait
+SIGNED  tool-vocabulary      · combat Tool set = Melee / Ranged / Hybrid (vibe-check)
+SIGNED  temperament          · five words signed; behaviour designed (B · Temperament)
+SIGNED  force-ontology       · Force IS a formal Kernel primitive (non-numerical)
+SIGNED  packet-classification· neutral ID + separate packet_index sidecar (designed)
+PARTIAL combat-aftermath     · Counter/facing SIGNED · morale (Nerve/Rout/Rally/Wild) OPEN
+SIGNED  base-classes         · Small / Medium / Large (no Monstrous, no Cavalry-as-class)
 ```
 </script>
 <script type="text/markdown" data-doc="B" data-title="B · Combat Module">
@@ -669,27 +698,36 @@ Circle = hero / avatar          Square = crew / commandable body
 - **Circle** — never tests Nerve, never breaks.
 - **Square** — may test Nerve, may break.
 
-## Size = class  `[Definition]`
-Class is read from the **footprint**, not a hidden keyword.
+## Size = class  `[Definition]` — SIGNED (William, 2026-07-24)
+**Three classes**, read from the **footprint**. No Monstrous; no Cavalry as a class.
 ```text
-Small · Normal · Mounted · Large · Monstrous
+Small · Medium · Large
 ```
 | Class | Square | Circle |
 |---|---:|---:|
 | Small | 20 mm | 25 mm |
-| Normal | 25 mm | 32 mm |
-| Mounted | 20 × 40 mm | oval |
+| Medium | 25 mm | 32 mm |
 | Large | 40 mm | 40 mm |
-| Monstrous | 50 mm | 50 mm / large oval |
 
-*(Exact round & oval standards are `⚠ OPEN → E·base-millimetres`; the vocabulary
-is sound, the millimetres provisional.)*
+A "monstrous" creature is simply a **Large** figure, distinguished by its **traits**
+(§14) — e.g. a plow-through-bodies trait — not by a fourth size.
 
 ## Elongated = mounted  `[Definition]`
-An elongated base communicates mounted geometry: **narrow frontage penetrates
-deeply; wide frontage bulldozes broadly.** There is **no** hidden heavy/light
-cavalry base split — cavalry doctrine emerges from **Role · Tempo · Tool ·
-Temperament · PACKETs · geometry**, not a second size system.
+**Mounted is geometry, not a size class.** An elongated base — an elongated Small,
+Medium, or Large — communicates mounted geometry: **narrow frontage penetrates
+deeply; wide frontage bulldozes broadly.** A mounted figure keeps its size class and
+**plows as one class larger** (the lance, §4). There is **no** heavy/light cavalry
+base split — cavalry doctrine emerges from Role · Tempo · Tool · Temperament ·
+PACKETs · geometry, not a second size system.
+
+## Tool set  `[Definition]` — SIGNED (William, 2026-07-24)
+The Combat Module's Tool vocabulary — *how* a figure delivers Force — is a
+**vibe-check** (ordinal classification, Law 10):
+```text
+Melee · Ranged · Hybrid
+```
+*Hybrid* = a figure that meaningfully delivers Force both in contact and at range.
+Tool never sets purpose; a Melee figure may be Pressure, Anchor, or Utility.
 
 ---
 
@@ -742,13 +780,16 @@ path. Slide the models; don't measure. The cascade:
 change comes from the **PACKET** the Impact resolves `[PACKET→Grade]`. The
 wall-crush is the only place a blocked shove feeds the hit.
 
-Geometry to preserve for testing (Combat facts, not Kernel law):
+Size gating across the three classes (Small · Medium · Large):
 - larger bodies plow smaller; same-size plow grudgingly;
 - **Small does not plow** — it slips through without an ordinary Disengage;
-- **Mounted** plows as one class larger (the lance);
-- **Monstrous** is stopped by **walls, not bodies**;
+- **Mounted (elongated) plows as one class larger** (the lance);
 - a head-on clearing tie is the **mover's choice**;
 - movement continues until Agency/Move is exhausted or the mover jams.
+
+*A figure that should shove through bodies unchecked (the old "Monstrous") carries a
+**trait** (§14) — e.g. `unstoppable` (only a wall stops it) — rather than occupying a
+fourth size class.*
 
 ---
 
@@ -772,12 +813,11 @@ declare target        [Position: legality]
 → resolve Counter / Nerve / aftermath   (owned procedures — §9, §10)
 ```
 
-> **⚠ OPEN → E·grade-accumulation.** Whether resolving Grade *N* also resolves
-> every lower Grade's Effects, or **only** the Effects written at Grade *N*, is an
-> **unresolved owner call.** The Combat Module will not roll dice against a
-> guessed rule — Document E states both models. Until it is signed, resolve a
-> PACKET by reading its written Grade explicitly and, where a PACKET is ambiguous,
-> pause for the table's agreement.
+> **SIGNED (William, 2026-07-24): Model 2 — Discrete.** Read the **single** Grade
+> you reached and resolve **only** the Effects written on that line. A higher Grade
+> does **not** carry up lower Grades' Effects. Authoring rule: write each Grade line
+> as a complete result; if an Effect should appear at several Grades, print it on
+> each. No accumulation, no "best-Wound-plus-every-passed-Effect."
 
 ---
 
@@ -796,7 +836,9 @@ GREATAXE — Dice 3 · Success 5+
 - **Effect** — Wound, Push, Knockdown, Guard, Cleave, Execute, ignore-Armour, …
   the state change a Grade resolves `[State]`.
 
-Do **not** call this a Tier or a Ladder.
+**Discrete (Model 2):** the Greataxe above restates "2 Wounds" at Grade 3 on
+purpose — you read **only** the reached line, so any Effect meant to carry up is
+written on each line. Do **not** call this a Tier or a Ladder.
 
 ---
 
@@ -816,46 +858,72 @@ health track.
 
 ---
 
-# 8 · Engagement  `[Position]`
+# 8 · Engagement & facing  `[Position]` — SIGNED (William, 2026-07-24)
 
-Engagement is a **Position** relationship: moving within the engagement band of
-an enemy makes you sticky. Leaving costs a **Disengage** (an Agency spend and/or a
-free swing granted to each engager, per the owned procedure). A wall of bodies is
-several engagements to break. Reach threatens its band without gluing — it holds
-differently. *(Exact bands and the Disengage penalty are Combat facts; the
-break-away swing is part of `⚠ OPEN → E·combat-aftermath`.)*
+Engagement is a **Position** relationship: moving within the engagement band of an
+enemy makes you sticky. **On engaging, both bases turn to face each other** — an
+engaged figure *faces* the enemy it is engaged with.
 
----
+Because facing follows engagement, a figure faces only the enemies it is engaged
+with. **An enemy you are not engaged with is not facing you** — so you can move up
+and strike its exposed **side or rear** (a Flank/Backstab). That positional truth is
+exactly what gates the Counter (§9).
 
-# 9 · Counter — a WAIT-shaped aftermath  `[WAIT / PACKET]`
-
-A figure struck in melee may resolve a **Counter** — one melee PACKET back at its
-attacker. Structurally a Counter is a **PACKET armed against the trigger "I was
-struck in contact"** — it lives in the WAIT family (deferred resolution), even
-when it fires automatically. Reach (no contact) and Backstab (rear/unaware)
-suppress it.
-
-> **⚠ OPEN → E·combat-aftermath.** The exact Counter economy — once per round vs.
-> Counter X, whether a killed figure still swings, what suppresses it, and how it
-> interacts with ganging — must be reconciled from contradictory drafts before it
-> is signed. Not copied blindly.
+Leaving an engagement costs a **Disengage** (an Agency spend and/or a free swing to
+each engager, per the owned procedure). A wall of bodies is several engagements to
+break. **Reach** threatens its band without gluing — it holds differently. *(Exact
+band distances and the Disengage free-swing sit with the open morale aftermath,
+§10.)*
 
 ---
 
-# 10 · Nerve & break behaviour  `[State / Temperament]`
+# 9 · Counter — gated by facing  `[WAIT / PACKET]` — SIGNED (William, 2026-07-24)
 
-Structure carried forward (procedure **not** finalized):
+A figure struck by an ATTACK may resolve a **Counter** — one melee PACKET back at
+its attacker — **only if it is facing the attacker.** Structurally a Counter is a
+PACKET armed against the trigger "struck by an enemy I face," so it lives in the
+WAIT family (deferred resolution) even when it fires automatically.
+
+Facing follows engagement (§8):
+- **Front / engaged** — the defender faces its attacker → it **Counters.** Engage an
+  enemy front-on and it turns to face you and swings back.
+- **Flank / Rear** — you struck a side the defender was **not** facing (it was
+  unengaged with you, or turned toward another foe) → **no Counter**, plus the
+  positional advantage of the exposed side. *You can walk up and stab an unengaged
+  figure in the flank precisely because it isn't facing you.*
+- **Reach without contact** — the Reach striker is not glued and takes **no Counter.**
+
+*Still part of the open morale aftermath (§10): the Counter **economy** — once per
+round vs. a `counter_x` trait, and whether a figure Counters as it dies — is not yet
+signed.*
+
+---
+
+# 10 · Nerve, Temperament & break  `[State / Temperament]`
+
 - **Squares test Nerve; Circles do not.** `[Definition: shape]`
 - A failed test degrades or breaks the agent `[State]`.
-- **Temperament** biases how a broken or leaderless agent behaves `[Temperament]`
-  — rebuilt around *preferred application of Force*, not as an AI script.
 - **Rally** restores command or stability.
 - **Creature Type** may alter the break branch.
 
-> **⚠ OPEN → E·combat-aftermath.** The exact **Shaken · Rout · Squelch · Wild ·
-> Rally** procedures and the Creature-Type branches are unresolved and
-> contradictory across archived drafts. This module does **not** copy one in.
-> Temperament's controlled list is also `⚠ OPEN → E·temperament-vocabulary`.
+**Temperament behaviour — SIGNED (William delegated → designed, 2026-07-24).** The
+five Kernel Temperaments (A·VII) resolve their combat behaviour here — what a figure
+does when **leaderless** (its AI fallback) and when it **breaks (Routs)**:
+
+| Temperament | Leaderless — it… | On a Rout — it… |
+|---|---|---|
+| **Cowardly** | keeps distance, avoids danger, strikes only with the odds | flees to its own table edge |
+| **Resolute** | holds or pursues the objective | falls back toward its leader / the objective (does not flee outright) |
+| **Aggressive** | advances on the nearest enemy | one last reckless advance at the nearest enemy |
+| **Protective** | guards / stays close to the nearest ally | retreats to the nearest ally |
+| **Ravenous** | attacks the nearest figure, any side | turns **Wild** — attacks the nearest figure, friend or foe |
+
+> **⚠ OPEN → E·combat-aftermath (morale only).** The **Nerve test** itself and the
+> **Shaken · Rout · Rally · Wild thresholds** — when a figure goes Shaken vs. Routs,
+> how Rally clears it, and the Creature-Type branches (Man/Beast/Spirit/Construct) —
+> remain **unsigned** and must be reconciled from contradictory drafts. The
+> Counter/facing rule (§8–9) and the Temperament *behaviours* above ARE signed; the
+> morale *trigger/threshold* machinery is what is still open.
 
 ---
 
@@ -900,17 +968,20 @@ is**; its **Archetype** (Knight, Berserker, Assassin…) is *who* it is — a re
 
 ---
 
-# 14 · Persistent traits — location undecided  `[Definition?]`
+# 14 · Traits — referenced passive Definitions  `[Definition]` — SIGNED (William, 2026-07-24)
 
-Always-true properties a combat figure may carry — **Large, Flying, Mounted,
-Fearless, Amphibious, Reach** — are real, but **where they live is unresolved**:
-Figure Definition attributes, referenced passive Definitions, PACKET-adjacent
-metadata, or a distinct capability layer.
-
-> **⚠ OPEN → E·persistent-traits.** Do **not** force these into PACKET merely
-> because PACKET exists. The Combat Module treats them as Definition-level truths
-> pending the ruling; **Reach** in particular is a PACKET property or trait, no
-> longer a Role.
+Always-true properties a figure carries — **Large, Flying, Mounted, Fearless,
+Amphibious, Reach, Unstoppable, …** — are **Traits: referenced passive Definitions**
+(Option B). A Trait is defined **once** and referenced by ID on a figure, exactly
+like a PACKET but **passive** — it is never an ACTION/WAIT-resolved effect and never
+holds runtime state (Law 5). The player-facing word is **trait**.
+```json
+{ "trait_id": "reach" }        { "trait_id": "unstoppable" }
+```
+A figure lists its `traits: [ ... ]`. Traits are **not** PACKETs (they resolve
+nothing) and **not** size classes — `Large` is a size; `unstoppable` (plow through
+bodies, only a wall stops it — §4) is a **trait** a Large figure may carry. **Reach**
+is a Trait (and/or a PACKET property), no longer a Role.
 
 ---
 
@@ -958,10 +1029,10 @@ procedure. The Kernel's first source of tactical depth.
 ### Force
 An agent's capacity to produce, resist, or alter consequential change — broader
 than damage (violence, protection, healing, command, influence, supply, …).
-**Owner:** Kernel. An agent's relationship to Force is read on four axes: Role,
-Tempo, Tool, Temperament. *(Whether Force is a formal primitive, a relationship,
-or a lens is unresolved — see E·force-ontology. No numerical Force stat exists
-unless a ruling grants one.)*
+**A formal Kernel primitive** (SIGNED, William 2026-07-24), alongside Position,
+State, and Resource — but **non-numerical**: there is no Force stat. An agent's
+relationship to Force is read on four axes (Role, Tempo, Tool, Temperament) and
+expressed by writing State, Position, or a Resource. **Owner:** Kernel.
 
 ---
 
@@ -1017,14 +1088,23 @@ Procedure. Counted to determine the Grade.
 
 ### Grade  *(Success Grade)*
 How well a PACKET succeeded — the highest Grade reached by the Success count.
-**Owner:** the resolving Procedure. Replaces Ladder/Tiers/Rungs. *(Whether a
-higher Grade inherits lower Effects is unresolved — E·grade-accumulation.)*
-**Not** to be called a Tier.
+**Owner:** the resolving Procedure. Replaces Ladder/Tiers/Rungs. **Discrete
+(Model 2, SIGNED William 2026-07-24):** resolving Grade *N* resolves **only** the
+Effects written on Grade *N* — no inheritance of lower Grades' Effects. **Not** to
+be called a Tier.
 
 ### Effect
 The state change a resolved Grade produces (Wound, Push, Knockdown, Guard, heal,
 reveal, …). **Owner:** the PACKET (defined) / the Procedure (applied). **Writes:**
 State (or Position, for displacement Effects).
+
+### Trait
+An **always-true** property a Figure carries — a **referenced passive Definition**
+(SIGNED William 2026-07-24; keyword **trait**). Defined once, referenced by ID
+(`{ "trait_id": "reach" }`), like a PACKET but **passive**: it resolves nothing and
+holds no runtime state. Examples: Large, Flying, Mounted, Fearless, Amphibious,
+Reach, Unstoppable. **Not** a PACKET, **not** a size class. **Owner:** the module
+that defines it.
 
 ---
 
@@ -1057,14 +1137,16 @@ never a measured statistic; not Move distance, initiative, range, AP, or damage.
 **How Force is delivered** — the channel or mechanism through which an agent
 expresses its Role. Does not define purpose; the same Tool may deliver any Role.
 **Owner:** Kernel defines it abstractly; each module declares its own controlled
-Tool vocabulary. *(The combat Tool set is unsigned — E·tool-vocabulary.)*
+Tool vocabulary. **Combat's set (SIGNED William 2026-07-24): `Melee · Ranged ·
+Hybrid`** — a vibe-check classification (like Tempo), *Hybrid* = delivers Force both
+in contact and at range. Old `Utility` is a Role, not a Tool.
 
 ### Temperament
 The agent's **preferred application of Force** — behavioural bias when several
 legal applications exist (when to commit, where to direct Force, what to do when
-cohesion fails). Preference, not capability. Candidate list: Cowardly · Resolute ·
-Aggressive · Protective · Ravenous *(exact list + consequences —
-E·temperament-vocabulary)*.
+cohesion fails). Preference, not capability. **SIGNED (William 2026-07-24):**
+`Cowardly · Resolute · Aggressive · Protective · Ravenous`. Their leaderless and
+break/Rout behaviours are the combat table in **B · 10**.
 
 ---
 
@@ -1209,7 +1291,7 @@ retired keyword **Charge**.
 | Tiers (as packet result) | **Grade** |
 | Rungs / Outcome Track | **Grade** |
 | Tier / Class | **Reserved** for persistent size / organizational classification — *not* the packet result |
-| "best Wound + every passed Effect" | ⚠ **E·grade-accumulation** — inherit-lower vs. own-Effects-only is unresolved |
+| "best Wound + every passed Effect" | **Model 2 — Discrete** (SIGNED): Grade *N* resolves **only** its own written line; no inheritance |
 
 ## 4 · Roles
 
@@ -1231,8 +1313,8 @@ retired keyword **Charge**.
 |---|---|
 | (no explicit Tempo) | **TEMPO** — new axis, ordinal `> / >> / >>>` (Slow/Normal/Fast) |
 | Role + old Tool = Class | **Rebuilt:** `Role + Tool + signature = Archetype` |
-| Tool = `Melee / Ranged / Utility` | **Not preserved automatically.** Utility is now a Role; melee/ranged may be PACKET properties. Tool vocabulary is ⚠ E·tool-vocabulary |
-| Temperament (as AI script) | **TEMPERAMENT** — reframed as *preferred application of Force*; list/consequences ⚠ E·temperament-vocabulary |
+| Tool = `Melee / Ranged / Utility` | **Combat Tool = `Melee · Ranged · Hybrid`** (SIGNED, vibe-check). Utility is now a Role; *Hybrid* replaces the old third slot |
+| Temperament (as AI script) | **TEMPERAMENT** (SIGNED) — five words + leaderless/Rout behaviour table (B · 10) |
 
 ## 6 · Identity
 
@@ -1257,14 +1339,15 @@ retired keyword **Charge**.
 
 | Old | New treatment |
 |---|---|
-| Bases: shape=type, size=class, elongated=mounted | **Kept** (B · 1); millimetres ⚠ E·base-millimetres |
+| Bases: shape=type, size=class, elongated=mounted | **Kept** (B · 1). Size classes SIGNED = **Small / Medium / Large** (no Monstrous, no Cavalry-as-class); mounted = elongated geometry; "monstrous" = a Large + `unstoppable` trait |
 | Push / Indent / Crush geometry | **Kept** (B · 4), now driven by Sprint→Impact |
 | Wounds `Fine→Hurt→KO→Dead` | **Kept** (B · 7), Combat fact |
 | Armour `None/Light/Medium/Heavy = —/6+/5+/4+` | **Kept** (B · 7), Combat fact — **not** a Kernel primitive |
 | Alternation | **Kept** (B · 12), "attention management" |
 | Formations descriptive | **Kept** (B · 11) |
-| Counter · Nerve · Shaken · Rout · Squelch · Wild · Rally | **Held for reconciliation** ⚠ E·combat-aftermath — not copied from archived drafts |
-| Persistent traits (Large/Flying/Fearless/Reach/Amphibious) | **Held** ⚠ E·persistent-traits |
+| Counter | **SIGNED, facing-gated** (B · 8–9): Counter only vs. a faced attacker; engaging turns bases to face; a flank/rear strike on an unengaged figure draws no Counter |
+| Nerve · Shaken · Rout · Rally · Wild | **Still OPEN** (morale aftermath) — trigger/threshold machinery unsigned; Temperament *behaviours* are signed |
+| Persistent traits (Large/Flying/Fearless/Reach/Amphibious) | **Traits** — referenced passive Definitions (SIGNED, keyword `trait`, B · 14) |
 
 ## 9 · Downstream artifacts (built on the old vocabulary — need migration)
 
@@ -1274,8 +1357,8 @@ migration debt to reconcile against A–C when the open rulings land.
 | Artifact | Uses (old) | Migration when signed |
 |---|---|---|
 | `CUS_TTS_MOD/` (TTS playtest) | four verbs, five Roles, typed packet IDs (`ATK_*`), "Tiers" | remap radial wheel to MOVE·ACTION·WAIT; Roles→P/A/U; packet IDs→neutral; "Tiers"→"Grade"; Charge→Sprint/Impact |
-| `unit_library.json` (73 units) | `role`, `attack_packet_ids: ["ATK_*"]`, `tiers` string | rewrite roles to Pressure/Anchor/Utility (+archetype), neutral packet IDs, `grades` |
-| `card_forge_v3.html` bindings | `{role}`, `{tiers}`, `{tool}` | rename bindings once Tool vocabulary + Grade display are signed |
+| `unit_library.json` (73 units) | `role` (5-way), `base.class` Small/Normal/Cavalry/Large/Monstrous, `attack_packet_ids:["ATK_*"]`, `tiers` | roles → Pressure/Anchor/Utility (+archetype); **classes → Small/Medium/Large**, Cavalry→elongated `mounted:true`, Monstrous→Large + `unstoppable` trait; `tool` → Melee/Ranged/Hybrid; neutral packet IDs; `tiers` → discrete `grades`; add `traits:[]` |
+| `card_forge_v3.html` bindings | `{role}`, `{tiers}`, `{tool}` | `{tiers}` → `{grades}`; `{tool}` values → Melee/Ranged/Hybrid; add a `{traits}` binding |
 | `CUS_CODEX.md` v0.5 | everything above | becomes a retired **migration input**; not edited in place — superseded by this folder |
 
 > Do not migrate the downstream artifacts until the relevant open rulings in
@@ -1284,178 +1367,91 @@ migration debt to reconcile against A–C when the open rulings land.
 </script>
 <script type="text/markdown" data-doc="E" data-title="E · Open Decisions">
 # CUS — OPEN DECISIONS
-### v0.6 · genuine unresolved calls · 2026-07-23
+### v0.6 · decision register · updated 2026-07-24
 
-> These are the questions the rebuild **deliberately does not answer.** Each is
-> stated with its coherent options and their trade-offs, and each carries a blank
-> **RULING** line awaiting the owner. Per the Brief, nothing here is resolved by
-> the assistant. A blank in this document is **not** an omission — it is a
-> question waiting for you.
->
-> When you sign one, move the ruling into the cited section of A/B/C and strike it
-> here.
+> Eight decisions were opened. **Seven are signed** (William, 2026-07-24) and folded
+> into A/B/C. **One is partially open:** the Counter/facing half of combat-aftermath
+> is signed; the **morale machinery** (Nerve/Shaken/Rout/Rally/Wild) is still open.
+> Signed rulings are kept here for the record and mirrored in the cited sections.
 
 ## Status board
 
-| ID | Question | Blocks |
+| ID | Ruling | State |
 |---|---|---|
-| E·grade-accumulation | Higher Grade: inherit lower Effects, or only its own? | PACKET resolution (B·5), unit data |
-| E·persistent-traits | Where do Large / Flying / Fearless / Reach live? | Figure schema, PACKET boundary |
-| E·tool-vocabulary | What are the Tools? | Archetype math, card bindings |
-| E·temperament-vocabulary | Exact list + behavioural consequences | Nerve/leaderless procedure |
-| E·force-ontology | Is Force a primitive, a relationship, or a lens? | Kernel primitive count |
-| E·packet-classification | The separate classification/retrieval JSON | Packet registry, tooling |
-| E·combat-aftermath | Counter / Nerve / Shaken / Rout / Rally / Wild | Combat resolver |
-| E·base-millimetres | Exact round & oval standards | Base/manufacturing spec |
+| grade-accumulation | **Model 2 — Discrete** | ✅ SIGNED → A·VI, B·5 |
+| persistent-traits | **Option B — passive Definitions; keyword `trait`** | ✅ SIGNED → B·14, C |
+| tool-vocabulary | **Melee · Ranged · Hybrid** (vibe-check) | ✅ SIGNED → A·VII, B·1 |
+| temperament | **Five words + behaviour table** (delegated → designed) | ✅ SIGNED → A·VII, B·10 |
+| force-ontology | **Force IS a formal primitive** (non-numerical) | ✅ SIGNED → A·II, C |
+| packet-classification | **Neutral ID + `packet_index` sidecar** (delegated → designed) | ✅ SIGNED → A·V |
+| combat-aftermath | **Counter/facing SIGNED · morale OPEN** | 🟡 PARTIAL → B·8–9 signed |
+| base-classes | **Small · Medium · Large** (no Monstrous, no Cavalry-class) | ✅ SIGNED → B·1 |
 
 ---
 
-## E·grade-accumulation
-**Question.** When a PACKET reaches Grade *N*, does it also resolve the Effects
-written at every lower Grade, or only the Effects written at Grade *N*?
+## ✅ grade-accumulation — SIGNED: Model 2 (Discrete)
+Resolving Grade *N* resolves **only** the Effects written on Grade *N*. No
+inheritance of lower Grades' Effects. Authoring rule: each Grade line is a complete
+result; repeat an Effect on every line that should have it. *(William: "MODEL 2
+Signed 7/24/26.")* → A·VI, B·5–6.
 
-- **Model 1 — Inherit (accumulate).** Grade 3 resolves Grade 1 + 2 + 3 Effects
-  (with the old "highest Wound wins, every passed Effect accumulates" flavour).
-  *Trade:* richer top-end results; each Grade line is additive and you must design
-  Effects that stack cleanly; a big roll does a lot at once.
-- **Model 2 — Discrete (own Effects only).** Grade 3 resolves **only** the Grade 3
-  line. *Trade:* each Grade is a clean, self-contained outcome; designers write the
-  full result on the reached line; easier to read, but lower lines must repeat any
-  Effect they want carried up.
+## ✅ persistent-traits — SIGNED: Option B, keyword `trait`
+Always-true properties are **Traits: referenced passive Definitions** — defined once,
+referenced by `trait_id`, passive (resolve nothing), stateless. `Large` stays a size;
+`unstoppable`, `reach`, `flying`, `fearless`, `amphibious`, `mounted` are traits.
+*(William: "Option B referenced passive definitions. Keyword definition: trait.")*
+→ B·14, C·Trait.
 
-*Consequence either way:* every combat PACKET's `grades` must be authored to the
-chosen model; they are not interchangeable. The Combat Module (B·5) will not sign
-a resolver until this is fixed.
+## ✅ tool-vocabulary — SIGNED: Melee · Ranged · Hybrid
+Combat's Tool set, read as **vibe-checks** (ordinal classification like Tempo).
+*Hybrid* = delivers Force meaningfully both in contact and at range. Old `Utility` is
+a Role, not a Tool. *(William: "Melee, Ranged and Hybrid. Vibe Checks.")* → A·VII,
+B·1.
 
-**RULING:** ⬚ *unsigned.*
+## ✅ temperament — SIGNED (William delegated → designed)
+Five: `Cowardly · Resolute · Aggressive · Protective · Ravenous`, each a *preferred
+application of Force*, with a leaderless (AI-fallback) and break/Rout behaviour
+table. *(William: "just do your thing i give u autonomy here. figure it out.")*
+→ A·VII (axis + preference), B·10 (behaviour table).
 
----
+## ✅ force-ontology — SIGNED: Force is a formal primitive
+Force is a first-class Kernel primitive alongside Position, State, Resource — but
+**non-numerical** (no Force stat; read through the four axes, expressed by writing
+State/Position/Resource). *(William: "Primitive.")* → A·II, C·Force.
 
-## E·persistent-traits
-**Question.** Where do always-true properties — **Large, Flying, Mounted,
-Fearless, Amphibious, Reach** — live?
+## ✅ packet-classification — SIGNED (William delegated → designed)
+Primary PACKET ID stays neutral; a **separate `packet_index` sidecar** maps each ID
+to retrieval dimensions (`verb`, `module`, `tool`, `targets`, `tags`) so tooling can
+query without parsing IDs. Definition-layer, stateless, one-owner, additive.
+*(William: "You figure out the best way here.")* → A·V.
 
-- **A — Figure Definition attributes.** A flat trait list on the figure. Simple;
-  risks becoming a junk drawer.
-- **B — Referenced passive Definitions.** Each trait is its own referenced
-  Definition (like PACKET, but passive). Reusable, self-documenting; more objects.
-- **C — PACKET-adjacent metadata.** Rejected-by-default: the Brief says do **not**
-  force traits into PACKET merely because PACKET exists.
-- **D — A distinct owned capability layer.** A new sibling to PACKET for
-  always-true relationships. Cleanest ontology; largest new surface.
+## 🟡 combat-aftermath — PARTIAL
+**SIGNED (Counter & facing).** A figure Counters **only if facing its attacker.**
+Engaging turns both bases to face each other; a figure faces only who it is engaged
+with. Strike an **unengaged** figure on its side/rear (a flank/backstab) and it does
+**not** Counter — "you can walk up and stab someone on their side if they're not
+engaged." Reach without contact = no Counter. *(William, 7/24/26.)* → B·8–9.
 
-*Note:* whichever wins, **Reach** stops being a Role and becomes a trait/PACKET
-property (already migrated, D·4).
+**STILL OPEN — morale machinery.** The **Nerve test** and the **Shaken · Rout ·
+Rally · Wild thresholds** (when a figure goes Shaken vs. Routs, how Rally clears it,
+the Man/Beast/Spirit/Construct branches), the exact engagement **band distance**, and
+the Counter **economy** (once/round vs. a `counter_x` trait, does a dying figure still
+swing) are unresolved and must be reconciled from contradictory drafts.
 
-**RULING:** ⬚ *unsigned.*
+> **RULING (morale):** ⬚ *unsigned — awaiting William.*
 
----
-
-## E·tool-vocabulary
-**Question.** Tool = "how Force is delivered" is signed, but its **values** are
-not. What is the controlled Tool vocabulary — universal, or per-module?
-
-- **A — Per-module only.** The Kernel defines Tool abstractly; Combat declares its
-  own set later. Maximally flexible; no shared Tool language across modules.
-- **B — A small universal spine + module extensions.** e.g. a few cross-domain
-  Tool families every module specializes. Shared vocabulary; risk of forcing a
-  fit.
-- **Do not** auto-restore `Melee · Ranged · Utility` — Utility is now a Role, and
-  melee/ranged may be PACKET properties rather than Tools.
-
-*Blocks:* the Archetype formula `Role + Tool + signature`, and any card binding
-that prints a Tool.
-
-**RULING:** ⬚ *unsigned.*
-
----
-
-## E·temperament-vocabulary
-**Question.** Temperament (preferred application of Force) is signed as a concept;
-the **exact list** and its **behavioural consequences** are not.
-
-- Candidate list to review (not copy): `Cowardly · Resolute · Aggressive ·
-  Protective · Ravenous`.
-- Each needs a rebuilt definition around *preferred application of Force*, plus its
-  **leaderless** behaviour and its **break/Rout** behaviour — reviewed, not
-  inherited from the archived tables.
-
-*Depends on / blocks:* interlocks with **E·combat-aftermath** (Rout uses
-Temperament).
-
-**RULING:** ⬚ *unsigned.*
+## ✅ base-classes — SIGNED: Small · Medium · Large
+Three size classes read from the footprint. **No Monstrous** (a "monstrous" figure is
+a **Large** carrying traits such as `unstoppable`). **No Cavalry as a class** —
+mounted is **elongated geometry** on any size, and plows one class larger.
+*(William: "Small Medium and Large no monstrous. No cavalry.")* → B·1, B·4.
 
 ---
 
-## E·force-ontology
-**Question.** Force is the unifying substrate — but *what kind of thing* is it?
-
-- **A — A formal Kernel primitive** (a fifth first-class citizen). Strong
-  unification; risks pressure to give it a number (the Brief forbids a Force stat
-  unless explicitly instructed).
-- **B — A defined relationship among existing primitives** (Position, State,
-  Resource, agents). No new primitive; Force is a derived concept.
-- **C — A conceptual lens** used by Role/Tempo/Tool/Temperament, with no mechanical
-  object at all. Lightest; leans on the four axes to carry it.
-
-*Constraint:* no numerical Force stat under any option unless a later instruction
-grants one.
-
-**RULING:** ⬚ *unsigned.*
-
----
-
-## E·packet-classification
-**Question.** A separate classification / retrieval registry for PACKETs is
-wanted (so neutral IDs stay neutral while tooling can still index them). Its
-schema, suffixes, and categories are undesigned.
-
-- Open sub-questions: what dimensions (kind, verb-affinity, module, tags)? one
-  registry or per-module? how does a tool retrieve "all melee packets" without
-  re-typing the ID?
-- **Constraint:** the PACKET's **primary ID stays neutral** (`spear_thrust`);
-  classification lives **outside** it. Do not invent the schema early.
-
-**RULING:** ⬚ *unsigned.*
-
----
-
-## E·combat-aftermath
-**Question.** The post-hit procedures are contradictory across archived drafts and
-must be reconciled before signing: **Counter · Nerve · Shaken · Rout · Squelch ·
-Wild · Rally**, plus the **Creature-Type** branches and the **Disengage** free
-swing.
-
-- Needs a single written ordering for: does a killed figure still Counter? once
-  per round vs. Counter X? what suppresses Counter? Nerve trigger + resolver;
-  Shaken vs. Rout thresholds; how Temperament directs a Rout; which Creature Types
-  never test / never break / can be mended.
-- **Constraint:** do not copy one archived version in; reconcile them.
-
-*Depends on:* **E·temperament-vocabulary**.
-
-**RULING:** ⬚ *unsigned.*
-
----
-
-## E·base-millimetres
-**Question.** The base vocabulary (shape=type, size=class, elongated=mounted) is
-sound; the exact **round and oval millimetre standards** (B·1 table) are
-provisional.
-
-- Confirm or revise: Small/Normal/Mounted/Large/Monstrous footprints for Square
-  and Circle; the oval standards for mounted/monster heroes.
-
-**RULING:** ⬚ *unsigned.*
-
----
-
-### How to sign
-1. Pick an option (or write a new one).
-2. Record it on the RULING line here.
-3. Move the decision into the cited section of **A** (Constitution), **B**
-   (Combat), or **C** (Dictionary), marking it **SIGNED** with the date.
-4. Strike the entry from the status board.
+### The one thing left
+Only the **morale aftermath** (Nerve → Shaken/Rout/Rally/Wild, plus the engagement
+band and Counter economy) remains open. When you're ready, rule on it the same way
+and I'll sign it into B·10.
 </script>
 <script>
 (function(){

@@ -19,10 +19,10 @@ procedure. The Kernel's first source of tactical depth.
 ### Force
 An agent's capacity to produce, resist, or alter consequential change — broader
 than damage (violence, protection, healing, command, influence, supply, …).
-**Owner:** Kernel. An agent's relationship to Force is read on four axes: Role,
-Tempo, Tool, Temperament. *(Whether Force is a formal primitive, a relationship,
-or a lens is unresolved — see E·force-ontology. No numerical Force stat exists
-unless a ruling grants one.)*
+**A formal Kernel primitive** (SIGNED, William 2026-07-24), alongside Position,
+State, and Resource — but **non-numerical**: there is no Force stat. An agent's
+relationship to Force is read on four axes (Role, Tempo, Tool, Temperament) and
+expressed by writing State, Position, or a Resource. **Owner:** Kernel.
 
 ---
 
@@ -78,14 +78,23 @@ Procedure. Counted to determine the Grade.
 
 ### Grade  *(Success Grade)*
 How well a PACKET succeeded — the highest Grade reached by the Success count.
-**Owner:** the resolving Procedure. Replaces Ladder/Tiers/Rungs. *(Whether a
-higher Grade inherits lower Effects is unresolved — E·grade-accumulation.)*
-**Not** to be called a Tier.
+**Owner:** the resolving Procedure. Replaces Ladder/Tiers/Rungs. **Discrete
+(Model 2, SIGNED William 2026-07-24):** resolving Grade *N* resolves **only** the
+Effects written on Grade *N* — no inheritance of lower Grades' Effects. **Not** to
+be called a Tier.
 
 ### Effect
 The state change a resolved Grade produces (Wound, Push, Knockdown, Guard, heal,
 reveal, …). **Owner:** the PACKET (defined) / the Procedure (applied). **Writes:**
 State (or Position, for displacement Effects).
+
+### Trait
+An **always-true** property a Figure carries — a **referenced passive Definition**
+(SIGNED William 2026-07-24; keyword **trait**). Defined once, referenced by ID
+(`{ "trait_id": "reach" }`), like a PACKET but **passive**: it resolves nothing and
+holds no runtime state. Examples: Large, Flying, Mounted, Fearless, Amphibious,
+Reach, Unstoppable. **Not** a PACKET, **not** a size class. **Owner:** the module
+that defines it.
 
 ---
 
@@ -118,14 +127,16 @@ never a measured statistic; not Move distance, initiative, range, AP, or damage.
 **How Force is delivered** — the channel or mechanism through which an agent
 expresses its Role. Does not define purpose; the same Tool may deliver any Role.
 **Owner:** Kernel defines it abstractly; each module declares its own controlled
-Tool vocabulary. *(The combat Tool set is unsigned — E·tool-vocabulary.)*
+Tool vocabulary. **Combat's set (SIGNED William 2026-07-24): `Melee · Ranged ·
+Hybrid`** — a vibe-check classification (like Tempo), *Hybrid* = delivers Force both
+in contact and at range. Old `Utility` is a Role, not a Tool.
 
 ### Temperament
 The agent's **preferred application of Force** — behavioural bias when several
 legal applications exist (when to commit, where to direct Force, what to do when
-cohesion fails). Preference, not capability. Candidate list: Cowardly · Resolute ·
-Aggressive · Protective · Ravenous *(exact list + consequences —
-E·temperament-vocabulary)*.
+cohesion fails). Preference, not capability. **SIGNED (William 2026-07-24):**
+`Cowardly · Resolute · Aggressive · Protective · Ravenous`. Their leaderless and
+break/Rout behaviours are the combat table in **B · 10**.
 
 ---
 

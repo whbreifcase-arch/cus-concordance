@@ -63,9 +63,11 @@ An agent is read through **four independent relationships with Force:**
 ROLE · TEMPO · TOOL · TEMPERAMENT
 ```
 
-*(Whether **Force** is a formal primitive, a relationship among primitives, or a
-lens is `⚠ OPEN → E·force-ontology`. It has no numerical stat unless a ruling
-grants one.)*
+**SIGNED (William, 2026-07-24): Force is a formal Kernel primitive** — a
+first-class citizen alongside Position, State, and Resource. It remains
+**non-numerical**: there is no Force stat. An agent's Force is *read* through the
+four axes (Role · Tempo · Tool · Temperament) and *expressed* by writing State,
+Position, or a Resource — never by comparing a number called "Force."
 
 ---
 
@@ -164,9 +166,22 @@ canonical: spear_thrust   healing_word   shield_intercept   wall_impact
 ```json
 { "packet_id": "spear_thrust" }
 ```
-A future classification/retrieval registry may live in **separate** JSON; its
-schema, suffixes, and categories are **not designed here** (`⚠ OPEN →
-E·packet-classification`). Do not invent it early.
+**SIGNED (William delegated → designed, 2026-07-24).** Classification lives in a
+**separate sidecar registry** (`packet_index`), never in the ID. The primary ID
+stays neutral; the sidecar maps it to retrieval dimensions so tooling can query
+("all combat Melee packets") without parsing IDs:
+```json
+"spear_thrust": {
+  "verb":    "ACTION",     // MOVE | ACTION | WAIT — how it is normally invoked
+  "module":  "combat",
+  "tool":    "Melee",      // the module Tool it belongs to (combat: Melee/Ranged/Hybrid)
+  "targets": ["agent"],    // legal target kinds
+  "tags":    ["reach"]     // free descriptive tags (incl. traits it pairs with)
+}
+```
+The sidecar is **Definition-layer, stateless** (Law 5) and **one-owner** (the module
+that owns the packets owns their index entries, Law 1). It is **additive**: a packet
+with no index entry is still valid — the index only aids retrieval, never resolution.
 
 ### Provisional shape (conceptual, not frozen)
 ```text
@@ -203,10 +218,12 @@ SPEAR THRUST — Dice 5 · Success 4+
 Player language: *"Three successes — I made Grade 3."* Provisional data field:
 `grades`.
 
-> **⚠ OPEN → E·grade-accumulation.** Whether a higher Grade *also* resolves every
-> lower Grade's Effects, **or** only the Effects written at that Grade, is an
-> **unresolved owner call.** This Constitution does not decide it. Both coherent
-> models are stated in Document E.
+> **SIGNED (William, 2026-07-24): Model 2 — Discrete.** Resolving Grade *N*
+> resolves **only** the Effects written at Grade *N* — a higher Grade does **not**
+> inherit lower Grades' Effects. Each Grade line is a complete, self-contained
+> outcome; if a designer wants an Effect carried up the ladder, they write it on
+> every line that should have it. This makes a PACKET's `grades` read top-to-bottom
+> as independent results, not a running accumulation.
 
 ---
 
@@ -258,10 +275,12 @@ Tool defines **how Force is delivered** — the channel or mechanism through whi
 an agent expresses its Role. Tool does **not** define purpose; the same Tool may
 deliver Pressure, Anchor, or Utility.
 
-> **⚠ OPEN → E·tool-vocabulary.** The old `Melee · Ranged · Utility` set is **not**
-> restored automatically — Utility is now a Role, and melee/ranged may be PACKET
-> properties. The Kernel defines Tool **abstractly** and lets each module declare
-> its own controlled Tool vocabulary. The combat Tool list is unsigned.
+> **SIGNED (William, 2026-07-24).** The Kernel defines Tool **abstractly** and lets
+> each module declare its own controlled Tool vocabulary. **The Combat Module's Tool
+> set is `Melee · Ranged · Hybrid`** — read as **vibe-checks** (an ordinal
+> classification like Tempo, not a measured statistic; Law 10), where *Hybrid*
+> covers a figure that delivers Force meaningfully both in contact and at a
+> distance. Old `Utility` is **not** a Tool — it is now a Role.
 
 ## TEMPERAMENT — preferred application of Force
 Temperament is the agent's **behavioural bias** when several legal applications
@@ -269,10 +288,20 @@ of Force are available: when to commit, where to direct Force, which target to
 prioritise, how much risk to accept, and what it does when command or cohesion
 fails. Temperament describes **preference, not capability.**
 
-Candidate list carried forward (definitions to be rebuilt around *preferred
-application of Force*, not as AI scripts): `Cowardly · Resolute · Aggressive ·
-Protective · Ravenous`. Their use for leaderless and break behaviour is retained;
-the exact behavioural table is `⚠ OPEN → E·temperament-vocabulary`.
+**SIGNED (William delegated → designed, 2026-07-24).** Five Temperaments, each a
+*preferred application of Force*:
+
+| Temperament | Prefers to apply Force… |
+|---|---|
+| **Cowardly** | from safety — minimal risk, keep distance, act only with the odds |
+| **Resolute** | steadily — hold position, commit to the objective, refuse to be drawn |
+| **Aggressive** | forward — at the nearest threat, accepting risk to force the issue |
+| **Protective** | to *prevent* Force on allies — shield, interpose, stay close to kin |
+| **Ravenous** | at whatever is nearest — indiscriminate, heedless of side or cost |
+
+The **leaderless** (AI-fallback) and **break/Rout** consequences of each live in
+the Combat Module (Document B · Temperament table), since those behaviours are
+combat procedures. The five words themselves are the signed Kernel axis.
 
 ---
 
@@ -484,17 +513,17 @@ cites the Kernel primitive it reads or writes.
 
 # XVIII · Open-question register (pointer)
 
-The Kernel deliberately leaves these unresolved. They live, isolated and
-**unanswered**, in **[Document E](E_OPEN_DECISIONS.md)** — do not treat a blank as
-an omission:
+Eight decisions were opened; **seven are now signed** (William, 2026-07-24) and
+folded into A/B/C. **One remains open.** Full record in
+**[Document E](E_OPEN_DECISIONS.md)**:
 
 ```text
-E·grade-accumulation      · higher Grade: inherit lower Effects, or only its own?
-E·persistent-traits       · where do Large / Flying / Fearless live?
-E·tool-vocabulary         · the universal/combat Tool set is unsigned
-E·temperament-vocabulary  · exact list + behavioural consequences
-E·force-ontology          · Force: primitive, relationship, or lens?
-E·packet-classification   · the separate retrieval/classification JSON schema
-E·combat-aftermath        · Counter / Nerve / Shaken / Rout / Rally / Wild branches
-E·base-millimetres        · exact round & oval standards
+SIGNED  grade-accumulation   · Model 2 (discrete — Grade N resolves only its own Effects)
+SIGNED  persistent-traits    · Option B — referenced passive Definitions; keyword: trait
+SIGNED  tool-vocabulary      · combat Tool set = Melee / Ranged / Hybrid (vibe-check)
+SIGNED  temperament          · five words signed; behaviour designed (B · Temperament)
+SIGNED  force-ontology       · Force IS a formal Kernel primitive (non-numerical)
+SIGNED  packet-classification· neutral ID + separate packet_index sidecar (designed)
+PARTIAL combat-aftermath     · Counter/facing SIGNED · morale (Nerve/Rout/Rally/Wild) OPEN
+SIGNED  base-classes         · Small / Medium / Large (no Monstrous, no Cavalry-as-class)
 ```

@@ -40,7 +40,7 @@
 | Tiers (as packet result) | **Grade** |
 | Rungs / Outcome Track | **Grade** |
 | Tier / Class | **Reserved** for persistent size / organizational classification — *not* the packet result |
-| "best Wound + every passed Effect" | ⚠ **E·grade-accumulation** — inherit-lower vs. own-Effects-only is unresolved |
+| "best Wound + every passed Effect" | **Model 2 — Discrete** (SIGNED): Grade *N* resolves **only** its own written line; no inheritance |
 
 ## 4 · Roles
 
@@ -62,8 +62,8 @@
 |---|---|
 | (no explicit Tempo) | **TEMPO** — new axis, ordinal `> / >> / >>>` (Slow/Normal/Fast) |
 | Role + old Tool = Class | **Rebuilt:** `Role + Tool + signature = Archetype` |
-| Tool = `Melee / Ranged / Utility` | **Not preserved automatically.** Utility is now a Role; melee/ranged may be PACKET properties. Tool vocabulary is ⚠ E·tool-vocabulary |
-| Temperament (as AI script) | **TEMPERAMENT** — reframed as *preferred application of Force*; list/consequences ⚠ E·temperament-vocabulary |
+| Tool = `Melee / Ranged / Utility` | **Combat Tool = `Melee · Ranged · Hybrid`** (SIGNED, vibe-check). Utility is now a Role; *Hybrid* replaces the old third slot |
+| Temperament (as AI script) | **TEMPERAMENT** (SIGNED) — five words + leaderless/Rout behaviour table (B · 10) |
 
 ## 6 · Identity
 
@@ -88,14 +88,15 @@
 
 | Old | New treatment |
 |---|---|
-| Bases: shape=type, size=class, elongated=mounted | **Kept** (B · 1); millimetres ⚠ E·base-millimetres |
+| Bases: shape=type, size=class, elongated=mounted | **Kept** (B · 1). Size classes SIGNED = **Small / Medium / Large** (no Monstrous, no Cavalry-as-class); mounted = elongated geometry; "monstrous" = a Large + `unstoppable` trait |
 | Push / Indent / Crush geometry | **Kept** (B · 4), now driven by Sprint→Impact |
 | Wounds `Fine→Hurt→KO→Dead` | **Kept** (B · 7), Combat fact |
 | Armour `None/Light/Medium/Heavy = —/6+/5+/4+` | **Kept** (B · 7), Combat fact — **not** a Kernel primitive |
 | Alternation | **Kept** (B · 12), "attention management" |
 | Formations descriptive | **Kept** (B · 11) |
-| Counter · Nerve · Shaken · Rout · Squelch · Wild · Rally | **Held for reconciliation** ⚠ E·combat-aftermath — not copied from archived drafts |
-| Persistent traits (Large/Flying/Fearless/Reach/Amphibious) | **Held** ⚠ E·persistent-traits |
+| Counter | **SIGNED, facing-gated** (B · 8–9): Counter only vs. a faced attacker; engaging turns bases to face; a flank/rear strike on an unengaged figure draws no Counter |
+| Nerve · Shaken · Rout · Rally · Wild | **Still OPEN** (morale aftermath) — trigger/threshold machinery unsigned; Temperament *behaviours* are signed |
+| Persistent traits (Large/Flying/Fearless/Reach/Amphibious) | **Traits** — referenced passive Definitions (SIGNED, keyword `trait`, B · 14) |
 
 ## 9 · Downstream artifacts (built on the old vocabulary — need migration)
 
@@ -105,8 +106,8 @@ migration debt to reconcile against A–C when the open rulings land.
 | Artifact | Uses (old) | Migration when signed |
 |---|---|---|
 | `CUS_TTS_MOD/` (TTS playtest) | four verbs, five Roles, typed packet IDs (`ATK_*`), "Tiers" | remap radial wheel to MOVE·ACTION·WAIT; Roles→P/A/U; packet IDs→neutral; "Tiers"→"Grade"; Charge→Sprint/Impact |
-| `unit_library.json` (73 units) | `role`, `attack_packet_ids: ["ATK_*"]`, `tiers` string | rewrite roles to Pressure/Anchor/Utility (+archetype), neutral packet IDs, `grades` |
-| `card_forge_v3.html` bindings | `{role}`, `{tiers}`, `{tool}` | rename bindings once Tool vocabulary + Grade display are signed |
+| `unit_library.json` (73 units) | `role` (5-way), `base.class` Small/Normal/Cavalry/Large/Monstrous, `attack_packet_ids:["ATK_*"]`, `tiers` | roles → Pressure/Anchor/Utility (+archetype); **classes → Small/Medium/Large**, Cavalry→elongated `mounted:true`, Monstrous→Large + `unstoppable` trait; `tool` → Melee/Ranged/Hybrid; neutral packet IDs; `tiers` → discrete `grades`; add `traits:[]` |
+| `card_forge_v3.html` bindings | `{role}`, `{tiers}`, `{tool}` | `{tiers}` → `{grades}`; `{tool}` values → Melee/Ranged/Hybrid; add a `{traits}` binding |
 | `CUS_CODEX.md` v0.5 | everything above | becomes a retired **migration input**; not edited in place — superseded by this folder |
 
 > Do not migrate the downstream artifacts until the relevant open rulings in

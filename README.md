@@ -16,6 +16,24 @@ wins.** The old codex is now a **migration input, not authority.**
 | **D** | [Migration Map](D_MIGRATION_MAP.md) | Every old term → its new owner or replacement. Nothing valuable is silently deleted. |
 | **E** | [Open Decisions](E_OPEN_DECISIONS.md) | Genuine unresolved calls, isolated and **unanswered** — each awaits an owner ruling. |
 
+## Owner rulings signed — 2026-07-24 (William)
+
+Seven of the eight open decisions are now **signed** and folded into A/B/C:
+
+```text
+grade-accumulation   → Model 2 (discrete: Grade N resolves only its own Effects)
+persistent-traits    → Traits = referenced passive Definitions (keyword: trait)
+tool-vocabulary      → combat Tool set = Melee · Ranged · Hybrid (vibe-check)
+temperament          → 5 words + leaderless/Rout behaviour table (delegated → designed)
+force-ontology       → Force IS a formal Kernel primitive (non-numerical)
+packet-classification→ neutral ID + packet_index sidecar (delegated → designed)
+combat-aftermath     → Counter is facing-gated (SIGNED); morale machinery still OPEN
+base-classes         → Small · Medium · Large (no Monstrous, no Cavalry-as-class)
+```
+
+**Still open:** the morale aftermath (Nerve → Shaken/Rout/Rally/Wild, engagement band,
+Counter economy). See [Document E](E_OPEN_DECISIONS.md).
+
 ## What changed at the root (closed rulings — Brief §17)
 
 ```text
