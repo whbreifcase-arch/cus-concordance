@@ -1,0 +1,1507 @@
+<title>CUS — The Codex v0.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+  :root{
+    --bg:#eceef2; --paper:#ffffff; --ink:#1b1f26; --soft:#5a6270; --line:#e0e3ea;
+    --gold:#9a7420; --gold-soft:#f0e6cf; --rule:#c9a24a; --code:#f5f6f8; --code-ink:#374049;
+    --seal:#8a2f2a;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#131418; --paper:#1b1d22; --ink:#e9e5da; --soft:#9aa0ab; --line:#2b2f37;
+      --gold:#c9a24a; --gold-soft:#2a2413; --rule:#c9a24a; --code:#101216; --code-ink:#c6ccd4;
+      --seal:#c0564e;
+    }
+  }
+  :root[data-theme="light"]{ --bg:#eceef2; --paper:#ffffff; --ink:#1b1f26; --soft:#5a6270; --line:#e0e3ea; --gold:#9a7420; --gold-soft:#f0e6cf; --rule:#c9a24a; --code:#f5f6f8; --code-ink:#374049; --seal:#8a2f2a; }
+  :root[data-theme="dark"]{ --bg:#131418; --paper:#1b1d22; --ink:#e9e5da; --soft:#9aa0ab; --line:#2b2f37; --gold:#c9a24a; --gold-soft:#2a2413; --rule:#c9a24a; --code:#101216; --code-ink:#c6ccd4; --seal:#c0564e; }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Iowan Old Style,Palatino,Georgia,"Times New Roman",serif;line-height:1.62;font-size:17px}
+  .ui{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+
+  /* cover */
+  .cover{max-width:760px;margin:0 auto;padding:64px 24px 34px;text-align:center}
+  .cover .kicker{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--soft);margin:0 0 18px}
+  .cover h1{font-size:clamp(46px,13vw,96px);line-height:.92;margin:0;letter-spacing:.02em;font-weight:700}
+  .cover .sub{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:15px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--gold);margin:14px 0 0;font-weight:600}
+  .cover .tag{font-size:18px;color:var(--soft);margin:20px auto 0;max-width:44ch;font-style:italic}
+  .seal{display:inline-flex;align-items:center;gap:8px;margin:26px 0 0;padding:7px 16px;border-radius:999px;
+    border:1px solid var(--seal);color:var(--seal);font-family:-apple-system,Segoe UI,Roboto,sans-serif;
+    font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+  .seal b{width:7px;height:7px;border-radius:50%;background:var(--seal)}
+  .rulehr{max-width:760px;margin:30px auto 0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--rule),transparent)}
+
+  /* three-line summary strip */
+  .verbs{max-width:760px;margin:26px auto 0;padding:0 24px;display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:620px){.verbs{grid-template-columns:repeat(3,1fr)}}
+  .verb{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .verb .v{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-weight:800;letter-spacing:.06em;color:var(--gold)}
+  .verb .d{font-size:14px;color:var(--soft);margin-top:2px}
+
+  /* toolbar / tabs */
+  .bar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:8px;padding:8px 12px}
+  .bar .brand{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-weight:700;font-size:13px}
+  .bar .brand span{color:var(--gold)}
+  .bar .grow{flex:1 1 auto}
+  .tabs{display:flex;gap:6px;overflow-x:auto}
+  .tabs a{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12.5px;white-space:nowrap;
+    text-decoration:none;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+  .tabs a.cur{color:var(--gold);border-color:var(--gold);background:var(--gold-soft)}
+  .bar button{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:13px;background:transparent;
+    color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
+
+  main{max-width:760px;margin:0 auto;padding:10px 20px 120px}
+  .doc{display:none}
+  .doc.show{display:block}
+  .doc>.doctitle{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gold);font-weight:700;margin:30px 0 6px}
+
+  .md h1{font-size:1.75em;line-height:1.12;margin:.7em 0 .3em;font-weight:700}
+  .md h2{font-size:1.34em;margin:1.1em 0 .3em;font-weight:700;padding-top:.2em}
+  .md h3{font-size:1.12em;margin:1em 0 .25em;font-weight:700;font-family:-apple-system,Segoe UI,Roboto,sans-serif}
+  .md h4{font-size:1em;margin:.9em 0 .2em;font-weight:700;color:var(--soft);font-family:-apple-system,Segoe UI,Roboto,sans-serif}
+  .md p{margin:.55em 0}
+  .md ul,.md ol{margin:.5em 0;padding-left:1.4em}
+  .md li{margin:.22em 0}
+  .md blockquote{margin:.8em 0;padding:.55em .95em;border-left:3px solid var(--rule);
+    background:var(--gold-soft);border-radius:0 6px 6px 0}
+  .md hr{border:0;border-top:1px solid var(--line);margin:1.2em 0}
+  .md code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85em;
+    background:var(--code);color:var(--code-ink);padding:.08em .35em;border-radius:4px}
+  .md pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto}
+  .md pre code{background:none;padding:0;font-size:12.5px;line-height:1.5;color:var(--code-ink)}
+  .md strong{font-weight:700}
+  .md .tablewrap{overflow-x:auto;margin:.7em 0}
+  .md table{border-collapse:collapse;font-size:.88em;font-family:-apple-system,Segoe UI,Roboto,sans-serif;min-width:100%}
+  .md th,.md td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+  .md th{background:var(--code);font-weight:700}
+</style>
+
+<div class="cover">
+  <p class="kicker">A deterministic ludic kernel</p>
+  <h1>CUS</h1>
+  <div class="sub">The Codex · v0.6</div>
+  <p class="tag">One grammar, many domains, different owned procedures.</p>
+  <div class="seal"><b></b> Closed · every decision signed · 2026-07-24</div>
+</div>
+<div class="rulehr"></div>
+<div class="verbs ui">
+  <div class="verb"><div class="v">MOVE</div><div class="d">changes Position now</div></div>
+  <div class="verb"><div class="v">ACTION</div><div class="d">resolves a PACKET now</div></div>
+  <div class="verb"><div class="v">WAIT</div><div class="d">arms a PACKET for later</div></div>
+</div>
+
+<div class="bar ui" style="margin-top:26px">
+  <div class="brand">CUS <span>Codex</span></div>
+  <div class="grow"></div>
+  <nav class="tabs" id="tabs"></nav>
+  <button id="themeBtn" title="Toggle theme">◐</button>
+</div>
+
+<main id="main"></main>
+<script type="text/markdown" data-doc="A" data-title="A · Kernel Constitution">
+# CUS — THE KERNEL CONSTITUTION
+### v0.6 · the universal grammar · rebuilt 2026-07-23
+
+> **What this is.** The bones. The universal architecture every module obeys —
+> and nothing else. It holds the substrates, the three verbs, the four axes, the
+> PACKET, the ownership laws, and the module contract. It does **not** hold
+> weapon numbers, armour saves, base millimetres, or the Push. Those are Combat
+> Module facts (Document B), not Kernel law.
+>
+> **Authority.** This document and its siblings (A–E) supersede every older CUS
+> document. When they conflict, this wins.
+>
+> **On gaps.** Where a genuine question is unresolved it is marked
+> `⚠ OPEN → E·<topic>` and left open. A blank is never filled for convenience.
+
+```text
+REALITY  →  GRAMMAR  →  CAMPAIGN  →  CONFLICT  →  MECHANICS
+ (what is)  (rules of   (what       (how it is   (the owned
+            order)      persists)    contested)   procedures)
+```
+
+---
+
+# I · What CUS is
+
+**CUS is a deterministic ludic Kernel: a universal grammar for organized action,
+persistent state, and conflict across many scales.**
+
+Combat is its **reference implementation, not its definition.** The Kernel must
+carry physical conflict, social conflict, politics, logistics, travel, trade,
+construction, crafting, and exploration as **peers** — never as species of war.
+
+Higher scales **compose** lower scales; they never replace them. A duel and a
+kingdom obey the same grammar, so nothing is re-learned as the game grows.
+
+> **One grammar, many domains, different owned procedures.**
+
+---
+
+# II · The two substrates
+
+Everything the Kernel reads or writes ultimately touches one of two things.
+
+## Position
+**Position is where an entity stands relative to other entities, objects,
+boundaries, opportunities, and threats.** It is the shared substrate of the
+board or the situation. **MOVE writes Position directly.**
+
+Depth comes first from Position — geometry, timing, facing, relationship —
+**not** from stacks of numerical modifiers. If a design can create a decision
+through Position instead of a number, it should.
+
+## Force
+**Force is an agent's capacity to produce, resist, or alter consequential
+change.** Force is broader than damage. In physical conflict it wears the masks
+of violence, protection, displacement, healing, command, suppression,
+information, mobility, and shaping. In another module it is influence, trust,
+authority, supply, argument, negotiation, labour, or institutional power.
+
+An agent is read through **four independent relationships with Force:**
+
+```text
+ROLE · TEMPO · TOOL · TEMPERAMENT
+```
+
+**SIGNED (William, 2026-07-24): Force is a formal Kernel primitive** — a
+first-class citizen alongside Position, State, and Resource. It remains
+**non-numerical**: there is no Force stat. An agent's Force is *read* through the
+four axes (Role · Tempo · Tool · Temperament) and *expressed* by writing State,
+Position, or a Resource — never by comparing a number called "Force."
+
+---
+
+# III · The three canonical verbs — SIGNED
+
+The Kernel has exactly three verbs. They exist forever. Everything else is an
+alias that reduces to one of them.
+
+```text
+SPACE · EFFECT · TIME
+MOVE  · ACTION · WAIT
+```
+
+## MOVE — changes Position now
+MOVE acts on the acting entity and writes directly to Position.
+```text
+MOVE → choose legal destination or trajectory → pay Agency → change Position
+```
+Sprint · Advance · Leap · Teleport · Withdraw · Sail · Approach reduce to MOVE.
+MOVE stays its own verb because **Position is a substrate, not an effect** — it is
+never collapsed into ACTION even though a movement *could* be modelled as a packet.
+
+## ACTION — resolves a PACKET now
+```text
+ACTION → select PACKET → select target → verify constraints → resolve → apply effects
+```
+Attack · Use · Cast · Heal · Repair · Persuade · Accuse · Interact · Hack are
+**presentation** for ACTION. They are not separate Kernel verbs.
+
+An ACTION may target **Self · another agent · an object · a point · an area · any
+legal target the owning module defines.** The **PACKET** decides what happens.
+The Kernel needs **no** harmful/beneficial distinction — an effect helps, harms,
+enables, or obstructs depending on target and context (SIGNED: no such tag).
+
+## WAIT — arms a PACKET for later
+```text
+WAIT → select PACKET → declare/load its trigger → arm it → resolve when the trigger fires
+```
+Overwatch · Brace · Intercept · Counter · prepared responses reduce to WAIT.
+WAIT changes **when** a PACKET resolves; it does not spawn a second reaction
+system outside the PACKET grammar. WAIT stays its own verb because **deferred
+timing** is its defining property, not the packet it references.
+
+## The distinction
+```text
+MOVE   changes Position   now.
+ACTION resolves a PACKET  now.
+WAIT   arms a PACKET       for later.
+```
+Lowercase "action" may describe any AP spend in prose. Uppercase **ACTION** is
+the packet-resolving verb.
+
+---
+
+# IV · Agency & Resources
+
+**AP is Agency** — the limited capacity an entity has to act during its
+activation. Unless a module says otherwise:
+```text
+1 AP  →  one MOVE, one ACTION, or one WAIT
+```
+Named abilities and flavour verbs never create new universal actions; they
+translate to one of the three invariants (Law 11).
+
+Agency is one of the Kernel's exchangeable **Resources** — a limited quantity
+spent to produce change. Each module implements the resources it needs:
+```text
+Agency · Position · Health · Morale · Information · Influence · Supply · Time
+```
+Combat spends **Agency**; politics spends **Influence**; travel spends **Time +
+Supply**. Same Kernel idea, made concrete per module.
+
+---
+
+# V · PACKET — the universal referenced definition — SIGNED
+
+A **PACKET** is a **stateless, named, referenced definition of a resolvable
+effect** — one universal data object. Weapons, spells, abilities, interactions,
+reactions, impact effects, heals, and commands are all PACKETs.
+
+A PACKET:
+- has a **neutral ID** and a player-facing **name/alias**;
+- **holds no runtime state** (Law 5);
+- is **defined once, referenced everywhere** — never copied onto each card;
+- may be **resolved by ACTION**, **armed by WAIT**, or **invoked by another owned
+  procedure** (e.g. Impact);
+- carries **only** what its resolution needs;
+- does **not** encode whether it is "good" or "bad."
+
+### Neutral identity
+Typed IDs are retired. The primary ID never encodes packet kind:
+```text
+retired:  ATK_07   ABIL_04   REACT_02   PASSIVE_09
+canonical: spear_thrust   healing_word   shield_intercept   wall_impact
+```
+```json
+{ "packet_id": "spear_thrust" }
+```
+**SIGNED (William delegated → designed, 2026-07-24).** Classification lives in a
+**separate sidecar registry** (`packet_index`), never in the ID. The primary ID
+stays neutral; the sidecar maps it to retrieval dimensions so tooling can query
+("all combat Melee packets") without parsing IDs:
+```json
+"spear_thrust": {
+  "verb":    "ACTION",     // MOVE | ACTION | WAIT — how it is normally invoked
+  "module":  "combat",
+  "tool":    "Melee",      // the module Tool it belongs to (combat: Melee/Ranged/Hybrid)
+  "targets": ["agent"],    // legal target kinds
+  "tags":    ["reach"]     // free descriptive tags (incl. traits it pairs with)
+}
+```
+The sidecar is **Definition-layer, stateless** (Law 5) and **one-owner** (the module
+that owns the packets owns their index entries, Law 1). It is **additive**: a packet
+with no index entry is still valid — the index only aids retrieval, never resolution.
+
+### Provisional shape (conceptual, not frozen)
+```text
+PACKET = { id · name · constraints · cost · dice · success_number · grades · effects }
+```
+Not every PACKET rolls dice. The **owning module** decides which fields are
+required. Do not stuff every possible field into the universal object.
+
+---
+
+# VI · Success Grade — SIGNED
+
+The result of resolving a PACKET is a **Success Grade** (short: **Grade**) — how
+well the PACKET succeeded. The terms *Ladder, Tiers, Rungs, Outcome Track* are
+retired. (**Tier / Class** are reserved for persistent size or organizational
+classification, never for this result.)
+
+```text
+roll → count successes → determine Grade → resolve the Grade
+```
+> **Roll the PACKET, count successes, and resolve the highest Grade achieved.**
+
+```text
+SPEAR THRUST — Dice 5 · Success 4+
+  GRADE 1 — Push
+  GRADE 2 — 1 Wound
+  GRADE 3 — 1 Wound + Guard
+  GRADE 4 — 2 Wounds
+```
+- **Success** — a die that meets the PACKET's success number.
+- **Grade** — how well the whole roll succeeded.
+- **Effect** — what resolving that Grade changes.
+
+Player language: *"Three successes — I made Grade 3."* Provisional data field:
+`grades`.
+
+> **SIGNED (William, 2026-07-24): Model 2 — Discrete.** Resolving Grade *N*
+> resolves **only** the Effects written at Grade *N* — a higher Grade does **not**
+> inherit lower Grades' Effects. Each Grade line is a complete, self-contained
+> outcome; if a designer wants an Effect carried up the ladder, they write it on
+> every line that should have it. This makes a PACKET's `grades` read top-to-bottom
+> as independent results, not a running accumulation.
+
+---
+
+# VII · The four axes — Role · Tempo · Tool · Temperament
+
+Four **independent** relationships with Force. They are never collapsed into one
+another.
+```text
+ROLE        = what relationship with Force?
+TEMPO       = how soon can it bring Force to bear?
+TOOL        = by what method is Force delivered?
+TEMPERAMENT = with what preference is Force applied?
+```
+
+## ROLE — relationship with Force (SIGNED: three roles)
+```text
+PRESSURE applies Force.     ANCHOR prevents Force.     UTILITY changes Force.
+```
+- **PRESSURE** — threatens, breaches, displaces, suppresses, pursues, exposes,
+  overwhelms; forces the opposition to respond.
+- **ANCHOR** — holds, blocks, absorbs, protects, delays, intercepts, preserves;
+  denies hostile Force its intended change.
+- **UTILITY** — amplifies, weakens, redirects, restores, reveals, coordinates,
+  relocates, transforms; alters the conditions of Force. Utility absorbs what
+  older drafts split into Control and Support.
+
+Role names an agent's **primary** relationship, not every effect its PACKETs can
+produce. Retired as *universal* Roles: Assault, Skirmisher, Control, Support,
+Reach, Projection — they may survive as **archetypes, tags, doctrines, or PACKET
+effects** (Document D), never as peers of Pressure/Anchor/Utility.
+
+## TEMPO — relative timing of Force (SIGNED: ordinal)
+Tempo is the relative interval between an opportunity and the agent's next
+effective application of Force — **how quickly it brings its Role to bear**
+compared with others in the same environment.
+```text
+>    Slow        >>   Normal        >>>  Fast
+```
+Tempo is an **ordinal vibe-check classification, not a derived formula** (Law 10
+— it is a *classification*, never disguised as a measured statistic). It is **not**
+Move distance, initiative, attack speed, range, AP count, or damage.
+```text
+Artillery >     Tank >     Infantry >>     Cavalry >>>
+```
+An artillery piece may out-range everything and still be Slow.
+
+## TOOL — delivery of Force
+Tool defines **how Force is delivered** — the channel or mechanism through which
+an agent expresses its Role. Tool does **not** define purpose; the same Tool may
+deliver Pressure, Anchor, or Utility.
+
+> **SIGNED (William, 2026-07-24).** The Kernel defines Tool **abstractly** and lets
+> each module declare its own controlled Tool vocabulary. **The Combat Module's Tool
+> set is `Melee · Ranged · Hybrid`** — read as **vibe-checks** (an ordinal
+> classification like Tempo, not a measured statistic; Law 10), where *Hybrid*
+> covers a figure that delivers Force meaningfully both in contact and at a
+> distance. Old `Utility` is **not** a Tool — it is now a Role.
+
+## TEMPERAMENT — preferred application of Force
+Temperament is the agent's **behavioural bias** when several legal applications
+of Force are available: when to commit, where to direct Force, which target to
+prioritise, how much risk to accept, and what it does when command or cohesion
+fails. Temperament describes **preference, not capability.**
+
+**SIGNED (William delegated → designed, 2026-07-24).** Five Temperaments, each a
+*preferred application of Force*:
+
+| Temperament | Prefers to apply Force… |
+|---|---|
+| **Cowardly** | from safety — minimal risk, keep distance, act only with the odds |
+| **Resolute** | steadily — hold position, commit to the objective, refuse to be drawn |
+| **Aggressive** | forward — at the nearest threat, accepting risk to force the issue |
+| **Protective** | to *prevent* Force on allies — shield, interpose, stay close to kin |
+| **Ravenous** | at whatever is nearest — indiscriminate, heedless of side or cost |
+
+The **leaderless** (AI-fallback) and **break/Rout** consequences of each live in
+the Combat Module (Document B · Temperament table), since those behaviours are
+combat procedures. The five words themselves are the signed Kernel axis.
+
+---
+
+# VIII · Creature Type vs Archetype
+
+Different concepts, never confused.
+- **Creature Type — what the entity *is*.** Governs broad biological, morale,
+  repair, healing, or targeting relationships owned by a module. Combat's set:
+  `Man · Beast · Spirit · Construct`.
+- **Archetype — *who* it is** in recognizable play language:
+  `(Role + Tool + signature) → Archetype` → Gunslinger, Berserker, Assassin,
+  Knight, Scout, Artillery. Archetypes are **readable combinations, not
+  primitives.** "Skirmisher / Tank / Sniper / Support" may live here as
+  player-facing descriptions.
+
+---
+
+# IX · Information architecture — the four layers
+
+```text
+DEFINITION  →  PROCEDURE  →  INSTANCE  →  PRESENTATION
+(what it is)   (how it        (what is     (what the
+               resolves)       true now)    player sees)
+```
+- **Definition** — static, referenced: a figure profile, a PACKET, a Formation, a
+  Mission template, a Role, a Tool, a Tempo, a Temperament. **Holds no runtime
+  state.**
+- **Procedure** — the **owned** resolution method: movement, PACKET, Grade,
+  Impact, Nerve, Rout, formation movement, social resolution, travel. A module
+  owns its procedures.
+- **Instance** — what is true **right now**: current Position, remaining Wounds,
+  conditions, an armed WAIT, reaction spent, active Mission, current supplies,
+  relationships. **Runtime state lives only here.**
+- **Presentation** — what the player sees: flavour verbs, symbols, cards, models,
+  markers. It **translates** the Kernel; it never forks a parallel mechanic.
+```text
+player sees:  ACTION → [weapon symbol] "Spear Thrust" → GRADE 1/2/3
+system reads: ACTION → packet_id:spear_thrust → target → resolver
+```
+
+---
+
+# X · Recursive organization
+
+```text
+FIGURE  acts within  FIRETEAM  maneuvers within  BANNER
+        travels within  CARAVAN  coordinates into  ARMY  exists within  KINGDOM  →  WORLD
+```
+- **Figure** — one independent agent / one piece. Owns capability: `Role · Tempo ·
+  Tool · Temperament · signature · PACKET references · stats`. **A Figure stays a
+  complete agent even inside a higher formation** — there is no mode switch that
+  strips its agency.
+- **Fireteam** — the primary local maneuver element: a **Sergeant + ~3–5
+  Retinue.** The Sergeant supplies coordination, Rally, formation handling, and
+  command continuity.
+- **Banner** — the warband / persistent tactical group: a **Champion + Fireteams +
+  loose specialists.** Not an Order, a Mission, a command-state, or a literal
+  flag-bearer.
+- **Caravan** — the primary **persistent expedition**; physically carries what
+  survives between events (figures, Banners, civilians, wagons, beasts, supplies,
+  injuries, wealth, quests, relationships, reputation, crafting facilities).
+  **Progression lives in the Caravan.**
+- **Army** — many Banners coordinated for a campaign.
+- **Kingdom** — the political society containing institutions, law, Caravans, and
+  Armies.
+
+**Fractal law:** every layer is both (1) a complete game at its scale and (2) a
+component of the layer above. Higher layers **compose** lower agents; they never
+seize or erase agency.
+
+---
+
+# XI · Intent & Missions — the asymmetry is deliberate
+
+- **Human side.** The human already supplies intent. **Never** apply an AI Mission
+  script to a human player's own figures (Law 9).
+- **AI side.** A **Mission** supplies *constrained* intent — `Intent · Priorities ·
+  Focus · Constraints · Fireteam assignments` — and **narrows the decision
+  problem** without puppeteering every Figure:
+```text
+MISSION → Fireteam assignment → Sergeant coordination
+        → Figure judgment (Role · Tempo · Tool · Temperament · Position · PACKETs)
+```
+Missions are AI-only unless a future module explicitly creates a different
+player-facing object.
+
+---
+
+# XII · The universal decision loop
+
+Every conflict, at every scale, runs the same loop:
+```text
+OBSERVE → DISCERN → CHOOSE INTENT → ACT → CONSEQUENCES → PERSISTENCE
+```
+The Kernel supplies **structure**; players and Missions supply **intent**;
+Procedures **resolve** outcomes; Instances **store** consequences; Persistence
+**carries** them forward. Different modules swap procedures while the loop holds.
+
+---
+
+# XIII · The translation layer
+
+The Kernel vocabulary is canonical. Every module **translates** it into its own
+domain — renames, re-skins — and **never invents a parallel mechanic** (Law 11).
+```text
+KERNEL     MOVE        ACTION        WAIT
+Combat     Advance     Strike        Brace
+Naval      Sail        Broadside     Brace for Impact
+Social     Approach    Challenge     Prepare Response
+Politics   Lobby       Accuse        Wait
+```
+Read *down* a column: a different game. Read *across* a row: the **same verb**.
+Every ability's **name** carries theme; its **verb** carries the rules. Click the
+name, land on MOVE, ACTION, or WAIT.
+
+---
+
+# XIV · The formal grammar
+
+Every mechanic is one sentence in one grammar:
+```text
+STATEMENT  =  VERB  +  TARGET  +  AREA  +  CONSTRAINTS  +  EFFECTS
+```
+- **Verb** — MOVE · ACTION · WAIT.
+- **Target** — Self · Agent · Object · Point · Area · a Trigger window (for WAIT).
+- **Area** — none · a radius · a template.
+- **Constraints** — range · line-of-sight · cost · legality.
+- **Effects** — the state changes produced (for ACTION/WAIT, by the PACKET).
+```text
+MOVE   · Self          · 6"  · —              · Position change
+ACTION · Agent         · —   · in range       · resolve PACKET → Grade → Effects
+WAIT   · Trigger window· —   · one armed PACKET· resolve the PACKET when it fires
+```
+Zoomed in, every resolution has the same morphology —
+`VERB + OBJECT + MODIFIER + RESOLVER + OUTCOME` — and a module supplies its own
+**Resolver** without changing the sentence shape. One AI Director can author
+combat, diplomacy, and trade because it learns one morphology and swaps the
+Resolver.
+
+---
+
+# XV · Architectural laws
+
+Every module and every edit obeys these.
+
+1. **One owner.** Every concept has exactly one owner; no layer stores a second
+   authoritative copy of another's information.
+2. **One module.** Every mechanic belongs to exactly one module.
+3. **Compose, don't replace.** Higher layers compose lower layers.
+4. **Recurse.** The same grammar applies at every scale.
+5. **No state in Definitions.** Runtime state lives only in Instances.
+6. **Intent vs. resolution.** Players and Missions choose intent; owned Procedures
+   resolve outcomes.
+7. **Shared primitives.** Modules communicate through Kernel primitives, not
+   bespoke cross-module mechanics.
+8. **Descriptive geometry.** Where precision doesn't improve the decision, use
+   physical truth and honest judgment over measurement bureaucracy.
+9. **Missions are AI-only.** Never automate the human player through the AI
+   command grammar.
+10. **Facts vs. judgments.** Store stable facts; compute situational judgments
+    when needed. A designer-assigned classification (e.g. **Tempo**) must be
+    identified *as* a classification, never disguised as a measured statistic.
+11. **Translate, don't fork.** Modules translate MOVE · ACTION · WAIT; they never
+    invent parallel universal actions.
+12. **No preferred implementation.** Combat is the reference implementation, not
+    the Kernel's master.
+13. **Primitives are atomic; composites reduce.** Every composite reduces to
+    primitives with no unexplained remainder. A genuine new primitive is a
+    constitution change.
+14. **One grammar, one resolver.** Every mechanic has one structured statement and
+    exactly one owned Procedure that resolves it.
+
+---
+
+# XVI · Design principles
+
+- **Cognitive economy** — a rule must justify the attention it costs.
+- **Progressive complexity** — deeper layers stay optional.
+- **Readability first** — minimize time-to-understanding.
+- **Physical truth** — the table answers before the rulebook.
+- **Information where needed** — players never hunt for facts.
+- **Honest judgment** — precision only where it improves the decision.
+- **Player agency** — procedures resolve choices; they never make them.
+- **Determinism as trust** — after resolution, nobody negotiates the result.
+- **Theme serves mechanics** — flavour clarifies the grammar without forking it.
+- **Fail gracefully** — play continues when an edge case appears.
+- **Layers, not exceptions** — a recurring exception means a missing layer.
+
+**The razor.** *Does the mechanic read or write **Position, Force, State, a
+Resource, or a relationship between agents**?* If not, decide whether it is
+necessary structure or free-floating clutter — and cut the clutter.
+
+---
+
+# XVII · The module contract
+
+A new module (Combat, Politics, Caravan, War, Trade, …):
+1. **cites** this Constitution and the Dictionary; it does not restate structure;
+2. **translates** MOVE · ACTION · WAIT into its domain language (Ch. XIII);
+3. **owns** its Procedures and its controlled Tool/Temperament vocabularies;
+4. **stores facts, computes judgments** (Law 10);
+5. reduces every mechanic to a primitive relationship — or marks a true
+   constitutional question in **Document E** rather than inventing an answer.
+
+Combat's obligations are discharged in **Document B**; every Combat mechanic there
+cites the Kernel primitive it reads or writes.
+
+---
+
+# XVIII · Open-question register (pointer)
+
+**Every decision is signed** (William, 2026-07-24) and folded into A/B/C. **CUS v0.6
+is closed** — no open constitutional questions remain. Full record in
+**[Document E](E_OPEN_DECISIONS.md)**:
+
+```text
+SIGNED  grade-accumulation   · Model 2 (discrete — Grade N resolves only its own Effects)
+SIGNED  persistent-traits    · Option B — referenced passive Definitions; keyword: trait
+SIGNED  tool-vocabulary      · combat Tool set = Melee / Ranged / Hybrid (vibe-check)
+SIGNED  temperament          · five words + leaderless/Broken behaviour table (B · 10)
+SIGNED  force-ontology       · Force IS a formal Kernel primitive (non-numerical)
+SIGNED  packet-classification· neutral ID + separate packet_index sidecar (designed)
+SIGNED  base-classes         · Small / Medium / Large (no Monstrous, no Cavalry-as-class)
+SIGNED  engagement           · bases touching = engaged · Reach 1–2″ · Disengage 1 AP
+SIGNED  counter              · turn-and-face · no cap · dying swing · Circles faceless
+SIGNED  counter-loop         · a Counter does not itself draw a Counter
+SIGNED  morale-states        · Steady → Shaken → Broken (Broken = Rout by Temperament)
+SIGNED  nerve-trigger        · shock (wounded / ally falls within 3″) → roll 3, count Nerve
+```
+</script>
+<script type="text/markdown" data-doc="B" data-title="B · Combat Module">
+# CUS — THE COMBAT MODULE
+### v0.6 · the reference implementation · rebuilt 2026-07-23
+
+> **What this is.** The Kernel (Document A) doing real work: physical conflict.
+> Combat is the *reference* implementation — it exercises the most primitives —
+> but it is **not** the Kernel's master (Law 12). Everything here is a **Combat
+> Module fact** and may be retuned; none of it is promoted to Kernel law.
+>
+> **Citation rule.** Every mechanic names the Kernel primitive it reads or
+> writes, in brackets: `[Position]`, `[PACKET→Grade]`, `[Agency]`, `[State]`.
+> If a mechanic can't cite one, it doesn't belong here (Law 14).
+>
+> **Translation.** Combat renames the three verbs:
+> `MOVE→Advance · ACTION→Strike/Interact/Cast · WAIT→Brace/Overwatch`. The player
+> reads the flavour; the system reads MOVE · ACTION · WAIT.
+
+---
+
+# 1 · Bases — physical information
+
+The base *is* the label. Pick up the model and read it.
+
+## Shape = type  `[Definition]`
+```text
+Circle = hero / avatar          Square = crew / commandable body
+```
+- **Circle** — hero/avatar. **Faceless** (no facing — can't be flanked). Never tests
+  Nerve, never breaks.
+- **Square** — crew. **Has a facing.** May test Nerve, may break.
+
+## Size = class  `[Definition]` — SIGNED (William, 2026-07-24)
+**Three classes**, read from the **footprint**. No Monstrous; no Cavalry as a class.
+```text
+Small · Medium · Large
+```
+| Class | Square | Circle |
+|---|---:|---:|
+| Small | 20 mm | 25 mm |
+| Medium | 25 mm | 32 mm |
+| Large | 40 mm | 40 mm |
+
+A "monstrous" creature is simply a **Large** figure, distinguished by its **traits**
+(§14) — e.g. a plow-through-bodies trait — not by a fourth size.
+
+## Elongated = mounted  `[Definition]`
+**Mounted is geometry, not a size class.** An elongated base — an elongated Small,
+Medium, or Large — communicates mounted geometry: **narrow frontage penetrates
+deeply; wide frontage bulldozes broadly.** A mounted figure keeps its size class and
+**plows as one class larger** (the lance, §4). There is **no** heavy/light cavalry
+base split — cavalry doctrine emerges from Role · Tempo · Tool · Temperament ·
+PACKETs · geometry, not a second size system.
+
+## Tool set  `[Definition]` — SIGNED (William, 2026-07-24)
+The Combat Module's Tool vocabulary — *how* a figure delivers Force — is a
+**vibe-check** (ordinal classification, Law 10):
+```text
+Melee · Ranged · Hybrid
+```
+*Hybrid* = a figure that meaningfully delivers Force both in contact and at range.
+Tool never sets purpose; a Melee figure may be Pressure, Anchor, or Utility.
+
+---
+
+# 2 · Movement  `[writes Position]`
+
+Advance is combat's MOVE: choose a legal destination or trajectory, pay Agency,
+change Position. Movement carries the usual domain aliases (Advance, Sprint,
+Leap, Withdraw) — all MOVE.
+
+- **Obstacles are paid inline** as part of one continuous MOVE (no
+  stop-spend-move). Climbing/vaulting costs extra Agency per story `[Agency]`.
+- Dropping one story is free and harmless; dropping further, or being displaced
+  off an edge, is resolved by the owning procedure `⚠ OPEN → E·combat-aftermath`.
+
+---
+
+# 3 · Sprint & Impact  `[writes Position]`
+
+**Charge is retired as a keyword** — it collided with movement. Instead:
+```text
+Sprint = continued MOVE
+Impact = the contact that MOVE creates
+```
+> **When a Sprint contacts another body, resolve an Impact.**
+
+The figure stays in its Sprint; **Impact** names the collision and its
+resolution, not the movement producing it. "Charge" survives only as flavour.
+
+Conceptual reduction:
+```text
+Sprint through bodies  =  MOVE  +  N× Impact resolutions  +  Position changes
+```
+
+---
+
+# 4 · The Push — geometry, not a number  `[writes Position]`
+
+Two bases cannot share space. A moving base continues along its **straight
+trajectory** and displaces contacted bases the **minimum** needed to clear its
+path. Slide the models; don't measure. The cascade:
+
+1. **Push** — shove the contacted body aside enough to clear the lane.
+2. **Indent** — if bodies behind it block the sideways shove, carry them forward;
+   the line dents.
+3. **Crush** — if a **wall or obstacle** prevents clearance, the mover **jams and
+   stops**, and the Impact receives the appropriate bonus (nowhere to go = it
+   crushes).
+
+**Displacement is not damage.** The Push changes **Position**; any Wound or state
+change comes from the **PACKET** the Impact resolves `[PACKET→Grade]`. The
+wall-crush is the only place a blocked shove feeds the hit.
+
+Size gating across the three classes (Small · Medium · Large):
+- larger bodies plow smaller; same-size plow grudgingly;
+- **Small does not plow** — it slips through without an ordinary Disengage;
+- **Mounted (elongated) plows as one class larger** (the lance);
+- a head-on clearing tie is the **mover's choice**;
+- movement continues until Agency/Move is exhausted or the mover jams.
+
+*A figure that should shove through bodies unchecked (the old "Monstrous") carries a
+**trait** (§14) — e.g. `unstoppable` (only a wall stops it) — rather than occupying a
+fourth size class.*
+
+---
+
+# 5 · PACKET resolution in combat  `[resolves PACKET → Grade]`
+
+A combat PACKET may define: `dice · success_number · range/reach · area · cost ·
+grades · effects`. It is **referenced, never copied** onto each weapon; the
+ordering below is written **once, here**, not on every card.
+
+Typical flow:
+```text
+declare target        [Position: legality]
+→ verify legality
+→ load modifiers      (position/facing/environment — prefer Position over numbers)
+→ roll dice
+→ count Successes     (each die ≥ success_number)
+→ determine Grade     (highest Grade reached)
+→ resolve Effects
+→ roll Armour per Wound
+→ apply surviving Wounds        [State]
+→ resolve Counter / Nerve / aftermath   (owned procedures — §9, §10)
+```
+
+> **SIGNED (William, 2026-07-24): Model 2 — Discrete.** Read the **single** Grade
+> you reached and resolve **only** the Effects written on that line. A higher Grade
+> does **not** carry up lower Grades' Effects. Authoring rule: write each Grade line
+> as a complete result; if an Effect should appear at several Grades, print it on
+> each. No accumulation, no "best-Wound-plus-every-passed-Effect."
+
+---
+
+# 6 · Success Grades in combat
+
+The result structure is the Kernel's **Success Grade** (Document A · VI). A combat
+PACKET lists its Grades against a success count:
+```text
+GREATAXE — Dice 3 · Success 5+
+  GRADE 1 — 1 Wound
+  GRADE 2 — 2 Wounds
+  GRADE 3 — 2 Wounds + Cleave
+```
+- **Success** — a die ≥ the PACKET's success number.
+- **Grade** — how well the roll succeeded.
+- **Effect** — Wound, Push, Knockdown, Guard, Cleave, Execute, ignore-Armour, …
+  the state change a Grade resolves `[State]`.
+
+**Discrete (Model 2):** the Greataxe above restates "2 Wounds" at Grade 3 on
+purpose — you read **only** the reached line, so any Effect meant to carry up is
+written on each line. Do **not** call this a Tier or a Ladder.
+
+---
+
+# 7 · Wounds & Armour  `[State]`
+
+Health track (Combat fact, retunable):
+```text
+Fine → Hurt → Knocked Out → Dead
+```
+Armour rolls **one save die per incoming Wound**. Current spectrum (Combat facts,
+**not** Kernel primitives — do not promote these numbers upward):
+```text
+None —      Light 6+      Medium 5+      Heavy 4+
+```
+A save that would worsen past 6+ can no longer save. Unsaved Wounds apply to the
+health track.
+
+---
+
+# 8 · Engagement & facing  `[Position]` — SIGNED (William, 2026-07-24)
+
+**Bases touching = engaged.** No measured band — if two bases are in contact, the
+figures are engaged, full stop. Engaging turns **Squares** to face each other;
+**Circles are faceless** — a hero has no facing, so angle never matters to or from a
+Circle.
+
+A figure faces the enemy it is engaged with. Attacking a **free** figure pulls it
+into engagement — it turns to face you and Counters (§9). A **Square already engaged
+with another enemy** faces *that* foe, so a new attacker reaching its **flank or
+rear** strikes an arc it isn't facing (a Flank/Backstab) and draws no Counter. A
+**Circle**, being faceless, always Counters regardless of angle.
+
+Leaving an engagement costs a **Disengage — 1 AP.**
+
+**Reach is the exception to base-contact.** A Reach figure threatens a **1–2″ band**
+and may strike a figure that tries to move past within that reach **without base
+contact** — so you can't just walk by a spearman. A Reach strike from outside contact
+is not engagement and draws **no Counter** (§9).
+
+---
+
+# 9 · Counter — turn and face  `[WAIT / PACKET]` — SIGNED (William, 2026-07-24)
+
+Attack a figure and it **Counters** — one melee PACKET back — **and turns to face
+you; you are now engaged.** A **free (unengaged) target always gets its swing** and
+is pulled into engagement with its attacker: the first attacker on an open figure
+eats the Counter. Structurally a Counter is a PACKET armed against the trigger
+"struck by an enemy," so it lives in the WAIT family (deferred resolution) even when
+it fires automatically.
+
+The **only** ways to deny a Counter are positional:
+- **Free target** → **Counters**, turns to face, becomes engaged with you. *(No, you
+  can't safely walk up and stab a free figure — it turns and hits back.)*
+- **Square already engaged with another enemy, struck on its unfaced flank/rear** →
+  **no Counter.** It faces foe X; a new attacker reaching the arc it isn't facing gets
+  the free side-shot. **Circles are faceless** → a Circle **always** Counters, from
+  any angle.
+- **Reach without contact** → **no Counter** (the reach striker is not glued).
+
+**No cap, and the dying swing lands — SIGNED (William, 2026-07-24).** There is **no
+per-round limit** on Counters and no `counter_x` economy: a figure Counters **every**
+enemy that attacks it, and Counters **even as it dies.** Worked example — you attack a
+figure, engage, it Counters and kills you; your body is shoved off; that same figure
+is now free and will **Counter the next attacker** who steps up. **A Counter does not
+itself draw a Counter (SIGNED, William 2026-07-24)** — a Counter is a *response*, not
+an ATTACK, so two figures never loop forever.
+
+---
+
+# 10 · Nerve, morale & break  `[State / Temperament]`
+
+**Morale track — SIGNED (William, 2026-07-24): three states** (like everything else,
+in threes).
+```text
+Steady → Shaken → Broken
+```
+- **Squares test Nerve; Circles do not** — and Circles never break. `[Definition: shape]`
+- A failed test steps a Square **down** the track (Steady → Shaken → Broken) `[State]`.
+- **Broken = it Routs**, behaving by its **Temperament** (table below).
+- **Rally** steps a figure back **up** the track (toward Steady).
+- **Creature Type** may alter the branch.
+
+**Temperament behaviour — SIGNED (William delegated → designed, 2026-07-24).** What a
+figure does when **leaderless** (its AI fallback) and when it goes **Broken (Routs)**:
+
+| Temperament | Leaderless — it… | On Broken (Rout) — it… |
+|---|---|---|
+| **Cowardly** | keeps distance, avoids danger, strikes only with the odds | flees to its own table edge |
+| **Resolute** | holds or pursues the objective | falls back toward its leader / the objective (does not flee outright) |
+| **Aggressive** | advances on the nearest enemy | one last reckless advance at the nearest enemy |
+| **Protective** | guards / stays close to the nearest ally | retreats to the nearest ally |
+| **Ravenous** | attacks the nearest figure, any side | turns **Wild** — attacks the nearest figure, friend or foe |
+
+**The Nerve test — SIGNED (William delegated → designed, 2026-07-24).**
+
+*Who tests.* Only **Squares** of Creature Type **Man** or **Beast.** Circles never
+test (heroes hold); **Spirit** and **Construct** never test (fearless).
+
+*Triggers — a shock.* A Square tests Nerve the moment it suffers a shock:
+- it is **Wounded** by an ATTACK (took a hit and lived), **or**
+- a **friendly figure within 3″** is slain or goes **Broken.**
+
+One test per shock. A PACKET may also force a test through an Effect (a Terror rung).
+
+*The roll — in threes.* Roll **3 dice**; each die **≥ the figure's Nerve** value is a
+success. Read the successes against the morale track:
+- **0 successes** → step **down** one state (Steady → Shaken → Broken);
+- **1–2 successes** → **hold** (no change);
+- **3 successes** → step **up** one state (rally through it: Shaken → Steady).
+
+**Broken → the figure Routs** by its Temperament (table above). **Rally** (a leader's
+USE) also steps a figure **up** one state. The test reads like every other roll in CUS
+— a small pool, a success number, count successes — so nothing new is learned.
+
+---
+
+# 11 · Formations — descriptive, not prescriptive  `[Position]`
+
+> **Formations are descriptive, not prescriptive.** Players maintain the declared
+> shape as closely as practical given Position, terrain, and contact.
+
+A Formation Definition holds only: `Name · Picture · one sentence of intent`.
+- **Advance** *translates* a shape (moves the group along a route).
+- **Reform** *changes* a shape.
+
+Both reduce to **existing verbs and Position changes** — they are **not** new
+Kernel verbs (Law 11). Avoid rigid spacing matrices or transformation maths unless
+playtesting proves the precision buys a better decision (Law 8).
+
+---
+
+# 12 · Alternation — attention management  `[Agency]`
+
+Combat's current activation model:
+```text
+Side A activates one Figure → Side B activates one Figure → repeat until exhausted.
+```
+If one side runs out of eligible Figures, the other resolves its remainder one at
+a time. Wild/uncontrolled figures resolve afterward per the owning procedure.
+Alternation is **attention management** — a camera that directs focus to the
+hottest fight — not mere initiative bookkeeping.
+
+---
+
+# 13 · Creature Type in combat  `[Definition]`
+
+```text
+Man · Beast · Spirit · Construct
+```
+Creature Type governs combat's **morale, mending, and targeting** relationships
+(e.g. who tests Nerve, who can be healed, who never breaks). Its exact branches
+are bound up with `⚠ OPEN → E·combat-aftermath`. Creature Type is **what a figure
+is**; its **Archetype** (Knight, Berserker, Assassin…) is *who* it is — a readable
+`Role + Tool + signature` combination, never confused with type.
+
+---
+
+# 14 · Traits — referenced passive Definitions  `[Definition]` — SIGNED (William, 2026-07-24)
+
+Always-true properties a figure carries — **Large, Flying, Mounted, Fearless,
+Amphibious, Reach, Unstoppable, …** — are **Traits: referenced passive Definitions**
+(Option B). A Trait is defined **once** and referenced by ID on a figure, exactly
+like a PACKET but **passive** — it is never an ACTION/WAIT-resolved effect and never
+holds runtime state (Law 5). The player-facing word is **trait**.
+```json
+{ "trait_id": "reach" }        { "trait_id": "unstoppable" }
+```
+A figure lists its `traits: [ ... ]`. Traits are **not** PACKETs (they resolve
+nothing) and **not** size classes — `Large` is a size; `unstoppable` (plow through
+bodies, only a wall stops it — §4) is a **trait** a Large figure may carry. **Reach**
+is a Trait (and/or a PACKET property), no longer a Role.
+
+---
+
+# 15 · Combat presentation  `[Presentation]`
+
+What the player sees is translation, never a parallel mechanic:
+```text
+player:  Advance · [weapon] "Spear Thrust" · GRADE 1/2/3 · Brace
+system:  MOVE   · ACTION packet_id:spear_thrust · Grade · WAIT (armed packet)
+```
+Floating table state shows **Instance** only (Position, Wounds, Agency left,
+conditions, an armed WAIT) — never the Definition's fixed stats, which live on the
+card.
+
+---
+
+# 16 · What this module owes the Kernel
+
+Every section above either writes **Position**, resolves a **PACKET** into a
+**Grade**, spends **Agency**, changes **State**, or reads a **Definition** axis
+(Role · Tempo · Tool · Temperament · Creature Type). Nothing here invents a
+parallel universal action, and nothing stores runtime state in a Definition or a
+PACKET (Laws 5, 11, 14). The unresolved combat calls are collected — unanswered —
+in **[Document E](E_OPEN_DECISIONS.md)**.
+</script>
+<script type="text/markdown" data-doc="C" data-title="C · Kernel Dictionary">
+# CUS — THE KERNEL DICTIONARY
+### v0.6 · one canonical definition per term · 2026-07-23
+
+> The Rosetta Stone. Every module checks its words here. If a word isn't in this
+> Dictionary, either add an alias to an existing entry or the word is inventing a
+> mechanic (forbidden, Law 11). Entries note the **owner** and what the term
+> **reads / writes / consumes / creates.**
+
+---
+
+## Substrates
+
+### Position
+Where an entity stands relative to other entities, objects, boundaries,
+opportunities, and threats. The shared substrate of the board or situation.
+**Owner:** Kernel. **Written by:** MOVE (and Impact). **Read by:** almost every
+procedure. The Kernel's first source of tactical depth.
+
+### Force
+An agent's capacity to produce, resist, or alter consequential change — broader
+than damage (violence, protection, healing, command, influence, supply, …).
+**A formal Kernel primitive** (SIGNED, William 2026-07-24), alongside Position,
+State, and Resource — but **non-numerical**: there is no Force stat. An agent's
+relationship to Force is read on four axes (Role, Tempo, Tool, Temperament) and
+expressed by writing State, Position, or a Resource. **Owner:** Kernel.
+
+---
+
+## Resources
+
+### Agency
+The limited capacity an entity has to act during its activation; carried as **AP**.
+Unless a module says otherwise, **1 AP buys one MOVE, one ACTION, or one WAIT.**
+**Owner:** Kernel. **Consumed by:** the three verbs. One of the exchangeable
+Resources.
+
+### Resource
+Any limited quantity spent to produce change: `Agency · Position · Health ·
+Morale · Information · Influence · Supply · Time`. **Owner:** Kernel; each module
+implements the resources it needs.
+
+---
+
+## The three verbs
+
+### MOVE
+The verb that **changes Position now**. Acts on the acting entity; writes directly
+to Position. **Owner:** Kernel. **Consumes:** Agency. **Creates:** a Position
+change. **Aliases:** Advance · Sprint · Leap · Teleport · Withdraw · Sail ·
+Approach.
+
+### ACTION
+The verb that **resolves a PACKET now** against a valid target. **Owner:** Kernel.
+**Consumes:** Agency. **Creates:** the PACKET's Effects (via a Grade). **Aliases:**
+Strike · Attack · Use · Cast · Heal · Repair · Persuade · Accuse · Interact · Hack.
+*(Uppercase ACTION = this verb; lowercase "action" = any AP spend in prose.)*
+
+### WAIT
+The verb that **arms a PACKET against a trigger**, deferring its resolution.
+**Owner:** Kernel. **Consumes:** Agency (and the figure's reaction). **Creates:** a
+primed `trigger → resolution`. **Aliases:** Brace · Overwatch · Intercept ·
+Counter · Prepare Response · Wait.
+
+---
+
+## The executable definition
+
+### PACKET
+A stateless, named, referenced definition of a resolvable effect — the single
+universal executable object (weapon, spell, ability, interaction, reaction,
+impact, heal, command). **Owner:** the module that resolves it. **Holds no runtime
+state.** Has a **neutral ID** + a player-facing **name**. Resolved by ACTION, armed
+by WAIT, or invoked by another owned procedure. Carries no good/bad tag.
+
+### Success
+A single die that meets a PACKET's success number. **Owner:** the resolving
+Procedure. Counted to determine the Grade.
+
+### Grade  *(Success Grade)*
+How well a PACKET succeeded — the highest Grade reached by the Success count.
+**Owner:** the resolving Procedure. Replaces Ladder/Tiers/Rungs. **Discrete
+(Model 2, SIGNED William 2026-07-24):** resolving Grade *N* resolves **only** the
+Effects written on Grade *N* — no inheritance of lower Grades' Effects. **Not** to
+be called a Tier.
+
+### Effect
+The state change a resolved Grade produces (Wound, Push, Knockdown, Guard, heal,
+reveal, …). **Owner:** the PACKET (defined) / the Procedure (applied). **Writes:**
+State (or Position, for displacement Effects).
+
+### Trait
+An **always-true** property a Figure carries — a **referenced passive Definition**
+(SIGNED William 2026-07-24; keyword **trait**). Defined once, referenced by ID
+(`{ "trait_id": "reach" }`), like a PACKET but **passive**: it resolves nothing and
+holds no runtime state. Examples: Large, Flying, Mounted, Fearless, Amphibious,
+Reach, Unstoppable. **Not** a PACKET, **not** a size class. **Owner:** the module
+that defines it.
+
+---
+
+## The four axes
+
+### Role
+An agent's **primary relationship with Force**. **Owner:** Kernel. Exactly three:
+**Pressure · Anchor · Utility.** Names the agent's main relationship, not every
+effect its PACKETs can produce.
+
+### Pressure
+The Role that **applies Force** — threatens, breaches, displaces, suppresses,
+pursues, exposes, overwhelms.
+
+### Anchor
+The Role that **prevents Force** — holds, blocks, absorbs, protects, delays,
+intercepts, preserves.
+
+### Utility
+The Role that **changes Force** — amplifies, weakens, redirects, restores,
+reveals, coordinates, relocates, transforms. Absorbs older Control + Support.
+
+### Tempo
+The **relative timing of Force**: how soon an agent can bring its Role to bear
+compared with others in the same environment. **Ordinal, not a formula:**
+`> Slow · >> Normal · >>> Fast`. A designer-assigned **classification** (Law 10),
+never a measured statistic; not Move distance, initiative, range, AP, or damage.
+
+### Tool
+**How Force is delivered** — the channel or mechanism through which an agent
+expresses its Role. Does not define purpose; the same Tool may deliver any Role.
+**Owner:** Kernel defines it abstractly; each module declares its own controlled
+Tool vocabulary. **Combat's set (SIGNED William 2026-07-24): `Melee · Ranged ·
+Hybrid`** — a vibe-check classification (like Tempo), *Hybrid* = delivers Force both
+in contact and at range. Old `Utility` is a Role, not a Tool.
+
+### Temperament
+The agent's **preferred application of Force** — behavioural bias when several
+legal applications exist (when to commit, where to direct Force, what to do when
+cohesion fails). Preference, not capability. **SIGNED (William 2026-07-24):**
+`Cowardly · Resolute · Aggressive · Protective · Ravenous`. Their leaderless and
+break/Rout behaviours are the combat table in **B · 10**.
+
+---
+
+## Identity
+
+### Creature Type
+**What an entity is** — governs broad biological/morale/repair/targeting
+relationships owned by a module. Combat set: `Man · Beast · Spirit · Construct`.
+
+### Archetype
+**Who an entity is** in play language: `(Role + Tool + signature) → Archetype`
+(Gunslinger, Berserker, Knight, Scout, Artillery). A readable combination, **not a
+primitive.** Old role words (Skirmisher, Tank, Sniper, Support) may survive here.
+
+---
+
+## The four layers
+
+### Definition
+Static, referenced information describing **what a thing inherently is** (figure
+profile, PACKET, Formation, Mission template, Role, Tool, Tempo, Temperament).
+**Holds no runtime state** (Law 5).
+
+### Procedure
+The **owned resolution method** that turns a grammar statement into an outcome
+(movement, PACKET, Grade, Impact, Nerve, travel, social resolution). A module owns
+its procedures.
+
+### Instance
+**What is true right now** (current Position, remaining Wounds, conditions, an
+armed WAIT, active Mission, current supplies, relationships). The **only** home of
+runtime state.
+
+### Presentation
+**What the player sees** — flavour verbs, symbols, cards, models, markers. It
+**translates** the Kernel and never forks a parallel mechanic.
+
+---
+
+## Organizational hierarchy
+
+### Figure
+One independent agent / one piece. Owns capability: `Role · Tempo · Tool ·
+Temperament · signature · PACKET references · stats`. Remains a complete agent
+inside any higher formation.
+
+### Fireteam
+The primary local maneuver element: a **Sergeant + ~3–5 Retinue.** The Sergeant
+supplies coordination, Rally, formation handling, command continuity.
+
+### Banner
+The warband / persistent tactical group: a **Champion + Fireteams + loose
+specialists.** Not an Order, a Mission, a command-state, or a flag-bearer.
+
+### Caravan
+The primary **persistent expedition**; physically carries what survives between
+events (figures, Banners, civilians, wagons, supplies, injuries, wealth, quests,
+relationships, reputation, crafting facilities). **Progression lives here.**
+
+### Army
+Many Banners coordinated for a military campaign.
+
+### Kingdom
+The political society containing institutions, law, Caravans, and Armies.
+
+---
+
+## Command & targeting
+
+### Mission
+Constrained intent for an **AI-controlled** Banner: `Intent · Priorities · Focus ·
+Constraints · Fireteam assignments`. Narrows the decision problem; does not
+puppeteer Figures. **AI-only** (Law 9).
+
+### Target
+What an ACTION or WAIT resolves against: **Self · Agent · Object · Point · Area**
+· or a **Trigger window** (WAIT). Legality is owned by the resolving module.
+
+### Area
+The shape an Effect covers: none · a radius · a template. A property of the
+grammar statement, resolved by the PACKET.
+
+### State
+What is true of an Instance right now and can change: Wounds, conditions, morale,
+armed WAIT, activation flags. **Written by** Effects and Procedures; **stored** in
+the Instance.
+
+---
+
+## Combat-specific movement terms
+
+### Sprint
+A **continued MOVE** — combat's word for pressing movement forward. Writes
+Position. When a Sprint contacts a body, it produces an **Impact**.
+
+### Impact
+The **contact a MOVE creates**, and its resolution. Names the collision, not the
+movement. Displaces bodies via the Push `[Position]` and may invoke a PACKET for
+any Wound/state change `[PACKET→Grade]`. A Combat Module procedure. Replaces the
+retired keyword **Charge**.
+</script>
+<script type="text/markdown" data-doc="D" data-title="D · Migration Map">
+# CUS — THE MIGRATION MAP
+### v0.6 · every old term → its new owner or replacement · 2026-07-23
+
+> How the old vocabulary maps onto the rebuilt Kernel. **Nothing valuable is
+> silently deleted** — where a retired term keeps useful flavour or archetype
+> value, the "New treatment" column says so. Terms marked ⚠ point to an open
+> ruling in [Document E](E_OPEN_DECISIONS.md).
+
+---
+
+## 1 · Verbs & actions
+
+| Old | New treatment |
+|---|---|
+| MOVE / ATTACK / USE / READY | **MOVE / ACTION / WAIT** |
+| ATTACK (primitive) | **ACTION** resolving a PACKET |
+| USE (primitive) | **ACTION** resolving a PACKET |
+| READY (primitive) | **WAIT** arming a PACKET |
+| Charge = MOVE + ATTACK | **Sprint** (movement) creates **Impact**; Impact resolves the relevant PACKET |
+| Charge (rules keyword) | **Retired.** "Charge" survives as ordinary flavour only |
+
+## 2 · PACKETs
+
+| Old | New treatment |
+|---|---|
+| Attack Packet | **PACKET** |
+| Ability Packet | **PACKET** |
+| Weapon Packet | **PACKET** |
+| Reactive Packet | **PACKET** (armed by WAIT) |
+| Passive Packet | **Not a PACKET.** A persistent trait — home ⚠ E·persistent-traits |
+| Typed IDs `ATK_07 · ABIL_04 · REACT_02 · PASSIVE_09` | **Neutral IDs** (`spear_thrust`); classification deferred to separate JSON ⚠ E·packet-classification |
+| Harmful / beneficial tag | **Do not add.** Target + context decide |
+| "The Tiers are the weapon" | The PACKET's **Grades and Effects** define its resolution |
+
+## 3 · Result structure
+
+| Old | New treatment |
+|---|---|
+| Ladder | **Success Grade / Grade** |
+| Tiers (as packet result) | **Grade** |
+| Rungs / Outcome Track | **Grade** |
+| Tier / Class | **Reserved** for persistent size / organizational classification — *not* the packet result |
+| "best Wound + every passed Effect" | **Model 2 — Discrete** (SIGNED): Grade *N* resolves **only** its own written line; no inheritance |
+
+## 4 · Roles
+
+| Old | New treatment |
+|---|---|
+| Five universal Roles | **Three: Pressure / Anchor / Utility** |
+| Assault | **Pressure** (or a player-facing archetype) |
+| Skirmisher | **Pressure/Utility** + Tempo/Tool/Temperament, or an archetype |
+| Control | **Utility** (or an Effect / tag / archetype) |
+| Support | **Utility** (or an archetype) |
+| Anchor (old) | **Anchor** (kept, redefined: *prevents Force*) |
+| Reach (as a Role) | **Removed as a Role.** A PACKET property or trait ⚠ E·persistent-traits |
+| Projection | **Removed as a Role.** Express via Role + Tempo + Tool + PACKETs |
+| Heavy / Light cavalry Role split | **Removed.** Express through Role · Tempo · Tool · PACKETs · geometry |
+
+## 5 · The four axes (new / reframed)
+
+| Old | New treatment |
+|---|---|
+| (no explicit Tempo) | **TEMPO** — new axis, ordinal `> / >> / >>>` (Slow/Normal/Fast) |
+| Role + old Tool = Class | **Rebuilt:** `Role + Tool + signature = Archetype` |
+| Tool = `Melee / Ranged / Utility` | **Combat Tool = `Melee · Ranged · Hybrid`** (SIGNED, vibe-check). Utility is now a Role; *Hybrid* replaces the old third slot |
+| Temperament (as AI script) | **TEMPERAMENT** (SIGNED) — five words + leaderless/Rout behaviour table (B · 10) |
+
+## 6 · Identity
+
+| Old | New treatment |
+|---|---|
+| Creature Type `Man/Beast/Spirit/Construct` | **Kept** — *what an entity is* (Combat's set) |
+| Archetype `(Role+Tool)×signature` | **Rebuilt** as `Role + Tool + signature → Archetype`; readable, not a primitive |
+| "Skirmisher / Tank / Sniper" as Roles | **Archetypes / player-facing descriptions**, not Roles |
+
+## 7 · Architecture (preserved, wording updated)
+
+| Old | New treatment |
+|---|---|
+| DEFINITION → PROCEDURE → INSTANCE → PRESENTATION | **Preserved unchanged** |
+| The 14 Architectural Laws | **Preserved and updated** (A · XV) — Law 10 now explicitly covers *classification vs. statistic* (Tempo) |
+| Recursive hierarchy Figure→…→Kingdom | **Preserved** (A · X) |
+| Caravan as physical persistence | **Preserved** (A · X) |
+| Missions are AI-only | **Preserved** (Law 9, A · XI) |
+| Translation layer / formal grammar | **Preserved**, retargeted to three verbs |
+
+## 8 · Combat facts (kept in Module B, retunable)
+
+| Old | New treatment |
+|---|---|
+| Bases: shape=type, size=class, elongated=mounted | **Kept** (B · 1). Size classes SIGNED = **Small / Medium / Large** (no Monstrous, no Cavalry-as-class); mounted = elongated geometry; "monstrous" = a Large + `unstoppable` trait |
+| Push / Indent / Crush geometry | **Kept** (B · 4), now driven by Sprint→Impact |
+| Wounds `Fine→Hurt→KO→Dead` | **Kept** (B · 7), Combat fact |
+| Armour `None/Light/Medium/Heavy = —/6+/5+/4+` | **Kept** (B · 7), Combat fact — **not** a Kernel primitive |
+| Alternation | **Kept** (B · 12), "attention management" |
+| Formations descriptive | **Kept** (B · 11) |
+| Counter | **SIGNED, turn-and-face** (B · 8–9): free figure → Counters, turns to face, engages; deny only via flank/rear on an already-engaged Square; Circles faceless (always Counter); **no cap, dying swing lands** |
+| Engagement | **SIGNED** (B · 8): bases touching = engaged (no band); Disengage 1 AP; Reach threatens 1–2″ and strikes figures moving past |
+| Morale: Fearless-tier / old Nerve wording | **SIGNED** (B · 10): three states **Steady → Shaken → Broken**; Broken = Rout by Temperament; Rally steps up |
+| Nerve **test trigger + resolver** | **SIGNED** (B · 10): shock = wounded, or an ally falls within 3″ → roll **3 dice** vs. Nerve; 0 = step down, 1–2 = hold, 3 = step up |
+| Persistent traits (Large/Flying/Fearless/Reach/Amphibious) | **Traits** — referenced passive Definitions (SIGNED, keyword `trait`, B · 14) |
+
+## 9 · Downstream artifacts (built on the old vocabulary — need migration)
+
+These already exist and use v0.5 words. They are **not** authority; they are
+migration debt to reconcile against A–C when the open rulings land.
+
+| Artifact | Uses (old) | Migration when signed |
+|---|---|---|
+| `CUS_TTS_MOD/` (TTS playtest) | four verbs, five Roles, typed packet IDs (`ATK_*`), "Tiers" | remap radial wheel to MOVE·ACTION·WAIT; Roles→P/A/U; packet IDs→neutral; "Tiers"→"Grade"; Charge→Sprint/Impact |
+| `unit_library.json` (73 units) | `role` (5-way), `base.class` Small/Normal/Cavalry/Large/Monstrous, `attack_packet_ids:["ATK_*"]`, `tiers` | roles → Pressure/Anchor/Utility (+archetype); **classes → Small/Medium/Large**, Cavalry→elongated `mounted:true`, Monstrous→Large + `unstoppable` trait; `tool` → Melee/Ranged/Hybrid; neutral packet IDs; `tiers` → discrete `grades`; add `traits:[]` |
+| `card_forge_v3.html` bindings | `{role}`, `{tiers}`, `{tool}` | `{tiers}` → `{grades}`; `{tool}` values → Melee/Ranged/Hybrid; add a `{traits}` binding |
+| `CUS_CODEX.md` v0.5 | everything above | becomes a retired **migration input**; not edited in place — superseded by this folder |
+
+> Do not migrate the downstream artifacts until the relevant open rulings in
+> **Document E** are signed — several remaps (Roles, Tool vocabulary, Grade
+> accumulation, neutral-ID scheme) depend on decisions that don't exist yet.
+</script>
+<script type="text/markdown" data-doc="E" data-title="E · Decision Register">
+# CUS — DECISION REGISTER
+### v0.6 · CLOSED · 2026-07-24
+
+> Every open decision is now **signed** (William, 2026-07-24) and folded into A/B/C.
+> **CUS v0.6 is closed** — there are no unresolved constitutional questions. This
+> register is kept as the record of what was decided and why; any *future* change is
+> a fresh amendment, not an open item.
+
+## Status board — all signed ✅
+
+| ID | Ruling | In |
+|---|---|---|
+| grade-accumulation | **Model 2 — Discrete** (Grade *N* resolves only its own Effects) | A·VI, B·5 |
+| persistent-traits | **Traits** — referenced passive Definitions; keyword `trait` | B·14, C |
+| tool-vocabulary | **Melee · Ranged · Hybrid** (vibe-check) | A·VII, B·1 |
+| temperament | **Five words + leaderless/Broken behaviour table** | A·VII, B·10 |
+| force-ontology | **Force IS a formal primitive** (non-numerical) | A·II, C |
+| packet-classification | **Neutral ID + `packet_index` sidecar** | A·V |
+| base-classes | **Small · Medium · Large** (no Monstrous, no Cavalry-class) | B·1 |
+| engagement | **Bases touching = engaged · Reach 1–2″ · Disengage 1 AP** | B·8 |
+| counter | **Turn-and-face · no cap · dying swing · Circles faceless** | B·9 |
+| counter-loop | **A Counter does not itself draw a Counter** | B·9 |
+| morale-states | **Steady → Shaken → Broken** (Broken = Rout by Temperament) | B·10 |
+| nerve-trigger | **Shock triggers + 3-dice Nerve roll** (delegated → designed) | B·10 |
+
+---
+
+## The final ruling — nerve-trigger (delegated → designed)
+William handed this one to me ("figure out what triggers a nerve check"). Designed to
+read like every other CUS roll:
+
+- **Who tests:** Squares of Creature Type **Man/Beast** only. Circles never test;
+  Spirit & Construct never test (fearless).
+- **Triggers (a shock):** the Square is **Wounded by an ATTACK**, **or** a **friendly
+  figure within 3″ is slain or goes Broken.** One test per shock; a PACKET Effect may
+  also force one.
+- **The roll (in threes):** roll **3 dice**, success = the figure's **Nerve** number.
+  **0** → step down the morale track · **1–2** → hold · **3** → step up.
+- **Broken → Routs** by Temperament (B·10). **Rally** steps a figure up.
+
+→ B·10.
+
+## Also signed
+**counter-loop.** A Counter is a *response*, not an ATTACK, so it does not itself draw
+a Counter — two figures never loop forever. *(William confirmed.)* → B·9.
+
+*(For the record, the earlier rulings — grades, traits, tools, temperament, force,
+packet index, bases, engagement, counter, morale states — are documented in the
+git history and mirrored in A/B/C. This register no longer holds open questions.)*
+
+---
+
+### v0.6 is closed
+No open constitutional questions remain. The next change to CUS is an **amendment**,
+recorded here as a new signed entry with its date — not a blank awaiting a ruling.
+
+*(One item was raised and deliberately left to the owner's discretion, not blocking:
+whether the **Wounds** track should also become three states. Currently
+`Fine → Hurt → KO → Dead` (B·7). Not an open constitutional question — a tuning call
+for whenever William wants it.)*
+</script>
+<script>
+(function(){
+  "use strict";
+  function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  var SENT = "";
+  function inline(s){
+    var codes=[];
+    s = s.replace(/`([^`]+)`/g, function(_,c){ codes.push(c); return SENT+(codes.length-1)+SENT; });
+    s = esc(s);
+    s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function(_,t,u){ return '<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>'; });
+    s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    s = s.replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, "$1<em>$2</em>");
+    s = s.replace(new RegExp(SENT+"(\\d+)"+SENT,"g"), function(_,i){ return "<code>"+esc(codes[+i])+"</code>"; });
+    return s;
+  }
+  function renderMd(md){
+    var lines = md.replace(/\r/g,"").split("\n"), out=[], i=0;
+    while(i<lines.length){
+      var ln = lines[i];
+      if(/^```/.test(ln)){ var buf=[]; i++; while(i<lines.length && !/^```/.test(lines[i])){ buf.push(lines[i]); i++; } i++;
+        out.push('<pre><code>'+esc(buf.join("\n"))+'</code></pre>'); continue; }
+      var h = ln.match(/^(#{1,6})\s+(.*)$/);
+      if(h){ out.push('<h'+h[1].length+'>'+inline(h[2])+'</h'+h[1].length+'>'); i++; continue; }
+      if(/^---+\s*$/.test(ln)){ out.push('<hr/>'); i++; continue; }
+      if(/^\|.*\|/.test(ln) && i+1<lines.length && /^\|?[\s:|-]+\|/.test(lines[i+1])){
+        var rows=[]; while(i<lines.length && /^\|/.test(lines[i])){ rows.push(lines[i]); i++; }
+        out.push(renderTable(rows)); continue; }
+      if(/^>\s?/.test(ln)){ var q=[]; while(i<lines.length && /^>\s?/.test(lines[i])){ q.push(lines[i].replace(/^>\s?/,"")); i++; }
+        out.push('<blockquote>'+renderMd(q.join("\n"))+'</blockquote>'); continue; }
+      if(/^\s*[-*]\s+/.test(ln)){ var it=[]; while(i<lines.length && /^\s*[-*]\s+/.test(lines[i])){ it.push(inline(lines[i].replace(/^\s*[-*]\s+/,""))); i++; }
+        out.push('<ul><li>'+it.join('</li><li>')+'</li></ul>'); continue; }
+      if(/^\s*\d+\.\s+/.test(ln)){ var oi=[]; while(i<lines.length && /^\s*\d+\.\s+/.test(lines[i])){ oi.push(inline(lines[i].replace(/^\s*\d+\.\s+/,""))); i++; }
+        out.push('<ol><li>'+oi.join('</li><li>')+'</li></ol>'); continue; }
+      if(/^\s*$/.test(ln)){ i++; continue; }
+      var p=[ln]; i++;
+      while(i<lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,6}\s|```|>\s?|\s*[-*]\s|\s*\d+\.\s|---+\s*$|\|)/.test(lines[i])){ p.push(lines[i]); i++; }
+      out.push('<p>'+inline(p.join(" "))+'</p>');
+    }
+    return out.join("\n");
+  }
+  function renderTable(rows){
+    function cells(r){ return r.replace(/^\||\|$/g,"").split("|").map(function(c){return c.trim();}); }
+    var head=cells(rows[0]), body=rows.slice(2).map(cells);
+    var h='<tr>'+head.map(function(c){return '<th>'+inline(c)+'</th>';}).join("")+'</tr>';
+    var b=body.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+inline(c)+'</td>';}).join("")+'</tr>';}).join("");
+    return '<div class="tablewrap"><table><thead>'+h+'</thead><tbody>'+b+'</tbody></table></div>';
+  }
+
+  var docEls = Array.prototype.slice.call(document.querySelectorAll('script[type="text/markdown"]'));
+  var DOCS = docEls.map(function(el){ return { id:el.getAttribute("data-doc"), title:el.getAttribute("data-title"), md:el.textContent.replace(/^\n/,"") }; });
+  var main = document.getElementById("main"), tabs = document.getElementById("tabs");
+
+  DOCS.forEach(function(doc, di){
+    var a=document.createElement("a"); a.textContent=doc.id; a.href="#"; a.title=doc.title;
+    a.onclick=function(e){ e.preventDefault(); show(di); };
+    tabs.appendChild(a);
+    var wrap=document.createElement("div"); wrap.className="doc"+(di===0?" show":"");
+    var dt=document.createElement("div"); dt.className="doctitle"; dt.textContent=doc.title; wrap.appendChild(dt);
+    var body=document.createElement("div"); body.className="md"; body.innerHTML=renderMd(doc.md); wrap.appendChild(body);
+    main.appendChild(wrap);
+  });
+  function show(di){
+    Array.prototype.forEach.call(document.querySelectorAll(".doc"), function(d,i){ d.classList.toggle("show", i===di); });
+    Array.prototype.forEach.call(tabs.children, function(a,i){ a.classList.toggle("cur", i===di); });
+    window.scrollTo({top:0,behavior:"instant"});
+  }
+  if(tabs.children[0]) tabs.children[0].classList.add("cur");
+
+  document.getElementById("themeBtn").onclick=function(){
+    var r=document.documentElement, cur=r.getAttribute("data-theme");
+    r.setAttribute("data-theme", cur ? (cur==="dark"?"light":"dark")
+      : (matchMedia("(prefers-color-scheme: dark)").matches ? "light":"dark"));
+  };
+})();
+</script>
