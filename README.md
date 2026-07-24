@@ -27,7 +27,7 @@ tool-vocabulary      → combat Tool set = Melee · Ranged · Hybrid (vibe-check
 temperament          → 5 words + leaderless/Rout behaviour table (delegated → designed)
 force-ontology       → Force IS a formal Kernel primitive (non-numerical)
 packet-classification→ neutral ID + packet_index sidecar (delegated → designed)
-combat-aftermath     → Counter is facing-gated (SIGNED); morale machinery still OPEN
+combat-aftermath     → Counter = turn-and-face (SIGNED); morale machinery still OPEN
 base-classes         → Small · Medium · Large (no Monstrous, no Cavalry-as-class)
 ```
 

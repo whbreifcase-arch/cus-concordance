@@ -58,11 +58,13 @@ query without parsing IDs. Definition-layer, stateless, one-owner, additive.
 *(William: "You figure out the best way here.")* → A·V.
 
 ## 🟡 combat-aftermath — PARTIAL
-**SIGNED (Counter & facing).** A figure Counters **only if facing its attacker.**
-Engaging turns both bases to face each other; a figure faces only who it is engaged
-with. Strike an **unengaged** figure on its side/rear (a flank/backstab) and it does
-**not** Counter — "you can walk up and stab someone on their side if they're not
-engaged." Reach without contact = no Counter. *(William, 7/24/26.)* → B·8–9.
+**SIGNED (Counter & facing).** Attack a figure and it **Counters and turns to face
+you — you are now engaged.** A free (unengaged) target **always** gets its swing; the
+first attacker on an open figure eats the Counter. The **only** way to deny a Counter
+is position: catch a figure **already engaged with another enemy** on the **flank or
+rear** it isn't facing (a Flank/Backstab) — *that* is the "stab them on the side"
+case, and it works only because the target is committed elsewhere. Reach without
+contact = no Counter. *(William, 7/24/26, corrected same day.)* → B·8–9.
 
 **STILL OPEN — morale machinery.** The **Nerve test** and the **Shaken · Rout ·
 Rally · Wild thresholds** (when a figure goes Shaken vs. Routs, how Rally clears it,

@@ -193,10 +193,11 @@ Engagement is a **Position** relationship: moving within the engagement band of 
 enemy makes you sticky. **On engaging, both bases turn to face each other** — an
 engaged figure *faces* the enemy it is engaged with.
 
-Because facing follows engagement, a figure faces only the enemies it is engaged
-with. **An enemy you are not engaged with is not facing you** — so you can move up
-and strike its exposed **side or rear** (a Flank/Backstab). That positional truth is
-exactly what gates the Counter (§9).
+Because facing follows engagement, a figure faces the enemy it is engaged with.
+Attacking a **free** figure pulls it into engagement — it turns to face you and
+Counters (§9). But a figure **already engaged with another enemy** faces *that* foe,
+so a new attacker reaching its **side or rear** strikes an arc it isn't facing (a
+Flank/Backstab). That positional truth is exactly what gates the Counter (§9).
 
 Leaving an engagement costs a **Disengage** (an Agency spend and/or a free swing to
 each engager, per the owned procedure). A wall of bodies is several engagements to
@@ -206,21 +207,23 @@ band distances and the Disengage free-swing sit with the open morale aftermath,
 
 ---
 
-# 9 · Counter — gated by facing  `[WAIT / PACKET]` — SIGNED (William, 2026-07-24)
+# 9 · Counter — turn and face  `[WAIT / PACKET]` — SIGNED (William, 2026-07-24)
 
-A figure struck by an ATTACK may resolve a **Counter** — one melee PACKET back at
-its attacker — **only if it is facing the attacker.** Structurally a Counter is a
-PACKET armed against the trigger "struck by an enemy I face," so it lives in the
-WAIT family (deferred resolution) even when it fires automatically.
+Attack a figure and it **Counters** — one melee PACKET back — **and turns to face
+you; you are now engaged.** A **free (unengaged) target always gets its swing** and
+is pulled into engagement with its attacker: the first attacker on an open figure
+eats the Counter. Structurally a Counter is a PACKET armed against the trigger
+"struck by an enemy," so it lives in the WAIT family (deferred resolution) even when
+it fires automatically.
 
-Facing follows engagement (§8):
-- **Front / engaged** — the defender faces its attacker → it **Counters.** Engage an
-  enemy front-on and it turns to face you and swings back.
-- **Flank / Rear** — you struck a side the defender was **not** facing (it was
-  unengaged with you, or turned toward another foe) → **no Counter**, plus the
-  positional advantage of the exposed side. *You can walk up and stab an unengaged
-  figure in the flank precisely because it isn't facing you.*
-- **Reach without contact** — the Reach striker is not glued and takes **no Counter.**
+The **only** ways to deny a Counter are positional:
+- **Free target** → **Counters**, turns to face, becomes engaged with you. *(No, you
+  can't safely walk up and stab a free figure — it turns and hits back.)*
+- **Already engaged with another enemy, struck on the unfaced side** → **no
+  Counter.** A figure locked with foe X faces X; a new attacker reaching its **flank
+  or rear** strikes an arc it isn't facing (a Flank/Backstab). *This* is the "stab
+  them on the side" case — it works only because the target is committed elsewhere.
+- **Reach without contact** → **no Counter** (the reach striker is not glued).
 
 *Still part of the open morale aftermath (§10): the Counter **economy** — once per
 round vs. a `counter_x` trait, and whether a figure Counters as it dies — is not yet

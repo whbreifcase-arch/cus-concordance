@@ -94,7 +94,7 @@
 | Armour `None/Light/Medium/Heavy = —/6+/5+/4+` | **Kept** (B · 7), Combat fact — **not** a Kernel primitive |
 | Alternation | **Kept** (B · 12), "attention management" |
 | Formations descriptive | **Kept** (B · 11) |
-| Counter | **SIGNED, facing-gated** (B · 8–9): Counter only vs. a faced attacker; engaging turns bases to face; a flank/rear strike on an unengaged figure draws no Counter |
+| Counter | **SIGNED, turn-and-face** (B · 8–9): attacking a free figure → it Counters, turns to face, becomes engaged; deny a Counter only by striking a figure already engaged elsewhere on its unfaced flank/rear |
 | Nerve · Shaken · Rout · Rally · Wild | **Still OPEN** (morale aftermath) — trigger/threshold machinery unsigned; Temperament *behaviours* are signed |
 | Persistent traits (Large/Flying/Fearless/Reach/Amphibious) | **Traits** — referenced passive Definitions (SIGNED, keyword `trait`, B · 14) |
 
