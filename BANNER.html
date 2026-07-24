@@ -1,0 +1,579 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CUS Faction Banners</title><style>
+:root{--bg:#12141a;--pane:#1b1e27;--card:#20242f;--ink:#e8ecf5;--dim:#9aa3b5;--line:#2c3140;--gold:#c9a23f;}
+@media(prefers-color-scheme:light){:root{--bg:#eceef3;--pane:#fff;--card:#fbfbfd;--ink:#1a1d26;--dim:#5a6273;--line:#dde1ea;}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Segoe UI',system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+.top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:8px;flex-wrap:wrap;gap:8px}
+.top h1{margin:0;font-size:22px;letter-spacing:.5px}.top .v{color:var(--dim);font-size:13px}
+.tabs{display:flex;gap:8px;margin:18px 0 6px}
+.tab{cursor:pointer;padding:8px 16px;border:1px solid var(--line);border-radius:8px;background:var(--pane);color:var(--dim);font-weight:600}
+.tab.on{color:var(--ink);border-color:var(--gold);box-shadow:inset 0 -2px 0 var(--gold)}
+.fac{display:none}.fac.on{display:block}
+.fachead h1{font-size:26px;margin:14px 0 2px}.prefix{color:var(--dim);font-size:13px}
+.doctrine{color:var(--dim);max-width:70ch;font-style:italic;margin:8px 0 4px}
+.band{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin:26px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.band span{color:var(--dim);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--role);border-radius:10px;padding:14px}
+.chead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.chead h3{margin:0;font-size:17px}.arch{color:var(--dim);font-size:12px;margin-top:2px}
+.rolebadge{background:var(--role);color:#0d0f14;font-weight:700;font-size:11px;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.axes{color:var(--dim);font-size:12px;margin:8px 0 10px}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:10px}
+.st{background:var(--pane);border-radius:6px;text-align:center;padding:5px 2px}
+.st span{display:block;color:var(--dim);font-size:10px;letter-spacing:.5px}.st b{font-size:15px}
+.traits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.trait{background:transparent;border:1px solid var(--gold);color:var(--gold);font-size:11px;padding:2px 8px;border-radius:20px;cursor:help}
+.packets{display:flex;flex-direction:column;gap:7px}
+.pk{background:var(--pane);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.pkh{display:flex;justify-content:space-between;gap:8px;font-size:13px}.pkh span{color:var(--dim);font-size:12px;white-space:nowrap}
+.grades{display:flex;flex-direction:column;gap:2px;margin-top:5px}
+.gr{font-size:12px;color:var(--ink)}.gr b{color:var(--gold);margin-right:4px}
+.tags{margin-top:5px;display:flex;flex-wrap:wrap;gap:4px}.tags i{font-style:normal;font-size:10px;color:var(--dim);background:var(--card);border:1px solid var(--line);padding:1px 6px;border-radius:10px}
+.legend{color:var(--dim);font-size:12px;margin-top:6px}
+</style></head><body><div class="wrap">
+      <div class="top"><h1>CUS · FACTION BANNERS</h1>
+        <div class="v">v0.6 Kernel · Success Grades (Model-2 discrete) · Roles = Pressure · Anchor · Utility</div></div>
+      <div class="legend">Each card is a Figure Definition: base shape/size, Tool, Tempo (&gt;/&gt;&gt;/&gt;&gt;&gt;), Temperament, Creature Type; its stat line (Wounds · Armour save · AP · Speed · Nerve · Points); Traits; and every referenced PACKET with its Grade ladder — resolve the highest Grade reached, that line only.</div>
+      <div class="tabs"><div class="tab on" onclick="show(0)">⚔ Argent Templar</div><div class="tab" onclick="show(1)">☠ Iron Horde of Mordor</div><div class="tab" onclick="show(2)">🛡 Freeholt Militia</div><div class="tab" onclick="show(3)">🗡 Rustfang Goblins</div><div class="tab" onclick="show(4)">🦎 Scaled Legion</div><div class="tab" onclick="show(5)">🦄 Harmony Guard</div><div class="tab" onclick="show(6)">🐉 The Dragon (Boss)</div></div>
+      <section class="fac on">
+      <div class="fachead"><h1>Order of the Argent Templar</h1>
+        <div class="prefix">TMP · 11 definitions · 484 pts roster</div>
+        <p class="doctrine">The Wall and the Sword. Anchors hold the shieldline; the Grand Master and Sword-Brothers convert spent fury into executions. Reliable dice, heavy armour, hard to break.</p></div>
+      <h2 class="band">Champion <span>1</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Grand Master Aldric</h3>
+        <div class="arch">Grand Master · rank III</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Large
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>4</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>78</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span><span class="trait" title="The Banner&#x27;s Champion (A.X). 3 AP, hero profile, anchors the warband&#x27;s command continuity.">Champion</span><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Grand Master&#x27;s Blade</b><span>4d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds, Guard</span><span class="gr"><b>G3</b> 2 Wounds, Cleave</span><span class="gr"><b>G4</b> 3 Wounds, Execute</span></div><div class="tags"><i>hero</i><i>cleave</i><i>execute</i></div></div><div class="pk"><div class="pkh"><b>Smite</b><span>3d · 4+ · 6"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, ignore Armour</span><span class="gr"><b>G2</b> 1 Wound, ignore Armour, Terror</span><span class="gr"><b>G3</b> 2 Wounds, ignore Armour, Terror</span></div><div class="tags"><i>holy</i><i>armour_pierce</i><i>terror</i></div></div><div class="pk"><div class="pkh"><b>Rally</b><span>ACTION</span></div><div class="grades">Each Broken/Shaken ally in range steps UP one morale state</div><div class="tags"><i>rally</i><i>morale</i></div></div></div></div></div>
+      <h2 class="band">Command <span>1</span></h2><div class="grid"><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Templar Marshal</h3>
+        <div class="arch">Marshal · rank II</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Circle / Medium
+        · Melee · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>53</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Sword &amp; Shield</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"><i>shield</i><i>guard</i><i>push</i></div></div><div class="pk"><div class="pkh"><b>Shield Wall</b><span>WAIT · trigger: struck in melee</span></div><div class="grades">Guard (self + adjacent Shield-Brothers) · A Push against the braced wall fails</div><div class="tags"><i>guard</i><i>brace</i></div></div><div class="pk"><div class="pkh"><b>Rally</b><span>ACTION</span></div><div class="grades">Each Broken/Shaken ally in range steps UP one morale state</div><div class="tags"><i>rally</i><i>morale</i></div></div></div></div></div>
+      <h2 class="band">Fireteam Line <span>5</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Sword-Brother</h3>
+        <div class="arch">Sword-Brother · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>32</b></div></div>
+      <div class="traits"><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Templar Greatsword</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Cleave</span></div><div class="tags"><i>two_handed</i><i>cleave</i></div></div></div></div><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Shield-Brother</h3>
+        <div class="arch">Shield-Brother · rank I</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>40</b></div></div>
+      <div class="traits"><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Sword &amp; Shield</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"><i>shield</i><i>guard</i><i>push</i></div></div><div class="pk"><div class="pkh"><b>Shield Wall</b><span>WAIT · trigger: struck in melee</span></div><div class="grades">Guard (self + adjacent Shield-Brothers) · A Push against the braced wall fails</div><div class="tags"><i>guard</i><i>brace</i></div></div></div></div><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Halberdier</h3>
+        <div class="arch">Halberdier · rank I</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>29</b></div></div>
+      <div class="traits"><span class="trait" title="Threatens a 1-2&quot; band; may strike a figure moving past without base contact; a reach strike suffers no Counter (B.8).">Reach</span><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Consecrated Halberd</b><span>2d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds</span></div><div class="tags"><i>reach</i><i>polearm</i><i>push</i></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Arbalest</h3>
+        <div class="arch">Arbalest · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Ranged · Tempo > · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>38</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Heavy Arbalest</b><span>2d · 3+ · 24"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, ignore Armour</span><span class="gr"><b>G2</b> 2 Wounds, ignore Armour</span></div><div class="tags"><i>armour_pierce</i><i>no_counter</i></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Confessor-at-Arms</h3>
+        <div class="arch">Confessor · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>35</b></div></div>
+      <div class="traits"><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Templar Longsword</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Guard</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"><i>sword</i><i>guard</i></div></div></div></div></div>
+      <h2 class="band">Specialists <span>2</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Knight Lancer</h3>
+        <div class="arch">Knight Lancer · rank II</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium · mounted
+        · Melee · Tempo >>> · Aggressive · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>11"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>45</b></div></div>
+      <div class="traits"><span class="trait" title="Elongated base geometry. Keeps its size class but PLOWS as one class larger on the Impact (the lance, B.4).">Mounted</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Templar Lance</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, Push</span><span class="gr"><b>G2</b> 2 Wounds, Push</span><span class="gr"><b>G3</b> 2 Wounds, Knockdown</span></div><div class="tags"><i>mounted</i><i>impact</i><i>push</i><i>knockdown</i></div></div></div></div><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Templar Sentinel</h3>
+        <div class="arch">Sentinel · rank II</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Circle / Large
+        · Melee · Tempo > · Resolute · Construct</div>
+      <div class="stats"><div class="st"><span>W</span><b>5</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>5"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>44</b></div></div>
+      <div class="traits"><span class="trait" title="Sanctified war-plate: an unstoppable-lite anchor — only a wall halts its advance; never routs.">Consecrated</span><span class="trait" title="Never tests Nerve — Saruman bred the fear out / an animated construct feels none (B.10).">Fearless</span><span class="trait" title="Size-class marker carried as a trait for tooling; the footprint is the authority (B.1).">Large</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Sentinel Maul</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds, Knockdown</span></div><div class="tags"><i>heavy</i><i>knockdown</i></div></div></div></div></div>
+      <h2 class="band">Utility <span>2</span></h2><div class="grid"><div class="card" style="--role:#c9a23f">
+      <div class="chead"><div><h3>Battle-Chaplain</h3>
+        <div class="arch">Battle-Chaplain · rank II</div></div>
+        <div class="rolebadge">Utility</div></div>
+      <div class="axes">Circle / Medium
+        · Hybrid · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>43</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Smite</b><span>3d · 4+ · 6"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, ignore Armour</span><span class="gr"><b>G2</b> 1 Wound, ignore Armour, Terror</span><span class="gr"><b>G3</b> 2 Wounds, ignore Armour, Terror</span></div><div class="tags"><i>holy</i><i>armour_pierce</i><i>terror</i></div></div><div class="pk"><div class="pkh"><b>Lay on Hands</b><span>ACTION</span></div><div class="grades">Restore 1 Wound (ally) · Steady Nerve one step</div><div class="tags"><i>heal</i><i>restore</i></div></div><div class="pk"><div class="pkh"><b>Zeal</b><span>ACTION</span></div><div class="grades">Blessed allies re-read one failed Nerve test this round · Ignore first Shaken step</div><div class="tags"><i>morale</i><i>buff</i></div></div></div></div><div class="card" style="--role:#c9a23f">
+      <div class="chead"><div><h3>Banner Bearer</h3>
+        <div class="arch">Banner Bearer · rank I</div></div>
+        <div class="rolebadge">Utility</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>47</b></div></div>
+      <div class="traits"><span class="trait" title="Carries the Order&#x27;s banner: allies within 3&quot; roll an extra Nerve die (keep best 3) and ignore the first Push each round.">Sacred Banner</span><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Templar Longsword</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Guard</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"><i>sword</i><i>guard</i></div></div><div class="pk"><div class="pkh"><b>Holy Banner</b><span>ACTION</span></div><div class="grades">Allies within 3&quot; roll one extra Nerve die (4 dice, keep best 3) · Ignore first Push each round</div><div class="tags"><i>aura</i><i>morale</i></div></div></div></div></div>
+    </section><section class="fac">
+      <div class="fachead"><h1>The Iron Horde of Mordor</h1>
+        <div class="prefix">MOR · 12 definitions · 388 pts roster</div>
+        <p class="doctrine">Drown the line. Cheap Pressure everywhere; get bodies into contact turn one, spend chaff into the Counter, then land the Uruk greatswords and the Troll where the wall has thinned. Weakness: Mordor orcs shatter when a friend falls.</p></div>
+      <h2 class="band">Champion <span>1</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Uruk Captain Gulthak</h3>
+        <div class="arch">Uruk Captain · rank III</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Large
+        · Melee · Tempo >>> · Aggressive · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>5</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>7"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>58</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span><span class="trait" title="The Banner&#x27;s Champion (A.X). 3 AP, hero profile, anchors the warband&#x27;s command continuity.">Champion</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Captain&#x27;s Cleaver</b><span>4d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Cleave</span><span class="gr"><b>G4</b> 3 Wounds, Execute</span></div><div class="tags"><i>hero</i><i>cleave</i><i>execute</i></div></div><div class="pk"><div class="pkh"><b>Savage Command</b><span>ACTION</span></div><div class="grades">Target Uruk ally may make one extra Impact this activation</div><div class="tags"><i>command</i><i>tempo</i></div></div></div></div></div>
+      <h2 class="band">Command <span>1</span></h2><div class="grid"><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Uruk Blackshield</h3>
+        <div class="arch">Uruk Blackshield · rank II</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Circle / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>45</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span><span class="trait" title="Never tests Nerve — Saruman bred the fear out / an animated construct feels none (B.10).">Fearless</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Uruk Scimitar</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds</span></div><div class="tags"><i>sword</i><i>push</i></div></div></div></div></div>
+      <h2 class="band">Fireteam Line <span>6</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Uruk Berserker</h3>
+        <div class="arch">Uruk Berserker · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >>> · Aggressive · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>27</b></div></div>
+      <div class="traits"><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Uruk Cleaver</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Cleave</span></div><div class="tags"><i>two_handed</i><i>cleave</i><i>frenzy</i></div></div><div class="pk"><div class="pkh"><b>Berserk Frenzy</b><span>WAIT · trigger: this figure inflicts a Wound</span></div><div class="grades">Immediately ACTION again vs an engaged target (once per activation)</div><div class="tags"><i>frenzy</i><i>extra_action</i></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Uruk Warrior</h3>
+        <div class="arch">Uruk Warrior · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>27</b></div></div>
+      <div class="traits"><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Uruk Scimitar</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds</span></div><div class="tags"><i>sword</i><i>push</i></div></div></div></div><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Uruk Pikeman</h3>
+        <div class="arch">Uruk Pikeman · rank I</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>26</b></div></div>
+      <div class="traits"><span class="trait" title="Threatens a 1-2&quot; band; may strike a figure moving past without base contact; a reach strike suffers no Counter (B.8).">Reach</span><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Uruk Pike</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds</span></div><div class="tags"><i>reach</i><i>polearm</i><i>push</i></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Uruk Crossbow</h3>
+        <div class="arch">Uruk Crossbow · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Ranged · Tempo > · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>25</b></div></div>
+      <div class="traits"><span class="trait" title="Discipline: ignores the FIRST Steady-&gt;Shaken step from a single shock (re-reads it) (B.10).">Zealous</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Uruk Crossbow</b><span>2d · 4+ · 24"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span></div><div class="tags"><i>no_counter</i></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Mordor Orc</h3>
+        <div class="arch">Mordor Orc · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Small
+        · Melee · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>1</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>5</b></div><div class="st"><span>PTS</span><b>15</b></div></div>
+      <div class="traits"><span class="trait" title="Cheap chaff: fragile and numerous. Its fall within 3&quot; is a shock that tests nearby allies&#x27; Nerve (B.10).">Expendable</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Orc Blade</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span></div><div class="tags"><i>chaff</i><i>push</i></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Mordor Archer</h3>
+        <div class="arch">Mordor Archer · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Small
+        · Ranged · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>1</b></div><div class="st"><span>ARM</span><b>—</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>5</b></div><div class="st"><span>PTS</span><b>14</b></div></div>
+      <div class="traits"><span class="trait" title="Cheap chaff: fragile and numerous. Its fall within 3&quot; is a shock that tests nearby allies&#x27; Nerve (B.10).">Expendable</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Orc Bow</b><span>2d · 5+ · 18"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Terror</span></div><div class="tags"><i>volley</i><i>no_counter</i><i>terror</i></div></div><div class="pk"><div class="pkh"><b>Skulk</b><span>WAIT · trigger: enemy approaches within 6&quot;</span></div><div class="grades">This figure may MOVE 3&quot; away before engagement</div><div class="tags"><i>evasion</i><i>reposition</i></div></div></div></div></div>
+      <h2 class="band">Specialists <span>2</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Warg Rider</h3>
+        <div class="arch">Warg Rider · rank II</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium · mounted
+        · Melee · Tempo >>> · Ravenous · Beast</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>12"</b></div><div class="st"><span>NRV</span><b>4</b></div><div class="st"><span>PTS</span><b>33</b></div></div>
+      <div class="traits"><span class="trait" title="Elongated base geometry. Keeps its size class but PLOWS as one class larger on the Impact (the lance, B.4).">Mounted</span><span class="trait" title="Creature-Type marker; a Beast Square tests Nerve, a Beast Circle does not (B.10, B.13).">Beast</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Warg Bite</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, Push</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Knockdown</span></div><div class="tags"><i>beast</i><i>impact</i><i>push</i><i>knockdown</i></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Cave Troll</h3>
+        <div class="arch">Cave Troll · rank III</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Large
+        · Melee · Tempo > · Ravenous · Beast</div>
+      <div class="stats"><div class="st"><span>W</span><b>7</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>60</b></div></div>
+      <div class="traits"><span class="trait" title="Plows through bodies unchecked; only a wall stops its Push (B.4). The canonical &#x27;monstrous&#x27; = a Large figure + this trait, NOT a fourth size class.">Unstoppable</span><span class="trait" title="Size-class marker carried as a trait for tooling; the footprint is the authority (B.1).">Large</span><span class="trait" title="Creature-Type marker; a Beast Square tests Nerve, a Beast Circle does not (B.10, B.13).">Beast</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Troll Smash</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 2 Wounds, Push</span><span class="gr"><b>G2</b> 2 Wounds, Knockdown</span><span class="gr"><b>G3</b> 3 Wounds, Knockdown, Cleave</span></div><div class="tags"><i>large</i><i>unstoppable</i><i>knockdown</i><i>cleave</i><i>push</i></div></div></div></div></div>
+      <h2 class="band">Utility <span>2</span></h2><div class="grid"><div class="card" style="--role:#c9a23f">
+      <div class="chead"><div><h3>Orc Taskmaster</h3>
+        <div class="arch">Taskmaster · rank II</div></div>
+        <div class="rolebadge">Utility</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>24</b></div></div>
+      <div class="traits"><span class="trait" title="Threatens a 1-2&quot; band; may strike a figure moving past without base contact; a reach strike suffers no Counter (B.8).">Reach</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Barbed Whip</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Pull</span></div><div class="tags"><i>reach</i><i>pull</i></div></div><div class="pk"><div class="pkh"><b>Drive Them On</b><span>ACTION</span></div><div class="grades">A nearby orc ally makes a free MOVE toward the enemy · That ally then suffers 1 Wound (driven past caring)</div><div class="tags"><i>command</i><i>reposition</i></div></div></div></div><div class="card" style="--role:#c9a23f">
+      <div class="chead"><div><h3>Dark Shaman</h3>
+        <div class="arch">Dark Shaman · rank II</div></div>
+        <div class="rolebadge">Utility</div></div>
+      <div class="axes">Circle / Medium
+        · Ranged · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>—</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>34</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Black Breath</b><span>3d · 4+ · 12"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, ignore Armour</span><span class="gr"><b>G2</b> 1 Wound, ignore Armour, Terror</span><span class="gr"><b>G3</b> 2 Wounds, ignore Armour, Terror</span></div><div class="tags"><i>dread</i><i>armour_pierce</i><i>terror</i></div></div><div class="pk"><div class="pkh"><b>Curse of Morgul</b><span>ACTION</span></div><div class="grades">Enemies within 6&quot; roll Armour one step worse until this figure&#x27;s next activation · Enemy Squares in range test Nerve one step worse</div><div class="tags"><i>dread</i><i>debuff</i><i>terror</i></div></div></div></div></div>
+    </section><section class="fac">
+      <div class="fachead"><h1>The Freeholt Militia</h1>
+        <div class="prefix">MIL · 8 definitions · 221 pts roster</div>
+        <p class="doctrine">Ordinary folk with drilled discipline. No monsters, no magic to speak of — a shield line, a hedge of spears, a few bows, and a captain who keeps them from running. The baseline against which every other army is measured.</p></div>
+      <h2 class="band">Champion <span>1</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Watch Captain</h3>
+        <div class="arch">Watch Captain · rank III</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>58</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span><span class="trait" title="The Banner&#x27;s Champion (A.X). 3 AP, hero profile, anchors the warband&#x27;s command continuity.">Champion</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Captain&#x27;s Saber</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Hold the Line</b><span>ACTION</span></div><div class="grades">Each Broken/Shaken ally in range steps UP one morale state · Nearby allies gain Guard</div><div class="tags"></div></div></div></div></div>
+      <h2 class="band">Command <span>1</span></h2><div class="grid"><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Watch Sergeant</h3>
+        <div class="arch">Sergeant · rank II</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Circle / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>37</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span><span class="trait" title="Threatens a 1-2&quot; band; may strike a figure moving past without base contact; a reach strike suffers no Counter (B.8).">Reach</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Watch Halberd</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds</span></div><div class="tags"></div></div></div></div></div>
+      <h2 class="band">Fireteam Line <span>5</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Militia Swordsman</h3>
+        <div class="arch">Swordsman · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>26</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Militia Sword</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Watchman</h3>
+        <div class="arch">Shieldman · rank I</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>31</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Sword &amp; Shield</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"><i>shield</i><i>guard</i><i>push</i></div></div><div class="pk"><div class="pkh"><b>Shield Wall</b><span>WAIT · trigger: struck in melee</span></div><div class="grades">Guard (self + adjacent Shield-Brothers) · A Push against the braced wall fails</div><div class="tags"><i>guard</i><i>brace</i></div></div></div></div><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Militia Spearman</h3>
+        <div class="arch">Spearman · rank I</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>20</b></div></div>
+      <div class="traits"><span class="trait" title="Threatens a 1-2&quot; band; may strike a figure moving past without base contact; a reach strike suffers no Counter (B.8).">Reach</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Militia Spear</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Militia Bowman</h3>
+        <div class="arch">Bowman · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Ranged · Tempo > · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>4</b></div><div class="st"><span>PTS</span><b>23</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Militia Bow</b><span>2d · 4+ · 18"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Town Levy</h3>
+        <div class="arch">Levy · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Small
+        · Melee · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>1</b></div><div class="st"><span>ARM</span><b>—</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>5</b></div><div class="st"><span>PTS</span><b>11</b></div></div>
+      <div class="traits"><span class="trait" title="Cheap chaff: fragile and numerous. Its fall within 3&quot; is a shock that tests nearby allies&#x27; Nerve (B.10).">Expendable</span><span class="trait" title="Threatens a 1-2&quot; band; may strike a figure moving past without base contact; a reach strike suffers no Counter (B.8).">Reach</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Pitchfork</b><span>2d · 5+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span></div><div class="tags"></div></div></div></div></div>
+      
+      <h2 class="band">Utility <span>1</span></h2><div class="grid"><div class="card" style="--role:#c9a23f">
+      <div class="chead"><div><h3>Hedge Priest</h3>
+        <div class="arch">Hedge Priest · rank II</div></div>
+        <div class="rolebadge">Utility</div></div>
+      <div class="axes">Circle / Medium
+        · Hybrid · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>15</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Lay on Hands</b><span>ACTION</span></div><div class="grades">Restore 1 Wound (ally) · Steady Nerve one step</div><div class="tags"><i>heal</i><i>restore</i></div></div><div class="pk"><div class="pkh"><b>Rally</b><span>ACTION</span></div><div class="grades">Each Broken/Shaken ally in range steps UP one morale state</div><div class="tags"><i>rally</i><i>morale</i></div></div></div></div></div>
+    </section><section class="fac">
+      <div class="fachead"><h1>The Skulk of the Rustfang Goblins</h1>
+        <div class="prefix">GOB · 9 definitions · 211 pts roster</div>
+        <p class="doctrine">Cheap, cowardly, and everywhere. Goblins win by numbers, nasty tricks, and stabbing what isn&#x27;t looking — a warboss to bully them forward, a shaman to hex the enemy&#x27;s armour, wolves and a spider to hit the flanks. Alone each one runs; in a mob they&#x27;re a problem.</p></div>
+      <h2 class="band">Champion <span>1</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Goblin Warboss</h3>
+        <div class="arch">Warboss · rank III</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Medium
+        · Melee · Tempo >> · Aggressive · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>7"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>41</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span><span class="trait" title="The Banner&#x27;s Champion (A.X). 3 AP, hero profile, anchors the warband&#x27;s command continuity.">Champion</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Boss Cleaver</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Cleave</span></div><div class="tags"></div></div></div></div></div>
+      
+      <h2 class="band">Fireteam Line <span>4</span></h2><div class="grid"><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Goblin Big&#x27;Un</h3>
+        <div class="arch">Big&#x27;Un · rank I</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>22</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Goblin Shiv</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Goblin Warrior</h3>
+        <div class="arch">Warrior · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Small
+        · Melee · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>1</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>7"</b></div><div class="st"><span>NRV</span><b>4</b></div><div class="st"><span>PTS</span><b>17</b></div></div>
+      <div class="traits"><span class="trait" title="Cheap chaff: fragile and numerous. Its fall within 3&quot; is a shock that tests nearby allies&#x27; Nerve (B.10).">Expendable</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Goblin Shiv</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Goblin Spearman</h3>
+        <div class="arch">Spearman · rank I</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Square / Small
+        · Melee · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>1</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>4</b></div><div class="st"><span>PTS</span><b>16</b></div></div>
+      <div class="traits"><span class="trait" title="Threatens a 1-2&quot; band; may strike a figure moving past without base contact; a reach strike suffers no Counter (B.8).">Reach</span><span class="trait" title="Cheap chaff: fragile and numerous. Its fall within 3&quot; is a shock that tests nearby allies&#x27; Nerve (B.10).">Expendable</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Goblin Spear</b><span>2d · 5+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Goblin Archer</h3>
+        <div class="arch">Archer · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Small
+        · Ranged · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>1</b></div><div class="st"><span>ARM</span><b>—</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>7"</b></div><div class="st"><span>NRV</span><b>5</b></div><div class="st"><span>PTS</span><b>14</b></div></div>
+      <div class="traits"><span class="trait" title="Cheap chaff: fragile and numerous. Its fall within 3&quot; is a shock that tests nearby allies&#x27; Nerve (B.10).">Expendable</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Goblin Bow</b><span>2d · 5+ · 18"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Terror</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Skulk</b><span>WAIT · trigger: enemy approaches within 6&quot;</span></div><div class="grades">This figure may MOVE 3&quot; away before engagement</div><div class="tags"><i>evasion</i><i>reposition</i></div></div></div></div></div>
+      <h2 class="band">Specialists <span>3</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Goblin Sneak</h3>
+        <div class="arch">Assassin · rank II</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Small
+        · Melee · Tempo >>> · Aggressive · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>1</b></div><div class="st"><span>ARM</span><b>—</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>8"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>26</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Backstab</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Execute</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Wolf Rider</h3>
+        <div class="arch">Wolf Rider · rank II</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium · mounted
+        · Melee · Tempo >>> · Ravenous · Beast</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>12"</b></div><div class="st"><span>NRV</span><b>4</b></div><div class="st"><span>PTS</span><b>33</b></div></div>
+      <div class="traits"><span class="trait" title="Elongated base geometry. Keeps its size class but PLOWS as one class larger on the Impact (the lance, B.4).">Mounted</span><span class="trait" title="Creature-Type marker; a Beast Square tests Nerve, a Beast Circle does not (B.10, B.13).">Beast</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Wolf Bite</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, Push</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Knockdown</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Giant Spider</h3>
+        <div class="arch">Giant Spider · rank III</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Large
+        · Melee · Tempo >> · Ravenous · Beast</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>8"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>22</b></div></div>
+      <div class="traits"><span class="trait" title="Creature-Type marker; a Beast Square tests Nerve, a Beast Circle does not (B.10, B.13).">Beast</span><span class="trait" title="Size-class marker carried as a trait for tooling; the footprint is the authority (B.1).">Large</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Spider Bite</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Terror</span></div><div class="tags"></div></div></div></div></div>
+      <h2 class="band">Utility <span>1</span></h2><div class="grid"><div class="card" style="--role:#c9a23f">
+      <div class="chead"><div><h3>Goblin Shaman</h3>
+        <div class="arch">Shaman · rank II</div></div>
+        <div class="rolebadge">Utility</div></div>
+      <div class="axes">Circle / Medium
+        · Ranged · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>—</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>20</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Goblin Hex</b><span>ACTION</span></div><div class="grades">Enemies within 6&quot; roll Armour one step worse until this figure&#x27;s next activation</div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Goblin Bow</b><span>2d · 5+ · 18"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Terror</span></div><div class="tags"></div></div></div></div></div>
+    </section><section class="fac">
+      <div class="fachead"><h1>The Scaled Legion of Cinderscale</h1>
+        <div class="prefix">LIZ · 9 definitions · 284 pts roster</div>
+        <p class="doctrine">Where the dragon does not deign to walk, her children march. Cold-blooded discipline: a lizard warlord in scavenged dragon-plate, fire-drakes on the wings, salamanders spitting flame, and a swarming tide of kobolds who fear the whip more than the enemy. They fight like reptiles — patient, then all at once.</p></div>
+      <h2 class="band">Champion <span>1</span></h2><div class="grid"><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Cinderscale Warlord</h3>
+        <div class="arch">Lizard Warlord · rank III</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Circle / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>58</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span><span class="trait" title="The Banner&#x27;s Champion (A.X). 3 AP, hero profile, anchors the warband&#x27;s command continuity.">Champion</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Captain&#x27;s Saber</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Scale Ward</b><span>ACTION</span></div><div class="grades">Allies within 6&quot; gain Guard · Ignore first Push each round</div><div class="tags"></div></div></div></div></div>
+      
+      <h2 class="band">Fireteam Line <span>5</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Salamander</h3>
+        <div class="arch">Salamander · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Ranged · Tempo >> · Aggressive · Beast</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>39</b></div></div>
+      <div class="traits"><span class="trait" title="Creature-Type marker; a Beast Square tests Nerve, a Beast Circle does not (B.10, B.13).">Beast</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Salamander Flame</b><span>3d · 4+ · 10"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, ignore Armour</span><span class="gr"><b>G2</b> 2 Wounds, ignore Armour</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Lizardman Warrior</h3>
+        <div class="arch">Lizardman · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>26</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Uruk Scimitar</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds</span></div><div class="tags"><i>sword</i><i>push</i></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Wyrmling</h3>
+        <div class="arch">Wyrmling · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Aggressive · Beast</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>7"</b></div><div class="st"><span>NRV</span><b>3</b></div><div class="st"><span>PTS</span><b>23</b></div></div>
+      <div class="traits"><span class="trait" title="Creature-Type marker; a Beast Square tests Nerve, a Beast Circle does not (B.10, B.13).">Beast</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Wyrmling Bite</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Terror</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Kobold Warrior</h3>
+        <div class="arch">Kobold · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Small
+        · Melee · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>1</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>7"</b></div><div class="st"><span>NRV</span><b>5</b></div><div class="st"><span>PTS</span><b>15</b></div></div>
+      <div class="traits"><span class="trait" title="Cheap chaff: fragile and numerous. Its fall within 3&quot; is a shock that tests nearby allies&#x27; Nerve (B.10).">Expendable</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Kobold Dagger</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Kobold Slinger</h3>
+        <div class="arch">Slinger · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Small
+        · Ranged · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>1</b></div><div class="st"><span>ARM</span><b>—</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>7"</b></div><div class="st"><span>NRV</span><b>5</b></div><div class="st"><span>PTS</span><b>13</b></div></div>
+      <div class="traits"><span class="trait" title="Cheap chaff: fragile and numerous. Its fall within 3&quot; is a shock that tests nearby allies&#x27; Nerve (B.10).">Expendable</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Kobold Sling</b><span>2d · 5+ · 15"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Skulk</b><span>WAIT · trigger: enemy approaches within 6&quot;</span></div><div class="grades">This figure may MOVE 3&quot; away before engagement</div><div class="tags"><i>evasion</i><i>reposition</i></div></div></div></div></div>
+      <h2 class="band">Specialists <span>2</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Fire Drake</h3>
+        <div class="arch">Fire Drake · rank II</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >>> · Aggressive · Beast</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>11"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>34</b></div></div>
+      <div class="traits"><span class="trait" title="Moves over walls and terrain unchecked; ignores ground obstacles and engagement when moving over them (B.14).">Flying</span><span class="trait" title="Creature-Type marker; a Beast Square tests Nerve, a Beast Circle does not (B.10, B.13).">Beast</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Drake Bite</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Knockdown</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Dragonscale Sentinel</h3>
+        <div class="arch">Sentinel · rank II</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo > · Resolute · Construct</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>5"</b></div><div class="st"><span>NRV</span><b>0</b></div><div class="st"><span>PTS</span><b>38</b></div></div>
+      <div class="traits"><span class="trait" title="Never tests Nerve — Saruman bred the fear out / an animated construct feels none (B.10).">Fearless</span><span class="trait" title="Thick draconic hide: shrugs the first Wound taken each round (flavour; priced as durability).">Scaled</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Sentinel Maul</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds, Knockdown</span></div><div class="tags"><i>heavy</i><i>knockdown</i></div></div></div></div></div>
+      <h2 class="band">Utility <span>1</span></h2><div class="grid"><div class="card" style="--role:#c9a23f">
+      <div class="chead"><div><h3>Cinder Priest</h3>
+        <div class="arch">Dragon Priest · rank II</div></div>
+        <div class="rolebadge">Utility</div></div>
+      <div class="axes">Circle / Medium
+        · Ranged · Tempo >> · Cowardly · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>38</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Scale Ward</b><span>ACTION</span></div><div class="grades">Allies within 6&quot; gain Guard · Ignore first Push each round</div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Salamander Flame</b><span>3d · 4+ · 10"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, ignore Armour</span><span class="gr"><b>G2</b> 2 Wounds, ignore Armour</span></div><div class="tags"></div></div></div></div></div>
+    </section><section class="fac">
+      <div class="fachead"><h1>The Harmony Guard of Evermeadow</h1>
+        <div class="prefix">PON · 9 definitions · 369 pts roster</div>
+        <p class="doctrine">Friendship is the fiercest armour. Earth ponies hold the line like a stone wall, unicorns sling starlight, pegasi drop from the clouds, and a Princess of the Sun leads them — she heals the hurt, lifts the frightened, and shines so bright the wicked falter. Built a hair stronger than fair, because the smallest general deserves to win.</p></div>
+      <h2 class="band">Champion <span>1</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Princess Solara</h3>
+        <div class="arch">Alicorn Princess · rank III</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Large
+        · Hybrid · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>5</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>8"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>73</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span><span class="trait" title="The Banner&#x27;s Champion (A.X). 3 AP, hero profile, anchors the warband&#x27;s command continuity.">Champion</span><span class="trait" title="Harmony&#x27;s light: allies within 3&quot; ignore the first Shaken step, and the bearer never routs.">Radiant</span><span class="trait" title="Moves over walls and terrain unchecked; ignores ground obstacles and engagement when moving over them (B.14).">Flying</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Alicorn Radiance</b><span>4d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds, Guard</span><span class="gr"><b>G3</b> 2 Wounds, Cleave</span><span class="gr"><b>G4</b> 3 Wounds, Execute</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Friendship Heals</b><span>ACTION</span></div><div class="grades">Restore 1 Wound (ally) · Steady Nerve one step</div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Element of Harmony</b><span>ACTION</span></div><div class="grades">Each Broken/Shaken ally steps UP one morale state · Blessed allies re-read a failed Nerve test this round</div><div class="tags"></div></div></div></div></div>
+      <h2 class="band">Command <span>1</span></h2><div class="grid"><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Guard-Captain Ironhoof</h3>
+        <div class="arch">Guard Captain · rank II</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Circle / Medium
+        · Melee · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>54</b></div></div>
+      <div class="traits"><span class="trait" title="Radiates Rally (6&quot;): steps nearby allies UP the morale track on its activation. Never breaks.">Leader</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Earth Pony Smash</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Scale Ward</b><span>ACTION</span></div><div class="grades">Allies within 6&quot; gain Guard · Ignore first Push each round</div><div class="tags"></div></div></div></div></div>
+      <h2 class="band">Fireteam Line <span>3</span></h2><div class="grid"><div class="card" style="--role:#5a9bd4">
+      <div class="chead"><div><h3>Royal Guard</h3>
+        <div class="arch">Royal Guard · rank I</div></div>
+        <div class="rolebadge">Anchor</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>4+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>43</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Earth Pony Smash</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Shield Wall</b><span>WAIT · trigger: struck in melee</span></div><div class="grades">Guard (self + adjacent Shield-Brothers) · A Push against the braced wall fails</div><div class="tags"><i>guard</i><i>brace</i></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Earth Pony Bruiser</h3>
+        <div class="arch">Earth Pony · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>30</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Pony Buck</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span><span class="gr"><b>G3</b> 2 Wounds, Knockdown</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Brave Little Foal</h3>
+        <div class="arch">Foal · rank I</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Small
+        · Melee · Tempo >> · Aggressive · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>7"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>20</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Foal Nip</b><span>2d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 1 Wound, Push</span></div><div class="tags"></div></div></div></div></div>
+      <h2 class="band">Specialists <span>3</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Unicorn Starcaster</h3>
+        <div class="arch">Unicorn Mage · rank II</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Medium
+        · Ranged · Tempo >> · Resolute · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>38</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Unicorn Bolt</b><span>3d · 4+ · 12"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, ignore Armour</span><span class="gr"><b>G2</b> 1 Wound, ignore Armour, Terror</span><span class="gr"><b>G3</b> 2 Wounds, ignore Armour</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Friendship Heals</b><span>ACTION</span></div><div class="grades">Restore 1 Wound (ally) · Steady Nerve one step</div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Pegasus Skyguard</h3>
+        <div class="arch">Pegasus Flyer · rank II</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Medium
+        · Melee · Tempo >>> · Aggressive · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>3</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>12"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>33</b></div></div>
+      <div class="traits"><span class="trait" title="Moves over walls and terrain unchecked; ignores ground obstacles and engagement when moving over them (B.14).">Flying</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Pegasus Dive-Bomb</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, Push</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Knockdown</span></div><div class="tags"></div></div></div></div><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Buffalo Ally</h3>
+        <div class="arch">Buffalo Bruiser · rank II</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Square / Large
+        · Melee · Tempo >> · Aggressive · Beast</div>
+      <div class="stats"><div class="st"><span>W</span><b>4</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>8"</b></div><div class="st"><span>NRV</span><b>2</b></div><div class="st"><span>PTS</span><b>40</b></div></div>
+      <div class="traits"><span class="trait" title="Creature-Type marker; a Beast Square tests Nerve, a Beast Circle does not (B.10, B.13).">Beast</span><span class="trait" title="Size-class marker carried as a trait for tooling; the footprint is the authority (B.1).">Large</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Earth Pony Smash</b><span>3d · 3+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound</span><span class="gr"><b>G2</b> 2 Wounds</span><span class="gr"><b>G3</b> 2 Wounds, Guard</span></div><div class="tags"></div></div></div></div></div>
+      <h2 class="band">Utility <span>1</span></h2><div class="grid"><div class="card" style="--role:#c9a23f">
+      <div class="chead"><div><h3>Zebra Herbalist</h3>
+        <div class="arch">Zebra Shaman · rank II</div></div>
+        <div class="rolebadge">Utility</div></div>
+      <div class="axes">Circle / Medium
+        · Hybrid · Tempo >> · Protective · Man</div>
+      <div class="stats"><div class="st"><span>W</span><b>2</b></div><div class="st"><span>ARM</span><b>6+</b></div><div class="st"><span>AP</span><b>2</b></div><div class="st"><span>SPD</span><b>6"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>38</b></div></div>
+      <div class="traits"></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Friendship Heals</b><span>ACTION</span></div><div class="grades">Restore 1 Wound (ally) · Steady Nerve one step</div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Element of Harmony</b><span>ACTION</span></div><div class="grades">Each Broken/Shaken ally steps UP one morale state · Blessed allies re-read a failed Nerve test this round</div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Unicorn Bolt</b><span>3d · 4+ · 12"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, ignore Armour</span><span class="gr"><b>G2</b> 1 Wound, ignore Armour, Terror</span><span class="gr"><b>G3</b> 2 Wounds, ignore Armour</span></div><div class="tags"></div></div></div></div></div>
+    </section><section class="fac">
+      <div class="fachead"><h1>Vermithrax — the Dragon (Boss Monster)</h1>
+        <div class="prefix">DRG · 1 definitions · 81 pts roster</div>
+        <p class="doctrine">Not an army. A monster. Dragons are solitary, and this one needs no minions — she IS the whole banner. Field her ALONE against a full warband: she flies over your walls, breathes ruin that no shield turns, sweeps three knights flat with her tail, and the very sight of her sends the weak running. Everyone else teams up to bring her down before she eats the map. A boss fight, not a fair fight — but a killable one.</p></div>
+      <h2 class="band">Champion <span>1</span></h2><div class="grid"><div class="card" style="--role:#e0564a">
+      <div class="chead"><div><h3>Vermithrax the Ember</h3>
+        <div class="arch">Dragon · rank III</div></div>
+        <div class="rolebadge">Pressure</div></div>
+      <div class="axes">Circle / Large
+        · Hybrid · Tempo >> · Ravenous · Beast</div>
+      <div class="stats"><div class="st"><span>W</span><b>11</b></div><div class="st"><span>ARM</span><b>5+</b></div><div class="st"><span>AP</span><b>3</b></div><div class="st"><span>SPD</span><b>9"</b></div><div class="st"><span>NRV</span><b>—</b></div><div class="st"><span>PTS</span><b>81</b></div></div>
+      <div class="traits"><span class="trait" title="The Banner&#x27;s Champion (A.X). 3 AP, hero profile, anchors the warband&#x27;s command continuity.">Champion</span><span class="trait" title="Size-class marker carried as a trait for tooling; the footprint is the authority (B.1).">Large</span><span class="trait" title="Moves over walls and terrain unchecked; ignores ground obstacles and engagement when moving over them (B.14).">Flying</span><span class="trait" title="Plows through bodies unchecked; only a wall stops its Push (B.4). The canonical &#x27;monstrous&#x27; = a Large figure + this trait, NOT a fourth size class.">Unstoppable</span><span class="trait" title="Thick draconic hide: shrugs the first Wound taken each round (flavour; priced as durability).">Scaled</span><span class="trait" title="A monster so dreadful that Squares within 4&quot; test Nerve when it activates — the weak break at the sight of it (B.10).">Terror</span><span class="trait" title="Knits its wounds: restores 1 Wound at the start of each of its activations while it still lives.">Regenerating</span></div>
+      <div class="packets"><div class="pk"><div class="pkh"><b>Dragon Breath</b><span>3d · 4+ · 12"</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, ignore Armour</span><span class="gr"><b>G2</b> 2 Wounds, ignore Armour</span><span class="gr"><b>G3</b> 2 Wounds, ignore Armour, Terror</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Dragon Claws &amp; Fangs</b><span>4d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 2 Wounds, Push</span><span class="gr"><b>G2</b> 2 Wounds, Knockdown</span><span class="gr"><b>G3</b> 3 Wounds, Cleave</span><span class="gr"><b>G4</b> 3 Wounds, Execute</span></div><div class="tags"></div></div><div class="pk"><div class="pkh"><b>Tail Sweep</b><span>3d · 4+ · melee</span></div><div class="grades"><span class="gr"><b>G1</b> 1 Wound, Knockdown</span><span class="gr"><b>G2</b> 2 Wounds, Knockdown</span><span class="gr"><b>G3</b> 2 Wounds, Knockdown, Cleave</span></div><div class="tags"></div></div></div></div></div>
+      
+      
+      
+      
+    </section>
+    </div><script>
+function show(n){document.querySelectorAll('.fac').forEach((f,i)=>f.classList.toggle('on',i==n));
+document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i==n));}
+show(0);
+</script></body></html>
