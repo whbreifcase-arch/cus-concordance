@@ -110,6 +110,10 @@ path. Slide the models; don't measure. The cascade:
 change comes from the **PACKET** the Impact resolves `[PACKET→Grade]`. The
 wall-crush is the only place a blocked shove feeds the hit.
 
+> **"Push" here = the charge plow only.** The *weapon* displacement effect that used
+> to be called "Push" is now **Shove** (§9b), so "push" is free to be ordinary
+> language. This §4 geometry — Push → Indent → Crush — is untouched.
+
 Size gating across the three classes (Small · Medium · Large):
 - larger bodies plow smaller; same-size plow grudgingly;
 - **Small does not plow** — it slips through without an ordinary Disengage;
@@ -163,8 +167,9 @@ GREATAXE — Dice 3 · Success 5+
 ```
 - **Success** — a die ≥ the PACKET's success number.
 - **Grade** — how well the roll succeeded.
-- **Effect** — Wound, Push, Knockdown, Guard, Cleave, Execute, ignore-Armour, …
-  the state change a Grade resolves `[State]`.
+- **Effect** — Wound, **Shove**, Knockdown, Guard, Cleave, Execute, ignore-Armour, …
+  the state change a Grade resolves `[State]`. *(The weapon effect is **Shove**, not
+  "Push" — "Push" now names only the charge plow of §4. See §9b.)*
 
 **Discrete (Model 2):** the Greataxe above restates "2 Wounds" at Grade 3 on
 purpose — you read **only** the reached line, so any Effect meant to carry up is
@@ -235,6 +240,69 @@ figure, engage, it Counters and kills you; your body is shoved off; that same fi
 is now free and will **Counter the next attacker** who steps up. **A Counter does not
 itself draw a Counter (SIGNED, William 2026-07-24)** — a Counter is a *response*, not
 an ATTACK, so two figures never loop forever.
+
+---
+
+# 9b · Shields, Brace & Shove  `[Position / State]` — SIGNED (William, 2026-07-24) · ⚠ PROVISIONAL
+
+> **Provisional — ratify after the first game.** These three fell out of the same
+> conversation and answer "how does a wall of shields actually work" without a
+> "Shield Wall" skill. *Playing* decides whether the numbers hold.
+
+## Squares trade agency for protection; Circles keep agency and stand alone.
+This is the spine. **Brace, shields, and formation are Square technology** — a Square
+gives up freedom (locked facing, breakable morale, no independent agency once it
+Routs) in exchange for mutual protection. A **Circle keeps full agency and stands
+alone**: faceless, never braces, never breaks. A "shield wall" is therefore **not a
+skill** — it is **emergent geometry**: Squares standing shoulder-to-shoulder, facing
+the same way, are a wall because of where they stand, not because of a keyword.
+
+## Shield — a trait, and an *intercept* reaction  `[Definition + reaction]`
+A **shield** is gear (a Trait). Beyond the obvious (it comes with armour), it grants a
+**reaction: consume an ACTION packet aimed at a friendly within 1″ — take the hit
+yourself instead.** *"No, I'll take that one over here."*
+- You must **declare it in the moment, before the packet resolves.** Miss the window,
+  miss the save — it is an act of attention, not an automatic shield.
+- The **interceptor's own Armour** rolls against it; unsaved Wounds land on **him.**
+- **No Counter** — he was not the one attacked, and he isn't in contact.
+- **No cap.** A shieldman can eat hit after hit for his line — **the cap is that he
+  dies.** A good shot or a big Grade eventually drops him and the wall opens.
+- Works **regardless of facing** (even while Braced) — reaching the shield sideways to
+  cover a mate is the one thing that still functions to your flank.
+- Intercepts **melee and ranged alike** (a shield eats arrows). Since it costs a
+  reaction you have to *catch*, and every intercept is a real hit on the shieldman,
+  it is self-limiting. *(⚠ If ranged feels gutted in play, restrict to melee.)*
+
+## Brace — a fixed-facing stance  `[WAIT — Square only]`
+**Brace** (a WAIT, **1 AP, ends your activation, lasts until your next activation**)
+**locks your facing** and turns you into a wall in **one direction**:
+- **+1 die** attacking into your **front arc**; **enemies attacking your front roll
+  −1 die.** A braced front is brutal both ways.
+- **The price: you cannot turn.** Anything striking your **flank or rear gets in free
+  and you do not Counter it** — a braced Square concedes its sides entirely.
+- **Circles cannot Brace** — a faceless base has no facing to fix (falls out of B.1).
+- **Shove breaks Brace** (below): levered out of position, the stance ends.
+
+## Shove — the weapon displacement effect (renamed from "Push")  `[Position]`
+The Grade effect once called **Push** is now **SHOVE**, so "push" is free for ordinary
+language and the §4 charge-plow keeps the word cleanly.
+```text
+SHOVE: move the target directly away from you, up to X", ending no more than Y"
+       from you.  Default X = Y = 1".  (X and Y are tunable per weapon/effect.)
+```
+- In **contact** → knocked back to ~1″. Already ~1″ out (a Reach band) → he barely
+  moves; you can still swipe him, but a spear **holds a foe at bay, it does not launch
+  him across the table.**
+- A Shove against a **Braced** figure **breaks the Brace** instead of merely nudging it
+  — this is the counter to a shield wall: **shove the wall out of line, then hit the
+  gap.** Every polearm and Shove effect now has a job beyond flavour.
+- Distinct from the **charge Push→Indent→Crush** plow (§4), which is unchanged.
+
+## The consequence to notice
+Adjacency now does three things at once: shoulder-to-shoulder makes a wall (harder to
+turn, shields covering each other), lets mates pile dice via Mob (§ Position), **and**
+packs everyone inside each other's cascade. Tougher, deadlier, and it breaks all at
+once. *That is not a problem to solve — that is the game.*
 
 ---
 
