@@ -3,44 +3,1039 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CUS — How to Play (moved to v1.5)</title>
-<link rel="canonical" href="HOW_TO_PLAY_v1_5.html">
-<meta http-equiv="refresh" content="0; url=HOW_TO_PLAY_v1_5.html">
+<title>CUS — How to Play v1.5</title>
 <style>
-  html,body{background:#080d12; margin:0}
+  :root{
+    --ink:#101010; --mid:#4a4a4a; --lt:#8a8a8a; --faint:#c9c9c9; --paper:#ffffff; --wash:#f2f2ef;
+    --gold:#9a7317; --goldtxt:#8a6614; --red:#b3362b; --redd:#701a12; --redtxt:#a12d22;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{background:#e8e7e2}
+  body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink); padding:22px 12px 50px; -webkit-font-smoothing:antialiased; -webkit-text-size-adjust:100%; text-size-adjust:100%}
+  .serif{font-family:Georgia,"Times New Roman",serif}
+  .gold{color:var(--goldtxt)}
+  .red{color:var(--redtxt)}
+  .fitwrap{width:100%; max-width:1040px; margin:0 auto; overflow:hidden}
+  .sheet{width:1010px; background:var(--paper); border:1.5px solid var(--ink); padding:24px 30px 16px; position:relative; transform-origin:top left}
+
+  /* ---------- masthead ---------- */
+  h1{font-family:Georgia,"Times New Roman",serif; font-size:27px; font-weight:700; text-align:center; letter-spacing:.05em}
+  .h1-sub{text-align:center; font-size:9.5px; letter-spacing:.28em; color:var(--mid); margin:5px 0 12px; font-weight:700}
+  .spine{display:block; width:100%; height:48px}
+  .spine-loop{text-align:center; font-size:9px; letter-spacing:.18em; color:var(--lt); margin-top:5px; font-weight:700}
+
+  /* ---------- verbs ---------- */
+  .verbs{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px}
+  .verb-tile{border:1.5px solid var(--ink); border-radius:12px; padding:9px 12px; display:flex; gap:11px; align-items:center; background:#fff}
+  .verb-tile svg{flex:0 0 auto}
+  .verb-word{font-family:Georgia,serif; font-size:18.5px; font-weight:700; letter-spacing:.05em; line-height:1}
+  .verb-def{font-size:10.5px; color:var(--mid); margin-top:4px}
+  .verb-rules{margin-top:11px; text-align:center; font-size:11px; letter-spacing:.13em; font-weight:700}
+  .verb-sub{text-align:center; font-size:10px; letter-spacing:.13em; color:var(--mid); margin-top:4px; font-weight:700}
+
+  /* ---------- main grid ---------- */
+  .main{display:grid; grid-template-columns:190px 1fr 312px; gap:24px; margin-top:18px; border-top:1.5px solid var(--ink); padding-top:16px}
+  .rail-title{font-family:Georgia,serif; font-size:14px; font-weight:700; letter-spacing:.08em; border-bottom:1.5px solid var(--ink); padding-bottom:6px; margin-bottom:11px}
+  .subhead{font-size:9.5px; font-weight:700; letter-spacing:.18em; color:var(--mid); margin:15px 0 7px}
+
+  /* capsules (the two hard rules) */
+  .capsule{border:2px solid var(--ink); border-radius:10px; padding:8px 12px; text-align:center; background:#fff}
+  .capsule .c1{font-size:13px; font-weight:700; letter-spacing:.12em}
+  .capsule .c2{font-size:11px; font-weight:700; letter-spacing:.12em; margin-top:3px}
+  .capsule .c3{font-size:9.5px; color:var(--mid); margin-top:4px; letter-spacing:.03em}
+  .capsule.slim{padding:6px 10px}
+  .capsule.slim .c1{font-size:10.5px; letter-spacing:.08em}
+
+  /* left rail */
+  .base-card{display:flex; gap:10px; align-items:center; border:1px solid var(--faint); border-radius:11px; padding:8px 9px; margin-bottom:8px; background:#fff}
+  .base-card svg{flex:0 0 auto}
+  .base-name{font-size:10.5px; font-weight:700; letter-spacing:.08em}
+  .base-rule{font-family:Georgia,serif; font-size:12px; margin-top:2px}
+  .base-micro{font-size:8.5px; color:var(--lt); margin-top:2px; letter-spacing:.03em}
+
+  /* center */
+  .center-head{font-family:Georgia,serif; font-size:22px; font-weight:700; letter-spacing:.06em; text-align:center}
+  .center-sub{text-align:center; font-size:9px; letter-spacing:.26em; color:var(--mid); font-weight:700; margin:3px 0 8px}
+  .flow-wrap{display:flex; justify-content:center}
+  .eng-capsule{margin:14px 6px 12px}
+
+  /* diagrams + cinematic plates */
+  figure.diagram{border:1px solid var(--faint); border-radius:11px; padding:6px 6px 5px; background:#fff; cursor:pointer; margin:0}
+  figure.diagram .dwrap{position:relative}
+  figure.diagram svg{display:block; width:100%; height:auto}
+  figure.diagram figcaption{text-align:center; margin-top:4px; font-size:10px; letter-spacing:.05em; color:var(--mid); line-height:1.5}
+  figure.diagram figcaption b{display:block; font-size:10.5px; letter-spacing:.15em; color:var(--ink)}
+  .flipchip{position:absolute; top:2px; right:2px; font-size:7px; letter-spacing:.12em; font-weight:700; border:1px solid var(--faint); padding:2px 4px; border-radius:6px; color:var(--lt); background:#fff; z-index:5}
+  .cine{position:absolute; inset:0; display:none; border:1.5px dashed var(--mid); border-radius:6px; background:repeating-linear-gradient(45deg,#fff,#fff 7px,#ececea 7px,#ececea 8px); align-items:center; justify-content:center; text-align:center; z-index:4}
+  .cine-inner span{display:block}
+  .cine-k{font-size:8px; letter-spacing:.28em; font-weight:700; color:var(--lt)}
+  .cine-name{font-family:Georgia,serif; font-size:14px; font-weight:700; margin-top:3px}
+  .cine-hint{font-size:8px; color:var(--lt); margin-top:3px; letter-spacing:.06em}
+  figure.diagram.cine-on .cine{display:flex}
+
+  /* counter block */
+  .counter-row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  .counter-cell .dlabel{margin-top:3px}
+  .dlabel{text-align:center; font-size:11px; font-weight:700; letter-spacing:.1em; color:var(--ink)}
+  .dlabel .sub{display:block; font-size:9px; font-weight:700; color:var(--mid); letter-spacing:.12em; margin-top:1px}
+  .counter-strip{text-align:center; font-size:11px; font-weight:700; letter-spacing:.12em; margin-top:8px; padding-top:7px; border-top:1px solid var(--faint)}
+  .counter-row{grid-template-columns:0.9fr 1.1fr; gap:10px}
+  .counter-row .dlabel{font-size:10.5px; letter-spacing:.06em}
+
+  /* right rail */
+  .move-strip{border:1px solid var(--faint); border-radius:11px; overflow:hidden}
+  .move-row{display:flex; align-items:center; gap:9px; padding:7px 10px; border-bottom:1px solid var(--faint)}
+  .move-row:last-child{border-bottom:none}
+  .move-row svg{flex:0 0 auto}
+  .move-label{font-size:11px; font-weight:700; letter-spacing:.1em; flex:1}
+  .move-eq{font-size:9px; color:var(--lt)}
+  .move-chip{font-family:Georgia,serif; font-size:11px; font-weight:700; border:1.5px solid var(--ink); border-radius:8px; padding:1px 8px; letter-spacing:.06em}
+  .move-chip.ap{border-color:var(--gold); color:var(--goldtxt)}
+  .principle{text-align:center; font-size:10.5px; font-weight:700; letter-spacing:.12em; line-height:1.6; margin:2px 0 8px}
+  .charge-row{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+  .gate-line{margin-top:8px; text-align:center; font-size:10.5px; letter-spacing:.12em; color:var(--ink); font-weight:700}
+  .sizerule{display:flex; justify-content:space-between; align-items:baseline; font-size:10px; font-weight:700; padding:4.5px 1px; border-bottom:1px solid #ececea}
+  .sizerule:last-child{border-bottom:none}
+  .sizerule .sname{color:var(--lt); letter-spacing:.14em; font-size:8.5px}
+  .sizerule .sdo{color:var(--ink); letter-spacing:.05em}
+  .rangedband{margin-top:18px; border-top:1.5px solid var(--ink); padding-top:11px}
+  .band-title{font-size:9.5px; font-weight:700; letter-spacing:.2em; color:var(--mid); margin-bottom:8px}
+  .rangedgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  .rcard{border:1px solid var(--faint); border-radius:11px; padding:9px 14px 10px; background:#fff}
+  .rcname{font-family:Georgia,serif; font-size:13.5px; font-weight:700; letter-spacing:.05em}
+  .rcrule{font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--mid); margin-top:3px; line-height:1.55}
+  .mdot{display:none}
+  .aphorism{font-family:Georgia,serif; font-style:italic; font-size:11.5px; color:var(--mid); text-align:center; margin-top:11px}
+  .octachip{position:absolute; right:0px; top:34%; z-index:3}
+
+  /* position figure */
+  .pos-flank{position:absolute; right:4px; top:31%; font-size:10.5px; font-weight:700; letter-spacing:.08em; background:#fff; padding:0 2px}
+
+  /* footer band */
+  .foot{display:grid; grid-template-columns:252px 240px 1fr; gap:22px; margin-top:20px; border-top:1.5px solid var(--ink); padding-top:14px}
+  .foot-title{font-size:9.5px; font-weight:700; letter-spacing:.2em; color:var(--mid); margin-bottom:8px}
+  .nerve-box{border:1.5px solid var(--ink); border-radius:10px; padding:7px 9px 8px; text-align:center}
+  .nerve-box .n0{font-size:9.5px; font-weight:700; letter-spacing:.18em; color:var(--mid)}
+  .nerve-box .n1{font-size:13px; font-weight:700; letter-spacing:.1em; margin-top:2px}
+  .nerve-box .n2{font-size:11px; font-weight:700; letter-spacing:.12em; margin-top:3px}
+  .nerve-point{margin-top:8px; text-align:center; font-size:10px; font-weight:700; letter-spacing:.1em; color:var(--mid)}
+  .temps{display:grid; grid-template-columns:repeat(5,1fr); gap:8px}
+  .temp{border:1px solid var(--faint); border-radius:10px; padding:5px 3px 6px; text-align:center; background:#fff}
+  .temp svg{display:block; margin:0 auto}
+  .temp-name{font-size:8.5px; letter-spacing:.13em; color:var(--lt); font-weight:700; margin-top:3px}
+  .temp-verb{font-family:Georgia,serif; font-size:10.5px; font-weight:700; letter-spacing:.03em; margin-top:1px; white-space:nowrap}
+
+  /* footer lines */
+  .keyline{margin-top:18px; text-align:center; font-size:9px; letter-spacing:.1em; color:var(--lt); font-weight:700}
+  .stamp{margin-top:6px; border-top:1px solid var(--faint); padding-top:7px; text-align:center; font-size:9px; letter-spacing:.22em; color:var(--lt); font-weight:700}
+
+  /* ---------- stacked / mobile layout (screens only — print keeps the poster) ---------- */
+  .spine-m{display:none}
+  @media screen and (max-width:880px){
+    body{padding:10px 8px 44px}
+    .fitwrap{max-width:none; overflow:visible; height:auto !important}
+    .sheet{width:100%; padding:18px 14px 14px; transform:none !important}
+    h1{font-size:21px; letter-spacing:.04em}
+    .h1-sub{font-size:8.5px; letter-spacing:.16em}
+    .spine{display:none}
+    .spine-m{display:block; max-width:460px; margin:0 auto}
+    .sm-step{border:1.5px solid var(--ink); border-radius:10px; padding:8px 10px; text-align:center; font-size:12px; font-weight:700; letter-spacing:.14em; background:#fff}
+    .sm-step.last{background:#1a1a1a; color:#fff; border-color:#1a1a1a}
+    .sm-arrow{width:0; height:0; border-left:7px solid transparent; border-right:7px solid transparent; border-top:9px solid var(--gold); margin:5px auto}
+    .verbs{grid-template-columns:repeat(2,1fr); gap:10px; max-width:560px; margin:14px auto 0}
+    .verb-rules{font-size:10px; letter-spacing:.06em; line-height:1.9}
+    .main{grid-template-columns:1fr; gap:28px}
+    .main>aside, .main>section{max-width:480px; width:100%; margin:0 auto}
+    .flow-wrap svg{width:100%; max-width:400px; height:auto}
+    .charge-row{max-width:430px; margin:0 auto}
+    .rangedgrid{grid-template-columns:1fr; gap:9px; max-width:480px; margin:0 auto}
+    .rcard{display:flex; align-items:baseline; gap:12px; padding:9px 13px}
+    .rcname{flex:0 0 auto; min-width:92px}
+    .rcrule{margin-top:0}
+    .rcrule br{display:none}
+    .mdot{display:inline}
+    .foot{grid-template-columns:1fr; gap:24px}
+    .foot>div{max-width:480px; width:100%; margin:0 auto}
+    .foot>div>svg{display:block; max-width:340px; margin:0 auto}
+    .keyline{line-height:2; padding:0 4px}
+  }
+  @media screen and (max-width:460px){
+    .verb-word{font-size:16px}
+    .verb-def{font-size:10px}
+    .temps{gap:5px}
+    .temp-name{font-size:7.5px; letter-spacing:.08em}
+    .temp-verb{font-size:9.5px}
+    .charge-row{gap:6px}
+    figure.diagram figcaption b{font-size:10px}
+  }
+
+  @media print{
+    body{background:#fff; padding:0}
+    .fitwrap{max-width:none; overflow:visible; height:auto !important}
+    .sheet{transform:none !important; border:none; zoom:.62} /* one page, Letter/A4 portrait; print at 85–100% scale on A3/tabloid instead to hold the 8pt floor */
+    .flipchip{display:none}
+    @page{margin:10mm}
+  }
+
+
+  /* ============================================================
+     CUS BRAND + LIGHT / DARK THEMES
+     Light is the print-friendly vellum presentation.
+     Dark is the default low-glare screen presentation.
+     ============================================================ */
+  :root{
+    --ink:#221a12;
+    --mid:#665946;
+    --lt:#8d806d;
+    --faint:#cbbd9f;
+    --paper:#f2ead8;
+    --paper2:#fbf7ed;
+    --panel:#fffaf0;
+    --wash:#e9dec8;
+    --night:#17130f;
+    --night2:#241d16;
+    --gold:#b48835;
+    --goldtxt:#87601f;
+    --goldhi:#dfbd73;
+    --red:#b54a39;
+    --redd:#6f241b;
+    --redtxt:#993126;
+    --shadow:0 24px 70px rgba(0,0,0,.42),0 4px 14px rgba(0,0,0,.22);
+  }
+  .sheet,.sheet svg text{-webkit-user-select:none;user-select:none}
+  html,body{min-height:100%}
   body{
-    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:#e7e2d8;
-    min-height:100vh; display:flex; align-items:center; justify-content:center;
-    padding:24px; text-align:center; line-height:1.6;
+    font-family:"Avenir Next","Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 18% 8%,rgba(180,136,53,.11),transparent 25rem),
+      radial-gradient(circle at 86% 18%,rgba(111,36,27,.08),transparent 28rem),
+      linear-gradient(180deg,#211b16 0%,#100d0b 100%);
   }
-  .card{max-width:460px}
-  h1{font-family:Georgia,"Times New Roman",serif; font-size:22px; font-weight:700; letter-spacing:.05em; margin:0 0 10px}
-  p{font-size:13.5px; color:#aab5bb; margin:10px 0}
-  a{color:#d2b46f}
-  code{font-family:ui-monospace,Consolas,monospace; font-size:12px}
-  .go{
-    display:inline-block; margin-top:16px; padding:11px 22px; border:1.5px solid #b58a3a;
-    border-radius:10px; color:#d2b46f; text-decoration:none; font-size:11px;
-    letter-spacing:.18em; font-weight:700; text-transform:uppercase;
+  .serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif}
+  .fitwrap{max-width:1080px;padding:10px}
+  .sheet{
+    color:var(--ink);
+    border:1px solid #3d3023;
+    outline:1px solid rgba(223,189,115,.72);
+    outline-offset:5px;
+    box-shadow:var(--shadow);
+    background:
+      radial-gradient(circle at 14% 7%,rgba(255,255,255,.68),transparent 18rem),
+      radial-gradient(circle at 88% 92%,rgba(180,136,53,.07),transparent 22rem),
+      repeating-linear-gradient(0deg,rgba(77,55,25,.017) 0 1px,transparent 1px 4px),
+      var(--paper);
+    isolation:isolate;
   }
-  .go:hover{background:#b58a3a; color:#0a1014}
-  .note{font-size:10.5px; color:#7d8b93; margin-top:22px; letter-spacing:.04em}
+  .sheet::before{
+    content:"";position:absolute;inset:8px;border:1px solid rgba(180,136,53,.42);
+    pointer-events:none;z-index:-1
+  }
+  .sheet::after{
+    content:"";position:absolute;left:18px;right:18px;top:12px;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.65;pointer-events:none
+  }
+
+  /* brand chrome */
+  .brandbar{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:0 4px 11px;color:#392b1c;font-size:9px;letter-spacing:.18em;
+    font-weight:800;text-transform:uppercase
+  }
+  .brandlock{display:flex;align-items:center;gap:9px;min-width:0}
+  .brand-sigil{width:26px;height:26px;display:grid;place-items:center;color:var(--goldtxt);flex:0 0 auto}
+  .brand-word{font-family:"Iowan Old Style",Georgia,serif;font-size:16px;letter-spacing:.18em;color:#1a1510}
+  .brand-divider{color:var(--goldtxt);font-size:13px}
+  .brand-name{color:var(--mid);white-space:nowrap}
+  .brand-actions{display:flex;align-items:center;gap:10px;white-space:nowrap}
+  .brand-meta{color:var(--goldtxt)}
+  .theme-toggle{
+    display:inline-grid;grid-template-columns:1fr 1fr;padding:2px;border:1px solid rgba(180,136,53,.64);
+    border-radius:999px;background:rgba(255,250,240,.44);box-shadow:inset 0 1px 4px rgba(40,27,12,.10)
+  }
+  .theme-toggle button{
+    appearance:none;border:0;border-radius:999px;background:transparent;color:var(--mid);cursor:pointer;
+    min-height:32px;padding:7px 11px 6px;font:800 8px/1 "Avenir Next","Segoe UI",Helvetica,Arial,sans-serif;
+    letter-spacing:.15em;text-transform:uppercase;transition:background .16s ease,color .16s ease,box-shadow .16s ease
+  }
+  .theme-toggle button[aria-pressed="true"]{
+    background:var(--gold);color:#17110b;box-shadow:0 2px 7px rgba(0,0,0,.22)
+  }
+  .theme-toggle button:focus-visible{outline:2px solid var(--goldhi);outline-offset:2px}
+
+  /* light presentation refinements */
+  header{
+    position:relative;padding:19px 24px 16px;border:1px solid rgba(223,189,115,.65);
+    background:
+      radial-gradient(circle at 50% -30%,rgba(223,189,115,.15),transparent 55%),
+      repeating-linear-gradient(135deg,rgba(255,255,255,.016) 0 1px,transparent 1px 8px),
+      linear-gradient(180deg,var(--night2),var(--night));
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.52),inset 0 0 24px rgba(0,0,0,.40),0 8px 18px rgba(44,31,15,.15)
+  }
+  header::before,header::after{content:"";position:absolute;top:14px;bottom:14px;width:3px;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+  header::before{left:11px;border-left:1px solid var(--gold)}
+  header::after{right:11px;border-right:1px solid var(--gold)}
+  h1{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:30px;color:#f6ecd2;text-shadow:0 1px 0 #000,0 0 18px rgba(223,189,115,.10)}
+  .h1-sub{color:#cbb073;font-weight:800}
+  .spine{filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+  header .spine polygon{stroke:var(--goldhi)!important}
+  header .spine polygon:nth-of-type(-n+3){fill:#f5edd9!important}
+  header .spine polygon:last-of-type{fill:var(--gold)!important}
+  header .spine text:nth-of-type(-n+3){fill:#251b11!important}
+  header .spine text:last-of-type{fill:#15110d!important}
+  .spine-loop{color:#9f8d70;font-weight:800}
+
+  .verb-tile,.base-card,.capsule,figure.diagram,.move-strip,.rcard,.temp,.nerve-box{
+    border-color:#c2ae86;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,249,237,.73));
+    box-shadow:0 4px 11px rgba(48,33,15,.07),inset 0 1px 0 rgba(255,255,255,.78)
+  }
+  .verb-tile,.rcard{position:relative;overflow:hidden}
+  .verb-tile::before,.rcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--goldhi),var(--gold))}
+  .verb-word,.center-head,.rail-title,.rcname,.temp-verb{font-family:"Iowan Old Style",Georgia,serif}
+  .rail-title{color:#241a10;border-bottom-color:var(--gold);padding-left:12px;position:relative}
+  .rail-title::before{content:"";position:absolute;left:0;top:3px;width:5px;height:13px;background:var(--gold)}
+  .subhead,.band-title,.foot-title{color:var(--goldtxt);font-weight:800}
+  .flow-wrap svg rect{fill:rgba(255,250,240,.88)!important;stroke:#3c2d1b!important}
+  figure.diagram:hover{border-color:var(--gold);box-shadow:0 8px 20px rgba(50,34,16,.12)}
+  figure.diagram:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .flipchip{border-color:var(--gold);color:var(--goldtxt);background:rgba(255,250,240,.96);border-radius:999px}
+  .cine{border-color:var(--gold);background:radial-gradient(circle at 50% 20%,rgba(223,189,115,.14),transparent 45%),linear-gradient(180deg,#241d16,#15110d);color:#f5ecd5}
+  .cine-k{color:#b99b60}.cine-name{color:#f4e8c9}.cine-hint{color:#97866b}
+  .pos-flank{background:var(--panel)}
+
+  /* dark screen theme */
+  @media screen{
+    html[data-theme="dark"]{
+      --ink:#e7e2d8;--mid:#aab5bb;--lt:#7d8b93;--faint:#485760;
+      --paper:#121a21;--paper2:#18222a;--panel:#1b252d;--wash:#26323b;
+      --night:#080d12;--night2:#111923;--gold:#b58a3a;--goldtxt:#d2b46f;--goldhi:#e2c77f;
+      --red:#c35a50;--redd:#782923;--redtxt:#df887e;
+      --shadow:0 28px 86px rgba(0,0,0,.62),0 5px 18px rgba(0,0,0,.38)
+    }
+    html[data-theme="dark"],html[data-theme="dark"] body{background:#080d12}
+    html[data-theme="dark"] body{
+      background:
+        radial-gradient(circle at 16% 4%,rgba(181,138,58,.08),transparent 30rem),
+        radial-gradient(circle at 87% 18%,rgba(52,82,98,.12),transparent 34rem),
+        linear-gradient(180deg,#101820 0%,#070b10 100%)
+    }
+    html[data-theme="dark"] .sheet{
+      border-color:#34444e;outline-color:rgba(216,184,111,.44);box-shadow:var(--shadow);
+      background:
+        radial-gradient(circle at 12% 3%,rgba(118,146,158,.065),transparent 23rem),
+        radial-gradient(circle at 90% 94%,rgba(181,138,58,.04),transparent 27rem),
+        repeating-linear-gradient(0deg,rgba(255,255,255,.006) 0 1px,transparent 1px 5px),
+        linear-gradient(180deg,#151f27 0%,#10171d 100%)
+    }
+    html[data-theme="dark"] .sheet::before{border-color:rgba(181,138,58,.30)}
+    html[data-theme="dark"] .sheet::after{opacity:.48}
+    html[data-theme="dark"] .brandbar{color:#a9b4ba}
+    html[data-theme="dark"] .brand-sigil{color:#c5a65e}
+    html[data-theme="dark"] .brand-word{color:#eee8da}
+    html[data-theme="dark"] .brand-name{color:#86959d}
+    html[data-theme="dark"] .brand-meta{color:#c9aa65}
+    html[data-theme="dark"] .theme-toggle{background:rgba(10,16,21,.66);border-color:rgba(181,138,58,.46)}
+    html[data-theme="dark"] .theme-toggle button{color:#8e9ca4}
+    html[data-theme="dark"] .theme-toggle button[aria-pressed="true"]{color:#0a1014;background:#c09a4f}
+    html[data-theme="dark"] header{
+      border-color:rgba(216,184,111,.46);
+      background:
+        radial-gradient(circle at 50% -25%,rgba(216,184,111,.10),transparent 58%),
+        linear-gradient(180deg,#16222c,#0c141b);
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,.62),inset 0 0 32px rgba(0,0,0,.38),0 10px 24px rgba(0,0,0,.26)
+    }
+    html[data-theme="dark"] h1{color:#f0eadc;text-shadow:0 1px 0 #000,0 0 16px rgba(216,184,111,.05)}
+    html[data-theme="dark"] .h1-sub{color:#c7aa68}
+    html[data-theme="dark"] .spine-loop{color:#74838c}
+    html[data-theme="dark"] .verb-tile,
+    html[data-theme="dark"] .base-card,
+    html[data-theme="dark"] .capsule,
+    html[data-theme="dark"] figure.diagram,
+    html[data-theme="dark"] .move-strip,
+    html[data-theme="dark"] .rcard,
+    html[data-theme="dark"] .temp,
+    html[data-theme="dark"] .nerve-box{
+      background:linear-gradient(180deg,rgba(29,41,50,.96),rgba(22,32,40,.94));
+      border-color:#40515b;box-shadow:0 5px 15px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.035)
+    }
+    html[data-theme="dark"] .flow-wrap svg rect{fill:#1b2630!important;stroke:#657783!important;stroke-width:2px!important}
+    html[data-theme="dark"] .flow-wrap svg text[fill="#101010"]{fill:#f0eadf!important}
+    html[data-theme="dark"] .flow-wrap svg text[fill="#4a4a4a"]{fill:#aab6bd!important}
+    html[data-theme="dark"] .move-row{border-bottom-color:#33434d}
+    html[data-theme="dark"] .move-chip{background:#18232b;border-color:#64757e;color:#e1dbcf}
+    html[data-theme="dark"] .move-chip.ap{border-color:var(--gold);color:var(--goldtxt)}
+    html[data-theme="dark"] .pos-flank{background:#1b252d}
+    html[data-theme="dark"] .flipchip{background:#131c23;color:#d2b46f;border-color:#876a32}
+    html[data-theme="dark"] .counter-strip{color:#d8d1c4;border-top-color:#3e4d56}
+    html[data-theme="dark"] .verb-rules{color:#d7d1c6}
+    html[data-theme="dark"] .rail-title,
+    html[data-theme="dark"] .center-head,
+    html[data-theme="dark"] .verb-word,
+    html[data-theme="dark"] .base-name,
+    html[data-theme="dark"] .base-rule,
+    html[data-theme="dark"] .capsule .c1,
+    html[data-theme="dark"] .principle,
+    html[data-theme="dark"] .rcname,
+    html[data-theme="dark"] .temp-verb,
+    html[data-theme="dark"] .dlabel{color:#eee8dc}
+    html[data-theme="dark"] .main,
+    html[data-theme="dark"] .rangedband,
+    html[data-theme="dark"] .foot{border-top-color:rgba(181,138,58,.34)}
+    html[data-theme="dark"] .keyline{color:#73828a}
+    html[data-theme="dark"] .stamp{border-top-color:#33434d}
+    html[data-theme="dark"] .sizerule{border-bottom-color:#2d3b44}
+    html[data-theme="dark"] .sm-step{background:#19242d;border-color:#50616b;color:#e7e2d8}
+    html[data-theme="dark"] .sm-step.last{background:#b58a3a;border-color:#e2c77f;color:#0b1116}
+
+    /* diagram semantic colors: black acts, white receives, grey bystands */
+    html[data-theme="dark"] svg :not(text)[fill="#ffffff"]{fill:#e3e8ea!important}
+    html[data-theme="dark"] svg :not(text)[fill="#101010"]{fill:#05080b!important;stroke:#6f8089!important;stroke-width:.7px;vector-effect:non-scaling-stroke}
+    html[data-theme="dark"] svg [stroke="#101010"]{stroke:#6f8089!important}
+    html[data-theme="dark"] svg [fill="#4a4a4a"]{fill:#63717a!important}
+    html[data-theme="dark"] svg [stroke="#4a4a4a"]{stroke:#63717a!important}
+    html[data-theme="dark"] svg [fill="#8a8a8a"]{fill:#78868e!important}
+    html[data-theme="dark"] svg [stroke="#8a8a8a"]{stroke:#78868e!important}
+    html[data-theme="dark"] svg [fill="#d9d9d9"],html[data-theme="dark"] svg [fill="#dcdcdc"]{fill:#65737b!important}
+    html[data-theme="dark"] svg [stroke="#c9c9c9"]{stroke:#46555e!important}
+    html[data-theme="dark"] svg [fill="#9a7317"]{fill:#b58a3a!important}
+    html[data-theme="dark"] svg [stroke="#9a7317"]{stroke:#b58a3a!important}
+    html[data-theme="dark"] svg text[fill="#101010"]{fill:#e9e3d8!important;stroke:none!important}
+    html[data-theme="dark"] svg text[fill="#4a4a4a"]{fill:#aab5bb!important;stroke:none!important}
+    html[data-theme="dark"] svg text[fill="#8a8a8a"]{fill:#7e8c94!important;stroke:none!important}
+    html[data-theme="dark"] svg text[fill="#ffffff"]{fill:#f3eee3!important;stroke:none!important}
+    html[data-theme="dark"] svg [fill="#b3362b"]{fill:#a8443c!important}
+    html[data-theme="dark"] svg [fill="#701a12"]{fill:#68231f!important}
+
+    /* Interface SVGs must remain dark containers, not white game pieces. */
+    html[data-theme="dark"] .flow-wrap svg rect{fill:#1b2630!important;stroke:#657783!important;stroke-width:2px!important}
+    html[data-theme="dark"] header .spine polygon:nth-of-type(-n+3){fill:#1d2932!important;stroke:#b58a3a!important}
+    html[data-theme="dark"] header .spine polygon:last-of-type{fill:#b58a3a!important;stroke:#e2c77f!important}
+    html[data-theme="dark"] header .spine text:nth-of-type(-n+3){fill:#e9e3d8!important}
+    html[data-theme="dark"] header .spine text:last-of-type{fill:#0b1116!important}
+  }
+
+  @media screen and (max-width:880px){
+    .fitwrap{padding:4px}
+    .sheet{outline-offset:2px;padding-top:14px}
+    .brandbar{align-items:flex-start;gap:10px;padding:0 2px 10px}
+    .brand-actions{gap:7px}
+    .brand-meta{display:none}
+    .brand-name{font-size:8px;letter-spacing:.12em}
+    .brand-word{font-size:15px}
+    header{padding:17px 14px 15px}
+    .sm-step{border-color:#9b845c;background:#f5edd9;border-radius:8px}
+    .theme-toggle button{min-height:34px;padding-left:10px;padding-right:10px}
+  }
+  @media screen and (max-width:460px){
+    .brand-name{display:none}
+    .brand-divider{display:none}
+    .brandbar{align-items:center}
+    .theme-toggle button{padding:7px 9px 6px;letter-spacing:.11em}
+    header{padding-left:11px;padding-right:11px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media print{
+    .theme-toggle{display:none!important}
+    .brandbar{padding-bottom:10px}
+    html,body{background:#fff!important}
+    body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .sheet{outline:none;box-shadow:none}
+    .sheet::before,.sheet::after{display:none}
+  }
+
 </style>
+<script>
+/* ============================================================
+   CINEMATIC PLATES — drop your generated art here.
+   Set any key to a URL or data: URI and that diagram's plate
+   shows the image when tapped. null = reserved placeholder.
+   ============================================================ */
+const CINEMA = {
+  shove:    null,
+  indent:   null,
+  crush:    null,
+  position: null,
+  mob:      null,
+  counter:  null
+};
+</script>
 </head>
 <body>
-  <div class="card">
-    <h1>THIS PAGE MOVED</h1>
-    <p>
-      The current Combat Operating Map is <strong>How to Play v1.5</strong>.
-      You are being sent there now.
-    </p>
-    <a class="go" href="HOW_TO_PLAY_v1_5.html">Go to v1.5 &rsaquo;</a>
-    <p class="note">
-      The old <code>v1_4</code> filename was serving a page whose own title already read v1.5 —
-      the file was stale, not the rules. This redirect keeps the shared link working.
-      <br><br>
-      <a href="index.html">Play CUS — all three doors</a>
-    </p>
+<div class="fitwrap"><div class="sheet">
+<div class="brandbar" aria-label="CUS brand header">
+  <div class="brandlock">
+    <span class="brand-sigil" aria-hidden="true">
+      <svg viewBox="0 0 28 28" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="14,1.7 22.2,5.6 26.3,14 22.2,22.4 14,26.3 5.8,22.4 1.7,14 5.8,5.6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M14 5.5V22.5M5.5 14H22.5" stroke="currentColor" stroke-width="1.25" opacity=".82"/>
+        <circle cx="14" cy="14" r="4" fill="currentColor"/>
+        <circle cx="14" cy="14" r="1.5" fill="var(--paper)"/>
+      </svg>
+    </span>
+    <span class="brand-word">CUS</span>
+    <span class="brand-divider">·</span>
+    <span class="brand-name">Combat Operating Map</span>
   </div>
+  <div class="brand-actions">
+    <span class="brand-meta">Quickstart / v1.5</span>
+    <div class="theme-toggle" role="group" aria-label="Color theme">
+      <button type="button" data-set-theme="light" aria-pressed="false">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="true">Dark</button>
+    </div>
+  </div>
+</div>
+
+  <!-- ================= 1 · OBJECTIVE + 2 · ALTERNATION ================= -->
+  <header>
+    <h1>COMPLETE THE SCENARIO OBJECTIVE</h1>
+    <div class="h1-sub">THAT IS THE WHOLE GAME — EVERYTHING BELOW IS HOW A ROUND HAPPENS</div>
+    <svg class="spine" viewBox="0 0 950 48" preserveAspectRatio="xMidYMid meet" style="font-family:Helvetica,Arial,sans-serif">
+      <polygon points="1,1 222,1 237,24 222,47 1,47 1,1" fill="#ffffff" stroke="#101010" stroke-width="1.5"/>
+      <polygon points="240,1 460,1 475,24 460,47 240,47 255,24" fill="#ffffff" stroke="#101010" stroke-width="1.5"/>
+      <polygon points="478,1 698,1 713,24 698,47 478,47 493,24" fill="#ffffff" stroke="#101010" stroke-width="1.5"/>
+      <polygon points="716,1 934,1 949,24 934,47 716,47 731,24" fill="#1a1a1a" stroke="#101010" stroke-width="1.5"/>
+      <text x="115" y="29" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="1.4" fill="#101010">ACTIVATE ONE FIGURE</text>
+      <text x="358" y="29" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="1.4" fill="#101010">SPEND AP</text>
+      <text x="596" y="29" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="1.4" fill="#101010">RESOLVE RESULTS</text>
+      <text x="834" y="29" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="1.4" fill="#ffffff">OTHER SIDE ACTIVATES</text>
+    </svg>
+    <div class="spine-m">
+      <div class="sm-step">ACTIVATE ONE FIGURE</div>
+      <div class="sm-arrow"></div>
+      <div class="sm-step">SPEND AP</div>
+      <div class="sm-arrow"></div>
+      <div class="sm-step">RESOLVE RESULTS</div>
+      <div class="sm-arrow"></div>
+      <div class="sm-step last">OTHER SIDE ACTIVATES</div>
+    </div>
+    <div class="spine-loop">…AND BACK — FIGURE BY FIGURE. WHEN ONE SIDE IS DONE, THE OTHER FINISHES.</div>
+  </header>
+
+  <!-- ================= 3 · THREE VERBS ================= -->
+  <section class="verbs">
+    <div class="verb-tile">
+      <svg data-export="action_move" width="34" height="34" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12 L20 22 L8 32" fill="none" stroke="#101010" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M22 12 L34 22 L22 32" fill="none" stroke="#101010" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div><div class="verb-word">MOVE</div><div class="verb-def">Change position now.</div></div>
+    </div>
+    <div class="verb-tile">
+      <svg data-export="action_action" width="34" height="34" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 34 L32 10" stroke="#101010" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M34 34 L12 10" stroke="#101010" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M12 28 L18 34" stroke="#101010" stroke-width="3" stroke-linecap="round"/>
+        <path d="M32 28 L26 34" stroke="#101010" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div><div class="verb-word">ACTION</div><div class="verb-def">Resolve a PACKET now — strike, use, cast.</div></div>
+    </div>
+    <div class="verb-tile">
+      <svg data-export="action_wait" width="34" height="34" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 8 H34 L24 22 L34 36 H10 L20 22 Z" fill="none" stroke="#101010" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M8 8 H36 M8 36 H36" stroke="#101010" stroke-width="2.8" stroke-linecap="round"/>
+      </svg>
+      <div><div class="verb-word">WAIT</div><div class="verb-def">Arm a PACKET for later — brace, overwatch, counter.</div></div>
+    </div>
+  </section>
+  <div class="verb-rules">1 AP = ONE <span class="gold">MOVE</span>, <span class="gold">ACTION</span>, OR <span class="gold">WAIT</span>&nbsp;&nbsp;·&nbsp;&nbsp;ONE ATTACK PER ACTIVATION&nbsp;&nbsp;·&nbsp;&nbsp;MOVE BEFORE OR AFTER&nbsp;&nbsp;·&nbsp;&nbsp;WAIT ENDS THE ACTIVATION</div>
+  <div class="verb-sub" style="margin-top:2px">ATTACK · USE · CAST → <span class="gold">ACTION</span>&nbsp;&nbsp;·&nbsp;&nbsp;BRACE · OVERWATCH · READY → <span class="gold">WAIT</span></div>
+  <div class="verb-sub">AP BY BASE — CIRCLE <span class="gold">3</span> · SQUARE <span class="gold">2</span></div>
+
+  <!-- ================= MAIN GRID ================= -->
+  <div class="main">
+
+    <!-- ---------- LEFT · READ THE MINIATURE ---------- -->
+    <aside>
+      <div class="rail-title">READ THE MINIATURE</div>
+
+      <div class="base-card">
+        <svg data-export="base_circle" width="56" height="56" viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="33,14 43,14 38,6" fill="#101010"/>
+          <circle cx="38" cy="40" r="26" fill="#ffffff" stroke="#101010" stroke-width="2.4"/>
+          <circle cx="38" cy="40" r="20.5" fill="none" stroke="#c9c9c9" stroke-width="1.4"/>
+        </svg>
+        <div>
+          <div class="base-name">CIRCLE — HIGHER AGENCY · 3 AP</div>
+          <div class="base-rule serif">No flank, no backstab.</div>
+          <div class="base-micro">each extra attacker adds dice · never routs</div>
+        </div>
+      </div>
+
+      <div class="base-card">
+        <svg data-export="base_square" width="56" height="56" viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="33,14 43,14 38,6" fill="#101010"/>
+          <rect x="12" y="14" width="52" height="52" rx="3" fill="#ffffff" stroke="#101010" stroke-width="2.4"/>
+          <rect x="17.5" y="19.5" width="41" height="41" rx="2" fill="none" stroke="#c9c9c9" stroke-width="1.4"/>
+        </svg>
+        <div>
+          <div class="base-name">SQUARE — LOWER AGENCY · 2 AP</div>
+          <div class="base-rule serif">Orientation matters as much as position.</div>
+          <div class="base-micro">not the hero — stick with your mates &amp; do your job</div>
+        </div>
+      </div>
+
+      <div class="base-card">
+        <svg data-export="base_mounted" width="62" height="56" viewBox="0 0 84 76" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="22" width="64" height="26" rx="3" fill="#ffffff" stroke="#101010" stroke-width="2.4"/>
+          <rect x="9" y="27" width="54" height="16" rx="2" fill="none" stroke="#c9c9c9" stroke-width="1.4"/>
+          <polygon points="72,30 72,40 80,35" fill="#101010"/>
+          <rect x="4" y="56" width="64" height="14" rx="7" fill="none" stroke="#8a8a8a" stroke-width="1.4" stroke-dasharray="4 3"/>
+        </svg>
+        <div>
+          <div class="base-name">ELONGATED — MOUNTED</div>
+          <div class="base-rule serif">Plows one size up.</div>
+          <div class="base-micro">square = cavalry · oval = mounted hero</div>
+        </div>
+      </div>
+
+      <div class="subhead">SIZE — SMALL · MEDIUM · LARGE</div>
+      <svg width="100%" viewBox="0 0 250 108" xmlns="http://www.w3.org/2000/svg" style="font-family:Helvetica,Arial,sans-serif; max-width:270px; display:block; margin:0 auto">
+        <rect x="24" y="54" width="24" height="24" rx="2" fill="#ffffff" stroke="#101010" stroke-width="1.8"/>
+        <rect x="92" y="46" width="32" height="32" rx="2" fill="#ffffff" stroke="#101010" stroke-width="1.8"/>
+        <rect x="168" y="30" width="48" height="48" rx="2.5" fill="#ffffff" stroke="#101010" stroke-width="1.8"/>
+        <rect x="96" y="50" width="24" height="24" rx="2" fill="none" stroke="#c9c9c9" stroke-width="1"/>
+        <rect x="172" y="34" width="40" height="40" rx="2" fill="none" stroke="#c9c9c9" stroke-width="1"/>
+        <path d="M52 66 L64 66 M60 62 L65 66.5 L60 71" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+        <path d="M128 62 L140 62 M136 58 L141 62.5 L136 67" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+        <text x="36" y="96" text-anchor="middle" font-size="9" letter-spacing="1" font-weight="700" fill="#4a4a4a">SMALL</text>
+        <text x="108" y="96" text-anchor="middle" font-size="9" letter-spacing="1" font-weight="700" fill="#4a4a4a">MEDIUM</text>
+        <text x="192" y="96" text-anchor="middle" font-size="9" letter-spacing="1" font-weight="700" fill="#4a4a4a">LARGE</text>
+      </svg>
+      <div class="base-micro" style="text-align:center; margin-top:4px">a “monster” = a <b>Large</b> base + the <b>Unstoppable</b> trait — not a fourth size</div>
+
+      <div class="subhead">ON THE CHARGE</div>
+      <div>
+        <div class="sizerule"><span class="sname">SMALL</span><span class="sdo">SLIPS THROUGH</span></div>
+        <div class="sizerule"><span class="sname">LARGE</span><span class="sdo">PLOWS</span></div>
+        <div class="sizerule"><span class="sname">MOUNTED</span><span class="sdo">PLOWS ONE SIZE UP</span></div>
+        <div class="sizerule"><span class="sname">UNSTOPPABLE</span><span class="sdo">ONLY WALLS STOP IT</span></div>
+      </div>
+    </aside>
+
+    <!-- ---------- CENTER · 4 ATTACK RESOLUTION + 5 ENGAGEMENT & COUNTER ---------- -->
+    <section>
+      <div class="center-head serif">THE ATTACK</div>
+      <div class="center-sub">EVERY STRIKE RESOLVES THE SAME WAY</div>
+      <div class="flow-wrap">
+      <svg width="400" height="610" viewBox="0 0 400 610" xmlns="http://www.w3.org/2000/svg" style="font-family:Helvetica,Arial,sans-serif">
+        <defs>
+          <marker id="fl-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/>
+          </marker>
+        </defs>
+
+        <text x="200" y="15" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="2" fill="#9a7317">PLAYER A &#183; THE ATTACKER</text>
+        <line x1="40" y1="22" x2="360" y2="22" stroke="#9a7317" stroke-width="1"/>
+
+        <rect x="40" y="30" width="320" height="52" rx="10" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+        <text x="200" y="52" text-anchor="middle" font-size="14.5" font-weight="700" letter-spacing="1.5" fill="#101010">DECLARE</text>
+        <text x="200" y="70" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1" fill="#4a4a4a">WHO YOU HIT + WITH WHAT</text>
+
+        <rect x="40" y="100" width="320" height="52" rx="10" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+        <text x="200" y="122" text-anchor="middle" font-size="14.5" font-weight="700" letter-spacing="1.5" fill="#101010">ROLL DICE</text>
+        <text x="200" y="140" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1" fill="#4a4a4a">WEAPON DICE &#177; POSITION</text>
+
+        <rect x="40" y="170" width="320" height="52" rx="10" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+        <text x="200" y="192" text-anchor="middle" font-size="14.5" font-weight="700" letter-spacing="1.5" fill="#101010">COUNT SUCCESSES</text>
+        <text x="200" y="210" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1" fill="#4a4a4a">DICE &#8805; YOUR HIT (&#177;X)</text>
+
+        <rect x="40" y="240" width="320" height="52" rx="10" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+        <text x="200" y="262" text-anchor="middle" font-size="14.5" font-weight="700" letter-spacing="1.5" fill="#101010">READ THE GRADE</text>
+        <text x="200" y="280" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1" fill="#4a4a4a">HIGHEST GRADE REACHED &#183; THAT LINE ONLY</text>
+
+        <text x="200" y="325" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="2" fill="#9a7317">PLAYER B &#183; THE DEFENDER</text>
+        <line x1="40" y1="332" x2="360" y2="332" stroke="#9a7317" stroke-width="1"/>
+
+        <rect x="40" y="340" width="320" height="52" rx="10" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+        <text x="200" y="362" text-anchor="middle" font-size="14.5" font-weight="700" letter-spacing="1.5" fill="#101010">ROLL ARMOUR</text>
+        <text x="200" y="380" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1" fill="#4a4a4a">ONE SAVE PER WOUND &#183; IF ANY</text>
+
+        <rect x="40" y="410" width="320" height="52" rx="10" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+        <text x="200" y="432" text-anchor="middle" font-size="14.5" font-weight="700" letter-spacing="1.5" fill="#101010">APPLY WOUNDS</text>
+        <text x="200" y="450" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1" fill="#4a4a4a">FINE <tspan fill="#9a7317">&#8594;</tspan> HURT <tspan fill="#9a7317">&#8594;</tspan> <tspan fill="#a12d22">KO</tspan> <tspan fill="#9a7317">&#8594;</tspan> <tspan fill="#a12d22">DEAD</tspan></text>
+
+        <rect x="40" y="480" width="320" height="52" rx="10" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+        <text x="200" y="502" text-anchor="middle" font-size="14.5" font-weight="700" letter-spacing="1.5" fill="#101010">COUNTER</text>
+        <text x="200" y="520" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1" fill="#4a4a4a">BASES TOUCH &#8594; STRIKE BACK IF ABLE</text>
+
+        <rect x="40" y="550" width="320" height="52" rx="10" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+        <text x="200" y="572" text-anchor="middle" font-size="14.5" font-weight="700" letter-spacing="1.5" fill="#101010">RESOLVE EFFECTS</text>
+        <text x="200" y="590" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1" fill="#4a4a4a">ATTACKER'S EXTRA EFFECTS</text>
+
+        <line x1="200" y1="84"  x2="200" y2="98"  stroke="#9a7317" stroke-width="2.2" marker-end="url(#fl-ah)"/>
+        <line x1="200" y1="154" x2="200" y2="168" stroke="#9a7317" stroke-width="2.2" marker-end="url(#fl-ah)"/>
+        <line x1="200" y1="224" x2="200" y2="238" stroke="#9a7317" stroke-width="2.2" marker-end="url(#fl-ah)"/>
+        <line x1="200" y1="294" x2="200" y2="311" stroke="#9a7317" stroke-width="2.2" marker-end="url(#fl-ah)"/>
+        <line x1="200" y1="394" x2="200" y2="408" stroke="#9a7317" stroke-width="2.2" marker-end="url(#fl-ah)"/>
+        <line x1="200" y1="464" x2="200" y2="478" stroke="#9a7317" stroke-width="2.2" marker-end="url(#fl-ah)"/>
+        <line x1="200" y1="534" x2="200" y2="548" stroke="#9a7317" stroke-width="2.2" marker-end="url(#fl-ah)"/>
+      </svg>
+      </div>
+
+      <!-- 5 · ENGAGEMENT -->
+      <div class="capsule eng-capsule">
+        <div class="c1">BASES TOUCHING = ENGAGED</div>
+        <div class="c2">TO LEAVE: DISENGAGE · <span class="gold">1 AP</span></div>
+        <div class="c3">No measured band — if the bases touch, they're engaged. Reach threatens a 1–2″ band.</div>
+      </div>
+
+      <figure class="diagram" data-cine="counter">
+        <div class="dwrap">
+          <span class="flipchip">TAP ⇄ CINE</span>
+          <div class="counter-row">
+            <div class="counter-cell">
+              <svg data-export="diagram_counter" viewBox="0 0 250 110" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <marker id="ct-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker>
+                  <marker id="ct-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#101010"/></marker>
+                </defs>
+                <rect x="78" y="40" width="30" height="30" rx="2" fill="#101010"/>
+                <rect x="108" y="40" width="30" height="30" rx="2" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+                <polygon points="117,48 117,62 110,55" fill="#101010"/>
+                <path d="M86 34 Q 108 10 130 32" fill="none" stroke="#9a7317" stroke-width="2" marker-end="url(#ct-g)"/>
+                <path d="M130 76 Q 108 100 86 78" fill="none" stroke="#101010" stroke-width="2" marker-end="url(#ct-k)"/>
+              </svg>
+              <div class="dlabel">BASES TOUCH → COUNTER</div>
+            </div>
+            <div class="counter-cell">
+              <svg data-export="diagram_reach" viewBox="0 0 250 110" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <marker id="cr-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker>
+                  <marker id="cr-x" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#8a8a8a"/></marker>
+                </defs>
+                <rect x="40" y="40" width="30" height="30" rx="2" fill="#101010"/>
+                <line x1="70" y1="55" x2="126" y2="55" stroke="#101010" stroke-width="2"/>
+                <polygon points="126,50.5 135,55 126,59.5" fill="#101010"/>
+                <rect x="138" y="40" width="30" height="30" rx="2" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+                <polygon points="147,48 147,62 140,55" fill="#101010"/>
+                <path d="M50 32 Q 98 6 146 30" fill="none" stroke="#9a7317" stroke-width="2" marker-end="url(#cr-g)"/>
+                <path d="M148 76 Q 98 104 58 78" fill="none" stroke="#8a8a8a" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#cr-x)"/>
+                <line x1="97" y1="84" x2="109" y2="96" stroke="#101010" stroke-width="2.4"/>
+                <line x1="109" y1="84" x2="97" y2="96" stroke="#101010" stroke-width="2.4"/>
+              </svg>
+              <div class="dlabel" style="font-size:9.5px !important; letter-spacing:.02em !important">REACH — NO CONTACT → NO COUNTER<br>BACKSTAB → NO COUNTER</div>
+            </div>
+          </div>
+          <div class="counter-strip">DYING SWING STILL LANDS&nbsp;&nbsp;·&nbsp;&nbsp;NO CAP — EVERY ATTACKER&nbsp;&nbsp;·&nbsp;&nbsp;A COUNTER DRAWS NO COUNTER</div>
+          <div class="cine"><div class="cine-inner"><span class="cine-k">CINEMATIC PLATE</span><span class="cine-name serif">“THE DYING SWING”</span><span class="cine-hint">art pending — set CINEMA.counter</span></div></div>
+        </div>
+      </figure>
+    </section>
+
+    <!-- ---------- RIGHT · 6 MOVEMENT + CHARGE · 7 POSITION + FACING · 8 RANGED ---------- -->
+    <aside>
+      <div class="rail-title">MOVEMENT &amp; POSITION</div>
+
+      <div class="move-strip">
+        <div class="move-row">
+          <svg width="50" height="16" viewBox="0 0 54 18"><defs><marker id="m1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs><line x1="4" y1="9" x2="42" y2="9" stroke="#9a7317" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#m1)"/></svg>
+          <span class="move-label">MOVE</span><span class="move-chip ap">1 AP</span>
+        </div>
+        <div class="move-row">
+          <svg width="50" height="16" viewBox="0 0 54 18"><defs><marker id="m2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs><line x1="2" y1="9" x2="20" y2="9" stroke="#9a7317" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#m2)"/><line x1="27" y1="9" x2="45" y2="9" stroke="#9a7317" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#m2)"/></svg>
+          <span class="move-label">MOVE AGAIN</span><span class="move-eq">=</span><span class="move-chip">SPRINT</span>
+        </div>
+        <div class="move-row">
+          <svg width="50" height="16" viewBox="0 0 54 18"><defs><marker id="m3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs><line x1="2" y1="9" x2="32" y2="9" stroke="#9a7317" stroke-width="1.8" marker-end="url(#m3)"/><rect x="38" y="3" width="12" height="12" rx="1.5" fill="#ffffff" stroke="#101010" stroke-width="1.8"/></svg>
+          <span class="move-label">SPRINT INTO ENEMY</span><span class="move-eq">=</span><span class="move-chip">IMPACT</span>
+        </div>
+      </div>
+
+      <div class="subhead">THE IMPACT — PUSH › INDENT › CRUSH</div>
+      <div class="principle">KEEP A STRAIGHT COURSE<br>MOVE EACH BASE THE MINIMUM</div>
+      <div class="charge-row">
+        <figure class="diagram" data-cine="shove">
+          <div class="dwrap">
+            <span class="flipchip">TAP</span>
+            <svg data-export="diagram_shove" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="cs-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker>
+              <marker id="cs-s" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#4a4a4a"/></marker></defs>
+              <line x1="45" y1="14" x2="45" y2="140" stroke="#c9c9c9" stroke-width="1.4" stroke-dasharray="4 3"/>
+              <line x1="75" y1="14" x2="75" y2="140" stroke="#c9c9c9" stroke-width="1.4" stroke-dasharray="4 3"/>
+              <rect x="47" y="50" width="26" height="26" rx="2" fill="none" stroke="#8a8a8a" stroke-width="1.4" stroke-dasharray="3 2.5"/>
+              <line x1="76" y1="63" x2="86" y2="63" stroke="#4a4a4a" stroke-width="1.6" marker-end="url(#cs-s)"/>
+              <rect x="88" y="50" width="26" height="26" rx="2" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+              <line x1="60" y1="100" x2="60" y2="26" stroke="#9a7317" stroke-width="2.4" marker-end="url(#cs-g)"/>
+              <rect x="47" y="104" width="26" height="26" rx="2" fill="#101010"/>
+              <polygon points="55,104 65,104 60,97" fill="#101010"/>
+            </svg>
+            <div class="cine"><div class="cine-inner"><span class="cine-k">CINEMATIC</span><span class="cine-name serif">“PUSH”</span><span class="cine-hint">CINEMA.shove</span></div></div>
+          </div>
+          <figcaption><b>PUSH</b>CLEAR THE LANE</figcaption>
+        </figure>
+
+        <figure class="diagram" data-cine="indent">
+          <div class="dwrap">
+            <span class="flipchip">TAP</span>
+            <svg data-export="diagram_indent" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="ci-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs>
+              <line x1="45" y1="14" x2="45" y2="140" stroke="#c9c9c9" stroke-width="1.4" stroke-dasharray="4 3"/>
+              <line x1="75" y1="14" x2="75" y2="140" stroke="#c9c9c9" stroke-width="1.4" stroke-dasharray="4 3"/>
+              <polyline points="6,69 40,69 60,41 80,69 114,69" fill="none" stroke="#8a8a8a" stroke-width="1.4" stroke-dasharray="5 3"/>
+              <rect x="12" y="56" width="26" height="26" rx="2" fill="#d9d9d9" stroke="#4a4a4a" stroke-width="1.2"/>
+              <rect x="82" y="56" width="26" height="26" rx="2" fill="#d9d9d9" stroke="#4a4a4a" stroke-width="1.2"/>
+              <rect x="47" y="60" width="26" height="26" rx="2" fill="none" stroke="#8a8a8a" stroke-width="1.4" stroke-dasharray="3 2.5"/>
+              <rect x="47" y="28" width="26" height="26" rx="2" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+              <line x1="41" y1="66" x2="45" y2="70" stroke="#4a4a4a" stroke-width="2"/><line x1="45" y1="66" x2="41" y2="70" stroke="#4a4a4a" stroke-width="2"/>
+              <line x1="75" y1="66" x2="79" y2="70" stroke="#4a4a4a" stroke-width="2"/><line x1="79" y1="66" x2="75" y2="70" stroke="#4a4a4a" stroke-width="2"/>
+              <line x1="60" y1="104" x2="60" y2="60" stroke="#9a7317" stroke-width="2.4" marker-end="url(#ci-g)"/>
+              <rect x="47" y="108" width="26" height="26" rx="2" fill="#101010"/>
+              <polygon points="55,108 65,108 60,101" fill="#101010"/>
+            </svg>
+            <div class="cine"><div class="cine-inner"><span class="cine-k">CINEMATIC</span><span class="cine-name serif">“INDENT”</span><span class="cine-hint">CINEMA.indent</span></div></div>
+          </div>
+          <figcaption><b>INDENT</b>DENT THE LINE</figcaption>
+        </figure>
+
+        <figure class="diagram" data-cine="crush">
+          <div class="dwrap">
+            <span class="flipchip">TAP</span>
+            <span class="octachip">
+              <svg width="42" height="38" viewBox="0 0 44 40" xmlns="http://www.w3.org/2000/svg" style="font-family:Helvetica,Arial,sans-serif">
+                <polygon points="15,2 29,2 42,13 42,27 29,38 15,38 2,27 2,13" fill="#ffffff" stroke="#9a7317" stroke-width="2"/>
+                <text x="22" y="19" text-anchor="middle" font-size="12" font-weight="700" fill="#8a6614">+2</text>
+                <text x="22" y="30" text-anchor="middle" font-size="7.5" font-weight="700" letter-spacing="0.8" fill="#8a6614">DICE</text>
+              </svg>
+            </span>
+            <svg data-export="diagram_crush" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="cc-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker>
+                <pattern id="cc-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#ffffff"/><rect width="2.4" height="6" fill="#8a8a8a"/></pattern>
+              </defs>
+              <line x1="45" y1="24" x2="45" y2="140" stroke="#c9c9c9" stroke-width="1.4" stroke-dasharray="4 3"/>
+              <line x1="75" y1="24" x2="75" y2="140" stroke="#c9c9c9" stroke-width="1.4" stroke-dasharray="4 3"/>
+              <rect x="8" y="8" width="104" height="14" fill="url(#cc-hatch)" stroke="#101010" stroke-width="1.6"/>
+              <rect x="47" y="26" width="26" height="26" rx="2" fill="#ffffff" stroke="#101010" stroke-width="2"/>
+              <line x1="60" y1="102" x2="60" y2="58" stroke="#9a7317" stroke-width="2.4" marker-end="url(#cc-g)"/>
+              <rect x="47" y="106" width="26" height="26" rx="2" fill="#101010"/>
+              <polygon points="55,106 65,106 60,99" fill="#101010"/>
+            </svg>
+            <div class="cine"><div class="cine-inner"><span class="cine-k">CINEMATIC</span><span class="cine-name serif">“CRUSH”</span><span class="cine-hint">CINEMA.crush</span></div></div>
+          </div>
+          <figcaption><b>CRUSH</b>CRUSH AGAINST WALL</figcaption>
+        </figure>
+      </div>
+      <div class="gate-line">WALL JAM = <span class="gold">+2 ATTACK DICE</span></div>
+
+      <div class="subhead">POSITION — EARN THE ANGLE</div>
+      <div class="capsule slim"><div class="c1">ENGAGE OR COUNTER → TURN TO FACE · ELSE REFACE ON YOUR TURN</div></div>
+      <figure class="diagram" data-cine="position" style="margin-top:8px">
+        <div class="dwrap">
+          <span class="flipchip">TAP ⇄ CINE</span>
+          <div class="dlabel">FRONT — NORMAL</div>
+          <div style="position:relative">
+            <svg data-export="diagram_position" viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="pa-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs>
+              <rect x="148" y="8" width="24" height="24" rx="2" fill="#101010"/>
+              <line x1="160" y1="36" x2="160" y2="58" stroke="#9a7317" stroke-width="2.2" marker-end="url(#pa-g)"/>
+              <rect x="142" y="62" width="36" height="36" rx="2.5" fill="#ffffff" stroke="#101010" stroke-width="2.2"/>
+              <polygon points="154,62 166,62 160,54" fill="#101010"/>
+              <rect x="252" y="68" width="24" height="24" rx="2" fill="#101010"/>
+              <line x1="248" y1="80" x2="184" y2="80" stroke="#9a7317" stroke-width="2.2" marker-end="url(#pa-g)"/>
+              <circle cx="160" cy="128" r="13" fill="#101010"/>
+              <line x1="160" y1="111" x2="160" y2="102" stroke="#9a7317" stroke-width="2.2" marker-end="url(#pa-g)"/>
+            </svg>
+            <span class="pos-flank">FLANK — <span class="gold">+1 DIE</span></span>
+          </div>
+          <div class="dlabel">REAR — <span class="gold">+2 DICE</span> · NO COUNTER</div>
+          <div class="cine"><div class="cine-inner"><span class="cine-k">CINEMATIC PLATE</span><span class="cine-name serif">“THE ANGLE”</span><span class="cine-hint">art pending — set CINEMA.position</span></div></div>
+        </div>
+        <figcaption><b>REAR = BACKSTAB</b></figcaption>
+      </figure>
+
+      <figure class="diagram" data-cine="mob" style="margin-top:10px">
+        <div class="dwrap">
+          <span class="flipchip">TAP ⇄ CINE</span>
+          <svg data-export="diagram_mob" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="mb-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs>
+            <circle cx="160" cy="50" r="18" fill="#ffffff" stroke="#101010" stroke-width="2.2"/>
+            <polygon points="154,32 166,32 160,24" fill="#101010"/>
+            <rect x="86" y="37" width="26" height="26" rx="2" fill="#101010"/>
+            <line x1="116" y1="50" x2="136" y2="50" stroke="#9a7317" stroke-width="2.2" marker-end="url(#mb-g)"/>
+            <rect x="208" y="37" width="26" height="26" rx="2" fill="#101010"/>
+            <line x1="204" y1="50" x2="184" y2="50" stroke="#9a7317" stroke-width="2.2" marker-end="url(#mb-g)"/>
+          </svg>
+          <div class="cine"><div class="cine-inner"><span class="cine-k">CINEMATIC PLATE</span><span class="cine-name serif">“THE MOB”</span><span class="cine-hint">art pending — set CINEMA.mob</span></div></div>
+        </div>
+        <figcaption><b>MOB RULE — EXTRA ATTACKERS ADD DICE</b>a circle has no flanks — numbers are how you crack it</figcaption>
+      </figure>
+
+      <div class="aphorism">“Squares fear angles; circles fear numbers.”</div>
+    </aside>
+  </div>
+
+  <!-- ================= 8 · RANGED — FULL-WIDTH STRIP ================= -->
+  <div class="rangedband">
+    <div class="band-title">RANGED ATTACKS</div>
+    <div class="rangedgrid">
+      <div class="rcard"><div class="rcname">PRECISION</div><div class="rcrule">NO MOVE · <span class="gold">+1 DIE</span> · IGNORE COVER<span class="mdot"> · </span><br>ENDS ACTIVATION</div></div>
+      <div class="rcard"><div class="rcname">REGULAR</div><div class="rcrule">MOVE AND SHOOT NORMALLY</div></div>
+      <div class="rcard"><div class="rcname">MULTI-SHOT</div><div class="rcrule">TWO SHOTS · HIT WORSENS ONE STEP</div></div>
+    </div>
+  </div>
+
+  <!-- ================= 9 · WOUNDS + NERVE + TEMPERAMENT ================= -->
+  <div class="foot">
+    <div>
+      <div class="foot-title">THE WOUND TRACK</div>
+      <svg width="100%" viewBox="0 0 264 42" xmlns="http://www.w3.org/2000/svg" style="font-family:Helvetica,Arial,sans-serif">
+        <polygon points="1,1 57,1 66,21 57,41 1,41 1,1" fill="#ffffff" stroke="#101010" stroke-width="1.5"/>
+        <polygon points="61,1 123,1 132,21 123,41 61,41 70,21" fill="#dcdcdc" stroke="#101010" stroke-width="1.5"/>
+        <polygon points="127,1 189,1 198,21 189,41 127,41 136,21" fill="#b3362b" stroke="#101010" stroke-width="1.5"/>
+        <polygon points="193,1 255,1 263,21 255,41 193,41 202,21" fill="#701a12" stroke="#101010" stroke-width="1.5"/>
+        <text x="31" y="26" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#101010">FINE</text>
+        <text x="97" y="26" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#101010">HURT</text>
+        <text x="163" y="26" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#ffffff">KO</text>
+        <text x="228" y="26" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#ffffff">DEAD</text>
+      </svg>
+    </div>
+
+    <div>
+      <div class="foot-title">NERVE — SQUARES (MAN/BEAST), ON A SHOCK</div>
+      <div class="nerve-box">
+        <div class="n0">SHOCK = WOUNDED · OR ALLY FALLS ≤3″</div>
+        <div class="n1">ROLL 3 DICE ≥ NERVE</div>
+        <div class="n2">0 <span class="red">↓ DOWN</span> · 1–2 HOLD · 3 <span class="gold">↑ UP</span></div>
+      </div>
+      <div class="nerve-point">STEADY → SHAKEN → <span class="red">BROKEN</span></div>
+      <div class="nerve-point"><span class="red">BROKEN</span> = ROUT BY TEMPERAMENT&nbsp;&nbsp;▸</div>
+    </div>
+
+    <div>
+      <div class="foot-title">TEMPERAMENT — HOW IT BREAKS · ALSO HOW IT ACTS LEADERLESS</div>
+      <div class="temps">
+        <div class="temp">
+          <svg data-export="temperament_cowardly" width="56" height="38" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="t1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker>
+            <pattern id="t1h" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#ffffff"/><rect width="2" height="5" fill="#8a8a8a"/></pattern></defs>
+            <rect x="10" y="16" width="12" height="12" rx="1.5" fill="#101010"/>
+            <rect x="52" y="4" width="8" height="36" fill="url(#t1h)" stroke="#4a4a4a" stroke-width="1"/>
+            <line x1="26" y1="22" x2="46" y2="22" stroke="#9a7317" stroke-width="1.8" marker-end="url(#t1)"/>
+          </svg>
+          <div class="temp-name">COWARDLY</div><div class="temp-verb">FLEE</div>
+        </div>
+        <div class="temp">
+          <svg data-export="temperament_resolute" width="56" height="38" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="t2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs>
+            <rect x="10" y="16" width="12" height="12" rx="1.5" fill="#101010"/>
+            <line x1="50" y1="10" x2="50" y2="36" stroke="#101010" stroke-width="1.8"/>
+            <polygon points="50,10 62,14.5 50,19" fill="#101010"/>
+            <line x1="26" y1="22" x2="44" y2="22" stroke="#9a7317" stroke-width="1.8" marker-end="url(#t2)"/>
+          </svg>
+          <div class="temp-name">RESOLUTE</div><div class="temp-verb">FALL BACK</div>
+        </div>
+        <div class="temp">
+          <svg data-export="temperament_aggressive" width="56" height="38" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="t3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs>
+            <rect x="10" y="16" width="12" height="12" rx="1.5" fill="#101010"/>
+            <rect x="46" y="16" width="12" height="12" rx="1.5" fill="#ffffff" stroke="#101010" stroke-width="1.8"/>
+            <line x1="26" y1="22" x2="42" y2="22" stroke="#9a7317" stroke-width="1.8" marker-end="url(#t3)"/>
+          </svg>
+          <div class="temp-name">AGGRESSIVE</div><div class="temp-verb">RUSH ENEMY</div>
+        </div>
+        <div class="temp">
+          <svg data-export="temperament_protective" width="56" height="38" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="t4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs>
+            <rect x="10" y="16" width="12" height="12" rx="1.5" fill="#101010"/>
+            <rect x="46" y="16" width="12" height="12" rx="1.5" fill="#d9d9d9" stroke="#4a4a4a" stroke-width="1.2"/>
+            <line x1="26" y1="22" x2="42" y2="22" stroke="#9a7317" stroke-width="1.8" marker-end="url(#t4)"/>
+          </svg>
+          <div class="temp-name">PROTECTIVE</div><div class="temp-verb">SEEK ALLY</div>
+        </div>
+        <div class="temp">
+          <svg data-export="temperament_ravenous" width="56" height="38" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="t5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#9a7317"/></marker></defs>
+            <rect x="20" y="16" width="12" height="12" rx="1.5" fill="#101010"/>
+            <line x1="36" y1="18" x2="52" y2="8" stroke="#9a7317" stroke-width="1.8" marker-end="url(#t5)"/>
+            <line x1="36" y1="22" x2="56" y2="22" stroke="#9a7317" stroke-width="1.8" marker-end="url(#t5)"/>
+            <line x1="36" y1="26" x2="52" y2="36" stroke="#9a7317" stroke-width="1.8" marker-end="url(#t5)"/>
+          </svg>
+          <div class="temp-name">RAVENOUS</div><div class="temp-verb">TURN WILD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px; border-top:1.5px solid var(--gold); padding-top:11px">
+    <div style="font-size:9.5px; font-weight:800; letter-spacing:.2em; color:var(--goldtxt); margin-bottom:8px">SHIELDS · BRACE · SHOVE &nbsp;—&nbsp; <span class="red">PROVISIONAL · ratify after the first game</span></div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px">
+      <div style="border:1px solid var(--gold); border-radius:8px; padding:8px 11px; background:var(--panel)">
+        <div style="font-family:Georgia,serif; font-size:12.5px; font-weight:700">SHIELD — the intercept</div>
+        <div style="font-size:10px; color:var(--mid); margin-top:3px; line-height:1.55">A <b>reaction</b>: consume an ACTION aimed at a friend within 1″ — take it yourself. Declare <b>before it resolves</b> or you miss the window. Your armour saves; no Counter. <b>No cap</b> — dying is the cap. Eats melee <i>and</i> arrows; ignores your facing.</div>
+      </div>
+      <div style="border:1px solid var(--gold); border-radius:8px; padding:8px 11px; background:var(--panel)">
+        <div style="font-family:Georgia,serif; font-size:12.5px; font-weight:700">BRACE — any Square · WAIT</div>
+        <div style="font-size:10px; color:var(--mid); margin-top:3px; line-height:1.55">Lock your facing. <span class="gold">+1 die</span> attacking your front; enemies into your front roll <span class="gold">−1 die</span>. But flank &amp; rear get in free — <span class="red">no Counter</span>. A <b>Shove</b> breaks it. Circles can't brace.</div>
+      </div>
+      <div style="border:1px solid var(--gold); border-radius:8px; padding:8px 11px; background:var(--panel)">
+        <div style="font-family:Georgia,serif; font-size:12.5px; font-weight:700">SHOVE — the weapon push</div>
+        <div style="font-size:10px; color:var(--mid); margin-top:3px; line-height:1.55">Move the target straight away, <b>up to 1″</b>, ending ≤ 1″ from you. In contact → back 1″; already 1″ out → held, not launched. <i>(The charge <b>Push</b>→Indent→Crush is a separate thing.)</i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="keyline">BLACK ACTS · WHITE RECEIVES · GREY BYSTANDER · DASHED = WAS · NOTCH = FACING · HATCH = WALL · <span class="gold">GOLD = ACTION/BONUS</span> · <span class="red">RED = KO/DEAD/FAILED NERVE</span></div>
+  <div class="stamp">CUS · HOW TO PLAY v1.5 · COMBAT OPERATING MAP · RULES SOURCE: KERNEL REBUILD v0.6 (SIGNED) + shields/brace/shove (provisional)</div>
+
+</div></div>
+
+<script>
+  /* cinematic plate flip + art injection */
+  for (const fig of document.querySelectorAll('figure.diagram')) {
+    const key = fig.dataset.cine;
+    const pane = fig.querySelector('.cine');
+    if (key && pane && CINEMA[key]) {
+      pane.innerHTML = '';
+      const img = new Image();
+      img.src = CINEMA[key];
+      img.alt = key + ' — cinematic plate';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:5px';
+      pane.appendChild(img);
+    }
+    fig.setAttribute('tabindex', '0');
+    fig.setAttribute('role', 'button');
+    fig.addEventListener('click', () => fig.classList.toggle('cine-on'));
+    fig.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fig.classList.toggle('cine-on'); }
+    });
+  }
+
+  /* scale the fixed sheet to any viewport */
+  function fit() {
+    const s = document.querySelector('.sheet'), w = document.querySelector('.fitwrap');
+    if (window.matchMedia('screen and (max-width: 880px)').matches) {
+      s.style.transform = 'none';
+      w.style.height = 'auto';
+      return;
+    }
+    const sc = Math.min(1, w.clientWidth / 1010);
+    s.style.transform = 'scale(' + sc + ')';
+    w.style.height = (s.offsetHeight * sc) + 'px';
+  }
+  addEventListener('resize', fit);
+  addEventListener('load', fit);
+  fit();
+
+
+  /* Explicit LIGHT / DARK theme selector. */
+  const themeButtons = [...document.querySelectorAll('[data-set-theme]')];
+  function setTheme(theme, persist = true) {
+    const next = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    themeButtons.forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.setTheme === next));
+    });
+    if (persist) {
+      try { localStorage.setItem('cus-how-to-play-theme', next); } catch (_) {}
+    }
+  }
+  themeButtons.forEach(button => {
+    button.addEventListener('click', () => setTheme(button.dataset.setTheme));
+  });
+  let savedTheme = 'dark';
+  try { savedTheme = localStorage.getItem('cus-how-to-play-theme') || 'dark'; } catch (_) {}
+  setTheme(savedTheme, false);
+
+</script>
 </body>
 </html>
