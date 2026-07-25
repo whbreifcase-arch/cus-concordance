@@ -5,59 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CUS · Charge Lab</title>
 <style>
-  :root{
-    --bg:#14161c; --panel:#1c1f27; --panel2:#232732; --ink:#e7e9ee; --dim:#8b91a0;
-    --line:#333846; --red:#e5484d; --blue:#4d7fe5; --gold:#e8c23a; --acc:#6fae6f;
-  }
+  :root{ --bg:#14161c;--panel:#1c1f27;--panel2:#232732;--ink:#e7e9ee;--dim:#8b91a0;
+    --line:#333846;--red:#e5484d;--blue:#4d7fe5;--gold:#e8c23a;--acc:#6fae6f; }
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
     font:14px/1.45 system-ui,Segoe UI,Roboto,sans-serif}
   #app{display:flex;height:100vh;min-height:0}
-  #side{width:340px;flex:0 0 340px;background:var(--panel);border-right:1px solid var(--line);
+  #side{width:330px;flex:0 0 330px;background:var(--panel);border-right:1px solid var(--line);
     overflow-y:auto;padding:14px 14px 40px}
   #side h1{font-size:15px;letter-spacing:.5px;margin:2px 0 2px;text-transform:uppercase}
-  #side .sub{color:var(--dim);font-size:11px;margin:0 0 14px}
-  .grp{border:1px solid var(--line);border-radius:8px;padding:10px 10px 6px;margin:0 0 12px;background:var(--panel2)}
-  .grp.chg{border-color:#5a2b2d} .grp.def{border-color:#2b3d5a}
-  .grp legend{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:0 6px}
-  .grp.chg legend{color:var(--red)} .grp.def legend{color:var(--blue)}
+  #side .sub{color:var(--dim);font-size:11px;margin:0 0 12px}
+  .grp{border:1px solid var(--line);border-radius:8px;padding:10px 10px 8px;margin:0 0 12px;background:var(--panel2)}
+  .grp legend{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:0 6px;color:var(--dim)}
   .row{display:flex;align-items:center;justify-content:space-between;margin:0 0 8px;gap:8px}
   .row label{color:var(--dim);font-size:12px;flex:1}
-  .row .val{color:var(--ink);font-variant-numeric:tabular-nums;min-width:34px;text-align:right;font-size:12px}
+  .row .val{color:var(--ink);font-variant-numeric:tabular-nums;min-width:30px;text-align:right;font-size:12px}
   select,input[type=number]{background:#12141a;color:var(--ink);border:1px solid var(--line);
     border-radius:6px;padding:4px 6px;font:inherit;font-size:12px;max-width:150px}
   .row select{width:150px}
-  input[type=range]{width:120px;accent-color:var(--acc)}
-  input[type=checkbox]{accent-color:var(--acc);width:16px;height:16px}
-  button{background:var(--acc);color:#0e120e;border:0;border-radius:7px;padding:9px 12px;
-    font:inherit;font-weight:700;cursor:pointer;width:100%}
+  input[type=range]{width:110px;accent-color:var(--acc)} input[type=checkbox]{accent-color:var(--acc);width:16px;height:16px}
+  button{background:var(--acc);color:#0e120e;border:0;border-radius:7px;padding:8px 10px;font:inherit;font-weight:700;cursor:pointer;width:100%}
   button.sec{background:#2b303c;color:var(--ink);font-weight:600}
+  button.tiny{padding:5px 8px;font-size:11px;width:auto;flex:1}
   button:active{transform:translateY(1px)}
-  .btns{display:flex;gap:8px;margin:4px 0 10px}
-  .card{font-size:11px;color:#b9bfce;background:#12141a;border:1px solid var(--line);border-radius:6px;
-    padding:6px 8px;margin:2px 0 8px;line-height:1.5}
-  .card b{color:#e7e9ee} .card .pill{display:inline-block;background:#2b303c;border-radius:4px;
-    padding:0 5px;margin:1px 2px 1px 0;font-size:10px}
-  .card .chip-c{color:#e5484d} .card .chip-b{color:#4d7fe5}
-  .rules{font-size:11px;color:var(--dim);border-top:1px solid var(--line);padding-top:10px;margin-top:6px}
-  .rules b{color:#b9bfce}
+  .btns{display:flex;gap:6px;margin:4px 0 8px}
+  .side-toggle{display:flex;gap:6px;margin-bottom:8px}
+  .side-toggle button{border:2px solid transparent}
+  .side-toggle button.c{background:#2a1b1c;color:#e5484d} .side-toggle button.c.on{border-color:#e5484d;background:#3a2224}
+  .side-toggle button.d{background:#1b2130;color:#7fa2e5} .side-toggle button.d.on{border-color:#4d7fe5;background:#222d44}
+  .card{font-size:11px;color:#b9bfce;background:#12141a;border:1px solid var(--line);border-radius:6px;padding:6px 8px;margin:2px 0 6px;line-height:1.5}
+  .card b{color:#e7e9ee} .card .pill{display:inline-block;background:#2b303c;border-radius:4px;padding:0 5px;margin:1px 2px 1px 0;font-size:10px}
+  .chip-c{color:#e5484d} .chip-b{color:#4d7fe5}
+  .help{font-size:11px;color:var(--dim);line-height:1.6}
+  .help b{color:#b9bfce} kbd{background:#2b303c;border-radius:3px;padding:0 4px;font-size:10px;border:1px solid #3b4150}
+  .roster{font-size:12px;color:#c4c9d6;display:flex;justify-content:space-between;margin-bottom:6px}
   #main{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
-  #stagewrap{flex:1;position:relative;min-height:0;background:radial-gradient(circle at 50% 40%,#191c24,#101218)}
-  canvas{position:absolute;inset:0;width:100%;height:100%}
+  #stagewrap{flex:1;position:relative;min-height:0;background:#0f1116}
+  canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
   #hud{position:absolute;top:10px;left:12px;right:12px;display:flex;justify-content:space-between;pointer-events:none;font-size:12px}
-  #hud .tag{background:rgba(0,0,0,.45);padding:4px 9px;border-radius:6px}
-  #verdict{position:absolute;top:40px;left:12px;font-size:12px;max-width:62%;
-    background:rgba(0,0,0,.45);padding:6px 10px;border-radius:6px;line-height:1.55}
+  #hud .tag{background:rgba(0,0,0,.5);padding:4px 9px;border-radius:6px}
+  #verdict{position:absolute;top:40px;left:12px;font-size:12px;max-width:64%;background:rgba(0,0,0,.5);padding:6px 10px;border-radius:6px;line-height:1.55}
   #bar{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--panel);border-top:1px solid var(--line)}
-  #bar button{width:auto;padding:6px 12px}
-  #scrub{flex:1;accent-color:var(--acc)}
+  #bar button{width:auto;padding:6px 12px} #scrub{flex:1;accent-color:var(--acc)}
   #tlabel{min-width:120px;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
-  #log{flex:0 0 128px;overflow-y:auto;background:#0e1015;border-top:1px solid var(--line);
+  #log{flex:0 0 120px;overflow-y:auto;background:#0e1015;border-top:1px solid var(--line);
     font:12px/1.5 ui-monospace,Consolas,monospace;padding:6px 12px;color:#c4c9d6;white-space:pre-wrap}
-  #log .k{color:var(--gold)} .imp{color:#f0883e} .die{color:#e5484d} .cru{color:#ff5252;font-weight:700}
-  .hd{color:#7f8796} .flk{color:#c78bff}
-  .legend{display:flex;gap:14px;font-size:11px;color:var(--dim);padding:6px 12px;background:var(--panel);
-    border-top:1px solid var(--line);flex-wrap:wrap}
+  .imp{color:#f0883e} .die{color:#e5484d} .cru{color:#ff5252;font-weight:700} .hd{color:#7f8796} .flk{color:#c78bff} .k{color:#e8c23a}
+  .legend{display:flex;gap:12px;font-size:11px;color:var(--dim);padding:6px 12px;background:var(--panel);border-top:1px solid var(--line);flex-wrap:wrap}
   .dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:4px}
   .sq{display:inline-block;width:9px;height:9px;vertical-align:middle;margin-right:4px}
 </style>
@@ -66,77 +60,76 @@
 <div id="app">
   <div id="side">
     <h1>Charge Lab</h1>
-    <p class="sub">Real units. Any formation. Any angle. Watch it collide.</p>
+    <p class="sub">Place any units, anywhere. Then charge — upward ↑.</p>
 
-    <fieldset class="grp chg">
-      <legend>Chargers</legend>
-      <div class="row"><label>Unit</label><select id="cUnit"></select></div>
-      <div class="card" id="cCard"></div>
-      <div class="row"><label>Shape</label>
-        <select id="cShape"><option value="wedge">Wedge ▲</option><option value="line">Line ▬</option>
-          <option value="column">Column ▮</option><option value="single">Single</option></select></div>
-      <div class="row"><label>Count</label><input type="range" id="cN" min="1" max="12" value="6"><span class="val" id="cNv">6</span></div>
-      <div class="row"><label>Spacing</label><input type="range" id="cSp" min="10" max="28" value="14"><span class="val" id="cSpv">1.4</span></div>
-      <div class="row"><label>Formation angle°</label><input type="range" id="cRot" min="-60" max="60" step="5" value="0"><span class="val" id="cRotv">0</span></div>
-    </fieldset>
-
-    <fieldset class="grp def">
-      <legend>Defenders</legend>
-      <div class="row"><label>Unit</label><select id="dUnit"></select></div>
-      <div class="card" id="dCard"></div>
-      <div class="row"><label>Front-rank unit</label><input type="checkbox" id="dFrontOn"></div>
-      <div class="row" id="dFrontRow" style="display:none"><label>&nbsp;↳ front</label><select id="dFront"></select></div>
-      <div class="row"><label>Shape</label>
-        <select id="dShape"><option value="ranks">Ranks ▦</option><option value="line">Line / Wall ▬</option>
-          <option value="wedge">Wedge ▼</option></select></div>
-      <div class="row"><label>Width</label><input type="range" id="dW" min="1" max="12" value="5"><span class="val" id="dWv">5</span></div>
-      <div class="row"><label>Depth (ranks)</label><input type="range" id="dD" min="1" max="6" value="2"><span class="val" id="dDv">2</span></div>
-      <div class="row"><label>Spacing</label><input type="range" id="dSp" min="10" max="28" value="13"><span class="val" id="dSpv">1.3</span></div>
-      <div class="row"><label>Approach (orientation)</label>
-        <select id="appr"><option value="0">Front ↑</option><option value="90">Left flank</option>
-          <option value="-90">Right flank</option><option value="180">Rear</option></select></div>
-      <div class="row"><label>Fine angle°</label><input type="range" id="dRot" min="-45" max="45" step="5" value="0"><span class="val" id="dRotv">0</span></div>
-      <div class="row"><label>Back wall (crush)</label><input type="checkbox" id="dWall"></div>
-      <div class="row"><label>Side walls (box them)</label><input type="checkbox" id="sWall"></div>
+    <fieldset class="grp">
+      <legend>Brush — click board to place</legend>
+      <div class="side-toggle">
+        <button class="c on" id="brC">Charger</button>
+        <button class="d" id="brD">Defender</button>
+      </div>
+      <div class="row"><label>Unit type</label><select id="brUnit"></select></div>
+      <div class="card" id="brCard"></div>
+      <div class="row"><label><input type="checkbox" id="stampOn"> Stamp a formation</label></div>
+      <div id="stampBox" style="display:none">
+        <div class="row"><label>Shape</label>
+          <select id="stShape"><option value="line">Line ▬</option><option value="wedge">Wedge ▲</option>
+            <option value="column">Column ▮</option><option value="ranks">Ranks ▦</option></select></div>
+        <div class="row"><label>Count / Width</label><input type="range" id="stN" min="1" max="12" value="5"><span class="val" id="stNv">5</span></div>
+        <div class="row"><label>Depth (ranks)</label><input type="range" id="stD" min="1" max="6" value="1"><span class="val" id="stDv">1</span></div>
+        <div class="row"><label>Spacing</label><input type="range" id="stSp" min="10" max="28" value="14"><span class="val" id="stSpv">1.4</span></div>
+      </div>
     </fieldset>
 
     <fieldset class="grp">
-      <legend>Charge</legend>
-      <div class="row"><label>Run-up (inches)</label><input type="range" id="run" min="0" max="10" step="0.5" value="6"><span class="val" id="runv">6.0</span></div>
+      <legend>Board</legend>
+      <div class="roster"><span class="chip-c">Chargers: <b id="rc">0</b></span><span class="chip-b">Defenders: <b id="rd">0</b></span></div>
+      <div class="help">
+        <b>Click</b> empty = place · <b>Click</b> a unit = select · <b>Drag</b> = move ·
+        <kbd>wheel</kbd> / <kbd>[</kbd> <kbd>]</kbd> = rotate facing · <kbd>Del</kbd> = remove ·
+        <kbd>D</kbd> = duplicate selected.
+      </div>
+      <div class="btns" style="margin-top:8px">
+        <button class="tiny sec" id="undo">Undo</button>
+        <button class="tiny sec" id="clrC">Clear ✝</button>
+        <button class="tiny sec" id="clrD">Clear ⛨</button>
+        <button class="tiny sec" id="clrAll">Clear all</button>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <legend>Terrain & charge</legend>
+      <div class="row"><label>Back wall (crush)</label><input type="checkbox" id="dWall"></div>
+      <div class="row"><label>Side walls (box them)</label><input type="checkbox" id="sWall"></div>
       <div class="row"><label>Seed</label><input type="number" id="seed" value="1" style="width:70px"></div>
     </fieldset>
 
-    <div class="btns">
-      <button id="go">Simulate ▶</button>
-      <button id="build" class="sec" style="width:auto;flex:0 0 auto">Preview</button>
-    </div>
-    <div class="btns"><button id="copy" class="sec">Copy config (for batch runs)</button></div>
+    <div class="btns"><button id="go">Simulate the charge ▶</button></div>
+    <div class="btns"><button id="edit" class="sec" style="width:auto;flex:1">◀ Back to editing</button>
+      <button id="copy" class="sec" style="width:auto;flex:1">Copy setup</button></div>
 
-    <div class="rules">
-      <b>Rules live here:</b><br>
-      • Sprint <b>≥3″</b> before contact or you <b>halt</b> (no impact).<br>
-      • After contact you drive <b>≤3″</b> deep, then stall.<br>
-      • Push shoves <b>sideways first</b> (parts the line); boxed → forward → back wall = <b>Crush</b>.<br>
-      • One <b>reaction</b> per defender (reach / shield) per charge.<br>
-      • <b>Squares</b> have facing → hit in <b>flank +1d</b> / <b>rear +2d</b> & no counter. <b>Circles</b> are faceless.
+    <div class="help" style="border-top:1px solid var(--line);padding-top:10px;margin-top:6px">
+      <b>Rules:</b> sprint <b>≥3″</b> before contact or you <b>halt</b> · drive <b>≤3″</b> deep after contact ·
+      push shoves <b>sideways first</b> (parts the line) → boxed → forward → wall = <b>Crush</b> ·
+      one <b>reaction</b> per defender · Squares have <b>facing</b> (flank +1d / rear +2d, no counter) · Circles faceless ·
+      <b>no unit turns</b> mid-charge.
     </div>
   </div>
 
   <div id="main">
     <div id="stagewrap">
       <canvas id="cv"></canvas>
-      <div id="hud"><span class="tag" id="hudL">—</span><span class="tag" id="hudR">—</span></div>
+      <div id="hud"><span class="tag" id="hudL">Editing</span><span class="tag" id="hudR">—</span></div>
       <div id="verdict"></div>
     </div>
     <div class="legend">
       <span><span class="dot" style="background:#e5484d"></span>Charger</span>
       <span><span class="dot" style="background:#4d7fe5"></span>Defender</span>
-      <span><span class="sq" style="background:#4d7fe5"></span>Square (has facing)</span>
+      <span><span class="sq" style="background:#7f8796"></span>Square (facing notch)</span>
       <span><span class="dot" style="background:#6fae6f"></span>Circle (faceless)</span>
       <span><span class="dot" style="background:#e8c23a"></span>Shield</span>
       <span><span class="dot" style="background:#f0883e"></span>Impact</span>
       <span><span class="dot" style="background:#c78bff"></span>Flank/Rear</span>
-      <span>✕ down</span>
     </div>
     <div id="bar">
       <button id="play">Play</button>
@@ -151,156 +144,125 @@
 
 <script>
 "use strict";
-// ======================= REAL UNIT DATA (injected) ======================= //
 const LAB_UNITS = /*UNITS_START*/[{"id":"RET_WARRIOR","name":"Warrior","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Resolute","traits":[],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"RET_SHIELDBEARER","name":"Shield-Bearer","src":"Generic Library","tier":"Retinue","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Heavy","nerve":2,"temper":"Protective","traits":["shield"],"w":{"name":"1H WEAPON & SHIELD","dice":3,"hit":4,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds","Guard"]]]}},{"id":"RET_TANK","name":"Tank","src":"Generic Library","tier":"Retinue","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":2,"temper":"Resolute","traits":["shield"],"w":{"name":"1H WEAPON & SHIELD","dice":3,"hit":4,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds","Guard"]]]}},{"id":"RET_BRAWLER","name":"Brawler","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Aggressive","traits":[],"w":{"name":"2H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]]]}},{"id":"RET_SKIRMISHER","name":"Skirmisher","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Aggressive","traits":[],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"RET_SPEARMAN","name":"Spearman","src":"Generic Library","tier":"Retinue","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Resolute","traits":["reach"],"w":{"name":"REACH WEAPON","dice":2,"hit":4,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"RET_HALBERDIER","name":"Halberdier","src":"Generic Library","tier":"Retinue","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Resolute","traits":["reach"],"w":{"name":"REACH WEAPON","dice":2,"hit":4,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"RET_MARKSMAN","name":"Marksman","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Resolute","traits":[],"w":{"name":"RANGED WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]]]}},{"id":"RET_CROSSBOW","name":"Crossbowman","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Resolute","traits":[],"w":{"name":"RANGED WEAPON","dice":2,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["2 Wounds","ignore Armour"]]]}},{"id":"RET_PISTOLEER","name":"Pistoleer","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Aggressive","traits":[],"w":{"name":"PISTOL","dice":2,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["2 Wounds","ignore Armour"]]]}},{"id":"RET_SLINGER","name":"Slinger","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":0.5,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"None","nerve":5,"temper":"Cowardly","traits":["expendable"],"w":{"name":"RANGED WEAPON","dice":2,"hit":5,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]]]}},{"id":"RET_LEVY","name":"Levy","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":0.5,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"None","nerve":5,"temper":"Cowardly","traits":["expendable"],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"RET_SCOUT","name":"Scout","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":1,"armour":"Light","nerve":4,"temper":"Cowardly","traits":[],"w":{"name":"RANGED WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]]]}},{"id":"RET_BERSERKER","name":"Berserker","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Aggressive","traits":[],"w":{"name":"2H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]]]}},{"id":"RET_DUELIST","name":"Duelist","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"None","nerve":2,"temper":"Aggressive","traits":[],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Execute"]]]}},{"id":"RET_HOUND","name":"War-Hound","src":"Generic Library","tier":"Retinue","role":"Pressure","slot":0.5,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"None","nerve":4,"temper":"Ravenous","traits":["beast"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"SGT_LINE","name":"Line Sergeant","src":"Generic Library","tier":"Sergeant","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":2,"temper":"Resolute","traits":["leader"],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"SGT_SHIELD","name":"Shield Sergeant","src":"Generic Library","tier":"Sergeant","role":"Anchor","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":2,"temper":"Protective","traits":["leader","shield"],"w":{"name":"1H WEAPON & SHIELD","dice":3,"hit":4,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds","Guard"]]]}},{"id":"SGT_SHARP","name":"Sharpshooter Sergeant","src":"Generic Library","tier":"Sergeant","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":2,"temper":"Resolute","traits":["leader"],"w":{"name":"RANGED WEAPON","dice":2,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["2 Wounds","ignore Armour"]]]}},{"id":"SGT_REAVER","name":"Reaver Sergeant","src":"Generic Library","tier":"Sergeant","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":2,"temper":"Aggressive","traits":["leader"],"w":{"name":"2H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]]]}},{"id":"SGT_SKIRMISH","name":"Skirmish Sergeant","src":"Generic Library","tier":"Sergeant","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":2,"temper":"Aggressive","traits":["leader"],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"SGT_WARDEN","name":"Warden Sergeant","src":"Generic Library","tier":"Sergeant","role":"Anchor","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Medium","nerve":2,"temper":"Resolute","traits":["leader","reach"],"w":{"name":"REACH WEAPON","dice":2,"hit":4,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"CHA_WARLORD","name":"Warlord","src":"Generic Library","tier":"Champion","role":"Pressure","slot":0,"shape":"Circle","size":"Large","mounted":false,"wounds":4,"armour":"Medium","nerve":0,"temper":"Aggressive","traits":["leader","champion"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Guard"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"CHA_WARDEN","name":"Lord-Warden","src":"Generic Library","tier":"Champion","role":"Anchor","slot":0,"shape":"Circle","size":"Medium","mounted":false,"wounds":4,"armour":"Heavy","nerve":0,"temper":"Protective","traits":["leader","champion","shield"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":3,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Guard"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"CHA_BLADEMASTER","name":"Blademaster","src":"Generic Library","tier":"Champion","role":"Pressure","slot":0,"shape":"Circle","size":"Medium","mounted":false,"wounds":3,"armour":"Medium","nerve":0,"temper":"Aggressive","traits":["leader","champion"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Guard"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"CHA_MYSTIC","name":"Mystic","src":"Generic Library","tier":"Champion","role":"Utility","slot":0,"shape":"Circle","size":"Medium","mounted":false,"wounds":3,"armour":"Light","nerve":0,"temper":"Resolute","traits":["leader","champion"],"w":{"name":"WAND","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["1 Wound","ignore Armour","Terror"]],[3,["2 Wounds","ignore Armour"]]]}},{"id":"CHA_BEASTLORD","name":"Beastlord","src":"Generic Library","tier":"Champion","role":"Pressure","slot":0,"shape":"Circle","size":"Large","mounted":false,"wounds":4,"armour":"Medium","nerve":0,"temper":"Ravenous","traits":["leader","champion","beast"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"CHA_HUNTER","name":"Hunter","src":"Generic Library","tier":"Champion","role":"Pressure","slot":0,"shape":"Circle","size":"Medium","mounted":false,"wounds":3,"armour":"Light","nerve":0,"temper":"Resolute","traits":["leader","champion"],"w":{"name":"LEGENDARY WEAPON","dice":3,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["2 Wounds","ignore Armour"]],[3,["3 Wounds","ignore Armour"]]]}},{"id":"CHA_WARPRIEST","name":"War-Priest","src":"Generic Library","tier":"Champion","role":"Utility","slot":0,"shape":"Circle","size":"Medium","mounted":false,"wounds":3,"armour":"Medium","nerve":0,"temper":"Protective","traits":["leader","champion"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Guard"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"CHA_BULWARK","name":"Bulwark","src":"Generic Library","tier":"Champion","role":"Anchor","slot":0,"shape":"Circle","size":"Large","mounted":false,"wounds":5,"armour":"Heavy","nerve":0,"temper":"Resolute","traits":["leader","champion","shield"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":3,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Guard"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"ELI_BODYGUARD","name":"Bodyguard","src":"Generic Library","tier":"Elite","role":"Anchor","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":2,"temper":"Protective","traits":["shield"],"w":{"name":"1H WEAPON & SHIELD","dice":3,"hit":4,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds","Guard"]]]}},{"id":"ELI_ASSASSIN","name":"Assassin","src":"Generic Library","tier":"Elite","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"None","nerve":2,"temper":"Aggressive","traits":[],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Execute"]]]}},{"id":"ELI_BATTLEMAGE","name":"Battle-Mage","src":"Generic Library","tier":"Elite","role":"Utility","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Resolute","traits":[],"w":{"name":"WAND","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["1 Wound","ignore Armour","Terror"]],[3,["2 Wounds","ignore Armour"]]]}},{"id":"ELI_HEALER","name":"Field-Priest","src":"Generic Library","tier":"Elite","role":"Utility","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":2,"temper":"Protective","traits":[],"w":{"name":"HEAL","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["Restore 1 Wound to an adjacent ally","Steady its Nerve one step"]]]}},{"id":"ELI_STANDARD","name":"Standard-Bearer","src":"Generic Library","tier":"Elite","role":"Utility","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":2,"temper":"Protective","traits":["sacred_banner"],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"ELI_OGRE","name":"Ogre","src":"Generic Library","tier":"Elite","role":"Pressure","slot":3,"shape":"Square","size":"Large","mounted":false,"wounds":4,"armour":"Medium","nerve":2,"temper":"Aggressive","traits":["large"],"w":{"name":"2H WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Knockdown"]]]}},{"id":"ELI_MONSTER","name":"War-Beast","src":"Generic Library","tier":"Elite","role":"Pressure","slot":3,"shape":"Square","size":"Large","mounted":false,"wounds":5,"armour":"Medium","nerve":3,"temper":"Ravenous","traits":["beast","large","unstoppable"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"ELI_RANGER","name":"Ranger","src":"Generic Library","tier":"Elite","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":2,"temper":"Resolute","traits":[],"w":{"name":"RANGED WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]]]}},{"id":"ELI_EXECUTIONER","name":"Executioner","src":"Generic Library","tier":"Elite","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":2,"temper":"Aggressive","traits":[],"w":{"name":"2H WEAPON","dice":3,"hit":5,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["3 Wounds","Cleave"]]]}},{"id":"ELI_DEATHFRENZY","name":"Deathfrenzy","src":"Generic Library","tier":"Elite","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Light","nerve":2,"temper":"Aggressive","traits":["fearless"],"w":{"name":"2H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]]]}},{"id":"ELI_HEXER","name":"Warcaster","src":"Generic Library","tier":"Elite","role":"Utility","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"None","nerve":3,"temper":"Resolute","traits":[],"w":{"name":"2H STAFF","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["Enemies within 6\" roll Armour one step worse until your next turn","Enemy Squares in range test Nerve"]]]}},{"id":"ELI_LANCER","name":"Knight-Lancer","src":"Generic Library","tier":"Elite","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":true,"wounds":3,"armour":"Heavy","nerve":2,"temper":"Aggressive","traits":["mounted"],"w":{"name":"LANCE","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":true,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds","Shove"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"ELI_FLYER","name":"Sky-Rider","src":"Generic Library","tier":"Elite","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":2,"temper":"Aggressive","traits":["flying"],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"ELI_SENTINEL","name":"Sentinel","src":"Generic Library","tier":"Elite","role":"Anchor","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":0,"temper":"Resolute","traits":["fearless"],"w":{"name":"2H WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Knockdown"]]]}},{"id":"TMP_GRANDMASTER","name":"Grand Master","src":"Templar","tier":"III","role":"Pressure","slot":1,"shape":"Circle","size":"Large","mounted":false,"wounds":4,"armour":"Heavy","nerve":0,"temper":"Resolute","traits":["leader","champion","zealous"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Guard"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"TMP_MARSHAL","name":"Templar Marshal","src":"Templar","tier":"II","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":2,"temper":"Protective","traits":["leader","zealous","shield"],"w":{"name":"1H WEAPON & SHIELD","dice":3,"hit":3,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds","Guard"]]]}},{"id":"TMP_CHAPLAIN","name":"Battle-Chaplain","src":"Templar","tier":"II","role":"Utility","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Protective","traits":[],"w":{"name":"HEAL","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["Restore 1 Wound (ally)","Steady Nerve one step"]]]}},{"id":"TMP_SWORDBROTHER","name":"Sword-Brother","src":"Templar","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":2,"temper":"Resolute","traits":["zealous"],"w":{"name":"2H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]]]}},{"id":"TMP_SHIELDBROTHER","name":"Shield-Brother","src":"Templar","tier":"I","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Heavy","nerve":2,"temper":"Protective","traits":["zealous","shield"],"w":{"name":"1H WEAPON & SHIELD","dice":3,"hit":3,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds","Guard"]]]}},{"id":"TMP_HALBERDIER","name":"Halberdier","src":"Templar","tier":"I","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":2,"temper":"Resolute","traits":["reach","zealous"],"w":{"name":"REACH WEAPON","dice":2,"hit":3,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"TMP_ARBALEST","name":"Arbalest","src":"Templar","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Resolute","traits":[],"w":{"name":"RANGED WEAPON","dice":2,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["2 Wounds","ignore Armour"]]]}},{"id":"TMP_LANCER","name":"Knight Lancer","src":"Templar","tier":"II","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":true,"wounds":2,"armour":"Heavy","nerve":2,"temper":"Aggressive","traits":["mounted"],"w":{"name":"LANCE","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":true,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds","Shove"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"TMP_SENTINEL","name":"Templar Sentinel","src":"Templar","tier":"II","role":"Anchor","slot":1,"shape":"Square","size":"Large","mounted":false,"wounds":5,"armour":"Heavy","nerve":2,"temper":"Resolute","traits":["consecrated","fearless","large"],"w":{"name":"2H WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Knockdown"]]]}},{"id":"TMP_CONFESSOR","name":"Confessor-at-Arms","src":"Templar","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":2,"temper":"Resolute","traits":["zealous"],"w":{"name":"COMMON WEAPON","dice":3,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Guard"]],[3,["2 Wounds","Guard"]]]}},{"id":"TMP_BANNER","name":"Banner Bearer","src":"Templar","tier":"I","role":"Utility","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Heavy","nerve":2,"temper":"Protective","traits":["sacred_banner","zealous"],"w":{"name":"COMMON WEAPON","dice":3,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Guard"]],[3,["2 Wounds","Guard"]]]}},{"id":"MOR_CAPTAIN","name":"Uruk Captain","src":"Mordor","tier":"III","role":"Pressure","slot":1,"shape":"Circle","size":"Large","mounted":false,"wounds":5,"armour":"Medium","nerve":0,"temper":"Aggressive","traits":["leader","champion"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"MOR_BLACKSHIELD","name":"Uruk Blackshield","src":"Mordor","tier":"II","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":2,"temper":"Resolute","traits":["leader","fearless"],"w":{"name":"COMMON WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"MOR_BERSERKER","name":"Uruk Berserker","src":"Mordor","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Aggressive","traits":["zealous"],"w":{"name":"2H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]]]}},{"id":"MOR_WARRIOR","name":"Uruk Warrior","src":"Mordor","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Resolute","traits":["zealous"],"w":{"name":"COMMON WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"MOR_PIKEMAN","name":"Uruk Pikeman","src":"Mordor","tier":"I","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Resolute","traits":["reach","zealous"],"w":{"name":"REACH WEAPON","dice":2,"hit":4,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"MOR_CROSSBOW","name":"Uruk Crossbow","src":"Mordor","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Resolute","traits":["zealous"],"w":{"name":"RANGED WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]]]}},{"id":"MOR_ORC","name":"Mordor Orc","src":"Mordor","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"Light","nerve":5,"temper":"Cowardly","traits":["expendable"],"w":{"name":"COMMON WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]]]}},{"id":"MOR_ARCHER","name":"Mordor Archer","src":"Mordor","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"None","nerve":5,"temper":"Cowardly","traits":["expendable"],"w":{"name":"SKIRMISH","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["This figure may MOVE 3\" away before engagement"]]]}},{"id":"MOR_WARG","name":"Warg Rider","src":"Mordor","tier":"II","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":true,"wounds":2,"armour":"Light","nerve":4,"temper":"Ravenous","traits":["mounted","beast"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":true,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"MOR_TROLL","name":"Cave Troll","src":"Mordor","tier":"III","role":"Pressure","slot":1,"shape":"Square","size":"Large","mounted":false,"wounds":7,"armour":"Medium","nerve":2,"temper":"Ravenous","traits":["unstoppable","large","beast"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["2 Wounds","Shove"]],[2,["2 Wounds","Knockdown"]],[3,["3 Wounds","Knockdown","Cleave"]]]}},{"id":"MOR_TASKMASTER","name":"Orc Taskmaster","src":"Mordor","tier":"II","role":"Utility","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Resolute","traits":["reach"],"w":{"name":"REACH WEAPON","dice":2,"hit":4,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Pull"]]]}},{"id":"MOR_SHAMAN","name":"Dark Shaman","src":"Mordor","tier":"II","role":"Utility","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"None","nerve":3,"temper":"Cowardly","traits":[],"w":{"name":"2H STAFF","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["1 Wound","ignore Armour","Terror"]],[3,["2 Wounds","ignore Armour","Terror"]]]}},{"id":"MIL_CAPTAIN","name":"Watch Captain","src":"Militia","tier":"III","role":"Pressure","slot":1,"shape":"Circle","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":0,"temper":"Resolute","traits":["leader","champion"],"w":{"name":"LEGENDARY WEAPON","dice":3,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Guard"]]]}},{"id":"MIL_SERGEANT","name":"Watch Sergeant","src":"Militia","tier":"II","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":2,"temper":"Resolute","traits":["leader","reach"],"w":{"name":"REACH WEAPON","dice":3,"hit":4,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"MIL_SWORD","name":"Militia Swordsman","src":"Militia","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Resolute","traits":[],"w":{"name":"COMMON WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"MIL_WATCHMAN","name":"Watchman","src":"Militia","tier":"I","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Protective","traits":["shield"],"w":{"name":"1H WEAPON & SHIELD","dice":3,"hit":3,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds","Guard"]]]}},{"id":"MIL_SPEAR","name":"Militia Spearman","src":"Militia","tier":"I","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Resolute","traits":["reach"],"w":{"name":"REACH WEAPON","dice":2,"hit":4,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]]]}},{"id":"MIL_BOW","name":"Militia Bowman","src":"Militia","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":4,"temper":"Cowardly","traits":[],"w":{"name":"RANGED WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]]]}},{"id":"MIL_LEVY","name":"Town Levy","src":"Militia","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"None","nerve":5,"temper":"Cowardly","traits":["expendable","reach"],"w":{"name":"COMMON WEAPON","dice":2,"hit":5,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]]]}},{"id":"MIL_PRIEST","name":"Hedge Priest","src":"Militia","tier":"II","role":"Utility","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Protective","traits":[],"w":{"name":"HEAL","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["Restore 1 Wound (ally)","Steady Nerve one step"]]]}},{"id":"GOB_BOSS","name":"Goblin Warboss","src":"Goblin","tier":"III","role":"Pressure","slot":1,"shape":"Circle","size":"Medium","mounted":false,"wounds":3,"armour":"Light","nerve":0,"temper":"Aggressive","traits":["leader","champion"],"w":{"name":"LEGENDARY WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]]]}},{"id":"GOB_SHAMAN","name":"Goblin Shaman","src":"Goblin","tier":"II","role":"Utility","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"None","nerve":3,"temper":"Cowardly","traits":[],"w":{"name":"2H STAFF","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["Enemies within 6\" roll Armour one step worse until this figure's next activation"]]]}},{"id":"GOB_BIGUN","name":"Goblin Big'Un","src":"Goblin","tier":"I","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Resolute","traits":[],"w":{"name":"COMMON WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]]]}},{"id":"GOB_WARRIOR","name":"Goblin Warrior","src":"Goblin","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"Light","nerve":4,"temper":"Cowardly","traits":["expendable"],"w":{"name":"COMMON WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]]]}},{"id":"GOB_SPEAR","name":"Goblin Spearman","src":"Goblin","tier":"I","role":"Anchor","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"Light","nerve":4,"temper":"Cowardly","traits":["reach","expendable"],"w":{"name":"REACH WEAPON","dice":2,"hit":5,"reach":2.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]]]}},{"id":"GOB_ARCHER","name":"Goblin Archer","src":"Goblin","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"None","nerve":5,"temper":"Cowardly","traits":["expendable"],"w":{"name":"SKIRMISH","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["This figure may MOVE 3\" away before engagement"]]]}},{"id":"GOB_SNEAK","name":"Goblin Sneak","src":"Goblin","tier":"II","role":"Pressure","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"None","nerve":2,"temper":"Aggressive","traits":[],"w":{"name":"COMMON WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Execute"]]]}},{"id":"GOB_WOLF","name":"Wolf Rider","src":"Goblin","tier":"II","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":true,"wounds":2,"armour":"Light","nerve":4,"temper":"Ravenous","traits":["mounted","beast"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":true,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"GOB_SPIDER","name":"Giant Spider","src":"Goblin","tier":"III","role":"Pressure","slot":1,"shape":"Square","size":"Large","mounted":false,"wounds":3,"armour":"Light","nerve":2,"temper":"Ravenous","traits":["beast","large"],"w":{"name":"BEAST WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Terror"]]]}},{"id":"PON_PRINCESS","name":"The Princess","src":"Pony","tier":"III","role":"Pressure","slot":1,"shape":"Circle","size":"Large","mounted":false,"wounds":5,"armour":"Medium","nerve":0,"temper":"Protective","traits":["leader","champion","radiant","flying"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Guard"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"PON_CAPTAIN","name":"Guard-Captain","src":"Pony","tier":"II","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":2,"temper":"Protective","traits":["leader"],"w":{"name":"COMMON WEAPON","dice":3,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Guard"]]]}},{"id":"PON_GUARD","name":"Royal Guard","src":"Pony","tier":"I","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":2,"temper":"Protective","traits":["shield"],"w":{"name":"COMMON WEAPON","dice":3,"hit":3,"reach":0.0,"shield":true,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Guard"]]]}},{"id":"PON_EARTH","name":"Earth Pony Bruiser","src":"Pony","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Medium","nerve":2,"temper":"Resolute","traits":[],"w":{"name":"COMMON WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"PON_UNICORN","name":"Unicorn Starcaster","src":"Pony","tier":"II","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":2,"temper":"Resolute","traits":[],"w":{"name":"HEAL","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["Restore 1 Wound (ally)","Steady Nerve one step"]]]}},{"id":"PON_PEGASUS","name":"Pegasus Skyguard","src":"Pony","tier":"II","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Light","nerve":2,"temper":"Aggressive","traits":["flying"],"w":{"name":"COMMON WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"PON_ZEBRA","name":"Zebra Herbalist","src":"Pony","tier":"II","role":"Utility","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Protective","traits":[],"w":{"name":"HEAL","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["Restore 1 Wound (ally)","Steady Nerve one step"]]]}},{"id":"PON_BUFFALO","name":"Buffalo Ally","src":"Pony","tier":"II","role":"Pressure","slot":1,"shape":"Square","size":"Large","mounted":false,"wounds":4,"armour":"Medium","nerve":2,"temper":"Aggressive","traits":["beast","large"],"w":{"name":"COMMON WEAPON","dice":3,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Guard"]]]}},{"id":"PON_FOAL","name":"Brave Little Foal","src":"Pony","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":2,"armour":"Light","nerve":2,"temper":"Aggressive","traits":[],"w":{"name":"COMMON WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]]]}},{"id":"LIZ_WARLORD","name":"Cinderscale Warlord","src":"Lizardfolk","tier":"III","role":"Anchor","slot":1,"shape":"Circle","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":0,"temper":"Resolute","traits":["leader","champion"],"w":{"name":"LEGENDARY WEAPON","dice":3,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Guard"]]]}},{"id":"LIZ_DRAKE","name":"Fire Drake","src":"Lizardfolk","tier":"II","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Medium","nerve":2,"temper":"Aggressive","traits":["flying","beast"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"LIZ_SALAMANDER","name":"Salamander","src":"Lizardfolk","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Aggressive","traits":["beast"],"w":{"name":"BREATH WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["2 Wounds","ignore Armour"]]]}},{"id":"LIZ_WARRIOR","name":"Lizardman Warrior","src":"Lizardfolk","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Resolute","traits":[],"w":{"name":"COMMON WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"LIZ_WYRMLING","name":"Wyrmling","src":"Lizardfolk","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":3,"temper":"Aggressive","traits":["beast"],"w":{"name":"BEAST WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Terror"]]]}},{"id":"LIZ_SENTINEL","name":"Dragonscale Sentinel","src":"Lizardfolk","tier":"II","role":"Anchor","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Heavy","nerve":0,"temper":"Resolute","traits":["fearless","scaled"],"w":{"name":"2H WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Knockdown"]]]}},{"id":"LIZ_PRIEST","name":"Cinder Priest","src":"Lizardfolk","tier":"II","role":"Utility","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Cowardly","traits":[],"w":{"name":"BLESSING","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["Allies within 6\" gain Guard","Ignore the first Shove each round"]]]}},{"id":"LIZ_KOBOLD","name":"Kobold Warrior","src":"Lizardfolk","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"Light","nerve":5,"temper":"Cowardly","traits":["expendable"],"w":{"name":"COMMON WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]]]}},{"id":"LIZ_SLINGER","name":"Kobold Slinger","src":"Lizardfolk","tier":"I","role":"Pressure","slot":1,"shape":"Square","size":"Small","mounted":false,"wounds":1,"armour":"None","nerve":5,"temper":"Cowardly","traits":["expendable"],"w":{"name":"SKIRMISH","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["This figure may MOVE 3\" away before engagement"]]]}},{"id":"DRG_DRAGON","name":"The Dragon","src":"Dragon","tier":"III","role":"Pressure","slot":1,"shape":"Circle","size":"Large","mounted":false,"wounds":11,"armour":"Medium","nerve":0,"temper":"Ravenous","traits":["champion","large","flying","unstoppable","scaled","terror","regenerating"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["2 Wounds","Shove"]],[2,["2 Wounds","Knockdown"]],[3,["3 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"UND_ZOMBIE","name":"Zombie","src":"Bestiary","tier":"Undead","role":"Pressure","slot":0.5,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"None","nerve":0,"temper":"Ravenous","traits":["mindless"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"UND_SKELETON","name":"Skeleton","src":"Bestiary","tier":"Undead","role":"Pressure","slot":0.5,"shape":"Square","size":"Medium","mounted":false,"wounds":1,"armour":"Light","nerve":0,"temper":"Resolute","traits":["mindless"],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"UND_SKELETON_ARCHER","name":"Skeleton Archer","src":"Bestiary","tier":"Undead","role":"Pressure","slot":0.5,"shape":"Square","size":"Medium","mounted":false,"wounds":1,"armour":"None","nerve":0,"temper":"Resolute","traits":["mindless"],"w":{"name":"RANGED WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]]]}},{"id":"UND_GHOUL","name":"Ghoul","src":"Bestiary","tier":"Undead","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"None","nerve":0,"temper":"Ravenous","traits":["mindless"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"UND_WIGHT","name":"Wight","src":"Bestiary","tier":"Undead","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Medium","nerve":0,"temper":"Resolute","traits":["fearless"],"w":{"name":"2H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]]]}},{"id":"UND_NECROMANCER","name":"Necromancer","src":"Bestiary","tier":"Undead","role":"Utility","slot":3,"shape":"Square","size":"Medium","mounted":false,"wounds":3,"armour":"Light","nerve":3,"temper":"Cowardly","traits":["leader","summoner"],"w":{"name":"2H STAFF","dice":0,"hit":0,"reach":0.0,"shield":false,"impact":false,"grades":[[0,["Enemies within 6\" roll Armour one step worse until your next turn","Enemy Squares in range test Nerve"]]]}},{"id":"UND_BONE_GIANT","name":"Bone Giant","src":"Bestiary","tier":"Undead","role":"Pressure","slot":4,"shape":"Square","size":"Large","mounted":false,"wounds":6,"armour":"Medium","nerve":0,"temper":"Ravenous","traits":["mindless","large","unstoppable"],"w":{"name":"MONSTROUS WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["2 Wounds","Shove"]],[2,["2 Wounds","Knockdown"]],[3,["3 Wounds","Knockdown","Cleave"]]]}},{"id":"BST_WOLF","name":"Dire Wolf","src":"Bestiary","tier":"Beast","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"None","nerve":4,"temper":"Ravenous","traits":["beast"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"BST_SPIDER","name":"Giant Spider","src":"Bestiary","tier":"Beast","role":"Pressure","slot":2,"shape":"Square","size":"Large","mounted":false,"wounds":3,"armour":"Light","nerve":4,"temper":"Ravenous","traits":["beast","large","terror"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"BST_BEAR","name":"Cave Bear","src":"Bestiary","tier":"Beast","role":"Pressure","slot":2,"shape":"Square","size":"Large","mounted":false,"wounds":4,"armour":"Medium","nerve":3,"temper":"Aggressive","traits":["beast","large"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"BST_TROLL","name":"Troll","src":"Bestiary","tier":"Beast","role":"Pressure","slot":4,"shape":"Square","size":"Large","mounted":false,"wounds":6,"armour":"Medium","nerve":3,"temper":"Ravenous","traits":["beast","large","unstoppable","regenerating"],"w":{"name":"MONSTROUS WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["2 Wounds","Shove"]],[2,["2 Wounds","Knockdown"]],[3,["3 Wounds","Knockdown","Cleave"]]]}},{"id":"BST_GARGOYLE","name":"Gargoyle","src":"Bestiary","tier":"Beast","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Medium","nerve":0,"temper":"Aggressive","traits":["flying","fearless"],"w":{"name":"BEAST WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","Shove"]],[2,["2 Wounds"]],[3,["2 Wounds","Knockdown"]]]}},{"id":"BND_CUTPURSE","name":"Bandit","src":"Bestiary","tier":"Bandit","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":4,"temper":"Cowardly","traits":[],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["1 Wound","Shove"]],[3,["2 Wounds"]]]}},{"id":"BND_ARCHER","name":"Bandit Archer","src":"Bestiary","tier":"Bandit","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":4,"temper":"Cowardly","traits":[],"w":{"name":"RANGED WEAPON","dice":2,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]]]}},{"id":"BND_THUG","name":"Thug","src":"Bestiary","tier":"Bandit","role":"Pressure","slot":1,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"Light","nerve":3,"temper":"Aggressive","traits":[],"w":{"name":"2H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Cleave"]]]}},{"id":"BND_CUTTHROAT","name":"Cutthroat","src":"Bestiary","tier":"Bandit","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":false,"wounds":2,"armour":"None","nerve":3,"temper":"Aggressive","traits":[],"w":{"name":"1H WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds"]],[3,["2 Wounds","Execute"]]]}},{"id":"BND_HIGHWAYMAN","name":"Highwayman","src":"Bestiary","tier":"Bandit","role":"Pressure","slot":2,"shape":"Square","size":"Medium","mounted":true,"wounds":2,"armour":"Light","nerve":3,"temper":"Aggressive","traits":["mounted"],"w":{"name":"PISTOL","dice":2,"hit":3,"reach":0.0,"shield":false,"impact":true,"grades":[[1,["1 Wound","ignore Armour"]],[2,["2 Wounds","ignore Armour"]]]}},{"id":"BND_BOSS","name":"Bandit Boss","src":"Bestiary","tier":"Bandit","role":"Pressure","slot":3,"shape":"Circle","size":"Medium","mounted":false,"wounds":3,"armour":"Medium","nerve":0,"temper":"Aggressive","traits":["leader","champion"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Guard"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"BOS_OGRE_WARLORD","name":"Ogre Warlord","src":"Bestiary","tier":"Boss","role":"Pressure","slot":8,"shape":"Circle","size":"Large","mounted":false,"wounds":8,"armour":"Heavy","nerve":0,"temper":"Aggressive","traits":["boss","champion","large","terror"],"w":{"name":"MONSTROUS WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["2 Wounds","Shove"]],[2,["2 Wounds","Knockdown"]],[3,["3 Wounds","Knockdown","Cleave"]]]}},{"id":"BOS_LICH","name":"Lich","src":"Bestiary","tier":"Boss","role":"Utility","slot":8,"shape":"Circle","size":"Medium","mounted":false,"wounds":7,"armour":"Medium","nerve":0,"temper":"Resolute","traits":["boss","champion","terror","summoner","regenerating"],"w":{"name":"DRAIN","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound","ignore Armour"]],[2,["2 Wounds","ignore Armour","Restore 1 Wound to self"]]]}},{"id":"BOS_VAMPIRE","name":"Vampire Lord","src":"Bestiary","tier":"Boss","role":"Pressure","slot":8,"shape":"Circle","size":"Medium","mounted":false,"wounds":8,"armour":"Medium","nerve":0,"temper":"Aggressive","traits":["boss","champion","terror","regenerating","flying"],"w":{"name":"LEGENDARY WEAPON","dice":4,"hit":3,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["1 Wound"]],[2,["2 Wounds","Guard"]],[3,["2 Wounds","Cleave"]],[4,["3 Wounds","Execute"]]]}},{"id":"BOS_DEMON","name":"Demon","src":"Bestiary","tier":"Boss","role":"Pressure","slot":10,"shape":"Circle","size":"Large","mounted":false,"wounds":9,"armour":"Medium","nerve":0,"temper":"Ravenous","traits":["boss","champion","large","terror","flying","unstoppable"],"w":{"name":"MONSTROUS WEAPON","dice":3,"hit":4,"reach":0.0,"shield":false,"impact":false,"grades":[[1,["2 Wounds","Shove"]],[2,["2 Wounds","Knockdown"]],[3,["3 Wounds","Knockdown","Cleave"]]]}}]/*UNITS_END*/;
 
-// ======================= CONSTANTS + RULES ======================= //
-const R = {Small:0.40, Medium:0.55, Large:0.90};
-const SAVE = {None:null, Light:6, Medium:5, Heavy:4};
-const CONTACT=0.05, STEP=1.0, CRUSH_DICE=2, WALL_T=0.2;
-const CHARGE_MIN=3.0, PUSH_MAX=3.0, SHOVE=1.0, EPS=1e-4;
-
-const hasShield = f => !!f.w.shield;
-const reachOf   = f => f.w.reach || 0;
-
+// ===================== CONSTANTS + RULES ===================== //
+const R={Small:0.40,Medium:0.55,Large:0.90};
+const SAVE={None:null,Light:6,Medium:5,Heavy:4};
+const CONTACT=0.05,STEP=1.0,CRUSH_DICE=2,WALL_T=0.2,CHARGE_MIN=3.0,PUSH_MAX=3.0,SHOVE=1.0,EPS=1e-4;
+const hasShield=f=>!!f.w.shield, reachOf=f=>f.w.reach||0;
 function rngFromSeed(s){ let a=(s>>>0)||1;
-  return ()=>{ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a);
-    t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  return ()=>{ a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296; }; }
 
-// ======================= ENGINE ======================= //
+// ===================== ENGINE (charge axis = +y) ===================== //
 class Charge{
   constructor(chargers,defenders,{wallY=null,xMin=null,xMax=null,seed=1}={}){
     this.figs=[...chargers,...defenders]; this.all=[...chargers,...defenders];
-    this.chargers=chargers; this.defenders=defenders;
-    this.wallY=wallY; this.xMin=xMin; this.xMax=xMax;
+    this.chargers=chargers; this.defenders=defenders; this.wallY=wallY; this.xMin=xMin; this.xMax=xMax;
     this.rnd=rngFromSeed(seed); this.frames=[]; this.ev=[]; this.logs=[];
     this.m={reach:0,impact:0,counter:0,push:0,crush:0,intercept:0,knock:0,halt:0,flank:0,rear:0,ckill:0,dkill:0};
     this.centerX=this.all.reduce((s,f)=>s+f.x,0)/(this.all.length||1);
   }
-  L(s){ this.logs.push(s); }
-  d6(){ return 1+Math.floor(this.rnd()*6); }
-  roll(n,hit){ let s=0; n=Math.max(1,n); for(let i=0;i<n;i++) if(this.d6()>=hit) s++; return s; }
-  grade(w,succ){ let g=null; for(const [need,eff] of w.grades) if(succ>=need) g=eff; return g; }
-  woundsIn(eff){ for(const e of eff){ const m=/^(\d+) Wound/.exec(e); if(m) return +m[1]; } return 0; }
-  snap(label){
-    this.frames.push({label,
-      figs:this.all.map(f=>({id:f.id,s:f.side,x:+f.x.toFixed(3),y:+f.y.toFixed(3),r:f.r,
-        cw:Math.max(0,f.cw),w:f.wounds,dead:!f.alive,prone:f.prone,shape:f.shape,
-        fx:+f.face[0].toFixed(3),fy:+f.face[1].toFixed(3),
-        shield:hasShield(f),reach:reachOf(f)>0})),
-      ev:this.ev.slice()});
-    this.ev=[];
-  }
-  classify(atk,dfn){
-    if(dfn.shape==="Circle") return "front";
-    const dx=atk.x-dfn.x, dy=atk.y-dfn.y, L=Math.hypot(dx,dy)||1;
-    const dot=(dx/L)*dfn.face[0]+(dy/L)*dfn.face[1];
-    return dot>0.5?"front":(dot<-0.5?"rear":"flank");
-  }
+  L(s){this.logs.push(s);}
+  d6(){return 1+Math.floor(this.rnd()*6);}
+  roll(n,hit){let s=0;n=Math.max(1,n);for(let i=0;i<n;i++)if(this.d6()>=hit)s++;return s;}
+  grade(w,su){let g=null;for(const[n,e]of w.grades)if(su>=n)g=e;return g;}
+  woundsIn(e){for(const x of e){const m=/^(\d+) Wound/.exec(x);if(m)return+m[1];}return 0;}
+  snap(label){ this.frames.push({label, figs:this.all.map(f=>({id:f.id,s:f.side,x:+f.x.toFixed(3),y:+f.y.toFixed(3),
+    r:f.r,cw:Math.max(0,f.cw),w:f.wounds,dead:!f.alive,prone:f.prone,shape:f.shape,
+    fx:+f.face[0].toFixed(3),fy:+f.face[1].toFixed(3),shield:hasShield(f),reach:reachOf(f)>0})), ev:this.ev.slice()});
+    this.ev=[]; }
+  classify(atk,dfn){ if(dfn.shape==="Circle")return"front";
+    const dx=atk.x-dfn.x,dy=atk.y-dfn.y,L=Math.hypot(dx,dy)||1,dot=(dx/L)*dfn.face[0]+(dy/L)*dfn.face[1];
+    return dot>0.5?"front":(dot<-0.5?"rear":"flank"); }
   packet(atk,dfn,bonus,label,side){
-    const w=atk.w, dice=w.dice+bonus, succ=this.roll(dice,w.hit), eff=this.grade(w,succ);
+    const w=atk.w,dice=w.dice+bonus,su=this.roll(dice,w.hit),eff=this.grade(w,su);
     const ty={IMPACT:"impact",REACH:"reach",COUNTER:"counter"}[label]||"hit";
-    const sideTag = side&&side!=="front" ? ` <span class="flk">${side.toUpperCase()}</span>`:"";
-    if(!eff){ this.L(`<span class="hd">${atk.id}</span> ${label.toLowerCase()} ${dfn.id}${sideTag}: miss`);
+    const st=side&&side!=="front"?` <span class="flk">${side.toUpperCase()}</span>`:"";
+    if(!eff){ this.L(`<span class="hd">${atk.id}</span> ${label.toLowerCase()} ${dfn.id}${st}: miss`);
       this.ev.push({f:atk.id,t:dfn.id,k:ty,miss:true}); return false; }
-    let n=this.woundsIn(eff),applied=0; const sv=SAVE[dfn.armour];
-    for(let i=0;i<n;i++){ if(!dfn.alive)break; if(sv!=null&&this.d6()>=sv)continue; dfn.cw--; applied++; if(dfn.cw<=0)break; }
-    const cls=label==="IMPACT"?"imp":(label==="REACH"?"k":"");
-    this.L(`<span class="${cls}">${atk.id} ${label.toLowerCase()} ${dfn.id}</span>${sideTag}: ${succ}/${dice}d → ${eff.join(", ")} <span class="die">${applied}w</span>${bonus&&label==="IMPACT"?` <span class="cru">+${bonus}d</span>`:""}`);
-    if(eff.includes("Knockdown")&&dfn.alive){ dfn.prone=true; this.m.knock++; }
-    if(eff.includes("Shove")&&dfn.alive) this.shoveLateral(dfn,this.sideBias(dfn),SHOVE,new Set());
-    const killed=dfn.cw<=0&&dfn.alive;
-    if(killed){ dfn.alive=false; this.m[dfn.side==="D"?"dkill":"ckill"]++; this.L(`   ✕ ${dfn.id} falls`); }
-    this.ev.push({f:atk.id,t:dfn.id,k:ty,miss:false,crush:bonus>0&&label==="IMPACT",flank:side&&side!=="front",kill:killed});
-    return killed;
+    let n=this.woundsIn(eff),ap=0;const sv=SAVE[dfn.armour];
+    for(let i=0;i<n;i++){if(!dfn.alive)break;if(sv!=null&&this.d6()>=sv)continue;dfn.cw--;ap++;if(dfn.cw<=0)break;}
+    const cl=label==="IMPACT"?"imp":(label==="REACH"?"k":"");
+    this.L(`<span class="${cl}">${atk.id} ${label.toLowerCase()} ${dfn.id}</span>${st}: ${su}/${dice}d → ${eff.join(", ")} <span class="die">${ap}w</span>${bonus&&label==="IMPACT"?` <span class="cru">+${bonus}d</span>`:""}`);
+    if(eff.includes("Knockdown")&&dfn.alive){dfn.prone=true;this.m.knock++;}
+    if(eff.includes("Shove")&&dfn.alive)this.shoveLateral(dfn,this.sideBias(dfn),SHOVE,new Set());
+    const kill=dfn.cw<=0&&dfn.alive;
+    if(kill){dfn.alive=false;this.m[dfn.side==="D"?"dkill":"ckill"]++;this.L(`   ✕ ${dfn.id} falls`);}
+    this.ev.push({f:atk.id,t:dfn.id,k:ty,miss:false,crush:bonus>0&&label==="IMPACT",flank:side&&side!=="front",kill});
+    return kill;
   }
-  colOverlap(a,b){ return Math.abs(a.x-b.x)<(a.r+b.r)*0.85; }
-  gap(a,b){ return Math.hypot(a.x-b.x,a.y-b.y)-a.r-b.r; }
-  nearestAhead(f){ let best=null,bd=1e9;
-    for(const o of this.figs){ if(!o.alive||o.side===f.side)continue;
-      if(o.y>f.y&&this.colOverlap(f,o)&&o.y<bd){bd=o.y;best=o;} } return best; }
-  sideBias(fig){ return fig.x<this.centerX?-1:1; }
-  shoveLateral(fig,side,need,visited){
-    if(need<=EPS||visited.has(fig))return 0; visited.add(fig);
+  colOverlap(a,b){return Math.abs(a.x-b.x)<(a.r+b.r)*0.85;}
+  gap(a,b){return Math.hypot(a.x-b.x,a.y-b.y)-a.r-b.r;}
+  nearestAhead(f){let best=null,bd=1e9;for(const o of this.figs){if(!o.alive||o.side===f.side)continue;
+    if(o.y>f.y&&this.colOverlap(f,o)&&o.y<bd){bd=o.y;best=o;}}return best;}
+  sideBias(f){return f.x<this.centerX?-1:1;}
+  shoveLateral(fig,side,need,vis){
+    if(need<=EPS||vis.has(fig))return 0; vis.add(fig);
     let bound=Infinity;
-    if(this.xMin!=null&&side<0) bound=(fig.x-fig.r)-this.xMin;
-    if(this.xMax!=null&&side>0) bound=this.xMax-(fig.x+fig.r);
-    let nb=null,avail=Infinity;
-    for(const o of this.figs){ if(o===fig||!o.alive)continue;
-      if(Math.abs(o.y-fig.y)>=(fig.r+o.r))continue;
-      const dx=(o.x-fig.x)*side; if(dx<=0)continue;
-      const clear=dx-(fig.r+o.r); if(clear<avail){avail=clear;nb=o;} }
-    const cap=Math.min(bound,avail<0?0:avail);
-    if(cap>=need-EPS){ fig.x+=side*need; this.m.push++; return need; }
-    const move=Math.max(0,cap); fig.x+=side*move; if(move>EPS)this.m.push++;
-    let more=0; if(nb&&bound>cap+EPS){ more=this.shoveLateral(nb,side,need-move,visited); fig.x+=side*more; }
-    return move+more;
+    if(this.xMin!=null&&side<0)bound=(fig.x-fig.r)-this.xMin;
+    if(this.xMax!=null&&side>0)bound=this.xMax-(fig.x+fig.r);
+    let nb=null,av=Infinity;
+    for(const o of this.figs){if(o===fig||!o.alive)continue;if(Math.abs(o.y-fig.y)>=(fig.r+o.r))continue;
+      const dx=(o.x-fig.x)*side;if(dx<=0)continue;const cl=dx-(fig.r+o.r);if(cl<av){av=cl;nb=o;}}
+    const cap=Math.min(bound,av<0?0:av);
+    if(cap>=need-EPS){fig.x+=side*need;this.m.push++;return need;}
+    const mv=Math.max(0,cap);fig.x+=side*mv;if(mv>EPS)this.m.push++;
+    let more=0;if(nb&&bound>cap+EPS){more=this.shoveLateral(nb,side,need-mv,vis);fig.x+=side*more;}
+    return mv+more;
   }
-  wallJam(fig){ return this.wallY!=null && (this.wallY-WALL_T)-(fig.y+fig.r)<EPS; }
-  shoveForward(fig,need,visited){
-    if(need<=EPS||visited.has(fig))return 0; visited.add(fig);
-    if(this.wallJam(fig))return 0;
-    let room=this.wallY!=null?(this.wallY-WALL_T)-(fig.y+fig.r):Infinity;
-    let ah=null,ad=1e9;
-    for(const o of this.figs){ if(o===fig||!o.alive)continue;
-      if(o.y>fig.y&&this.colOverlap(fig,o)&&o.y<ad){ad=o.y;ah=o;} }
-    const gapAhead=ah?(ah.y-fig.y-(fig.r+ah.r)):Infinity;
-    const cap=Math.min(need,room,gapAhead<0?0:gapAhead);
-    if(cap>=need-EPS){ fig.y+=need; this.m.push++; return need; }
-    const move=Math.max(0,cap); fig.y+=move; if(move>EPS)this.m.push++;
-    let more=ah?this.shoveForward(ah,need-move,visited):0; fig.y+=more; return move+more;
+  wallJam(f){return this.wallY!=null&&(this.wallY-WALL_T)-(f.y+f.r)<EPS;}
+  shoveForward(fig,need,vis){
+    if(need<=EPS||vis.has(fig))return 0;vis.add(fig);if(this.wallJam(fig))return 0;
+    let room=this.wallY!=null?(this.wallY-WALL_T)-(fig.y+fig.r):Infinity,ah=null,ad=1e9;
+    for(const o of this.figs){if(o===fig||!o.alive)continue;if(o.y>fig.y&&this.colOverlap(fig,o)&&o.y<ad){ad=o.y;ah=o;}}
+    const ga=ah?(ah.y-fig.y-(fig.r+ah.r)):Infinity,cap=Math.min(need,room,ga<0?0:ga);
+    if(cap>=need-EPS){fig.y+=need;this.m.push++;return need;}
+    const mv=Math.max(0,cap);fig.y+=mv;if(mv>EPS)this.m.push++;
+    let more=ah?this.shoveForward(ah,need-mv,vis):0;fig.y+=more;return mv+more;
   }
   advanceOne(c){
     if(c.stopped)return;
     const step=c.contacted?Math.min(STEP,c.budget):STEP;
-    if(step<=EPS){ c.stopped=true; return; }
+    if(step<=EPS){c.stopped=true;return;}
     const ahead=this.nearestAhead(c);
-    if(!ahead){ c.y+=step; if(!c.contacted){c.sprinted+=step; c.travel-=step; if(c.travel<=0)c.stopped=true;} else c.budget-=step; return; }
+    if(!ahead){c.y+=step;if(!c.contacted){c.sprinted+=step;c.travel-=step;if(c.travel<=0)c.stopped=true;}else c.budget-=step;return;}
     const g=ahead.y-c.y-(c.r+ahead.r);
-    if(g>=step){ c.y+=step; if(!c.contacted){c.sprinted+=step; c.travel-=step;} else c.budget-=step; return; }
-    c.y+=Math.max(0,g); if(!c.contacted)c.sprinted+=Math.max(0,g);
-    if(!c.contacted) return;
-    let residual=step-Math.max(0,g);
-    this.shoveLateral(ahead,this.sideBias(ahead),residual,new Set());
-    if(!this.colOverlap(c,ahead)){ c.y+=residual; c.budget-=residual; return; }
-    if(this.wallJam(ahead)){ c.crushOn=ahead; c.stopped=true; return; }
-    const fwd=this.shoveForward(ahead,residual,new Set());
-    c.y+=fwd; c.budget-=fwd; if(fwd<residual-EPS)c.stopped=true;
+    if(g>=step){c.y+=step;if(!c.contacted){c.sprinted+=step;c.travel-=step;}else c.budget-=step;return;}
+    c.y+=Math.max(0,g);if(!c.contacted)c.sprinted+=Math.max(0,g);
+    if(!c.contacted)return;
+    let res=step-Math.max(0,g);
+    this.shoveLateral(ahead,this.sideBias(ahead),res,new Set());
+    if(!this.colOverlap(c,ahead)){c.y+=res;c.budget-=res;return;}
+    if(this.wallJam(ahead)){c.crushOn=ahead;c.stopped=true;return;}
+    const fwd=this.shoveForward(ahead,res,new Set());
+    c.y+=fwd;c.budget-=fwd;if(fwd<res-EPS)c.stopped=true;
   }
-  reachPhase(){
-    // NO-TURN RULE: a unit never turns to face during a charge, so a spear can only
-    // reach-strike a target already in its FRONT arc (Circles are faceless → always).
-    for(const d of this.defenders){ if(!d.alive||d.reacted||reachOf(d)<=0)continue;
-      let tgt=null,td=1e9;
-      for(const c of this.chargers){ if(!c.alive)continue; const gp=this.gap(d,c);
-        if(gp>CONTACT&&gp<=reachOf(d)&&c.y<d.y&&gp<td&&this.classify(d,c)==="front"){td=gp;tgt=c;} }
-      if(tgt){ d.reacted=true; this.m.reach++; this.packet(d,tgt,0,"REACH","front"); }
+  reachPhase(){ // no-turn: only strikes targets in the FRONT arc
+    for(const d of this.defenders){if(!d.alive||d.reacted||reachOf(d)<=0)continue;
+      let t=null,td=1e9;
+      for(const c of this.chargers){if(!c.alive)continue;const gp=this.gap(d,c);
+        if(gp>CONTACT&&gp<=reachOf(d)&&c.y<d.y&&gp<td&&this.classify(d,c)==="front"){td=gp;t=c;}}
+      if(t){d.reacted=true;this.m.reach++;this.packet(d,t,0,"REACH","front");}
     }
   }
   contactPhase(){
-    for(const c of this.chargers){ if(!c.alive)continue;
-      if(c.stopped&&!c.contacted)continue;
-      const hits=this.defenders.filter(d=>d.alive&&this.gap(c,d)<=CONTACT&&!c.impacted.has(d.id))
-                               .sort((a,b)=>this.gap(c,a)-this.gap(c,b));
+    for(const c of this.chargers){if(!c.alive)continue;if(c.stopped&&!c.contacted)continue;
+      const hits=this.defenders.filter(d=>d.alive&&this.gap(c,d)<=CONTACT&&!c.impacted.has(d.id)).sort((a,b)=>this.gap(c,a)-this.gap(c,b));
       for(const d of hits){
         c.impacted.add(d.id);
         if(!c.contacted){
-          if(c.sprinted<CHARGE_MIN){ c.stopped=true; this.m.halt++;
-            this.L(`<span class="hd">${c.id} ran only ${c.sprinted.toFixed(1)}″ — HALTS on contact (no charge)</span>`);
-            this.ev.push({f:c.id,t:d.id,k:"halt",miss:true}); continue; }
-          c.contacted=true; c.budget=PUSH_MAX;
+          if(c.sprinted<CHARGE_MIN){c.stopped=true;this.m.halt++;
+            this.L(`<span class="hd">${c.id} ran only ${c.sprinted.toFixed(1)}″ — HALTS (no charge)</span>`);
+            this.ev.push({f:c.id,t:d.id,k:"halt",miss:true});continue;}
+          c.contacted=true;c.budget=PUSH_MAX;
         }
-        const target=this.shieldRedirect(c,d);
-        const side=this.classify(c,target);
+        const tgt=this.shieldRedirect(c,d), side=this.classify(c,tgt);
         if(side==="flank")this.m.flank++; if(side==="rear")this.m.rear++;
-        let bonus=(c.crushOn===target?CRUSH_DICE:0)+(side==="flank"?1:side==="rear"?2:0);
-        if(c.crushOn===target)this.m.crush++;
-        this.m.impact++;
-        this.packet(c,target,bonus,"IMPACT",side);
-        // NO-TURN RULE: a defender counters only if the charger hit its FRONT (it can't
-        // pivot to face a flank/rear attacker). Circles are faceless → always counter.
-        if(target.alive&&!target.prone&&reachOf(c)===0&&side==="front"){
-          this.m.counter++; this.packet(target,c,0,"COUNTER","front"); }
+        let bonus=(c.crushOn===tgt?CRUSH_DICE:0)+(side==="flank"?1:side==="rear"?2:0);
+        if(c.crushOn===tgt)this.m.crush++;
+        this.m.impact++; this.packet(c,tgt,bonus,"IMPACT",side);
+        if(tgt.alive&&!tgt.prone&&reachOf(c)===0&&side==="front"){this.m.counter++;this.packet(tgt,c,0,"COUNTER","front");}
       }
       c.crushOn=null;
     }
@@ -308,228 +270,248 @@ class Charge{
   shieldRedirect(atk,dfn){
     if(hasShield(dfn))return dfn;
     const g=this.defenders.filter(x=>x.alive&&!x.reacted&&hasShield(x)&&this.gap(x,dfn)<=1.0&&x!==dfn);
-    if(g.length){ g[0].reacted=true; this.m.intercept++;
-      this.L(`   🛡 ${g[0].id} intercepts the hit meant for ${dfn.id}`); return g[0]; }
+    if(g.length){g[0].reacted=true;this.m.intercept++;this.L(`   🛡 ${g[0].id} intercepts for ${dfn.id}`);return g[0];}
     return dfn;
   }
   run(){
     this.snap("deploy");
     const maxInch=Math.ceil(Math.max(...this.chargers.map(c=>c.travel),1))+Math.ceil(PUSH_MAX)+4;
     for(let i=1;i<=maxInch;i++){
-      const active=this.chargers.filter(c=>c.alive&&!c.stopped);
-      if(!active.length)break;
-      for(const c of active)this.advanceOne(c);
-      this.reachPhase(); this.contactPhase();
-      this.snap(`inch ${i}`);
+      const act=this.chargers.filter(c=>c.alive&&!c.stopped); if(!act.length)break;
+      for(const c of act)this.advanceOne(c);
+      this.reachPhase(); this.contactPhase(); this.snap(`inch ${i}`);
       if(!this.chargers.some(c=>c.alive&&!c.stopped))break;
     }
     this.snap("end"); return this;
   }
 }
 
-// ======================= FORMATION BUILDER ======================= //
+// ===================== EDIT STATE ===================== //
 let FID=0;
-function mkFig(side,x,y,unit){
-  return {id:`${side}${++FID}`, side, x, y, r:R[unit.size]||0.55,
-    shape:unit.shape, size:unit.size, armour:unit.armour, w:unit.w, w0:unit.name,
-    wcap:unit.wounds, w0name:unit.name, wounds:unit.wounds, cw:unit.wounds,
-    alive:true, prone:false, reacted:false, impacted:new Set(),
-    sprinted:0, contacted:false, budget:PUSH_MAX, stopped:false, crushOn:null,
-    travel:0, face:[0, side==="C"?1:-1]};
+function mkFig(side,x,y,unit,faceDeg){
+  const rad=(faceDeg==null?(side==="C"?0:180):faceDeg)*Math.PI/180;
+  return {id:`${side}${++FID}`,side,x,y,r:R[unit.size]||0.55,shape:unit.shape,size:unit.size,
+    armour:unit.armour,w:unit.w,wounds:unit.wounds,cw:unit.wounds,alive:true,prone:false,
+    reacted:false,impacted:new Set(),sprinted:0,contacted:false,budget:PUSH_MAX,stopped:false,
+    crushOn:null,travel:40,face:[Math.sin(rad),Math.cos(rad)]};
 }
-function rotateForm(figs,deg){
-  if(!deg)return;
-  const rad=deg*Math.PI/180, cs=Math.cos(rad), sn=Math.sin(rad);
-  const cx=figs.reduce((s,f)=>s+f.x,0)/figs.length, cy=figs.reduce((s,f)=>s+f.y,0)/figs.length;
-  for(const f of figs){ const x=f.x-cx,y=f.y-cy;
-    f.x=cx+x*cs-y*sn; f.y=cy+x*sn+y*cs;
-    const fx=f.face[0],fy=f.face[1]; f.face=[fx*cs-fy*sn, fx*sn+fy*cs]; }
-}
-function buildDefenders(cfg,unit,frontUnit){
-  const {shape,width,depth,sp}=cfg; const figs=[]; const rowW=w=>(w-1)*sp;
-  const U=(isFront)=> (isFront&&frontUnit)?frontUnit:unit;
-  if(shape==="line"){ const off=rowW(width)/2;
-    for(let i=0;i<width;i++) figs.push(mkFig("D",i*sp-off,0,U(true)));
-  } else if(shape==="wedge"){ let y=0,w=1;
-    while(figs.length<width*depth && w<=width){ const off=rowW(w)/2;
-      for(let i=0;i<w;i++) figs.push(mkFig("D",i*sp-off,y,U(y===0))); y+=sp; w++; }
-  } else { for(let d=0;d<depth;d++){ const off=rowW(width)/2;
-      for(let i=0;i<width;i++) figs.push(mkFig("D",i*sp-off,d*sp,U(d===0))); } }
-  return figs;
-}
-function buildChargers(cfg,unit,runup){
-  const {shape,count,sp}=cfg; const figs=[]; const r=R[unit.size]||0.55; const rowW=w=>(w-1)*sp;
-  const lead=-(runup+r);
-  if(shape==="single"||shape==="column"){ const n=shape==="single"?1:count;
-    for(let i=0;i<n;i++) figs.push(mkFig("C",0,lead-i*sp,unit));
-  } else if(shape==="line"){ const off=rowW(count)/2;
-    for(let i=0;i<count;i++) figs.push(mkFig("C",i*sp-off,lead,unit));
-  } else { let placed=0,row=1,y=lead;
-    while(placed<count){ const w=Math.min(row,count-placed), off=((w-1)*sp)/2;
-      for(let i=0;i<w;i++){ figs.push(mkFig("C",i*sp-off,y,unit)); placed++; } y-=sp; row++; } }
-  for(const f of figs) f.travel=runup+3+PUSH_MAX;
-  return figs;
-}
+// editFigs: {side, x, y, unitIdx, faceDeg}
+let editFigs=[], selected=-1, undoStack=[];
+const unitOf=e=>LAB_UNITS[e.unitIdx];
+function pushUndo(){ undoStack.push(JSON.stringify(editFigs)); if(undoStack.length>60)undoStack.shift(); }
+function faceVec(deg){const r=deg*Math.PI/180;return[Math.sin(r),Math.cos(r)];}
 
-// ======================= UI GLUE ======================= //
+// ===================== UI GLUE ===================== //
 const $=id=>document.getElementById(id);
-function fillUnitPicker(sel){
-  const bySrc={}; LAB_UNITS.forEach((u,i)=>{ (bySrc[u.src]=bySrc[u.src]||[]).push([i,u]); });
+let brushSide="C", mode="edit";
+function fillPicker(sel){ const bySrc={}; LAB_UNITS.forEach((u,i)=>{(bySrc[u.src]=bySrc[u.src]||[]).push([i,u]);});
   sel.innerHTML="";
-  for(const src in bySrc){ const og=document.createElement("optgroup"); og.label=src;
-    for(const [i,u] of bySrc[src]){ const o=document.createElement("option");
-      o.value=i; o.textContent=`${u.name} · ${u.tier}`; og.appendChild(o); }
-    sel.appendChild(og); }
-}
-function unitCard(u,side){
-  const chip=side==="C"?"chip-c":"chip-b";
-  const w=u.w, tags=[u.shape, u.size, u.armour+" armour", u.wounds+"W"];
-  if(w.reach) tags.push("reach "+w.reach+"″"); if(w.shield) tags.push("shield");
-  if(w.impact) tags.push("impact"); if(u.mounted) tags.push("mounted");
+  for(const src in bySrc){const og=document.createElement("optgroup");og.label=src;
+    for(const[i,u]of bySrc[src]){const o=document.createElement("option");o.value=i;o.textContent=`${u.name} · ${u.tier}`;og.appendChild(o);}
+    sel.appendChild(og);} }
+function unitCard(u,side){ const chip=side==="C"?"chip-c":"chip-b",w=u.w,tags=[u.shape,u.size,u.armour+" armour",u.wounds+"W"];
+  if(w.reach)tags.push("reach "+w.reach+"″");if(w.shield)tags.push("shield");if(w.impact)tags.push("impact");if(u.mounted)tags.push("mounted");
   const top=w.grades[w.grades.length-1][1].join(", ");
   return `<span class="${chip}"><b>${u.name}</b></span> <span class="hd">${u.src} · ${u.role}</span><br>`+
-    tags.map(t=>`<span class="pill">${t}</span>`).join("")+
-    `<br><b>${w.name}</b> — ${w.dice}d, hit ${w.hit}+ · top: ${top}`;
+    tags.map(t=>`<span class="pill">${t}</span>`).join("")+`<br><b>${w.name}</b> — ${w.dice}d, hit ${w.hit}+ · top: ${top}`;
 }
-function readCfg(){
-  return {
-    runup:+$("run").value, seed:+$("seed").value,
-    cUnit:LAB_UNITS[+$("cUnit").value], dUnit:LAB_UNITS[+$("dUnit").value],
-    dFront:$("dFrontOn").checked?LAB_UNITS[+$("dFront").value]:null,
-    cCfg:{shape:$("cShape").value,count:+$("cN").value,sp:+$("cSp").value/10,rot:+$("cRot").value},
-    dCfg:{shape:$("dShape").value,width:+$("dW").value,depth:+$("dD").value,sp:+$("dSp").value/10},
-    appr:+$("appr").value, dRot:+$("dRot").value,
-    backWall:$("dWall").checked, sideWall:$("sWall").checked,
-  };
+function refreshCard(){ $("brCard").innerHTML=unitCard(LAB_UNITS[+$("brUnit").value],brushSide); }
+function updateRoster(){ $("rc").textContent=editFigs.filter(e=>e.side==="C").length;
+  $("rd").textContent=editFigs.filter(e=>e.side==="D").length; }
+
+// ---------- board view (fixed, +y up) ----------
+const BX0=-16,BX1=16,BY0=-13,BY1=19;
+const cv=$("cv"), ctx=cv.getContext("2d");
+function view(){ const w=cv.clientWidth,h=cv.clientHeight,pad=26;
+  const s=Math.min((w-2*pad)/(BX1-BX0),(h-2*pad)/(BY1-BY0));
+  const ox=(w-(BX1-BX0)*s)/2, oy=(h-(BY1-BY0)*s)/2;
+  return {w,h,s,X:x=>ox+(x-BX0)*s,Y:y=>h-(oy+(y-BY0)*s),ix:px=>(px-ox)/s+BX0,iy:py=>BY0+((h-py)-oy)/s}; }
+function fitDPR(){const d=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;cv.width=w*d;cv.height=h*d;ctx.setTransform(d,0,0,d,0,0);}
+
+function drawGrid(v){
+  ctx.strokeStyle="#191d26";ctx.lineWidth=1;
+  for(let x=Math.ceil(BX0);x<=BX1;x+=2){ctx.beginPath();ctx.moveTo(v.X(x),v.Y(BY0));ctx.lineTo(v.X(x),v.Y(BY1));ctx.stroke();}
+  for(let y=Math.ceil(BY0);y<=BY1;y+=2){ctx.beginPath();ctx.moveTo(v.X(BX0),v.Y(y));ctx.lineTo(v.X(BX1),v.Y(y));ctx.stroke();}
+  // charge-direction arrow (up)
+  ctx.strokeStyle="#3a2224";ctx.fillStyle="#5a2b2d";ctx.lineWidth=3;
+  const ax=v.X(BX0)+22, ay0=v.Y(-4), ay1=v.Y(4);
+  ctx.beginPath();ctx.moveTo(ax,ay0);ctx.lineTo(ax,ay1);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ax,ay1);ctx.lineTo(ax-5,ay1+9);ctx.lineTo(ax+5,ay1+9);ctx.closePath();ctx.fill();
+  ctx.fillStyle="#6b3538";ctx.font="10px system-ui";ctx.textAlign="center";
+  ctx.save();ctx.translate(ax-12,(ay0+ay1)/2);ctx.rotate(-Math.PI/2);ctx.fillText("CHARGE",0,0);ctx.restore();
+  // deploy hint zones
+  ctx.fillStyle="rgba(229,72,77,.04)";ctx.fillRect(v.X(BX0),v.Y(-2),(BX1-BX0)*v.s,v.Y(BY0)-v.Y(-2));
+  ctx.fillStyle="rgba(77,127,229,.04)";ctx.fillRect(v.X(BX0),v.Y(BY1),(BX1-BX0)*v.s,v.Y(2)-v.Y(BY1));
 }
-function assemble(){
-  FID=0; const c=readCfg();
-  const defs=buildDefenders(c.dCfg,c.dUnit,c.dFront);
-  rotateForm(defs, c.appr + c.dRot);
-  const chgs=buildChargers(c.cCfg,c.cUnit,c.runup);
-  rotateForm(chgs, c.cCfg.rot);
-  const maxDefY=Math.max(...defs.map(f=>f.y+f.r));
-  const wallY=c.backWall?maxDefY+0.4:null;
-  let xMin=null,xMax=null;
-  if(c.sideWall){ const xs=[...defs,...chgs].map(f=>f.x); xMin=Math.min(...xs)-0.5; xMax=Math.max(...xs)+0.5; }
-  return new Charge(chgs,defs,{wallY,xMin,xMax,seed:c.seed});
+function drawFig(v,x,y,r,side,shape,fv,o){
+  const X=v.X(x),Y=v.Y(y),rr=r*v.s, dead=o.dead;
+  const col=side==="C"?"#e5484d":"#4d7fe5";
+  const ang=Math.atan2(-fv[1],fv[0]);
+  if(o.reach&&!dead){ctx.strokeStyle="rgba(232,194,58,.4)";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(X,Y);ctx.lineTo(X+Math.cos(ang)*2*v.s,Y+Math.sin(ang)*2*v.s);ctx.stroke();}
+  ctx.save();ctx.translate(X,Y);ctx.rotate(ang);
+  ctx.fillStyle=dead?"#2a2d35":col;
+  if(shape==="Circle"){ctx.beginPath();ctx.arc(0,0,rr,0,7);ctx.fill();
+    if(!dead){ctx.lineWidth=2;ctx.strokeStyle="rgba(111,174,111,.9)";ctx.beginPath();ctx.arc(0,0,rr,0,7);ctx.stroke();}
+  } else {const sd=rr*1.7;ctx.beginPath();ctx.rect(-sd/2,-sd/2,sd,sd);ctx.fill();
+    if(!dead){ctx.lineWidth=1.4;ctx.strokeStyle="rgba(255,255,255,.22)";ctx.stroke();
+      ctx.fillStyle="rgba(255,255,255,.8)";ctx.beginPath();ctx.moveTo(sd/2,0);ctx.lineTo(sd/2-4,-3);ctx.lineTo(sd/2-4,3);ctx.closePath();ctx.fill();}}
+  if(o.shield&&!dead){ctx.strokeStyle="#e8c23a";ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(0,0,rr+2,0,7);ctx.stroke();}
+  ctx.restore();
+  if(o.sel){ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.setLineDash([4,3]);ctx.beginPath();ctx.arc(X,Y,rr+5,0,7);ctx.stroke();ctx.setLineDash([]);}
+  if(!dead&&o.wmax>1){for(let k=0;k<o.wmax;k++){const px=X-(o.wmax-1)*2.5+k*5;ctx.beginPath();ctx.arc(px,Y+rr+6,1.7,0,7);ctx.fillStyle=k<o.cw?"#cdd3df":"#5a5f6b";ctx.fill();}}
+  if(dead){ctx.strokeStyle="#6a6f7b";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(X-rr*.6,Y-rr*.6);ctx.lineTo(X+rr*.6,Y+rr*.6);ctx.moveTo(X+rr*.6,Y-rr*.6);ctx.lineTo(X-rr*.6,Y+rr*.6);ctx.stroke();}
+}
+function drawWallsPreview(v){
+  if($("dWall").checked){const defs=editFigs.filter(e=>e.side==="D");if(defs.length){
+    const wy=Math.max(...defs.map(e=>e.y+(R[unitOf(e).size]||.55)))+0.4;
+    ctx.fillStyle="#3a3f4c";ctx.fillRect(v.X(BX0),v.Y(wy)-4,(BX1-BX0)*v.s,8);}}
+  if($("sWall").checked&&editFigs.length){const xs=editFigs.map(e=>e.x);
+    const xMin=Math.min(...xs)-0.5,xMax=Math.max(...xs)+0.5;
+    ctx.fillStyle="#2b303c";ctx.fillRect(v.X(xMin)-6,v.Y(BY1),6,(v.Y(BY0)-v.Y(BY1)));ctx.fillRect(v.X(xMax),v.Y(BY1),6,(v.Y(BY0)-v.Y(BY1)));}
+}
+function renderEdit(){
+  fitDPR();const v=view();ctx.clearRect(0,0,v.w,v.h);drawGrid(v);drawWallsPreview(v);
+  editFigs.forEach((e,i)=>{const u=unitOf(e);drawFig(v,e.x,e.y,R[u.size]||.55,e.side,u.shape,faceVec(e.faceDeg),
+    {dead:false,reach:u.w.reach>0,shield:u.w.shield,sel:i===selected,wmax:u.wounds,cw:u.wounds});});
 }
 
-// ---------- rendering ----------
-const cv=$("cv"), ctx=cv.getContext("2d");
-let DATA=null, tPlay=0, playing=false, lastTs=0;
-function fitDPR(){ const d=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;
-  cv.width=w*d; cv.height=h*d; ctx.setTransform(d,0,0,d,0,0); return {w,h}; }
-function bounds(data){ let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
-  for(const fr of data.frames)for(const f of fr.figs){ x0=Math.min(x0,f.x-f.r);x1=Math.max(x1,f.x+f.r);
-    y0=Math.min(y0,f.y-f.r);y1=Math.max(y1,f.y+f.r); }
-  if(data.wallY!=null)y1=Math.max(y1,data.wallY+0.3);
-  return {x0,x1,y0,y1}; }
+// ---------- play ----------
+let DATA=null,tPlay=0,playing=false,lastTs=0;
 const lerp=(a,b,t)=>a+(b-a)*t;
-function draw(){
-  if(!DATA){ ctx.clearRect(0,0,cv.width,cv.height); return; }
-  const {w,h}=fitDPR(); ctx.clearRect(0,0,w,h);
-  const b=DATA._b,pad=44;
-  const s=Math.min((w-2*pad)/((b.x1-b.x0)||1),(h-2*pad)/((b.y1-b.y0)||1));
-  const ox=(w-(b.x1-b.x0)*s)/2, oy=(h-(b.y1-b.y0)*s)/2;
-  const X=x=>ox+(x-b.x0)*s, Y=y=>h-(oy+(y-b.y0)*s);
-  const F=DATA.frames,n=F.length;
-  const fi=Math.min(n-1,Math.floor(tPlay)),fj=Math.min(n-1,fi+1),ft=tPlay-fi;
-  const A=F[fi],B=F[fj],bmap={}; for(const f of B.figs)bmap[f.id]=f;
-  if(DATA.wallY!=null){ ctx.fillStyle="#3a3f4c"; const wy=Y(DATA.wallY); ctx.fillRect(X(b.x0),wy-4,(b.x1-b.x0)*s,8); }
-  if(DATA.xMin!=null){ ctx.fillStyle="#2b303c"; ctx.fillRect(X(DATA.xMin)-6,Y(b.y1),6,(b.y1-b.y0)*s);
-    ctx.fillRect(X(DATA.xMax),Y(b.y1),6,(b.y1-b.y0)*s); }
-  for(const fa of A.figs){
-    const fb=bmap[fa.id]||fa;
-    const x=X(lerp(fa.x,fb.x,ft)),y=Y(lerp(fa.y,fb.y,ft)),r=fa.r*s,dead=fa.dead;
-    const col=fa.s==="C"?"#e5484d":"#4d7fe5";
-    const ang=Math.atan2(-lerp(fa.fy,fb.fy,ft),lerp(fa.fx,fb.fx,ft)); // screen-space facing
-    if(fa.reach&&!dead){ ctx.strokeStyle="rgba(232,194,58,.45)"; ctx.lineWidth=2;
-      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+Math.cos(ang)*2.0*s,y+Math.sin(ang)*2.0*s); ctx.stroke(); }
-    ctx.save(); ctx.translate(x,y); ctx.rotate(ang);
-    ctx.fillStyle=dead?"#2a2d35":col;
-    if(fa.shape==="Circle"){ ctx.beginPath(); ctx.arc(0,0,r,0,7); ctx.fill();
-      if(!dead){ ctx.lineWidth=2; ctx.strokeStyle="rgba(111,174,111,.9)"; ctx.beginPath(); ctx.arc(0,0,r,0,7); ctx.stroke(); }
-    } else { const sd=r*1.7; ctx.beginPath(); ctx.rect(-sd/2,-sd/2,sd,sd); ctx.fill();
-      if(!dead){ ctx.lineWidth=1.4; ctx.strokeStyle="rgba(255,255,255,.22)"; ctx.stroke();
-        ctx.fillStyle="rgba(255,255,255,.75)"; ctx.beginPath(); // facing notch on front (+x local)
-        ctx.moveTo(sd/2,0); ctx.lineTo(sd/2-4,-3); ctx.lineTo(sd/2-4,3); ctx.closePath(); ctx.fill(); } }
-    if(fa.shield&&!dead){ ctx.strokeStyle="#e8c23a"; ctx.lineWidth=2.5; ctx.beginPath(); ctx.arc(0,0,r+2,0,7); ctx.stroke(); }
-    ctx.restore();
-    if(!dead&&fa.w>1){} // (wounds drawn below, upright)
-    if(!dead){ const wc=fa.cw,wm=fa.w||1; if(wm>1){ for(let k=0;k<wm;k++){ const px=x-(wm-1)*2.5+k*5;
-      ctx.beginPath(); ctx.arc(px,y+r+6,1.7,0,7); ctx.fillStyle=k<wc?"#cdd3df":"#5a5f6b"; ctx.fill(); } } }
-    if(dead){ ctx.strokeStyle="#6a6f7b"; ctx.lineWidth=2; ctx.beginPath();
-      ctx.moveTo(x-r*.6,y-r*.6); ctx.lineTo(x+r*.6,y+r*.6); ctx.moveTo(x+r*.6,y-r*.6); ctx.lineTo(x-r*.6,y+r*.6); ctx.stroke(); }
-  }
+function renderPlay(){
+  fitDPR();const v=view();ctx.clearRect(0,0,v.w,v.h);drawGrid(v);
+  if(DATA.wallY!=null){ctx.fillStyle="#3a3f4c";ctx.fillRect(v.X(BX0),v.Y(DATA.wallY)-4,(BX1-BX0)*v.s,8);}
+  if(DATA.xMin!=null){ctx.fillStyle="#2b303c";ctx.fillRect(v.X(DATA.xMin)-6,v.Y(BY1),6,v.Y(BY0)-v.Y(BY1));ctx.fillRect(v.X(DATA.xMax),v.Y(BY1),6,v.Y(BY0)-v.Y(BY1));}
+  const F=DATA.frames,n=F.length,fi=Math.min(n-1,Math.floor(tPlay)),fj=Math.min(n-1,fi+1),ft=tPlay-fi;
+  const A=F[fi],B=F[fj],bm={};for(const f of B.figs)bm[f.id]=f;
+  for(const fa of A.figs){const fb=bm[fa.id]||fa;
+    drawFig(v,lerp(fa.x,fb.x,ft),lerp(fa.y,fb.y,ft),fa.r,fa.s,fa.shape,[lerp(fa.fx,fb.fx,ft),lerp(fa.fy,fb.fy,ft)],
+      {dead:fa.dead,reach:fa.reach,shield:fa.shield,sel:false,wmax:fa.w,cw:fa.cw});}
   const pulse=Math.sin(Math.min(1,ft)*Math.PI);
-  for(const e of B.ev){ const tf=bmap[e.t]; if(!tf)continue;
-    const x=X(tf.x),y=Y(tf.y),r=tf.r*s;
+  for(const e of B.ev){const tf=bm[e.t];if(!tf)continue;const X=v.X(tf.x),Y=v.Y(tf.y),rr=tf.r*v.s;
     let c=e.k==="impact"?(e.flank?"#c78bff":"#f0883e"):e.k==="reach"?"#e8c23a":e.k==="counter"?"#49c0d6":e.k==="halt"?"#8b91a0":"#fff";
     if(e.miss)c="rgba(140,145,160,.5)";
-    ctx.strokeStyle=c; ctx.globalAlpha=0.35+0.65*pulse; ctx.lineWidth=e.crush?6:3;
-    ctx.beginPath(); ctx.arc(x,y,r+4+8*pulse,0,7); ctx.stroke();
-    if(e.kill){ ctx.globalAlpha=pulse; ctx.fillStyle="#fff"; ctx.font=`${Math.round(r*1.4)}px system-ui`;
-      ctx.textAlign="center"; ctx.fillText("✕",x,y+r*0.5); }
-    ctx.globalAlpha=1; }
-  $("tlabel").textContent=`${A.label} · ${fi+1}/${n}`;
-  $("scrub").value=tPlay;
+    ctx.strokeStyle=c;ctx.globalAlpha=0.35+0.65*pulse;ctx.lineWidth=e.crush?6:3;ctx.beginPath();ctx.arc(X,Y,rr+4+8*pulse,0,7);ctx.stroke();
+    if(e.kill){ctx.globalAlpha=pulse;ctx.fillStyle="#fff";ctx.font=`${Math.round(rr*1.4)}px system-ui`;ctx.textAlign="center";ctx.fillText("✕",X,Y+rr*.5);}
+    ctx.globalAlpha=1;}
+  $("tlabel").textContent=`${A.label} · ${fi+1}/${n}`; $("scrub").value=tPlay;
 }
-function tick(ts){ if(playing&&DATA){ const dt=(ts-lastTs)/1000; lastTs=ts;
-    tPlay+=dt*(+$("speed").value)*2.2;
-    if(tPlay>=DATA.frames.length-1){ tPlay=DATA.frames.length-1; playing=false; $("play").textContent="Play"; } }
-  else lastTs=ts; draw(); requestAnimationFrame(tick); }
-function loadData(charge){
-  DATA={frames:charge.frames,wallY:charge.wallY,xMin:charge.xMin,xMax:charge.xMax}; DATA._b=bounds(DATA);
-  $("scrub").max=DATA.frames.length-1; tPlay=0; playing=true; lastTs=performance.now(); $("play").textContent="Pause";
-  const m=charge.m;
-  const cAlive=charge.chargers.filter(f=>f.alive).length,cN=charge.chargers.length;
-  const dAlive=charge.defenders.filter(f=>f.alive).length,dN=charge.defenders.length;
-  $("hudL").innerHTML=`<span style="color:#e5484d">Chargers ${cAlive}/${cN}</span>`;
-  $("hudR").innerHTML=`<span style="color:#4d7fe5">Defenders ${dAlive}/${dN}</span>`;
-  $("verdict").innerHTML=
-    `impacts <b>${m.impact}</b> · reach <b>${m.reach}</b> · counters <b>${m.counter}</b> · pushes <b>${m.push}</b> · crush <b>${m.crush}</b>`+
-    ` · flank <b>${m.flank}</b> · rear <b>${m.rear}</b> · intercepts <b>${m.intercept}</b>`+
+function render(){ if(mode==="play"&&DATA)renderPlay(); else renderEdit(); }
+function tick(ts){ if(mode==="play"&&playing&&DATA){const dt=(ts-lastTs)/1000;lastTs=ts;tPlay+=dt*(+$("speed").value)*2.2;
+    if(tPlay>=DATA.frames.length-1){tPlay=DATA.frames.length-1;playing=false;$("play").textContent="Play";}}else lastTs=ts;
+  render();requestAnimationFrame(tick); }
+
+// ---------- simulate ----------
+function buildEngineFig(e){return mkFig(e.side,e.x,e.y,unitOf(e),e.faceDeg);}
+function assemble(){ FID=0;
+  const chg=editFigs.filter(e=>e.side==="C").map(buildEngineFig);
+  const def=editFigs.filter(e=>e.side==="D").map(buildEngineFig);
+  let wallY=null,xMin=null,xMax=null;
+  if($("dWall").checked&&def.length)wallY=Math.max(...def.map(f=>f.y+f.r))+0.4;
+  if($("sWall").checked&&editFigs.length){const xs=[...chg,...def].map(f=>f.x);xMin=Math.min(...xs)-0.5;xMax=Math.max(...xs)+0.5;}
+  return new Charge(chg,def,{wallY,xMin,xMax,seed:+$("seed").value});
+}
+function simulate(){
+  if(!editFigs.some(e=>e.side==="C")||!editFigs.some(e=>e.side==="D")){alert("Place at least one charger and one defender.");return;}
+  const c=assemble().run();
+  DATA={frames:c.frames,wallY:c.wallY,xMin:c.xMin,xMax:c.xMax};
+  mode="play";tPlay=0;playing=true;lastTs=performance.now();$("play").textContent="Pause";
+  $("scrub").max=DATA.frames.length-1;
+  const m=c.m,cA=c.chargers.filter(f=>f.alive).length,dA=c.defenders.filter(f=>f.alive).length;
+  $("hudL").innerHTML=`<span style="color:#e5484d">Chargers ${cA}/${c.chargers.length}</span>`;
+  $("hudR").innerHTML=`<span style="color:#4d7fe5">Defenders ${dA}/${c.defenders.length}</span>`;
+  $("verdict").innerHTML=`impacts <b>${m.impact}</b> · reach <b>${m.reach}</b> · counters <b>${m.counter}</b> · pushes <b>${m.push}</b> · crush <b>${m.crush}</b> · flank <b>${m.flank}</b> · rear <b>${m.rear}</b> · intercepts <b>${m.intercept}</b>`+
     (m.halt>0?`<br><span style="color:#e8c23a">⚠ ${m.halt} charger(s) HALTED — under 3″ run-up</span>`:``);
-  $("log").innerHTML=charge.logs.join("\n");
+  $("log").innerHTML=c.logs.join("\n");
 }
-function simulate(){ loadData(assemble().run()); }
-function preview(){ const c=assemble(); c.snap("deploy"); loadData(c); playing=false; $("play").textContent="Play"; tPlay=0; }
-function copyCfg(){ const c=readCfg();
-  const out={chargers:{unit:c.cUnit.id,...c.cCfg,count:c.cCfg.count},
-    defenders:{unit:c.dUnit.id,front:c.dFront?c.dFront.id:null,...c.dCfg},
-    approach:c.appr,fineAngle:c.dRot,runup:c.runup,backWall:c.backWall,sideWall:c.sideWall};
-  navigator.clipboard.writeText(JSON.stringify(out,null,2)).then(
-    ()=>{ const b=$("copy"); b.textContent="Copied ✓"; setTimeout(()=>b.textContent="Copy config (for batch runs)",1400); });
+function backToEdit(){ mode="edit";playing=false;$("play").textContent="Play";$("hudL").textContent="Editing";$("hudR").textContent="—";$("verdict").innerHTML="";$("log").innerHTML=""; }
+
+// ---------- placement interaction ----------
+function hitTest(wx,wy){ for(let i=editFigs.length-1;i>=0;i--){const e=editFigs[i],r=R[unitOf(e).size]||.55;
+  if(Math.hypot(e.x-wx,e.y-wy)<=r+0.15)return i;} return -1; }
+function stampShape(){ const shape=$("stShape").value,n=+$("stN").value,d=+$("stD").value,sp=+$("stSp").value/10,out=[];
+  const rowW=w=>(w-1)*sp;
+  if(shape==="line"){const off=rowW(n)/2;for(let i=0;i<n;i++)out.push([i*sp-off,0]);}
+  else if(shape==="column"){for(let i=0;i<n;i++)out.push([0,i*sp]);}
+  else if(shape==="ranks"){const off=rowW(n)/2;for(let r=0;r<d;r++)for(let i=0;i<n;i++)out.push([i*sp-off,r*sp]);}
+  else{let placed=0,row=1,y=0;while(placed<n){const w=Math.min(row,n-placed),off=((w-1)*sp)/2;for(let i=0;i<w;i++){out.push([i*sp-off,y]);placed++;}y+=sp;row++;}}
+  return out;
+}
+let dragging=false,dragMoved=false;
+cv.addEventListener("mousedown",ev=>{
+  if(mode!=="edit")return;
+  const v=view(),rect=cv.getBoundingClientRect(),wx=v.ix(ev.clientX-rect.left),wy=v.iy(ev.clientY-rect.top);
+  const hit=hitTest(wx,wy);
+  if(hit>=0){ selected=hit; dragging=true; dragMoved=false; return; }
+  // place
+  pushUndo();
+  const idx=+$("brUnit").value, face=brushSide==="C"?0:180;
+  if($("stampOn").checked){ const off=stampShape(); const dir=brushSide==="C"?1:1;
+    for(const[dx,dy]of off)editFigs.push({side:brushSide,x:wx+dx,y:wy+(brushSide==="C"?-dy:dy),unitIdx:idx,faceDeg:face}); }
+  else editFigs.push({side:brushSide,x:wx,y:wy,unitIdx:idx,faceDeg:face});
+  selected=editFigs.length-1; updateRoster();
+});
+cv.addEventListener("mousemove",ev=>{
+  if(mode!=="edit"||!dragging||selected<0)return;
+  const v=view(),rect=cv.getBoundingClientRect();
+  if(!dragMoved){pushUndo();dragMoved=true;}
+  editFigs[selected].x=v.ix(ev.clientX-rect.left); editFigs[selected].y=v.iy(ev.clientY-rect.top);
+});
+window.addEventListener("mouseup",()=>{dragging=false;});
+cv.addEventListener("wheel",ev=>{ if(mode!=="edit"||selected<0)return; ev.preventDefault();
+  editFigs[selected].faceDeg=(editFigs[selected].faceDeg+(ev.deltaY>0?15:-15)+360)%360; },{passive:false});
+window.addEventListener("keydown",ev=>{
+  if(mode!=="edit")return;
+  const tn=ev.target.tagName; if(tn==="INPUT"||tn==="SELECT"||tn==="TEXTAREA")return; // don't hijack typing
+  if(selected<0)return;
+  if(ev.key==="Delete"||ev.key==="Backspace"){pushUndo();editFigs.splice(selected,1);selected=-1;updateRoster();}
+  else if(ev.key==="["){editFigs[selected].faceDeg=(editFigs[selected].faceDeg-15+360)%360;}
+  else if(ev.key==="]"){editFigs[selected].faceDeg=(editFigs[selected].faceDeg+15)%360;}
+  else if(ev.key==="d"||ev.key==="D"){pushUndo();const e=editFigs[selected];editFigs.push({...e,x:e.x+0.6,y:e.y+0.6});selected=editFigs.length-1;updateRoster();}
+});
+
+// ---------- copy setup ----------
+function copySetup(){ const out={units:editFigs.map(e=>({side:e.side,unit:unitOf(e).id,x:+e.x.toFixed(2),y:+e.y.toFixed(2),face:e.faceDeg})),
+  backWall:$("dWall").checked,sideWall:$("sWall").checked,seed:+$("seed").value};
+  navigator.clipboard.writeText(JSON.stringify(out,null,1)).then(()=>{const b=$("copy");b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy setup",1400);});
+}
+
+// ---------- demo seed ----------
+function demo(){
+  const id=n=>{const i=LAB_UNITS.findIndex(u=>u.id===n||u.name===n);return i<0?0:i;};
+  const lancer=LAB_UNITS.findIndex(u=>u.w.impact), warrior=id("Warrior"), spear=id("Spearman"), shield=LAB_UNITS.findIndex(u=>u.w.shield);
+  editFigs=[];
+  // chargers (bottom, facing up): a wedge of a lancer + warriors
+  const cU=lancer<0?warrior:lancer;
+  editFigs.push({side:"C",x:0,y:-8,unitIdx:cU,faceDeg:0});
+  editFigs.push({side:"C",x:-1.4,y:-9.4,unitIdx:warrior,faceDeg:0});
+  editFigs.push({side:"C",x:1.4,y:-9.4,unitIdx:warrior,faceDeg:0});
+  editFigs.push({side:"C",x:-2.8,y:-10.8,unitIdx:warrior,faceDeg:0});
+  editFigs.push({side:"C",x:2.8,y:-10.8,unitIdx:warrior,faceDeg:0});
+  // defenders (top, facing down): shield front rank + spears behind
+  for(let i=-2;i<=2;i++)editFigs.push({side:"D",x:i*1.3,y:0,unitIdx:shield<0?warrior:shield,faceDeg:180});
+  for(let i=-2;i<=2;i++)editFigs.push({side:"D",x:i*1.3,y:1.3,unitIdx:spear,faceDeg:180});
+  selected=-1; updateRoster();
 }
 
 // ---------- wire ----------
-function bindVal(id,vid,fn){ const e=$(id),v=$(vid); const u=()=>v.textContent=fn?fn(e.value):e.value;
-  e.addEventListener("input",u); u(); }
-fillUnitPicker($("cUnit")); fillUnitPicker($("dUnit")); fillUnitPicker($("dFront"));
-// sensible defaults: chargers=a mounted/impact unit if present, defenders=a shield unit if present
-(function defaults(){
-  const impactI=LAB_UNITS.findIndex(u=>u.w.impact||u.mounted);
-  const shieldI=LAB_UNITS.findIndex(u=>u.w.shield);
-  const spearI =LAB_UNITS.findIndex(u=>u.w.reach>0);
-  if(impactI>=0)$("cUnit").value=impactI;
-  if(shieldI>=0)$("dUnit").value=shieldI;
-  if(spearI>=0){ $("dFront").value=shieldI>=0?shieldI:0; $("dUnit").value=spearI>=0?spearI:$("dUnit").value; }
-})();
-function refreshCards(){ $("cCard").innerHTML=unitCard(LAB_UNITS[+$("cUnit").value],"C");
-  $("dCard").innerHTML=unitCard(LAB_UNITS[+$("dUnit").value],"D"); }
-$("cUnit").onchange=refreshCards; $("dUnit").onchange=refreshCards; refreshCards();
-$("dFrontOn").onchange=e=>{ $("dFrontRow").style.display=e.target.checked?"flex":"none"; };
-bindVal("cN","cNv"); bindVal("dW","dWv"); bindVal("dD","dDv");
-bindVal("cSp","cSpv",v=>(v/10).toFixed(1)); bindVal("dSp","dSpv",v=>(v/10).toFixed(1));
-bindVal("run","runv",v=>(+v).toFixed(1)); bindVal("cRot","cRotv"); bindVal("dRot","dRotv");
-$("go").onclick=simulate; $("build").onclick=preview; $("copy").onclick=copyCfg;
-$("play").onclick=()=>{ if(!DATA)return; if(tPlay>=DATA.frames.length-1)tPlay=0;
-  playing=!playing; lastTs=performance.now(); $("play").textContent=playing?"Pause":"Play"; };
-$("scrub").oninput=e=>{ tPlay=+e.target.value; playing=false; $("play").textContent="Play"; };
-window.addEventListener("resize",draw);
-requestAnimationFrame(tick);
-window.addEventListener("load",()=>setTimeout(simulate,60));
+fillPicker($("brUnit"));
+function bindVal(id,vid,fn){const e=$(id),v=$(vid);const u=()=>v.textContent=fn?fn(e.value):e.value;e.addEventListener("input",u);u();}
+bindVal("stN","stNv");bindVal("stD","stDv");bindVal("stSp","stSpv",v=>(v/10).toFixed(1));
+$("brC").onclick=()=>{brushSide="C";$("brC").classList.add("on");$("brD").classList.remove("on");refreshCard();};
+$("brD").onclick=()=>{brushSide="D";$("brD").classList.add("on");$("brC").classList.remove("on");refreshCard();};
+$("brUnit").onchange=refreshCard; refreshCard();
+$("stampOn").onchange=e=>$("stampBox").style.display=e.target.checked?"block":"none";
+$("undo").onclick=()=>{if(undoStack.length){editFigs=JSON.parse(undoStack.pop());selected=-1;updateRoster();}};
+$("clrC").onclick=()=>{pushUndo();editFigs=editFigs.filter(e=>e.side!=="C");selected=-1;updateRoster();};
+$("clrD").onclick=()=>{pushUndo();editFigs=editFigs.filter(e=>e.side!=="D");selected=-1;updateRoster();};
+$("clrAll").onclick=()=>{pushUndo();editFigs=[];selected=-1;updateRoster();};
+$("go").onclick=simulate; $("edit").onclick=backToEdit; $("copy").onclick=copySetup;
+$("play").onclick=()=>{if(!DATA)return;if(tPlay>=DATA.frames.length-1)tPlay=0;playing=!playing;lastTs=performance.now();$("play").textContent=playing?"Pause":"Play";};
+$("scrub").oninput=e=>{tPlay=+e.target.value;playing=false;$("play").textContent="Play";};
+$("dWall").onchange=render;$("sWall").onchange=render;
+window.addEventListener("resize",render);
+demo(); updateRoster(); requestAnimationFrame(tick);
 </script>
 </body>
 </html>
