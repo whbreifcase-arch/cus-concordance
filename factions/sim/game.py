@@ -58,7 +58,8 @@ def nearest(fig, pool):
 #  GAME
 # --------------------------------------------------------------------------- #
 class Game:
-    def __init__(self, board: Board, figs, seed=0, metrics=None, max_rounds=12, log=None, record=False):
+    def __init__(self, board: Board, figs, seed=0, metrics=None, max_rounds=12, log=None,
+                 record=False, commander_sides=(), mission=None):
         self.board = board
         self.figs = figs
         self.rng = random.Random(seed)
@@ -68,6 +69,9 @@ class Game:
         self.log = log            # optional list to append (event) tuples for replay
         self.record = record      # if True, capture per-round snapshots into self.frames
         self.frames = []
+        self.commander_sides = set(commander_sides)   # sides run by the Commander AI (not greedy)
+        self.mission = mission or "DEVOUR"
+        self._cmd = {}            # per-side plan: {side: {"target":Figure, "order":str, "roles":{uid:role}}}
         for f in self.figs:
             f.z = board.ground_z(f.pos)
 
@@ -420,6 +424,9 @@ class Game:
     def _ai_one_action(self, fig, temper):
         foes = enemies_of(self, fig)
         if not foes: return False
+        # COMMANDER: a directed figure executes its role toward the Schwerpunkt.
+        if fig.side in self.commander_sides and fig.side in self._cmd:
+            return self._commander_action(fig)
         # --- Utility figures: heal/buff/debuff ---
         if fig.ft.role == "Utility":
             if self._try_utility(fig): return True
@@ -538,6 +545,101 @@ class Game:
         if flankable: return nearest(fig, flankable)
         return nearest(fig, eng)
 
+    # ================= THE COMMANDER (directed, coordinated AI) ============ #
+    def _plan(self, side):
+        """Once per round: read the board, find the Schwerpunkt (the weakest seam),
+        pick an Order for flavour, and assign every figure a role. Fast: a few reads."""
+        foes = [f for f in self.figs if f.side != side and not f.out]
+        mine = [f for f in self.figs if f.side == side and not f.out]
+        if not foes or not mine:
+            self._cmd[side] = {"target": None, "order": "-", "roles": {}}; return
+        target = self._schwerpunkt(side, foes, mine)
+        roles = {f.uid: self._role_of(f) for f in mine}
+        order = self._pick_order(side, target, foes)
+        self._cmd[side] = {"target": target, "order": order, "roles": roles}
+        self.m.bump("plans")
+
+    def _schwerpunkt(self, side, foes, mine):
+        """The point of main effort: soft + exposed + valuable + reachable."""
+        cx = sum(f.x for f in mine)/len(mine); cy = sum(f.y for f in mine)/len(mine)
+        arm_soft = {"None":2.0,"Light":1.5,"Medium":1.0,"Heavy":0.0}
+        best, bs = None, -1e9
+        for f in foes:
+            softness = (f.ft.max_wounds - f.cur_wounds)*1.6 + arm_soft[f.ft.armour] + (1.5 if f.hurt else 0)
+            friends = sum(1 for a in foes if a is not f and dist2d(a.pos, f.pos) <= 4.0)
+            exposure = 2.5 - min(2.5, friends*0.9)                 # alone = exposed
+            value = 3.0 if (f.ft.has_trait("champion") or f.ft.has_trait("leader")) else (2.0 if f.ft.role=="Utility" else 1.0)
+            reach = -0.06 * math.hypot(f.x-cx, f.y-cy)             # nearer our mass = easier
+            s = softness + 1.4*exposure + value + reach
+            if s > bs: bs, best = s, f
+        return best
+
+    def _role_of(self, fig):
+        """Assign a role by archetype — screen/fix/shape/flank/hammer."""
+        t = fig.ft
+        if t.has_trait("expendable"): return "SCREEN"
+        if t.role == "Utility" or (t.ranged_packets and not t.melee_packets): return "SHAPE"
+        if t.has_trait("boss") or t.has_trait("champion") or t.has_trait("large") or t.max_wounds >= 4:
+            return "HAMMER"
+        if t.mounted or t.has_trait("flying") or t.speed >= 8: return "FLANK"
+        if t.ranged_packets: return "SHAPE"
+        return "FIX"
+
+    def _pick_order(self, side, target, foes):
+        """Name the ploy from the board (flavour + light behaviour cue)."""
+        wall = sum(1 for f in foes if f.ft.has_trait("shield"))
+        if target and (target.ft.has_trait("champion") or target.ft.role=="Utility"): return "DECAPITATE"
+        if wall >= 2: return "SHIELDBREAKER"
+        exposed = target and sum(1 for a in foes if a is not target and dist2d(a.pos,target.pos)<=4.0) == 0
+        if exposed: return "ENVELOP"
+        return "TIDE"
+
+    def _flank_point(self, target):
+        """A point off the target's flank/rear (Circles are faceless -> just the target)."""
+        if target.is_circle: return target.pos
+        back = (target.x - math.cos(target.facing)*(target.ft.radius+1.6),
+                target.y - math.sin(target.facing)*(target.ft.radius+1.6))
+        return back
+
+    def _shoot_at(self, fig, target):
+        for p in fig.ft.ranged_packets:
+            if (target and not target.out and dist3d(fig.pos,fig.z,target.pos,target.z) <= p.rng
+                    and not self.board.los_blocked(fig.pos,fig.z,target.pos,target.z) and not touching(fig,target)):
+                self.resolve_attack(fig, target, p); fig.ap -= 1; return True
+        return self._try_shoot(fig)
+
+    def _commander_action(self, fig):
+        plan = self._cmd[fig.side]; role = plan["roles"].get(fig.uid, "FIX")
+        target = plan["target"]
+        foes = enemies_of(self, fig)
+        if target is None or target.out: target = nearest(fig, foes)
+        if target is None: return False
+        # already in contact -> strike (prefer the Schwerpunkt, else finish someone)
+        eng = engaged_enemies(self, fig)
+        if eng and fig.ft.melee_packets and fig.ap > 0:
+            t = target if target in eng else self._pick_melee_target(fig, eng)
+            self.resolve_attack(fig, t, self._best_melee(fig)); fig.ap -= 1; return True
+        # SHAPE: gall the Schwerpunkt from range / debuff, then hold
+        if role == "SHAPE" and fig.ap > 0:
+            if fig.ft.ranged_packets and self._shoot_at(fig, target): self.m.bump("cmd_shape"); return True
+            if fig.ft.role == "Utility" and self._try_utility(fig): self.m.bump("cmd_shape"); return True
+        # REACH: punish the approach
+        if any(p.reach for p in fig.ft.melee_packets) and fig.ap > 0:
+            band = [e for e in foes if in_reach_band(fig, e)]
+            if band:
+                rp = next(p for p in fig.ft.melee_packets if p.reach)
+                self.resolve_attack(fig, nearest(fig, band), rp, reach_strike=True); fig.ap -= 1; return True
+        # move/commit toward the objective point for this role
+        aim = self._flank_point(target) if role == "FLANK" else target.pos
+        if fig.ap <= 0: return False
+        gap_to_t = dist2d(fig.pos, target.pos) - fig.ft.radius - target.ft.radius
+        if role in ("HAMMER","SCREEN","FIX","FLANK") and gap_to_t <= fig.ft.speed + 0.5:
+            if self.sprint_impact(fig, target):
+                fig.ap -= 1; self.m.bump("cmd_"+role.lower()); return True
+        moved = self.move_toward(fig, aim[0], aim[1], budget=fig.ft.speed)
+        fig.ap -= 1
+        return moved > 0.05
+
     def _try_shoot(self, fig):
         best = None
         for p in fig.ft.ranged_packets:
@@ -592,6 +694,7 @@ class Game:
         if self.record: self._snapshot("Deploy")
         for self.round in range(1, self.max_rounds+1):
             for f in self.figs: f.activated = False
+            for s in self.commander_sides: self._plan(s)   # the Commander schemes each round
             order = self._activation_order()
             for fig in order:
                 if fig.out or fig.activated: continue
@@ -605,11 +708,19 @@ class Game:
         return {"winner": self._winner(force=True), "reason": "rounds",
                 "rounds": self.max_rounds, "survivors": self._counts()}
 
+    ROLE_SEQ = {"SCREEN":0, "FIX":1, "SHAPE":2, "FLANK":3, "HAMMER":4}  # spend throwaways first, commit the hammer last
+
+    def _side_order(self, side):
+        figs = [f for f in self.figs if f.side==side and not f.out]
+        if side in self.commander_sides and side in self._cmd:
+            roles = self._cmd[side]["roles"]
+            return sorted(figs, key=lambda f: self.ROLE_SEQ.get(roles.get(f.uid,"FIX"),1))
+        tv = {">":0, ">>":1, ">>>":2}     # greedy side: Fast acts earlier
+        return sorted(figs, key=lambda f: -tv.get(f.ft.tempo,1))
+
     def _activation_order(self):
-        # alternation: A, B, A, B ... using Tempo as a soft tie-break (Fast acts earlier)
-        tv = {">":0, ">>":1, ">>>":2}
-        a = sorted([f for f in self.figs if f.side==0 and not f.out], key=lambda f:-tv.get(f.ft.tempo,1))
-        b = sorted([f for f in self.figs if f.side==1 and not f.out], key=lambda f:-tv.get(f.ft.tempo,1))
+        # alternation: A, B, A, B ... (commander sides ordered by role sequence)
+        a, b = self._side_order(0), self._side_order(1)
         order=[]
         for i in range(max(len(a),len(b))):
             if i<len(a): order.append(a[i])

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLAY CUS</title>
+<link rel="stylesheet" href="cus.css">
+<style>
+  .shelf{display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px}
+  @media (min-width:700px){ .shelf{grid-template-columns:1fr 1fr} }
+  .item{
+    display:block; text-decoration:none; color:inherit; background:var(--paper2);
+    border:1px solid var(--faint); border-radius:10px; padding:12px 15px;
+    transition:border-color .13s ease;
+  }
+  .item:hover,.item:focus-visible{border-color:var(--gold); outline:none}
+  .item .iname{font-family:Georgia,serif; font-size:14.5px; font-weight:700; letter-spacing:.03em}
+  .item .idesc{font-size:11.5px; color:var(--mid); margin-top:3px; line-height:1.55}
+  .lede{text-align:center; font-size:13.5px; color:var(--mid); max-width:560px; margin:10px auto 0}
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <span class="brand-sigil">◆</span>
+  <span class="brand-word">CUS</span>
+  <span class="sep">·</span>
+  <span>Play</span>
+  <span class="brand-meta">kernel v0.6 · signed</span>
+  <div class="theme-toggle" role="group" aria-label="Color theme">
+    <button type="button" data-set-theme="light" aria-pressed="false">Light</button>
+    <button type="button" data-set-theme="dark" aria-pressed="true">Dark</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="sheet">
+
+    <h1>PLAY CUS</h1>
+    <div class="h1-sub">three doors · one rules source</div>
+    <p class="lede">
+      Learning a game and looking a rule up mid-fight are different problems.
+      They get different doors.
+    </p>
+
+    <div class="doors">
+
+      <a class="door" href="FIRST_BATTLE_SPEC.html">
+        <div class="dnum">DOOR ONE</div>
+        <div class="dname">LEARN<br>TO PLAY</div>
+        <div class="ddesc">
+          A guided first battle, one screen at a time. Rules arrive when they happen on
+          the board, never before.
+        </div>
+        <span class="dstate">Screen map complete · in build</span>
+      </a>
+
+      <a class="door" href="RULES_SOURCE.html#ENGAGED" aria-describedby="helpnote">
+        <div class="dnum">DOOR TWO</div>
+        <div class="dname">HELP<br>ME NOW</div>
+        <div class="ddesc">
+          Say what is happening on the table and get only the rule that answers it.
+          Two taps, no article.
+        </div>
+        <span class="dstate">Buckets defined · in build</span>
+      </a>
+
+      <a class="door" href="HOW_TO_PLAY_v1_5.html">
+        <div class="dnum">DOOR THREE</div>
+        <div class="dname">FULL<br>RULES</div>
+        <div class="ddesc">
+          The Combat Operating Map — every rule, every diagram, the whole system on
+          one sheet.
+        </div>
+        <span class="dstate live">Live</span>
+      </a>
+
+    </div>
+
+    <h2>The source behind all three</h2>
+    <p id="helpnote">
+      The three doors are not three documents. Every rule is written <strong>once</strong>, in
+      <code>rules.js</code>, and rendered differently by each door — so a correction made in one
+      place appears in all three, and none of them can drift.
+    </p>
+
+    <div class="shelf">
+      <a class="item" href="RULES_SOURCE.html">
+        <div class="iname">The Rules Source</div>
+        <div class="idesc">All 54 rule records — trigger, instruction, consequence, exact rule and
+          citation. Searchable, deep-linkable, and it checks itself in your browser.</div>
+      </a>
+      <a class="item" href="FIRST_BATTLE_SPEC.html">
+        <div class="iname">First Battle — Screen Map</div>
+        <div class="idesc">The complete specification: exact text, diagram brief, button behaviour
+          and branch target for every screen of the guided battle.</div>
+      </a>
+    </div>
+
+    <h2>The rest of the workbench</h2>
+    <div class="shelf">
+      <a class="item" href="BANNER.html">
+        <div class="iname">Banner</div>
+        <div class="idesc">The faction cards — every profile, with Tabletop Simulator export.</div>
+      </a>
+      <a class="item" href="BATTLE_3D.html">
+        <div class="iname">Battle 3D</div>
+        <div class="idesc">Replay a simulated battle in three dimensions.</div>
+      </a>
+      <a class="item" href="AI_DIRECTOR.html">
+        <div class="iname">AI Director</div>
+        <div class="idesc">Run the enemy side — bestiary and behaviour.</div>
+      </a>
+      <a class="item" href="../README.md">
+        <div class="iname">The Kernel Documents</div>
+        <div class="idesc">A Constitution · B Combat Module · C Dictionary · D Migration ·
+          E Decisions. The authority every page above answers to.</div>
+      </a>
+    </div>
+
+    <div class="foot">
+      CUS · kernel rebuild v0.6 · closed 2026-07-24<br>
+      Shields · brace · shove are provisional and are never taught in guided play
+    </div>
+
+  </div>
+</div>
+
+<script src="cus.js"></script>
+</body>
+</html>

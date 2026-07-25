@@ -1,0 +1,172 @@
+/* ==========================================================================
+   CUS — shared page skin
+   Palette lifted verbatim from HOW_TO_PLAY_v1_5.html so every page in play/
+   reads as one system. Theme is persisted under the SAME localStorage key
+   ('cus-how-to-play-theme'), so the light/dark choice carries between pages.
+   ========================================================================== */
+
+:root{
+  --ink:#101010; --mid:#4a4a4a; --lt:#8a8a8a; --faint:#c9c9c9;
+  --paper:#ffffff; --paper2:#fafaf8; --panel:#f7f7f4; --wash:#f2f2ef;
+  --gold:#9a7317; --goldtxt:#8a6614; --goldhi:#7a5a10;
+  --red:#b3362b; --redd:#701a12; --redtxt:#a12d22;
+  --shadow:0 10px 40px rgba(0,0,0,.10);
+  --bg:#e8e7e2;
+}
+html[data-theme="dark"]{
+  --ink:#e7e2d8; --mid:#aab5bb; --lt:#7d8b93; --faint:#485760;
+  --paper:#121a21; --paper2:#18222a; --panel:#1b252d; --wash:#26323b;
+  --gold:#b58a3a; --goldtxt:#d2b46f; --goldhi:#e2c77f;
+  --red:#c35a50; --redd:#782923; --redtxt:#df887e;
+  --shadow:0 28px 86px rgba(0,0,0,.62),0 5px 18px rgba(0,0,0,.38);
+  --bg:#080d12;
+}
+
+*{box-sizing:border-box; margin:0; padding:0}
+html,body{background:var(--bg)}
+html[data-theme="dark"] body{
+  background:
+    radial-gradient(circle at 16% 4%,rgba(181,138,58,.08),transparent 30rem),
+    radial-gradient(circle at 87% 18%,rgba(52,82,98,.12),transparent 34rem),
+    linear-gradient(180deg,#101820 0%,#070b10 100%);
+  background-attachment:fixed;
+}
+body{
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink);
+  padding:20px 14px 64px; -webkit-font-smoothing:antialiased;
+  text-size-adjust:100%; -webkit-text-size-adjust:100%; line-height:1.55;
+}
+.serif{font-family:Georgia,"Times New Roman",serif}
+.gold{color:var(--goldtxt)}
+.red{color:var(--redtxt)}
+.wrap{max-width:1000px; margin:0 auto}
+
+/* ---------------------------------------------------------------- brandbar */
+.brandbar{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  max-width:1000px; margin:0 auto 16px; font-size:10px;
+  letter-spacing:.2em; font-weight:700; color:var(--mid); text-transform:uppercase;
+}
+.brand-sigil{color:var(--goldtxt); font-size:15px; letter-spacing:0}
+.brand-word{color:var(--ink); font-family:Georgia,serif; font-size:14px; letter-spacing:.14em}
+.brand-meta{color:var(--goldtxt); letter-spacing:.16em}
+.brandbar .sep{color:var(--faint)}
+.theme-toggle{
+  margin-left:auto; display:flex; border:1px solid var(--faint);
+  border-radius:999px; overflow:hidden; background:var(--paper);
+}
+html[data-theme="dark"] .theme-toggle{background:rgba(10,16,21,.66); border-color:rgba(181,138,58,.46)}
+.theme-toggle button{
+  font:inherit; font-size:9px; letter-spacing:.16em; font-weight:700;
+  padding:5px 12px; border:0; background:transparent; color:var(--lt); cursor:pointer;
+}
+.theme-toggle button[aria-pressed="true"]{background:var(--gold); color:var(--paper)}
+html[data-theme="dark"] .theme-toggle button[aria-pressed="true"]{color:#0a1014; background:#c09a4f}
+
+/* -------------------------------------------------------------------- sheet */
+.sheet{
+  background:var(--paper); border:1.5px solid var(--ink); border-radius:4px;
+  padding:26px 30px 22px; box-shadow:var(--shadow);
+}
+html[data-theme="dark"] .sheet{
+  border-color:#34444e;
+  background:
+    radial-gradient(circle at 12% 3%,rgba(118,146,158,.065),transparent 23rem),
+    radial-gradient(circle at 90% 94%,rgba(181,138,58,.04),transparent 27rem),
+    linear-gradient(180deg,#151f27 0%,#10171d 100%);
+}
+
+h1{font-family:Georgia,"Times New Roman",serif; font-size:26px; font-weight:700; letter-spacing:.05em; text-align:center}
+.h1-sub{text-align:center; font-size:9px; letter-spacing:.26em; color:var(--mid); margin:6px 0 4px; font-weight:700; text-transform:uppercase}
+h2{font-family:Georgia,serif; font-size:17px; font-weight:700; letter-spacing:.05em; margin:26px 0 10px; padding-bottom:6px; border-bottom:1.5px solid var(--ink)}
+h3{font-family:Georgia,serif; font-size:14px; font-weight:700; letter-spacing:.04em; margin:18px 0 7px}
+h4{font-size:10px; font-weight:700; letter-spacing:.18em; color:var(--mid); margin:14px 0 6px; text-transform:uppercase}
+p{margin:8px 0; font-size:13.5px}
+a{color:var(--goldtxt)}
+hr{border:0; border-top:1px solid var(--faint); margin:22px 0}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12px; background:var(--wash); padding:1px 5px; border-radius:4px}
+pre{background:var(--wash); border:1px solid var(--faint); border-radius:8px; padding:11px 13px; overflow-x:auto; margin:11px 0}
+pre code{background:none; padding:0; font-size:11.5px; line-height:1.5}
+blockquote{border-left:3px solid var(--gold); padding:2px 0 2px 14px; margin:12px 0; color:var(--mid); font-size:13px}
+blockquote strong{color:var(--ink)}
+ul,ol{margin:9px 0 9px 22px; font-size:13.5px}
+li{margin:3px 0}
+.tablewrap{overflow-x:auto; margin:12px 0}
+table{border-collapse:collapse; width:100%; font-size:12.5px; min-width:400px}
+th,td{border:1px solid var(--faint); padding:6px 9px; text-align:left; vertical-align:top}
+th{background:var(--wash); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:700; color:var(--mid)}
+
+/* --------------------------------------------------------------- the doors */
+.doors{display:grid; grid-template-columns:1fr; gap:14px; margin:20px 0 6px}
+@media (min-width:760px){ .doors{grid-template-columns:repeat(3,1fr)} }
+.door{
+  display:block; text-decoration:none; color:inherit; background:var(--paper2);
+  border:2px solid var(--ink); border-radius:14px; padding:22px 20px 18px;
+  position:relative; transition:transform .13s ease, box-shadow .13s ease;
+}
+.door:hover,.door:focus-visible{transform:translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,.16); outline:none}
+.door[aria-disabled="true"]{opacity:.52; cursor:not-allowed}
+.door[aria-disabled="true"]:hover{transform:none; box-shadow:none}
+.door .dnum{font-size:9px; letter-spacing:.24em; color:var(--goldtxt); font-weight:700}
+.door .dname{font-family:Georgia,serif; font-size:21px; font-weight:700; letter-spacing:.04em; margin:7px 0 8px; line-height:1.15}
+.door .ddesc{font-size:12px; color:var(--mid); line-height:1.6}
+.door .dstate{
+  display:inline-block; margin-top:12px; font-size:8.5px; letter-spacing:.18em;
+  font-weight:700; padding:3px 9px; border-radius:999px; border:1px solid var(--faint); color:var(--lt);
+}
+.door .dstate.live{border-color:var(--gold); color:var(--goldtxt)}
+
+/* ------------------------------------------------------------ rule browser */
+.controls{display:flex; gap:9px; flex-wrap:wrap; align-items:center; margin:14px 0 6px}
+.search{
+  flex:1 1 240px; min-width:200px; font:inherit; font-size:14px; padding:9px 13px;
+  border:1.5px solid var(--faint); border-radius:9px; background:var(--paper); color:var(--ink);
+}
+.search:focus{outline:none; border-color:var(--gold)}
+.chip{
+  font:inherit; font-size:9.5px; letter-spacing:.13em; font-weight:700; text-transform:uppercase;
+  padding:7px 12px; border:1.5px solid var(--faint); border-radius:999px;
+  background:var(--paper); color:var(--lt); cursor:pointer;
+}
+.chip[aria-pressed="true"]{border-color:var(--gold); color:var(--paper); background:var(--gold)}
+html[data-theme="dark"] .chip[aria-pressed="true"]{color:#0a1014}
+.count{font-size:10px; letter-spacing:.14em; color:var(--lt); font-weight:700; margin:10px 0 4px; text-transform:uppercase}
+
+.rule{border:1px solid var(--faint); border-radius:11px; padding:13px 15px; margin:9px 0; background:var(--paper2)}
+.rule.prov{border-color:var(--redd); border-style:dashed}
+.rule .trig{font-size:11px; letter-spacing:.05em; color:var(--goldtxt); font-weight:700}
+.rule .fname{font-family:Georgia,serif; font-size:17px; font-weight:700; letter-spacing:.03em; margin:3px 0 6px}
+.rule .instr{font-size:13.5px; margin:2px 0}
+.rule .cons{font-size:13px; color:var(--mid); margin:2px 0}
+.rule .metaline{margin-top:9px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+.tag{font-size:8px; letter-spacing:.15em; font-weight:700; text-transform:uppercase; padding:2px 7px; border-radius:999px; border:1px solid var(--faint); color:var(--lt)}
+.tag.tier-core{border-color:var(--gold); color:var(--goldtxt)}
+.tag.tier-event{border-color:var(--mid); color:var(--mid)}
+.tag.prov{border-color:var(--red); color:var(--redtxt)}
+.tag.cite{border-style:dashed}
+.rule details{margin-top:9px}
+.rule summary{font-size:9.5px; letter-spacing:.14em; font-weight:700; color:var(--lt); cursor:pointer; text-transform:uppercase}
+.rule summary::marker{color:var(--gold)}
+.rule .exact{font-size:12.5px; color:var(--mid); margin-top:8px; line-height:1.62}
+.rule .rel{margin-top:8px; font-size:10px; letter-spacing:.06em}
+.rule .rel a{text-decoration:none; border-bottom:1px dotted var(--gold); margin-right:9px}
+.rule:target{border-color:var(--gold); box-shadow:0 0 0 3px rgba(154,115,23,.16)}
+
+.lint{border:1.5px solid var(--gold); border-radius:11px; padding:12px 15px; margin:16px 0; background:var(--wash); font-size:12.5px}
+.lint.bad{border-color:var(--red)}
+.lint h4{margin-top:0}
+.lint ul{font-size:12px; margin-left:18px}
+
+.notice{border:1.5px dashed var(--gold); border-radius:11px; padding:16px 18px; margin:18px 0; font-size:13px; background:var(--wash)}
+.foot{margin-top:26px; padding-top:12px; border-top:1px solid var(--faint); text-align:center; font-size:9px; letter-spacing:.16em; color:var(--lt); font-weight:700; text-transform:uppercase; line-height:2}
+.backlink{display:inline-block; margin-bottom:14px; font-size:10px; letter-spacing:.16em; font-weight:700; text-transform:uppercase; text-decoration:none}
+.backlink:hover{text-decoration:underline}
+
+@media (max-width:620px){
+  body{padding:14px 9px 48px}
+  .sheet{padding:18px 15px 16px}
+  h1{font-size:21px}
+  .door{padding:18px 16px 15px}
+  .door .dname{font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }

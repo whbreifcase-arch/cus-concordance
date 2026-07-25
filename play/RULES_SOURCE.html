@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CUS — The Rules Source</title>
+<link rel="stylesheet" href="cus.css">
+</head>
+<body>
+
+<div class="brandbar">
+  <span class="brand-sigil">◆</span>
+  <span class="brand-word">CUS</span>
+  <span class="sep">·</span>
+  <span>The Rules Source</span>
+  <span class="brand-meta">v0.6 · 54 rules</span>
+  <div class="theme-toggle" role="group" aria-label="Color theme">
+    <button type="button" data-set-theme="light" aria-pressed="false">Light</button>
+    <button type="button" data-set-theme="dark" aria-pressed="true">Dark</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <a class="backlink gold" href="index.html">‹ Play CUS</a>
+  <div class="sheet">
+
+    <h1>THE RULES SOURCE</h1>
+    <div class="h1-sub">one record per rule · three presentations</div>
+
+    <blockquote>
+      Every rule below is stored <strong>once</strong>, in <code>rules.js</code>, and rendered
+      three ways: as a guided lesson in <strong>First Battle</strong>, as an answer in
+      <strong>Help Me Now</strong>, and as reference here. Nothing is hand-authored twice, so
+      nothing can drift. <strong>Authority:</strong> CUS v0.6, closed 2026-07-24 — every record
+      cites the section of Document A or B that governs it.
+    </blockquote>
+
+    <div id="lint"></div>
+
+    <div class="controls">
+      <input id="q" class="search" type="search" placeholder="Search a rule, a trigger, or what just happened…"
+             autocomplete="off" spellcheck="false" aria-label="Search rules">
+      <button class="chip" type="button" data-filter="all"       aria-pressed="true">All</button>
+      <button class="chip" type="button" data-filter="core"      aria-pressed="false">Core loop</button>
+      <button class="chip" type="button" data-filter="event"     aria-pressed="false">Event</button>
+      <button class="chip" type="button" data-filter="reference" aria-pressed="false">Reference</button>
+      <button class="chip" type="button" data-filter="prov"      aria-pressed="false">Provisional</button>
+    </div>
+
+    <div class="count" id="count"></div>
+    <div id="list"></div>
+
+    <div class="foot">
+      Rules source: kernel rebuild v0.6 (signed) · shields · brace · shove provisional<br>
+      Figure and packet data: CUS_FACTIONS/data · screen map: PLAY_FIRST_BATTLE_SCREENMAP.md
+    </div>
+
+  </div>
+</div>
+
+<script src="rules.js"></script>
+<script src="cus.js"></script>
+<script>
+(function () {
+  'use strict';
+  var R = window.CUS_RULES;
+  var list = document.getElementById('list');
+  var count = document.getElementById('count');
+  var q = document.getElementById('q');
+  var chips = [].slice.call(document.querySelectorAll('[data-filter]'));
+  var filter = 'all';
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  /* ---- the lint panel: proof the corpus is clean, run in the reader's browser -- */
+  (function renderLint() {
+    var problems = R.lint();
+    var box = document.getElementById('lint');
+    if (!problems.length) {
+      box.innerHTML =
+        '<div class="lint"><h4>Corpus check</h4>' +
+        '<strong>' + R.rules.length + ' rules · clean.</strong> No dangling cross-reference, ' +
+        'no missing citation, no copy-limit breach, and nothing provisional is reachable from ' +
+        'guided play.</div>';
+    } else {
+      box.innerHTML =
+        '<div class="lint bad"><h4>Corpus check — ' + problems.length + ' problem(s)</h4><ul>' +
+        problems.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') +
+        '</ul></div>';
+    }
+  })();
+
+  function matches(r, term) {
+    if (filter === 'prov' && !r.provisional) return false;
+    if (filter !== 'all' && filter !== 'prov' && r.teach_tier !== filter) return false;
+    if (!term) return true;
+    var hay = [r.id, r.formal_name, r.trigger, r.instruction, r.consequence,
+               r.exact_rule, r.cites, (r.related || []).join(' ')].join(' ').toLowerCase();
+    return term.split(/\s+/).every(function (t) { return hay.indexOf(t) !== -1; });
+  }
+
+  function card(r) {
+    var tags = '<span class="tag tier-' + esc(r.teach_tier) + '">' + esc(r.teach_tier) + '</span>' +
+               '<span class="tag cite">' + esc(r.cites) + '</span>' +
+               (r.provisional ? '<span class="tag prov">provisional</span>' : '') +
+               (r.help_bucket ? '<span class="tag">help: ' + esc(r.help_bucket) + '</span>' : '') +
+               (r.diagram ? '<span class="tag">' + esc(r.diagram) + '</span>' : '') +
+               (r.cinematic ? '<span class="tag">cine: ' + esc(r.cinematic) + '</span>' : '');
+
+    var rel = (r.related || []).length
+      ? '<div class="rel gold">' + r.related.map(function (x) {
+          return '<a href="#' + esc(x) + '">' + esc(x) + '</a>';
+        }).join('') + '</div>'
+      : '';
+
+    var variants = '';
+    if (r.variants) {
+      variants = '<div class="exact"><strong>Variants —</strong> ' +
+        Object.keys(r.variants).map(function (k) {
+          return '<em>' + esc(k) + ':</em> ' + esc(r.variants[k].rout);
+        }).join(' ') + '</div>';
+    }
+
+    return '<div class="rule' + (r.provisional ? ' prov' : '') + '" id="' + esc(r.id) + '">' +
+      '<div class="trig">' + esc(r.trigger) + '</div>' +
+      '<div class="fname">' + esc(r.formal_name) + '</div>' +
+      '<div class="instr">' + esc(r.instruction) + '</div>' +
+      '<div class="cons">' + esc(r.consequence) + '</div>' +
+      '<div class="metaline">' + tags + '</div>' +
+      '<details><summary>See exact rule</summary>' +
+        '<div class="exact">' + esc(r.exact_rule) + '</div>' + variants + rel +
+      '</details>' +
+    '</div>';
+  }
+
+  function render() {
+    var term = q.value.trim().toLowerCase();
+    var shown = R.rules.filter(function (r) { return matches(r, term); });
+    count.textContent = shown.length + ' of ' + R.rules.length + ' rules';
+    list.innerHTML = shown.length
+      ? shown.map(card).join('')
+      : '<div class="notice">Nothing matches. Try the event that happened on the board — ' +
+        '“bases touched”, “it broke”, “I moved twice”.</div>';
+  }
+
+  q.addEventListener('input', render);
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      filter = c.dataset.filter;
+      chips.forEach(function (o) { o.setAttribute('aria-pressed', String(o === c)); });
+      render();
+    });
+  });
+
+  /* deep link: /RULES_SOURCE.html#ENGAGED opens straight to that rule, expanded */
+  render();
+  if (location.hash) {
+    var el = document.getElementById(location.hash.slice(1));
+    if (el) {
+      var d = el.querySelector('details');
+      if (d) d.open = true;
+      el.scrollIntoView();
+    }
+  }
+})();
+</script>
+</body>
+</html>

@@ -12,6 +12,29 @@
   `RAID` (grab objective, flee) · `HUNT` (converge on the nearest/weakest hero).
 - **Figure** — how each enemy acts on its activation. Resolve the **first** rule that fits.
 
+## The Commander — the Order (the smart middle layer)
+Between the Mission (why) and the Figure (footwork) sits the **Order** — how the force
+schemes *this turn*. ~20 seconds, command **groups not models**:
+1. **Pick the seam** (the *Schwerpunkt*): the one weakest point — a wounded hero, an
+   exposed figure (no friends near), the thinnest squad, a shield-brother whose
+   intercept is spent. Everything aims here.
+2. **Tag groups by role:** **SCREEN** (chaff — eat Counters/reactions) · **FIX**
+   (line — pin the front) · **SHAPE** (ranged/casters — knock the seam first) ·
+   **FLANK** (fast — its flank/rear) · **HAMMER** (brutes/elites — commit through).
+3. **Activate in order: SCREEN → FIX → SHAPE → FLANK → HAMMER** — throwaways first to
+   bait reactions, the hammer **last** after they've committed. *That sequence is the ploy.*
+
+**Orders** (pick what fits): `SHIELDBREAKER` (chaff spends the wall's Counters → shape →
+hammer the same figure → flank its rear) · `DECAPITATE` (all onto a hero/caster) ·
+`ENVELOP` (fix centre, flank the open side) · `TIDE` (mass one seam) · `BAIT & TRAP`
+(lunge, retreat, hit the pursuers) · `REFUSE A FLANK` (hold one side, mass the other) ·
+`ALL-IN` (everything into the seam — final push / Boss).
+
+> This is implemented in the sim (`game.py`, `commander_sides`): it reads the seam,
+> assigns roles, sequences activation, and directs each figure at the Schwerpunkt. In
+> testing it beats the greedy AI **52–87%** with games staying **5–9 rounds** — smart,
+> decisive, not tedious. `python test_commander.py <faction>` to see it.
+
 ## Activation — first thing that fits
 0. **Broken?** → Rout by Temperament (below), stop. *(Prone → 1 AP to stand.)*
 - **Boss/leader?** → fire its special first: Raise a minion · Curse/Dread · Command.

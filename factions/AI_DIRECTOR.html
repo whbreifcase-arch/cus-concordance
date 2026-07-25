@@ -29,22 +29,46 @@ table{width:100%;border-collapse:collapse;font-size:14px}td,th{border-bottom:1px
   <h1>⚙ THE AI DIRECTOR</h1>
   <div class="sub">Run any enemy without a brain. The figure's <b>Temperament</b> tells it what to do; you just read the first line that fits. CUS v0.6 · PvE/PvAI.</div>
 
-  <h2>The two layers</h2>
+  <h2>Three layers — Mission, Order, Figure</h2>
   <div class="card">
-    <div class="big">1 · The MISSION — what the whole enemy force wants (set once per fight)</div>
-    <div class="dim" style="margin:4px 0 8px">It gives every enemy its <b>Focus</b> — the point it heads for when it isn't already fighting.</div>
-    <span class="pill"><b>OVERRUN</b> — reach the players' edge / push through</span>
-    <span class="pill"><b>DEFEND</b> — hold a place, never leave it</span>
-    <span class="pill"><b>DEVOUR</b> — kill everything, no objective</span>
-    <span class="pill"><b>RAID</b> — grab the objective, flee off an edge</span>
-    <span class="pill"><b>HUNT</b> — converge on the nearest / weakest hero</span>
+    <div class="big">1 · The MISSION — what the whole force wants (set once per fight)</div>
+    <div class="dim" style="margin:4px 0 8px">Gives every enemy its <b>Focus</b> — where it heads when it isn't already fighting.</div>
+    <span class="pill"><b>OVERRUN</b> — reach the players' edge</span>
+    <span class="pill"><b>DEFEND</b> — hold a place</span>
+    <span class="pill"><b>DEVOUR</b> — kill everything</span>
+    <span class="pill"><b>RAID</b> — grab it &amp; flee</span>
+    <span class="pill"><b>HUNT</b> — converge on the weakest hero</span>
   </div>
+  <div class="card"><div class="big">2 · The ORDER — the ploy this turn (the smart bit) · <span class="dim">~20 sec, command GROUPS not models</span></div></div>
+  <div class="card"><div class="big">3 · The FIGURE — each enemy's footwork (Temperament). Read the first rule that fits.</div></div>
+
+  <h2>2 · The Commander — three moves a turn</h2>
   <div class="card">
-    <div class="big">2 · The FIGURE — how each enemy acts on its activation</div>
-    <div class="dim">Resolve the <b>first</b> rule that applies, top to bottom. Then it's the players' turn (alternate, one figure each).</div>
+    <div class="step"><div class="num">A</div><div><b>Pick the seam</b> <span class="dim">(the Schwerpunkt).</span> One weakest point to break: a <b>wounded hero</b>, an <b>exposed figure</b> (no friends near), the <b>thinnest squad</b>, a shield-brother whose <b>intercept is spent</b>. Everything aims here.</div></div>
+    <div class="step"><div class="num">B</div><div><b>Tag your groups</b> by what they are:
+      <div style="margin-top:6px">
+      <span class="pill" style="border-color:var(--red)"><b>SCREEN</b> · chaff → thrown in first to eat Counters &amp; burn reactions</span>
+      <span class="pill" style="border-color:var(--blue)"><b>FIX</b> · line/anchors → pin the front so it can't reposition</span>
+      <span class="pill" style="border-color:var(--gold)"><b>SHAPE</b> · ranged/casters → gall &amp; knock the seam <i>before</i> the hammer</span>
+      <span class="pill" style="border-color:var(--grn)"><b>FLANK</b> · fast/mounted/flyers → swing to its flank &amp; rear</span>
+      <span class="pill" style="border-color:var(--red)"><b>HAMMER</b> · brutes/elites/monster → commit THROUGH the seam</span></div></div></div>
+    <div class="step"><div class="num">C</div><div><b>Activate in this order:</b> <span class="big">SCREEN → FIX → SHAPE → FLANK → HAMMER.</span> Throwaways first to bait their reactions; the hammer <b>last</b>, after they've shown their hand. <span class="dim">That sequence alone is why it reads as cunning.</span></div></div>
   </div>
 
-  <h2>Activate one enemy → do the first thing that fits</h2>
+  <h2>Pick the Order that fits the board</h2>
+  <div class="card"><table>
+    <tr><th>Order</th><th>When</th><th>The ploy</th></tr>
+    <tr><td class="big">SHIELDBREAKER</td><td>they have a shield wall</td><td>chaff eats the wall's Counters → SHAPE knocks it → HAMMER the same figure → FLANK the rear it can't turn to</td></tr>
+    <tr><td class="big">DECAPITATE</td><td>a hero/caster is reachable</td><td>SCREEN the bodyguards, land FLANK + HAMMER on <b>him</b></td></tr>
+    <tr><td class="big">ENVELOP</td><td>a flank/figure is exposed</td><td>FIX the centre, send FLANKers wide into the open side</td></tr>
+    <tr><td class="big">TIDE</td><td>nothing obvious</td><td>everyone concentrates one seam and rolls over it</td></tr>
+    <tr><td class="big">BAIT &amp; TRAP</td><td>you're faster / hold reserves</td><td>lunge &amp; retreat; slam the pursuers in the open, off their support</td></tr>
+    <tr><td class="big">REFUSE A FLANK</td><td>you're outnumbered</td><td>hold one strong side, give ground on the other, mass on the seam</td></tr>
+    <tr><td class="big">ALL-IN</td><td>final push / a Boss</td><td>ignore losses — everything into the Schwerpunkt, now</td></tr>
+  </table></div>
+  <div class="dim" style="margin:6px 0 0">This is the exact logic the sim's Commander runs — and in testing it beats the dumb AI 52–87% while games stay 5–9 rounds. Fast, mean, coherent.</div>
+
+  <h2>3 · Activate one enemy → the first thing that fits</h2>
   <div class="card">
     <div class="step"><div class="num">0</div><div><b>Broken?</b> → it <span class="red">Routs</span> by Temperament (table below) and stops. <span class="dim">· Prone? spend 1 AP to stand.</span></div></div>
     <div class="step"><div class="num">B</div><div><b>Boss / leader?</b> → fire its special first — <b>Raise</b> a minion · <b>Curse/Dread</b> the party · <b>Command</b> (rally its own) — then act below.</div></div>
