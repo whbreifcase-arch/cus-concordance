@@ -219,20 +219,42 @@
       '<a href="' + BLOB + '">Open the screen map on GitHub ›</a></div>';
   }
 
+  function show(html) {
+    document.getElementById('doc').innerHTML = html;
+    buildToc();
+    if (location.hash) {
+      var el = document.getElementById(location.hash.slice(1));
+      if (el) el.scrollIntoView();
+    }
+  }
+
+  /* GitHub Pages runs Jekyll by default, which converts root .md files to
+     .html and can 404 the raw source. Try the markdown first; if it is not
+     there, fall back to Jekyll's converted output; only then give up. */
+  var JEKYLL = SRC.replace(/\.md$/, '.html');
+
   fetch(SRC)
     .then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status + ' fetching ' + SRC);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.text();
     })
-    .then(function (md) {
-      document.getElementById('doc').innerHTML = render(md, true);
-      buildToc();
-      if (location.hash) {
-        var el = document.getElementById(location.hash.slice(1));
-        if (el) el.scrollIntoView();
-      }
+    .then(function (md) { show(render(md, true)); })
+    .catch(function () {
+      return fetch(JEKYLL)
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.text();
+        })
+        .then(function (doc) {
+          // Jekyll emits a bare fragment when the file has no layout; if a
+          // full document comes back, lift just its body.
+          var body = /<body[^>]*>([\s\S]*)<\/body>/i.exec(doc);
+          show(body ? body[1] : doc);
+        });
     })
-    .catch(function (e) { fail(e.message || String(e)); });
+    ['catch'](function (e) {
+      fail('Tried ' + SRC + ' and ' + JEKYLL + ' — ' + (e.message || String(e)) + '.');
+    });
 })();
 </script>
 </body>
