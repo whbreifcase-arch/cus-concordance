@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CUS — The Field Guide (print)</title>
+<link rel="stylesheet" href="print.css">
+</head>
+<body>
+
+<div class="chrome">
+  <h1>THE FIELD GUIDE</h1>
+  <p>Two pages. Everything needed to play a first game of CUS, in the order it comes
+  up at the table. Hand it to whoever is learning and let them read it as they go.</p>
+  <ul>
+    <li><b>Print at 100% scale</b>, single-sided, then staple the corner.</li>
+    <li>Page 1 is the activation. Page 2 is the blow and what follows.</li>
+    <li>Pure black and white — no colour needed.</li>
+  </ul>
+  <button class="go" type="button" onclick="window.print()">Print</button>
+  <a class="go" href="index.html">Back to Play CUS</a>
+</div>
+
+<div id="out"></div>
+
+<script src="rules.js"></script>
+<script src="diagrams.js"></script>
+<script>
+(function () {
+  'use strict';
+  var R = window.CUS_RULES, DX = window.CUS_DX;
+  DX.mono(true);
+
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  var rule = function (id) { return R.byId[id]; };
+
+  /* Every word of rule text comes from rules.js — the guide never re-states a
+     rule in its own words, so it cannot drift from the cards or the website. */
+  function say(id, opts) {
+    var r = rule(id); opts = opts || {};
+    return (opts.trigger !== false ? '<div class="blk-trig">' + esc(r.trigger) + '.</div>' : '') +
+           '<p><b>' + esc(r.formal_name) + '</b> — ' + esc(r.instruction) + '</p>' +
+           (opts.cons === false ? '' : '<p class="cons">' + esc(r.consequence) + '</p>');
+  }
+  function cite(ids) {
+    return '<div class="cite">' + ids.join(' &nbsp;·&nbsp; ') + '</div>';
+  }
+  function dia(svg) { return '<div class="dia">' + svg + '</div>'; }
+
+  var MED='Medium', SML='Small', CONTACT=0.886;
+  function fig(x,y,tone,facing,size,extra){
+    var f={at:[x,y],tone:tone,size:size||MED,shape:'Square'};
+    if(facing)f.facing=facing; if(extra)for(var k in extra)f[k]=extra[k];
+    return DX.base(f);
+  }
+  function scene(inner,vb,alt){ return DX.svg(inner,{viewBox:vb,alt:alt}); }
+
+  /* ===================================================== PAGE 1 — ACTIVATION */
+  var p1 =
+  '<div class="sheet"><div class="page">' +
+    '<div class="p-head">' +
+      '<div class="p-kicker">CUS &nbsp;·&nbsp; the field guide &nbsp;·&nbsp; page 1 of 2</div>' +
+      '<div class="p-title">YOUR FIRST ACTIVATION</div>' +
+      '<div class="p-sub"><b>Complete the scenario objective. That is the whole game.</b> ' +
+        'Everything below is how one round happens. Read a box when the thing in its ' +
+        'heading actually happens on the table — you do not need the rest yet.</div>' +
+    '</div>' +
+
+    '<div class="p-grid">' +
+      '<div class="blk">' +
+        '<div class="blk-h">The round</div>' +
+        say('ALTERNATION') +
+        dia(scene(fig(5.1,6,'acting','N')+fig(6.6,6,'bystander','N')+fig(7.9,6,'bystander','N'),
+                  '40 50 50 20','one figure chosen, the rest waiting')) +
+        '<p>When both sides run out of figures, the round ends and everyone is eligible again.</p>' +
+        cite(['B·12']) +
+      '</div>' +
+      '<div class="blk">' +
+        '<div class="blk-h">Read the figure</div>' +
+        '<div class="blk-trig">A figure is chosen.</div>' +
+        '<p><b>The base is the label.</b> Pick up the model and read it.</p>' +
+        '<div class="rowline"><span class="k">Circle</span><span class="v">A hero. No facing — it can never be flanked, never tests Nerve, never breaks. <b>3 AP</b> by default.</span></div>' +
+        '<div class="rowline"><span class="k">Square</span><span class="v">Crew. The notch is its facing, and facing matters as much as position. <b>2 AP</b> by default.</span></div>' +
+        '<p class="cons">Those are defaults. Always read the card — a Watch Sergeant is a Square with 3 AP.</p>' +
+        cite(['B·1','A·IV']) +
+      '</div>' +
+    '</div>' +
+
+    '<div class="blk" style="margin-top:4.5mm">' +
+      '<div class="blk-h">Spend 1 AP — there are only three verbs</div>' +
+      '<div class="strip">' +
+        '<div class="s"><div class="n">1</div><div class="t">Move</div>' +
+          '<div class="d">Change position now. Up to the figure’s Speed.</div></div>' +
+        '<div class="s"><div class="n">2</div><div class="t">Action</div>' +
+          '<div class="d">Resolve a packet now — strike, use, cast.</div></div>' +
+        '<div class="s"><div class="n">3</div><div class="t">Wait</div>' +
+          '<div class="d">Arm a packet for later. <b>Ends your activation.</b></div></div>' +
+        '<div class="s"><div class="n">&#8226;</div><div class="t">The limits</div>' +
+          '<div class="d"><b>One attack per activation</b>, however much AP is left. Move before or after.</div></div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="p-grid" style="margin-top:4.5mm">' +
+      '<div class="blk">' +
+        '<div class="blk-h">You moved</div>' +
+        say('MOVE') +
+        dia(scene(fig(4.2,6,'was')+fig(6.6,6,'acting','E')+
+                  DX.movePath({from:[4.2,6],to:[6.5,6],distance:2.3}),
+                  '32 48 46 24','moving from a dashed start to a solid finish')) +
+        '<p>Move it <b>twice</b> and that is a <b>Sprint</b> — both AP go to movement, so there is no blow left.</p>' +
+        cite(['B·2','B·3']) +
+      '</div>' +
+      '<div class="blk">' +
+        '<div class="blk-h">Your bases touched</div>' +
+        say('ENGAGED') +
+        dia(scene(fig(5.55,6,'acting','E')+fig(5.55+CONTACT,6,'receiving','W',SML),
+                  '46 52 30 16','two bases in contact, turned to face')) +
+        '<p><b>No measured band.</b> If the bases touch, they are engaged — full stop.</p>' +
+        '<p class="cons">' + esc(rule('DISENGAGE').instruction) + '</p>' +
+        cite(['B·8']) +
+      '</div>' +
+    '</div>' +
+
+    '<div class="blk" style="margin-top:4.5mm">' +
+      '<div class="blk-h">The key — read every picture in this guide and on the cards</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2mm;font-size:6.6pt;line-height:1.3">' +
+        keyItem(DX.base({at:[6,6],tone:'acting',facing:'N'}),'50 50 20 20','<b>Acting</b><br>solid black') +
+        keyItem(DX.base({at:[6,6],tone:'receiving',facing:'S'}),'50 50 20 20','<b>Receiving</b><br>outlined') +
+        keyItem(DX.base({at:[6,6],tone:'bystander'}),'50 50 20 20','<b>Bystander</b><br>thin, ignore it') +
+        keyItem(DX.base({at:[6,6],tone:'was'}),'50 50 20 20','<b>Was here</b><br>dashed') +
+        keyItem(DX.movePath({from:[5.2,6],to:[6.8,6]}),'50 56 22 8','<b>Action or move</b><br>one heavy line') +
+        keyItem(DX.strike({from:[5.2,6],to:[6.8,6],pad:0,counter:true}),'50 56 22 8','<b>Harm or failure</b><br>twin rails') +
+        keyItem(DX.wall({y:6,from:5.2,to:6.8}),'50 56 22 8','<b>Wall</b><br>hatched') +
+        keyItem(DX.bonusPill(60,60,'+2'),'50 54 22 12','<b>Bonus dice</b><br>in a black pill') +
+      '</div>' +
+    '</div>' +
+
+    '<div class="p-foot"><span>CUS · kernel v0.6 (signed)</span>' +
+      '<span>Page 1 — the activation</span></div>' +
+  '</div></div>';
+
+  function keyItem(svg, vb, label) {
+    return '<div style="text-align:center">' +
+      '<div style="height:11mm;display:flex;align-items:center;justify-content:center">' +
+      DX.svg(svg, { viewBox: vb, alt: '' }) + '</div><div>' + label + '</div></div>';
+  }
+
+  /* ================================================== PAGE 2 — THE BLOW */
+  var p2 =
+  '<div class="sheet"><div class="page">' +
+    '<div class="p-head">' +
+      '<div class="p-kicker">CUS &nbsp;·&nbsp; the field guide &nbsp;·&nbsp; page 2 of 2</div>' +
+      '<div class="p-title">THE BLOW, AND WHAT FOLLOWS</div>' +
+      '<div class="p-sub">Every strike in CUS resolves the same way, whatever the weapon. ' +
+        'Follow the strip left to right, then read what it set off.</div>' +
+    '</div>' +
+
+    '<div class="blk">' +
+      '<div class="blk-h">Every strike resolves the same way</div>' +
+      '<div class="strip">' +
+        '<div class="s"><div class="n">1</div><div class="t">Declare</div>' +
+          '<div class="d">' + esc(rule('DECLARE').instruction) + ' Melee needs base contact.</div></div>' +
+        '<div class="s"><div class="n">2</div><div class="t">Roll &amp; count</div>' +
+          '<div class="d">Roll the packet’s dice. Every die that meets or beats its number is a <b>Success</b>.</div></div>' +
+        '<div class="s"><div class="n">3</div><div class="t">Read the grade</div>' +
+          '<div class="d">Successes = <b>Grade</b>. Read <b>only</b> that line. It does not carry up the lower ones.</div></div>' +
+        '<div class="s"><div class="n">4</div><div class="t">Armour</div>' +
+          '<div class="d">One save die per Wound. None — · Light 6+ · Medium 5+ · Heavy 4+.</div></div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="p-grid" style="margin-top:4.5mm">' +
+      '<div class="blk">' +
+        '<div class="blk-h">Read only the line you reached</div>' +
+        dia(packetMini(2)) +
+        '<p>A higher Grade is <b>not</b> a better version of the lower one — it is a different result. ' +
+        'Grade 3 does not also give you Grade 2’s effects.</p>' +
+        cite(['A·VI','B·5']) +
+      '</div>' +
+      '<div class="blk">' +
+        '<div class="blk-h">The defender strikes back</div>' +
+        say('COUNTER') +
+        dia(scene(fig(5.55,6,'acting','E')+fig(5.55+CONTACT,6,'receiving','W',SML)+
+                  DX.strike({from:[5.55,6],to:[5.55+CONTACT,6],pad:5})+
+                  DX.strike({from:[5.55+CONTACT,6],to:[5.55,6],pad:5,bow:7,counter:true}),
+                  '44 46 34 28','you strike, and it strikes back')) +
+        '<p><b>' + esc(rule('COUNTER_DYING').instruction) + '</b> ' +
+          esc(rule('COUNTER_DYING').consequence) + ' ' +
+          esc(rule('COUNTER_NO_LOOP').consequence) + '</p>' +
+        '<p class="cons">The only escapes are positional: strike a Square’s unfaced flank or rear, ' +
+          'or strike from Reach without contact. A Circle is faceless and always counters.</p>' +
+        cite(['B·9']) +
+      '</div>' +
+    '</div>' +
+
+    '<div class="p-grid" style="margin-top:4.5mm">' +
+      '<div class="blk">' +
+        '<div class="blk-h">A wound landed</div>' +
+        dia(DX.woundTrack(['FINE','HURT','KO','DEAD'], 1)) +
+        '<p>Unsaved Wounds step the figure along its track.</p>' +
+        '<div class="rowline"><span class="k">Earn the angle</span><span class="v">' +
+          'A Square already fighting someone else faces <i>that</i> foe. Reach its <b>flank</b> for <b>+1 die</b>, ' +
+          'its <b>rear</b> for <b>+2 dice and no Counter</b>.</span></div>' +
+        cite(['B·7','B·8']) +
+      '</div>' +
+      '<div class="blk">' +
+        '<div class="blk-h">That causes Shock</div>' +
+        say('SHOCK', { cons:false }) +
+        '<p><b>Roll 3 dice.</b> Count those that meet or beat the figure’s <b>Nerve</b>.</p>' +
+        '<div class="rowline"><span class="k">0 successes</span><span class="v">step <b>down</b> the track</span></div>' +
+        '<div class="rowline"><span class="k">1–2</span><span class="v">hold — no change</span></div>' +
+        '<div class="rowline"><span class="k">3</span><span class="v">step <b>up</b> — it rallies</span></div>' +
+        dia(DX.moraleTrack(1)) +
+        '<p class="cons">Only Squares of type Man or Beast test. Circles never test and never break. ' +
+          'A <b>Broken</b> figure routs by its <b>Temperament</b> — the coward flees, the aggressive one charges.</p>' +
+        cite(['B·10']) +
+      '</div>' +
+    '</div>' +
+
+    '<div class="p-foot"><span>Full rules &amp; all 54 cards: the Play CUS pages</span>' +
+      '<span>Page 2 — the blow</span></div>' +
+  '</div></div>';
+
+  /* the miniature packet card, same drawing as the deck uses */
+  function packetMini(reached) {
+    var W=62,H=44,rowH=8.4,top=13.5;
+    var lines=[{g:1,e:'1 Wound'},{g:2,e:'1 Wound · Shove'},{g:3,e:'2 Wounds'}];
+    var out='<rect x="1" y="1" width="'+(W-2)+'" height="'+(H-2)+'" rx="2.2" fill="#fff" stroke="#000" stroke-width="1.1"/>'+
+      '<text x="4.5" y="8.6" font-size="5.4" font-weight="700" letter-spacing="1" font-family="Helvetica,Arial,sans-serif">3 DICE &#183; 4+ &#183; MELEE</text>'+
+      '<line x1="1" y1="'+(top-2.4)+'" x2="'+(W-1)+'" y2="'+(top-2.4)+'" stroke="#000" stroke-width="0.7"/>';
+    for(var i=0;i<lines.length;i++){
+      var y=top+i*rowH, on=(reached==null)||(lines[i].g===reached);
+      if(reached!=null&&on) out+='<rect x="2.6" y="'+(y-1.2)+'" width="'+(W-5.2)+'" height="'+(rowH-0.6)+'" fill="#000"/>';
+      var ink=(reached!=null&&on)?'#fff':'#000';
+      out+='<text x="5" y="'+(y+4.6)+'" font-size="5" font-weight="700" font-family="Helvetica,Arial,sans-serif" fill="'+ink+'">G'+lines[i].g+'</text>'+
+           '<text x="15" y="'+(y+4.6)+'" font-size="5" font-family="Helvetica,Arial,sans-serif" fill="'+ink+'">'+lines[i].e+'</text>';
+      if(reached!=null&&!on) out+='<line x1="4.5" y1="'+(y+2.9)+'" x2="'+(W-4.5)+'" y2="'+(y+2.9)+'" stroke="#000" stroke-width="0.7"/>';
+    }
+    return DX.svg(out,{viewBox:'0 0 '+W+' '+H,alt:'only the grade you reached is read'});
+  }
+
+  document.getElementById('out').innerHTML = p1 + p2;
+  window.__PAMPHLET = { html: p1 + p2, pages: 2 };
+})();
+</script>
+</body>
+</html>
