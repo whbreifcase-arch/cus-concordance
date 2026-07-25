@@ -38,6 +38,7 @@ class F:
         self.alive=True; self.prone=False; self.stopped=False
         self.impacted=set()          # enemy ids this figure has already Impacted
         self.crush_on=None           # a defender it is jamming against a wall this increment
+        self.reacted=False           # spent its ONE reaction (reach-strike / intercept) this charge
     @property
     def dead(self): return not self.alive
     @property
@@ -183,10 +184,11 @@ class Charge:
     # --- reach strikes: a spear hits an enemy in its band, no Counter ------ #
     def reach_phase(self):
         for d in self.defenders:
-            if d.dead or reach_of(d)<=0: continue
+            if d.dead or d.reacted or reach_of(d)<=0: continue   # ONE reaction per charge
             band=[c for c in self.chargers if c.alive and CONTACT < gap(d,c) <= reach_of(d) and c.y<d.y]
             if band:
                 tgt=min(band, key=lambda c:gap(d,c))
+                d.reacted=True                                   # reach-strike spends the reaction
                 self.m["reach_strikes"]+=1
                 self.apply_packet(d, tgt, wpn(d), label="REACH-strikes")
 
@@ -209,8 +211,10 @@ class Charge:
         for c in self.chargers: c.crush_on=None
     def shield_redirect(self, atk, dfn):
         if has_shield(dfn): return dfn                  # already the wall's shield
-        guards=[g for g in self.defenders if g.alive and has_shield(g) and gap(g,dfn)<=1.0 and g is not dfn]
+        guards=[g for g in self.defenders if g.alive and not g.reacted and has_shield(g)
+                and gap(g,dfn)<=1.0 and g is not dfn]        # a spent shield can't intercept again
         if guards:
+            guards[0].reacted=True                            # intercept spends the reaction
             self.m["intercepts"]+=1
             self.ev(f"    {guards[0].id} INTERCEPTS the hit meant for {dfn.id}")
             return guards[0]
