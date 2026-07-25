@@ -33,6 +33,9 @@
   .side-toggle button{border:2px solid transparent}
   .side-toggle button.c{background:#2a1b1c;color:#e5484d} .side-toggle button.c.on{border-color:#e5484d;background:#3a2224}
   .side-toggle button.d{background:#1b2130;color:#7fa2e5} .side-toggle button.d.on{border-color:#4d7fe5;background:#222d44}
+  .tool-toggle{display:flex;gap:6px;margin-bottom:8px}
+  .tool-toggle button{background:#2b303c;color:#c4c9d6;border:2px solid transparent;font-weight:600}
+  .tool-toggle button.on{border-color:var(--acc);background:#26382a;color:#dff0df}
   .card{font-size:11px;color:#b9bfce;background:#12141a;border:1px solid var(--line);border-radius:6px;padding:6px 8px;margin:2px 0 6px;line-height:1.5}
   .card b{color:#e7e9ee} .card .pill{display:inline-block;background:#2b303c;border-radius:4px;padding:0 5px;margin:1px 2px 1px 0;font-size:10px}
   .chip-c{color:#e5484d} .chip-b{color:#4d7fe5}
@@ -83,11 +86,14 @@
 
     <fieldset class="grp">
       <legend>Board</legend>
+      <div class="tool-toggle">
+        <button id="tPlace" class="on">✚ Place</button>
+        <button id="tMove">✥ Move</button>
+        <button id="tDel">✕ Delete</button>
+      </div>
       <div class="roster"><span class="chip-c">Chargers: <b id="rc">0</b></span><span class="chip-b">Defenders: <b id="rd">0</b></span></div>
-      <div class="help">
-        <b>Click</b> empty = place · <b>Click</b> a unit = select · <b>Drag</b> = move ·
-        <kbd>wheel</kbd> / <kbd>[</kbd> <kbd>]</kbd> = rotate facing · <kbd>Del</kbd> = remove ·
-        <kbd>D</kbd> = duplicate selected.
+      <div class="help" id="toolHelp">
+        <b>Place:</b> pick a side + unit above, then click the board to drop it.
       </div>
       <div class="btns" style="margin-top:8px">
         <button class="tiny sec" id="undo">Undo</button>
@@ -437,28 +443,28 @@ function stampShape(){ const shape=$("stShape").value,n=+$("stN").value,d=+$("st
   else{let placed=0,row=1,y=0;while(placed<n){const w=Math.min(row,n-placed),off=((w-1)*sp)/2;for(let i=0;i<w;i++){out.push([i*sp-off,y]);placed++;}y+=sp;row++;}}
   return out;
 }
-let dragging=false,dragMoved=false;
+let tool="place", dragging=false;
+function worldAt(ev){ const v=view(),rect=cv.getBoundingClientRect();
+  return [v.ix(ev.clientX-rect.left), v.iy(ev.clientY-rect.top)]; }
 cv.addEventListener("mousedown",ev=>{
   if(mode!=="edit")return;
-  const v=view(),rect=cv.getBoundingClientRect(),wx=v.ix(ev.clientX-rect.left),wy=v.iy(ev.clientY-rect.top);
-  const hit=hitTest(wx,wy);
-  if(hit>=0){ selected=hit; dragging=true; dragMoved=false; return; }
-  // place
+  const [wx,wy]=worldAt(ev), hit=hitTest(wx,wy);
+  if(tool==="delete"){ if(hit>=0){pushUndo();editFigs.splice(hit,1);selected=-1;updateRoster();} return; }
+  if(tool==="move"){ if(hit>=0){selected=hit;dragging=true;pushUndo();} else selected=-1; return; }
+  // PLACE
   pushUndo();
   const idx=+$("brUnit").value, face=brushSide==="C"?0:180;
-  if($("stampOn").checked){ const off=stampShape(); const dir=brushSide==="C"?1:1;
-    for(const[dx,dy]of off)editFigs.push({side:brushSide,x:wx+dx,y:wy+(brushSide==="C"?-dy:dy),unitIdx:idx,faceDeg:face}); }
+  if($("stampOn").checked){ for(const[dx,dy]of stampShape())
+      editFigs.push({side:brushSide,x:wx+dx,y:wy+(brushSide==="C"?-dy:dy),unitIdx:idx,faceDeg:face}); }
   else editFigs.push({side:brushSide,x:wx,y:wy,unitIdx:idx,faceDeg:face});
   selected=editFigs.length-1; updateRoster();
 });
 cv.addEventListener("mousemove",ev=>{
-  if(mode!=="edit"||!dragging||selected<0)return;
-  const v=view(),rect=cv.getBoundingClientRect();
-  if(!dragMoved){pushUndo();dragMoved=true;}
-  editFigs[selected].x=v.ix(ev.clientX-rect.left); editFigs[selected].y=v.iy(ev.clientY-rect.top);
+  if(mode!=="edit"||tool!=="move"||!dragging||selected<0)return;
+  const [wx,wy]=worldAt(ev); editFigs[selected].x=wx; editFigs[selected].y=wy;
 });
 window.addEventListener("mouseup",()=>{dragging=false;});
-cv.addEventListener("wheel",ev=>{ if(mode!=="edit"||selected<0)return; ev.preventDefault();
+cv.addEventListener("wheel",ev=>{ if(mode!=="edit"||tool!=="move"||selected<0)return; ev.preventDefault();
   editFigs[selected].faceDeg=(editFigs[selected].faceDeg+(ev.deltaY>0?15:-15)+360)%360; },{passive:false});
 window.addEventListener("keydown",ev=>{
   if(mode!=="edit")return;
@@ -510,8 +516,18 @@ $("go").onclick=simulate; $("edit").onclick=backToEdit; $("copy").onclick=copySe
 $("play").onclick=()=>{if(!DATA)return;if(tPlay>=DATA.frames.length-1)tPlay=0;playing=!playing;lastTs=performance.now();$("play").textContent=playing?"Pause":"Play";};
 $("scrub").oninput=e=>{tPlay=+e.target.value;playing=false;$("play").textContent="Play";};
 $("dWall").onchange=render;$("sWall").onchange=render;
+const TOOLHELP={
+  place:"<b>Place:</b> pick a side + unit above, then click the board to drop it.",
+  move :"<b>Move:</b> click a unit and drag it. Mouse-wheel (or <kbd>[</kbd> <kbd>]</kbd>) rotates its facing.",
+  delete:"<b>Delete:</b> click any unit to remove it."};
+function setTool(t){ tool=t; selected=-1;
+  for(const[id,name]of [["tPlace","place"],["tMove","move"],["tDel","delete"]])
+    $(id).classList.toggle("on",name===t);
+  $("toolHelp").innerHTML=TOOLHELP[t];
+  cv.style.cursor = t==="place"?"crosshair":(t==="move"?"grab":"pointer"); }
+$("tPlace").onclick=()=>setTool("place"); $("tMove").onclick=()=>setTool("move"); $("tDel").onclick=()=>setTool("delete");
 window.addEventListener("resize",render);
-demo(); updateRoster(); requestAnimationFrame(tick);
+updateRoster(); requestAnimationFrame(tick);   // start with an empty board
 </script>
 </body>
 </html>
