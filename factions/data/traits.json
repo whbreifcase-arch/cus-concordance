@@ -22,6 +22,9 @@
     { "trait_id": "scaled",        "name": "Scaled",       "note": "Thick draconic hide: shrugs the first Wound taken each round (flavour; priced as durability)." },
     { "trait_id": "terror",        "name": "Terror",       "note": "A monster so dreadful that Squares within 4\" test Nerve when it activates — the weak break at the sight of it (B.10)." },
     { "trait_id": "regenerating",  "name": "Regenerating", "note": "Knits its wounds: restores 1 Wound at the start of each of its activations while it still lives." },
+    { "trait_id": "mindless",      "name": "Mindless",     "note": "Never tests Nerve, never Routs, never retreats. Its AI is the simplest: shamble toward and strike the NEAREST living thing, always. Undead & constructs." },
+    { "trait_id": "summoner",      "name": "Summoner",     "note": "May Raise the dead / call reinforcements: once per turn, place a basic minion (Skeleton/Zombie/etc.) in base contact with it." },
+    { "trait_id": "boss",          "name": "Boss",         "note": "A set-piece monster fought solo against the whole party. Priced by SLOT as a small army. Usually carries Terror and a big weapon; often Regenerating." },
     { "trait_id": "shield",        "name": "Shield",       "note": "PROVISIONAL. Gear. As a REACTION you may consume an ACTION packet aimed at a friendly within 1\" — take the hit yourself instead (your Armour saves; no Counter, you weren't the one attacked). Declare it BEFORE the packet resolves, or you miss the window. No cap — your own body is the cap. Works regardless of facing (even while Braced). A shield wall is emergent from presence + facing, not a skill." }
   ]
 }

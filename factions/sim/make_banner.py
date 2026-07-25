@@ -118,10 +118,13 @@ def faction_section(fac):
         if not us: return ""
         return f'<h2 class="band">{title} <span>{len(us)}</span></h2><div class="grid">'+"".join(unit_card(u, fac["faction"]) for u in us)+'</div>'
     if fac.get("is_library") or any("tier" in u for u in units):
-        # LIBRARY: group by tier
-        bands = "".join(band(t, [u for u in units if u.get("tier")==t])
-                        for t in ("Champion","Sergeant","Elite","Retinue"))
-        meta = f'{len(units)} generic profiles'
+        # LIBRARY / BESTIARY: group by tier, in first-appearance order
+        tiers = []
+        for u in units:
+            t = u.get("tier","Other")
+            if t not in tiers: tiers.append(t)
+        bands = "".join(band(t, [u for u in units if u.get("tier")==t]) for t in tiers)
+        meta = f'{len(units)} ' + ("enemies" if fac.get("is_enemy") else "generic profiles")
     else:
         champ=group(units, lambda u:"champion" in u.get("traits",[]))
         leaders=group(units, lambda u:"leader" in u.get("traits",[]) and "champion" not in u.get("traits",[]))
@@ -198,6 +201,7 @@ FACTION_FILES = [
     ("faction_pony.json",      "🦄", "Harmony Guard"),
     ("faction_dragon.json",    "🐉", "The Dragon (Boss)"),
     ("library_generic.json",   "⚙", "Generic Library"),
+    ("faction_bestiary.json",  "🧟", "Bestiary (Enemies)"),
 ]
 
 def build():
