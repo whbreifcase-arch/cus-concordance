@@ -1,0 +1,271 @@
+{
+  "faction": "The Harmony Guard of Evermeadow",
+  "prefix": "PON",
+  "cus_version": "0.6",
+  "doctrine": "Friendship is the fiercest armour. Earth ponies hold the line like a stone wall, unicorns sling starlight, pegasi drop from the clouds, and a Princess of the Sun leads them — she heals the hurt, lifts the frightened, and shines so bright the wicked falter. Built a hair stronger than fair, because the smallest general deserves to win.",
+  "units": [
+    {
+      "definition_id": "PON_PRINCESS",
+      "name": "The Princess",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Hybrid",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Alicorn Princess",
+      "rank": "III",
+      "base": {
+        "shape": "Circle",
+        "size": "Large",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 5,
+        "armour": "Medium",
+        "nerve": 0,
+        "speed": 8,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader",
+        "champion",
+        "radiant",
+        "flying"
+      ],
+      "packets": [
+        "alicorn_radiance",
+        "friendship_heal",
+        "harmony_aura"
+      ]
+    },
+    {
+      "definition_id": "PON_CAPTAIN",
+      "name": "Guard-Captain",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Guard Captain",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Heavy",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader"
+      ],
+      "packets": [
+        "earth_pony_smash",
+        "aegis_of_harmony"
+      ]
+    },
+    {
+      "definition_id": "PON_GUARD",
+      "name": "Royal Guard",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Royal Guard",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Heavy",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "shield"
+      ],
+      "packets": [
+        "earth_pony_smash"
+      ]
+    },
+    {
+      "definition_id": "PON_EARTH",
+      "name": "Earth Pony Bruiser",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Earth Pony",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Medium",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "pony_buck"
+      ]
+    },
+    {
+      "definition_id": "PON_UNICORN",
+      "name": "Unicorn Starcaster",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Ranged",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Unicorn Mage",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 3
+      },
+      "traits": [],
+      "packets": [
+        "unicorn_bolt",
+        "friendship_heal"
+      ]
+    },
+    {
+      "definition_id": "PON_PEGASUS",
+      "name": "Pegasus Skyguard",
+      "role": "Pressure",
+      "tempo": ">>>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Man",
+      "archetype": "Pegasus Flyer",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Light",
+        "nerve": 2,
+        "speed": 12,
+        "max_ap": 2
+      },
+      "traits": [
+        "flying"
+      ],
+      "packets": [
+        "pegasus_divebomb"
+      ]
+    },
+    {
+      "definition_id": "PON_ZEBRA",
+      "name": "Zebra Herbalist",
+      "role": "Utility",
+      "tempo": ">>",
+      "tool": "Hybrid",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Zebra Shaman",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "friendship_heal",
+        "harmony_aura",
+        "unicorn_bolt"
+      ]
+    },
+    {
+      "definition_id": "PON_BUFFALO",
+      "name": "Buffalo Ally",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Beast",
+      "archetype": "Buffalo Bruiser",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Large",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 4,
+        "armour": "Medium",
+        "nerve": 2,
+        "speed": 8,
+        "max_ap": 2
+      },
+      "traits": [
+        "beast",
+        "large"
+      ],
+      "packets": [
+        "earth_pony_smash"
+      ]
+    },
+    {
+      "definition_id": "PON_FOAL",
+      "name": "Brave Little Foal",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Man",
+      "archetype": "Foal",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 2,
+        "speed": 7,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "foal_nip"
+      ]
+    }
+  ]
+}

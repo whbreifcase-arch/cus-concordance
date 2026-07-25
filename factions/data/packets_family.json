@@ -1,0 +1,1020 @@
+{
+  "_meta": {
+    "cus_version": "0.6",
+    "note": "Packets for the Militia, Goblin, Pony and Dragon factions. Same v0.6 grammar as packets.json — neutral IDs, Success Grades (Model-2 discrete). Reach weapons set \"reach\": true.",
+    "verbs": "MOVE | ACTION | WAIT"
+  },
+  "packets": [
+    {
+      "packet_id": "militia_sword",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "militia_spear",
+      "name": "REACH WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "reach": true,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "militia_bow",
+      "name": "RANGED WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 4,
+      "range": 18,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "pitchfork",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 5,
+      "range": 0,
+      "cost_ap": 1,
+      "reach": true,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "watch_halberd",
+      "name": "REACH WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "reach": true,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "captain_saber",
+      "name": "LEGENDARY WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 3,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Guard"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "hold_the_line",
+      "name": "COMMAND",
+      "verb": "ACTION",
+      "dice": 0,
+      "success": 0,
+      "range": 6,
+      "area": "6\" allies",
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 0,
+          "successes": 0,
+          "effects": [
+            "Each Broken/Shaken ally in range steps UP one morale state",
+            "Nearby allies gain Guard"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "goblin_shiv",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "goblin_bow",
+      "name": "RANGED WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 5,
+      "range": 18,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Terror"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "goblin_spear",
+      "name": "REACH WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 5,
+      "range": 0,
+      "cost_ap": 1,
+      "reach": true,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "sneak_backstab",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Execute"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "boss_cleaver",
+      "name": "LEGENDARY WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Cleave"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "spider_bite",
+      "name": "BEAST WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Terror"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "wolf_bite",
+      "name": "BEAST WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Knockdown"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "goblin_hex",
+      "name": "2H STAFF",
+      "verb": "ACTION",
+      "dice": 0,
+      "success": 0,
+      "range": 6,
+      "area": "6\" enemies",
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 0,
+          "successes": 0,
+          "effects": [
+            "Enemies within 6\" roll Armour one step worse until this figure's next activation"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "pony_buck",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Knockdown"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "earth_pony_smash",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 3,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Guard"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "unicorn_bolt",
+      "name": "WAND",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 12,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound",
+            "ignore Armour"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "ignore Armour",
+            "Terror"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "ignore Armour"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "pegasus_divebomb",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Knockdown"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "foal_nip",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "alicorn_radiance",
+      "name": "LEGENDARY WEAPON",
+      "verb": "ACTION",
+      "dice": 4,
+      "success": 3,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds",
+            "Guard"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Cleave"
+          ]
+        },
+        {
+          "grade": 4,
+          "successes": 4,
+          "effects": [
+            "3 Wounds",
+            "Execute"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "friendship_heal",
+      "name": "HEAL",
+      "verb": "ACTION",
+      "dice": 0,
+      "success": 0,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 0,
+          "successes": 0,
+          "effects": [
+            "Restore 1 Wound (ally)",
+            "Steady Nerve one step"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "harmony_aura",
+      "name": "BLESSING",
+      "verb": "ACTION",
+      "dice": 0,
+      "success": 0,
+      "range": 6,
+      "area": "6\" allies",
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 0,
+          "successes": 0,
+          "effects": [
+            "Each Broken/Shaken ally steps UP one morale state",
+            "Blessed allies re-read a failed Nerve test this round"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "dragon_breath",
+      "name": "BREATH WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 12,
+      "area": "template",
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound",
+            "ignore Armour"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds",
+            "ignore Armour"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "ignore Armour",
+            "Terror"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "dragon_claws",
+      "name": "LEGENDARY WEAPON",
+      "verb": "ACTION",
+      "dice": 4,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "2 Wounds",
+            "Shove"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds",
+            "Knockdown"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "3 Wounds",
+            "Cleave"
+          ]
+        },
+        {
+          "grade": 4,
+          "successes": 4,
+          "effects": [
+            "3 Wounds",
+            "Execute"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "tail_sweep",
+      "name": "BEAST WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound",
+            "Knockdown"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds",
+            "Knockdown"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Knockdown",
+            "Cleave"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "drake_bite",
+      "name": "BEAST WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Knockdown"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "kobold_dagger",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "kobold_sling",
+      "name": "RANGED WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 5,
+      "range": 15,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "wyrmling_bite",
+      "name": "BEAST WEAPON",
+      "verb": "ACTION",
+      "dice": 2,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Terror"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "salamander_flame",
+      "name": "BREATH WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 10,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound",
+            "ignore Armour"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds",
+            "ignore Armour"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "scale_ward",
+      "name": "BLESSING",
+      "verb": "ACTION",
+      "dice": 0,
+      "success": 0,
+      "range": 6,
+      "area": "6\" allies",
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 0,
+          "successes": 0,
+          "effects": [
+            "Allies within 6\" gain Guard",
+            "Ignore the first Shove each round"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "obsidian_blade",
+      "name": "COMMON WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 4,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "1 Wound",
+            "Shove"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "dragonfang_khopesh",
+      "name": "LEGENDARY WEAPON",
+      "verb": "ACTION",
+      "dice": 3,
+      "success": 3,
+      "range": 0,
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 1,
+          "successes": 1,
+          "effects": [
+            "1 Wound"
+          ]
+        },
+        {
+          "grade": 2,
+          "successes": 2,
+          "effects": [
+            "2 Wounds"
+          ]
+        },
+        {
+          "grade": 3,
+          "successes": 3,
+          "effects": [
+            "2 Wounds",
+            "Guard"
+          ]
+        }
+      ]
+    },
+    {
+      "packet_id": "aegis_of_harmony",
+      "name": "BLESSING",
+      "verb": "ACTION",
+      "dice": 0,
+      "success": 0,
+      "range": 6,
+      "area": "6\" allies",
+      "cost_ap": 1,
+      "grades": [
+        {
+          "grade": 0,
+          "successes": 0,
+          "effects": [
+            "Allies within 6\" gain Guard",
+            "Ignore the first Shove each round"
+          ]
+        }
+      ]
+    }
+  ]
+}

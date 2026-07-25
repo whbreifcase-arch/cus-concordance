@@ -1,0 +1,338 @@
+{
+  "faction": "Order of the Argent Templar",
+  "prefix": "TMP",
+  "cus_version": "0.6",
+  "doctrine": "The Wall and the Sword. Anchors hold the shieldline; the Grand Master and Sword-Brothers convert spent fury into executions. Reliable dice, heavy armour, hard to break.",
+  "units": [
+    {
+      "definition_id": "TMP_GRANDMASTER",
+      "name": "Grand Master",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Grand Master",
+      "rank": "III",
+      "base": {
+        "shape": "Circle",
+        "size": "Large",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 4,
+        "armour": "Heavy",
+        "nerve": 0,
+        "speed": 6,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader",
+        "champion",
+        "zealous"
+      ],
+      "packets": [
+        "grandmaster_blade",
+        "smite",
+        "rally_command"
+      ]
+    },
+    {
+      "definition_id": "TMP_MARSHAL",
+      "name": "Templar Marshal",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Marshal",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Heavy",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader",
+        "zealous",
+        "shield"
+      ],
+      "packets": [
+        "sword_and_shield",
+        "rally_command"
+      ]
+    },
+    {
+      "definition_id": "TMP_CHAPLAIN",
+      "name": "Battle-Chaplain",
+      "role": "Utility",
+      "tempo": ">>",
+      "tool": "Hybrid",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Battle-Chaplain",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "smite",
+        "lay_on_hands",
+        "zeal_bless"
+      ]
+    },
+    {
+      "definition_id": "TMP_SWORDBROTHER",
+      "name": "Sword-Brother",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Sword-Brother",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "zealous"
+      ],
+      "packets": [
+        "templar_greatsword"
+      ]
+    },
+    {
+      "definition_id": "TMP_SHIELDBROTHER",
+      "name": "Shield-Brother",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Shield-Brother",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Heavy",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "zealous",
+        "shield"
+      ],
+      "packets": [
+        "sword_and_shield"
+      ]
+    },
+    {
+      "definition_id": "TMP_HALBERDIER",
+      "name": "Halberdier",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Halberdier",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "reach",
+        "zealous"
+      ],
+      "packets": [
+        "consecrated_halberd"
+      ]
+    },
+    {
+      "definition_id": "TMP_ARBALEST",
+      "name": "Arbalest",
+      "role": "Pressure",
+      "tempo": ">",
+      "tool": "Ranged",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Arbalest",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "heavy_arbalest"
+      ]
+    },
+    {
+      "definition_id": "TMP_LANCER",
+      "name": "Knight Lancer",
+      "role": "Pressure",
+      "tempo": ">>>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Man",
+      "archetype": "Knight Lancer",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": true
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Heavy",
+        "nerve": 2,
+        "speed": 11,
+        "max_ap": 2
+      },
+      "traits": [
+        "mounted"
+      ],
+      "packets": [
+        "templar_lance"
+      ]
+    },
+    {
+      "definition_id": "TMP_SENTINEL",
+      "name": "Templar Sentinel",
+      "role": "Anchor",
+      "tempo": ">",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Construct",
+      "archetype": "Sentinel",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Large",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 5,
+        "armour": "Heavy",
+        "nerve": 2,
+        "speed": 5,
+        "max_ap": 3
+      },
+      "traits": [
+        "consecrated",
+        "fearless",
+        "large"
+      ],
+      "packets": [
+        "sentinel_maul"
+      ]
+    },
+    {
+      "definition_id": "TMP_CONFESSOR",
+      "name": "Confessor-at-Arms",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Confessor",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "zealous"
+      ],
+      "packets": [
+        "templar_longsword"
+      ]
+    },
+    {
+      "definition_id": "TMP_BANNER",
+      "name": "Banner Bearer",
+      "role": "Utility",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Banner Bearer",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Heavy",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "sacred_banner",
+        "zealous"
+      ],
+      "packets": [
+        "templar_longsword",
+        "holy_banner"
+      ]
+    }
+  ]
+}

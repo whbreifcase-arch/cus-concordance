@@ -1,0 +1,365 @@
+{
+  "faction": "The Iron Horde of Mordor",
+  "prefix": "MOR",
+  "cus_version": "0.6",
+  "doctrine": "Drown the line. Cheap Pressure everywhere; get bodies into contact turn one, spend chaff into the Counter, then land the Uruk greatswords and the Troll where the wall has thinned. Weakness: Mordor orcs shatter when a friend falls.",
+  "units": [
+    {
+      "definition_id": "MOR_CAPTAIN",
+      "name": "Uruk Captain",
+      "role": "Pressure",
+      "tempo": ">>>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Man",
+      "archetype": "Uruk Captain",
+      "rank": "III",
+      "base": {
+        "shape": "Circle",
+        "size": "Large",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 5,
+        "armour": "Medium",
+        "nerve": 0,
+        "speed": 7,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader",
+        "champion"
+      ],
+      "packets": [
+        "captain_cleaver",
+        "savage_command"
+      ]
+    },
+    {
+      "definition_id": "MOR_BLACKSHIELD",
+      "name": "Uruk Blackshield",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Uruk Blackshield",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Heavy",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader",
+        "fearless"
+      ],
+      "packets": [
+        "uruk_scimitar"
+      ]
+    },
+    {
+      "definition_id": "MOR_BERSERKER",
+      "name": "Uruk Berserker",
+      "role": "Pressure",
+      "tempo": ">>>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Man",
+      "archetype": "Uruk Berserker",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "zealous"
+      ],
+      "packets": [
+        "uruk_cleaver",
+        "berserk_frenzy"
+      ]
+    },
+    {
+      "definition_id": "MOR_WARRIOR",
+      "name": "Uruk Warrior",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Uruk Warrior",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "zealous"
+      ],
+      "packets": [
+        "uruk_scimitar"
+      ]
+    },
+    {
+      "definition_id": "MOR_PIKEMAN",
+      "name": "Uruk Pikeman",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Uruk Pikeman",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "reach",
+        "zealous"
+      ],
+      "packets": [
+        "uruk_pike"
+      ]
+    },
+    {
+      "definition_id": "MOR_CROSSBOW",
+      "name": "Uruk Crossbow",
+      "role": "Pressure",
+      "tempo": ">",
+      "tool": "Ranged",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Uruk Crossbow",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "zealous"
+      ],
+      "packets": [
+        "uruk_crossbow"
+      ]
+    },
+    {
+      "definition_id": "MOR_ORC",
+      "name": "Mordor Orc",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Mordor Orc",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 1,
+        "armour": "Light",
+        "nerve": 5,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "expendable"
+      ],
+      "packets": [
+        "orc_blade"
+      ]
+    },
+    {
+      "definition_id": "MOR_ARCHER",
+      "name": "Mordor Archer",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Ranged",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Mordor Archer",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 1,
+        "armour": "None",
+        "nerve": 5,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "expendable"
+      ],
+      "packets": [
+        "orc_bow",
+        "skulk"
+      ]
+    },
+    {
+      "definition_id": "MOR_WARG",
+      "name": "Warg Rider",
+      "role": "Pressure",
+      "tempo": ">>>",
+      "tool": "Melee",
+      "temperament": "Ravenous",
+      "creature_type": "Beast",
+      "archetype": "Warg Rider",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": true
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 4,
+        "speed": 12,
+        "max_ap": 2
+      },
+      "traits": [
+        "mounted",
+        "beast"
+      ],
+      "packets": [
+        "warg_bite"
+      ]
+    },
+    {
+      "definition_id": "MOR_TROLL",
+      "name": "Cave Troll",
+      "role": "Pressure",
+      "tempo": ">",
+      "tool": "Melee",
+      "temperament": "Ravenous",
+      "creature_type": "Beast",
+      "archetype": "Cave Troll",
+      "rank": "III",
+      "base": {
+        "shape": "Square",
+        "size": "Large",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 7,
+        "armour": "Medium",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 3
+      },
+      "traits": [
+        "unstoppable",
+        "large",
+        "beast"
+      ],
+      "packets": [
+        "troll_smash"
+      ]
+    },
+    {
+      "definition_id": "MOR_TASKMASTER",
+      "name": "Orc Taskmaster",
+      "role": "Utility",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Taskmaster",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "reach"
+      ],
+      "packets": [
+        "barbed_whip",
+        "drive_them_on"
+      ]
+    },
+    {
+      "definition_id": "MOR_SHAMAN",
+      "name": "Dark Shaman",
+      "role": "Utility",
+      "tempo": ">>",
+      "tool": "Ranged",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Dark Shaman",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "None",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "black_breath",
+        "curse_of_morgul"
+      ]
+    }
+  ]
+}

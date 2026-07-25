@@ -1,0 +1,271 @@
+{
+  "faction": "The Scaled Legion of Cinderscale",
+  "prefix": "LIZ",
+  "cus_version": "0.6",
+  "doctrine": "Where the dragon does not deign to walk, her children march. Cold-blooded discipline: a lizard warlord in scavenged dragon-plate, fire-drakes on the wings, salamanders spitting flame, and a swarming tide of kobolds who fear the whip more than the enemy. They fight like reptiles — patient, then all at once.",
+  "units": [
+    {
+      "definition_id": "LIZ_WARLORD",
+      "name": "Cinderscale Warlord",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Lizard Warlord",
+      "rank": "III",
+      "base": {
+        "shape": "Circle",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Heavy",
+        "nerve": 0,
+        "speed": 6,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader",
+        "champion"
+      ],
+      "packets": [
+        "dragonfang_khopesh",
+        "scale_ward"
+      ]
+    },
+    {
+      "definition_id": "LIZ_DRAKE",
+      "name": "Fire Drake",
+      "role": "Pressure",
+      "tempo": ">>>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Beast",
+      "archetype": "Fire Drake",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Medium",
+        "nerve": 2,
+        "speed": 11,
+        "max_ap": 2
+      },
+      "traits": [
+        "flying",
+        "beast"
+      ],
+      "packets": [
+        "drake_bite"
+      ]
+    },
+    {
+      "definition_id": "LIZ_SALAMANDER",
+      "name": "Salamander",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Ranged",
+      "temperament": "Aggressive",
+      "creature_type": "Beast",
+      "archetype": "Salamander",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "beast"
+      ],
+      "packets": [
+        "salamander_flame"
+      ]
+    },
+    {
+      "definition_id": "LIZ_WARRIOR",
+      "name": "Lizardman Warrior",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Lizardman",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "obsidian_blade"
+      ]
+    },
+    {
+      "definition_id": "LIZ_WYRMLING",
+      "name": "Wyrmling",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Beast",
+      "archetype": "Wyrmling",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 7,
+        "max_ap": 2
+      },
+      "traits": [
+        "beast"
+      ],
+      "packets": [
+        "wyrmling_bite"
+      ]
+    },
+    {
+      "definition_id": "LIZ_SENTINEL",
+      "name": "Dragonscale Sentinel",
+      "role": "Anchor",
+      "tempo": ">",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Construct",
+      "archetype": "Sentinel",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Heavy",
+        "nerve": 0,
+        "speed": 5,
+        "max_ap": 2
+      },
+      "traits": [
+        "fearless",
+        "scaled"
+      ],
+      "packets": [
+        "sentinel_maul"
+      ]
+    },
+    {
+      "definition_id": "LIZ_PRIEST",
+      "name": "Cinder Priest",
+      "role": "Utility",
+      "tempo": ">>",
+      "tool": "Ranged",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Dragon Priest",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "scale_ward",
+        "salamander_flame"
+      ]
+    },
+    {
+      "definition_id": "LIZ_KOBOLD",
+      "name": "Kobold Warrior",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Kobold",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 1,
+        "armour": "Light",
+        "nerve": 5,
+        "speed": 7,
+        "max_ap": 2
+      },
+      "traits": [
+        "expendable"
+      ],
+      "packets": [
+        "kobold_dagger"
+      ]
+    },
+    {
+      "definition_id": "LIZ_SLINGER",
+      "name": "Kobold Slinger",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Ranged",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Slinger",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 1,
+        "armour": "None",
+        "nerve": 5,
+        "speed": 7,
+        "max_ap": 2
+      },
+      "traits": [
+        "expendable"
+      ],
+      "packets": [
+        "kobold_sling",
+        "skulk"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "faction": "The Freeholt Militia",
+  "prefix": "MIL",
+  "cus_version": "0.6",
+  "doctrine": "Ordinary folk with drilled discipline. No monsters, no magic to speak of — a shield line, a hedge of spears, a few bows, and a captain who keeps them from running. The baseline against which every other army is measured.",
+  "units": [
+    {
+      "definition_id": "MIL_CAPTAIN",
+      "name": "Watch Captain",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Watch Captain",
+      "rank": "III",
+      "base": {
+        "shape": "Circle",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Heavy",
+        "nerve": 0,
+        "speed": 6,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader",
+        "champion"
+      ],
+      "packets": [
+        "captain_saber",
+        "hold_the_line"
+      ]
+    },
+    {
+      "definition_id": "MIL_SERGEANT",
+      "name": "Watch Sergeant",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Sergeant",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 2,
+        "speed": 6,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader",
+        "reach"
+      ],
+      "packets": [
+        "watch_halberd"
+      ]
+    },
+    {
+      "definition_id": "MIL_SWORD",
+      "name": "Militia Swordsman",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Swordsman",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "militia_sword"
+      ]
+    },
+    {
+      "definition_id": "MIL_WATCHMAN",
+      "name": "Watchman",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Shieldman",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "shield"
+      ],
+      "packets": [
+        "sword_and_shield"
+      ]
+    },
+    {
+      "definition_id": "MIL_SPEAR",
+      "name": "Militia Spearman",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Spearman",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "reach"
+      ],
+      "packets": [
+        "militia_spear"
+      ]
+    },
+    {
+      "definition_id": "MIL_BOW",
+      "name": "Militia Bowman",
+      "role": "Pressure",
+      "tempo": ">",
+      "tool": "Ranged",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Bowman",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 4,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "militia_bow"
+      ]
+    },
+    {
+      "definition_id": "MIL_LEVY",
+      "name": "Town Levy",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Levy",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 1,
+        "armour": "None",
+        "nerve": 5,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "expendable",
+        "reach"
+      ],
+      "packets": [
+        "pitchfork"
+      ]
+    },
+    {
+      "definition_id": "MIL_PRIEST",
+      "name": "Hedge Priest",
+      "role": "Utility",
+      "tempo": ">>",
+      "tool": "Hybrid",
+      "temperament": "Protective",
+      "creature_type": "Man",
+      "archetype": "Hedge Priest",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "lay_on_hands",
+        "rally_command"
+      ]
+    }
+  ]
+}

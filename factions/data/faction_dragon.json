@@ -1,0 +1,47 @@
+{
+  "faction": "The Dragon (Boss Monster)",
+  "prefix": "DRG",
+  "cus_version": "0.6",
+  "boss": true,
+  "doctrine": "Not an army. A monster. Dragons are solitary, and this one needs no minions — she IS the whole banner. Field her ALONE against a full warband: she flies over your walls, breathes ruin that no shield turns, sweeps three knights flat with her tail, and the very sight of her sends the weak running. Everyone else teams up to bring her down before she eats the map. A boss fight, not a fair fight — but a killable one.",
+  "how_to_field": "Solo. One Dragon versus one full opposing Banner (~300 pts). She is priced as a whole army. Bring friends.",
+  "units": [
+    {
+      "definition_id": "DRG_DRAGON",
+      "name": "The Dragon",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Hybrid",
+      "temperament": "Ravenous",
+      "creature_type": "Beast",
+      "archetype": "Dragon",
+      "rank": "III",
+      "base": {
+        "shape": "Circle",
+        "size": "Large",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 11,
+        "armour": "Medium",
+        "nerve": 0,
+        "speed": 9,
+        "max_ap": 3
+      },
+      "traits": [
+        "champion",
+        "large",
+        "flying",
+        "unstoppable",
+        "scaled",
+        "terror",
+        "regenerating"
+      ],
+      "packets": [
+        "dragon_breath",
+        "dragon_claws",
+        "tail_sweep"
+      ]
+    }
+  ]
+}

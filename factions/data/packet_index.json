@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "cus_version": "0.6",
+    "what": "The packet_index sidecar (A.V, SIGNED). Neutral packet IDs carry NO type; this Definition-layer, stateless, one-owner registry maps each id to retrieval dimensions so tooling can query ('all combat Melee packets') without parsing IDs. Additive: a packet with no entry is still valid.",
+    "fields": "verb (MOVE|ACTION|WAIT), module, tool (Melee|Ranged|Hybrid), targets[], tags[]"
+  },
+  "index": {
+    "templar_longsword":  { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["sword", "guard"] },
+    "templar_greatsword": { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["two_handed", "cleave"] },
+    "sword_and_shield":   { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["shield", "guard", "shove"] },
+    "consecrated_halberd":{ "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["reach", "polearm", "shove"] },
+    "heavy_arbalest":     { "verb": "ACTION", "module": "combat", "tool": "Ranged", "targets": ["agent"], "tags": ["armour_pierce", "no_counter"] },
+    "templar_lance":      { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["mounted", "impact", "shove", "knockdown"] },
+    "sentinel_maul":      { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["heavy", "knockdown"] },
+    "grandmaster_blade":  { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["hero", "cleave", "execute"] },
+    "smite":              { "verb": "ACTION", "module": "combat", "tool": "Hybrid", "targets": ["agent"], "tags": ["holy", "armour_pierce", "terror"] },
+    "lay_on_hands":       { "verb": "ACTION", "module": "combat", "tool": "Hybrid", "targets": ["agent"], "tags": ["heal", "restore"] },
+    "brace":              { "verb": "WAIT",   "module": "combat", "tool": "Melee",  "targets": ["self"], "tags": ["stance", "facing", "front_bonus", "provisional"] },
+    "zeal_bless":         { "verb": "ACTION", "module": "combat", "tool": "Hybrid", "targets": ["area"], "tags": ["morale", "buff"] },
+    "rally_command":      { "verb": "ACTION", "module": "combat", "tool": "Hybrid", "targets": ["area"], "tags": ["rally", "morale"] },
+    "holy_banner":        { "verb": "ACTION", "module": "combat", "tool": "Hybrid", "targets": ["area"], "tags": ["aura", "morale"] },
+
+    "uruk_scimitar":      { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["sword", "shove"] },
+    "uruk_cleaver":       { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["two_handed", "cleave", "frenzy"] },
+    "uruk_pike":          { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["reach", "polearm", "shove"] },
+    "uruk_crossbow":      { "verb": "ACTION", "module": "combat", "tool": "Ranged", "targets": ["agent"], "tags": ["no_counter"] },
+    "orc_blade":          { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["chaff", "shove"] },
+    "orc_bow":            { "verb": "ACTION", "module": "combat", "tool": "Ranged", "targets": ["agent"], "tags": ["volley", "no_counter", "terror"] },
+    "warg_bite":          { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["beast", "impact", "shove", "knockdown"] },
+    "captain_cleaver":    { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["hero", "cleave", "execute"] },
+    "troll_smash":        { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["large", "unstoppable", "knockdown", "cleave", "shove"] },
+    "savage_command":     { "verb": "ACTION", "module": "combat", "tool": "Hybrid", "targets": ["area"], "tags": ["command", "tempo"] },
+    "berserk_frenzy":     { "verb": "WAIT",   "module": "combat", "tool": "Melee",  "targets": ["self"], "tags": ["frenzy", "extra_action"] },
+    "skulk":              { "verb": "WAIT",   "module": "combat", "tool": "Melee",  "targets": ["self"], "tags": ["evasion", "reposition"] },
+    "barbed_whip":        { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["reach", "pull"] },
+    "drive_them_on":      { "verb": "ACTION", "module": "combat", "tool": "Hybrid", "targets": ["agent"], "tags": ["command", "reposition"] },
+    "black_breath":       { "verb": "ACTION", "module": "combat", "tool": "Ranged", "targets": ["agent"], "tags": ["dread", "armour_pierce", "terror"] },
+    "curse_of_morgul":    { "verb": "ACTION", "module": "combat", "tool": "Hybrid", "targets": ["area"], "tags": ["dread", "debuff", "terror"] },
+    "obsidian_blade":     { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["sword", "shove"] },
+    "dragonfang_khopesh": { "verb": "ACTION", "module": "combat", "tool": "Melee",  "targets": ["agent"], "tags": ["hero", "guard"] },
+    "aegis_of_harmony":   { "verb": "ACTION", "module": "combat", "tool": "Hybrid", "targets": ["area"], "tags": ["aura", "guard"] }
+  }
+}

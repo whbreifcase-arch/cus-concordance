@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "cus_version": "0.6",
+    "what": "Traits are referenced passive Definitions (B.14, C, SIGNED; keyword 'trait'). Defined once, referenced by id on a figure, like a PACKET but PASSIVE — they resolve nothing and hold no runtime state (Law 5). A Trait is NOT a PACKET and NOT a size class.",
+    "reference": "{ \"trait_id\": \"reach\" }"
+  },
+  "traits": [
+    { "trait_id": "reach",         "name": "Reach",        "note": "Threatens a 1-2\" band; may strike a figure moving past without base contact; a reach strike suffers no Counter (B.8)." },
+    { "trait_id": "mounted",       "name": "Mounted",      "note": "Elongated base geometry. Keeps its size class but PLOWS as one class larger on the Impact (the lance, B.4)." },
+    { "trait_id": "unstoppable",   "name": "Unstoppable",  "note": "Plows through bodies unchecked; only a wall stops its Push (B.4). The canonical 'monstrous' = a Large figure + this trait, NOT a fourth size class." },
+    { "trait_id": "large",         "name": "Large",        "note": "Size-class marker carried as a trait for tooling; the footprint is the authority (B.1)." },
+    { "trait_id": "beast",         "name": "Beast",        "note": "Creature-Type marker; a Beast Square tests Nerve, a Beast Circle does not (B.10, B.13)." },
+    { "trait_id": "fearless",      "name": "Fearless",     "note": "Never tests Nerve — Saruman bred the fear out / an animated construct feels none (B.10)." },
+    { "trait_id": "zealous",       "name": "Zealous",      "note": "Discipline: ignores the FIRST Steady->Shaken step from a single shock (re-reads it) (B.10)." },
+    { "trait_id": "leader",        "name": "Leader",       "note": "Radiates Rally (6\"): steps nearby allies UP the morale track on its activation. Never breaks." },
+    { "trait_id": "champion",      "name": "Champion",     "note": "The Banner's Champion (A.X). 3 AP, hero profile, anchors the warband's command continuity." },
+    { "trait_id": "consecrated",   "name": "Consecrated",  "note": "Sanctified war-plate: an unstoppable-lite anchor — only a wall halts its advance; never routs." },
+    { "trait_id": "sacred_banner", "name": "Sacred Banner","note": "Carries the Order's banner: allies within 3\" roll an extra Nerve die (keep best 3) and ignore the first Push each round." },
+    { "trait_id": "expendable",    "name": "Expendable",   "note": "Cheap chaff: fragile and numerous. Its fall within 3\" is a shock that tests nearby allies' Nerve (B.10)." },
+    { "trait_id": "flying",        "name": "Flying",       "note": "Moves over walls and terrain unchecked; ignores ground obstacles and engagement when moving over them (B.14)." },
+    { "trait_id": "radiant",       "name": "Radiant",      "note": "Harmony's light: allies within 3\" ignore the first Shaken step, and the bearer never routs." },
+    { "trait_id": "scaled",        "name": "Scaled",       "note": "Thick draconic hide: shrugs the first Wound taken each round (flavour; priced as durability)." },
+    { "trait_id": "terror",        "name": "Terror",       "note": "A monster so dreadful that Squares within 4\" test Nerve when it activates — the weak break at the sight of it (B.10)." },
+    { "trait_id": "regenerating",  "name": "Regenerating", "note": "Knits its wounds: restores 1 Wound at the start of each of its activations while it still lives." },
+    { "trait_id": "shield",        "name": "Shield",       "note": "PROVISIONAL. Gear. As a REACTION you may consume an ACTION packet aimed at a friendly within 1\" — take the hit yourself instead (your Armour saves; no Counter, you weren't the one attacked). Declare it BEFORE the packet resolves, or you miss the window. No cap — your own body is the cap. Works regardless of facing (even while Braced). A shield wall is emergent from presence + facing, not a skill." }
+  ]
+}

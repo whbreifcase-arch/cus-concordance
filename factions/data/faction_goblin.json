@@ -1,0 +1,269 @@
+{
+  "faction": "The Skulk of the Rustfang Goblins",
+  "prefix": "GOB",
+  "cus_version": "0.6",
+  "doctrine": "Cheap, cowardly, and everywhere. Goblins win by numbers, nasty tricks, and stabbing what isn't looking — a warboss to bully them forward, a shaman to hex the enemy's armour, wolves and a spider to hit the flanks. Alone each one runs; in a mob they're a problem.",
+  "units": [
+    {
+      "definition_id": "GOB_BOSS",
+      "name": "Goblin Warboss",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Man",
+      "archetype": "Warboss",
+      "rank": "III",
+      "base": {
+        "shape": "Circle",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Light",
+        "nerve": 0,
+        "speed": 7,
+        "max_ap": 3
+      },
+      "traits": [
+        "leader",
+        "champion"
+      ],
+      "packets": [
+        "boss_cleaver"
+      ]
+    },
+    {
+      "definition_id": "GOB_SHAMAN",
+      "name": "Goblin Shaman",
+      "role": "Utility",
+      "tempo": ">>",
+      "tool": "Ranged",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Shaman",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "None",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "goblin_hex",
+        "goblin_bow"
+      ]
+    },
+    {
+      "definition_id": "GOB_BIGUN",
+      "name": "Goblin Big'Un",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Resolute",
+      "creature_type": "Man",
+      "archetype": "Big'Un",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Medium",
+        "nerve": 3,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [],
+      "packets": [
+        "goblin_shiv"
+      ]
+    },
+    {
+      "definition_id": "GOB_WARRIOR",
+      "name": "Goblin Warrior",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Warrior",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 1,
+        "armour": "Light",
+        "nerve": 4,
+        "speed": 7,
+        "max_ap": 2
+      },
+      "traits": [
+        "expendable"
+      ],
+      "packets": [
+        "goblin_shiv"
+      ]
+    },
+    {
+      "definition_id": "GOB_SPEAR",
+      "name": "Goblin Spearman",
+      "role": "Anchor",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Spearman",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 1,
+        "armour": "Light",
+        "nerve": 4,
+        "speed": 6,
+        "max_ap": 2
+      },
+      "traits": [
+        "reach",
+        "expendable"
+      ],
+      "packets": [
+        "goblin_spear"
+      ]
+    },
+    {
+      "definition_id": "GOB_ARCHER",
+      "name": "Goblin Archer",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Ranged",
+      "temperament": "Cowardly",
+      "creature_type": "Man",
+      "archetype": "Archer",
+      "rank": "I",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 1,
+        "armour": "None",
+        "nerve": 5,
+        "speed": 7,
+        "max_ap": 2
+      },
+      "traits": [
+        "expendable"
+      ],
+      "packets": [
+        "goblin_bow",
+        "skulk"
+      ]
+    },
+    {
+      "definition_id": "GOB_SNEAK",
+      "name": "Goblin Sneak",
+      "role": "Pressure",
+      "tempo": ">>>",
+      "tool": "Melee",
+      "temperament": "Aggressive",
+      "creature_type": "Man",
+      "archetype": "Assassin",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Small",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 1,
+        "armour": "None",
+        "nerve": 2,
+        "speed": 8,
+        "max_ap": 3
+      },
+      "traits": [],
+      "packets": [
+        "sneak_backstab"
+      ]
+    },
+    {
+      "definition_id": "GOB_WOLF",
+      "name": "Wolf Rider",
+      "role": "Pressure",
+      "tempo": ">>>",
+      "tool": "Melee",
+      "temperament": "Ravenous",
+      "creature_type": "Beast",
+      "archetype": "Wolf Rider",
+      "rank": "II",
+      "base": {
+        "shape": "Square",
+        "size": "Medium",
+        "mounted": true
+      },
+      "stats": {
+        "max_wounds": 2,
+        "armour": "Light",
+        "nerve": 4,
+        "speed": 12,
+        "max_ap": 2
+      },
+      "traits": [
+        "mounted",
+        "beast"
+      ],
+      "packets": [
+        "wolf_bite"
+      ]
+    },
+    {
+      "definition_id": "GOB_SPIDER",
+      "name": "Giant Spider",
+      "role": "Pressure",
+      "tempo": ">>",
+      "tool": "Melee",
+      "temperament": "Ravenous",
+      "creature_type": "Beast",
+      "archetype": "Giant Spider",
+      "rank": "III",
+      "base": {
+        "shape": "Square",
+        "size": "Large",
+        "mounted": false
+      },
+      "stats": {
+        "max_wounds": 3,
+        "armour": "Light",
+        "nerve": 2,
+        "speed": 8,
+        "max_ap": 2
+      },
+      "traits": [
+        "beast",
+        "large"
+      ],
+      "packets": [
+        "spider_bite"
+      ]
+    }
+  ]
+}
