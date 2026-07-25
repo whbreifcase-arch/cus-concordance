@@ -28,6 +28,12 @@ Circle = hero / avatar          Square = crew / commandable body
   Nerve, never breaks.
 - **Square** — crew. **Has a facing.** May test Nerve, may break.
 
+> **One Circle per army — SIGNED (William, 2026-07-24).** A Banner fields **exactly one
+> Circle: its Champion.** Every other figure — sergeants, casters, monsters, all — is a
+> **Square.** Only the Champion keeps full agency and is faceless/unbreakable; everyone
+> else trades agency for the Square's mutual protection (facing, Brace, shields — and
+> the risk of being flanked and broken).
+
 ## Size = class  `[Definition]` — SIGNED (William, 2026-07-24)
 **Three classes**, read from the **footprint**. No Monstrous; no Cavalry as a class.
 ```text
@@ -274,8 +280,10 @@ yourself instead.** *"No, I'll take that one over here."*
   it is self-limiting. *(⚠ If ranged feels gutted in play, restrict to melee.)*
 
 ## Brace — a fixed-facing stance  `[WAIT — Square only]`
-**Brace** (a WAIT, **1 AP, ends your activation, lasts until your next activation**)
-**locks your facing** and turns you into a wall in **one direction**:
+**Brace is a universal action — any Square may do it; it is not a special ability and
+is never printed on a card.** (Only the Champion is a Circle, and Circles can't Brace.)
+It is a WAIT — **1 AP, ends your activation, lasts until your next activation** —
+that **locks your facing** and turns you into a wall in **one direction**:
 - **+1 die** attacking into your **front arc**; **enemies attacking your front roll
   −1 die.** A braced front is brutal both ways.
 - **The price: you cannot turn.** Anything striking your **flank or rear gets in free
