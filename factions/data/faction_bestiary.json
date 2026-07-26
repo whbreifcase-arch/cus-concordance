@@ -4,7 +4,7 @@
   "cus_version": "0.6",
   "is_library": true,
   "is_enemy": true,
-  "doctrine": "The things you fight. Run them with the AI Director (see play/AI_DIRECTOR.html): each carries a Temperament that tells it what to do on its activation — no thinking required. Undead are Mindless (shamble at the nearest living thing, never break). Bandits DO break (rout them and win). Beasts hunt. Build an encounter to ~1.5–2× the party's slots; a Boss is a whole encounter by itself.",
+  "doctrine": "The things you fight. Each carries a Temperament (B·10) that tells it what to do on its activation — no thinking required. Undead are Mindless (shamble at the nearest living thing, never break). Bandits DO break (rout them and win). Beasts hunt. Build an encounter to ~1.5–2× the party's slots; a Boss is a whole encounter by itself.",
   "units": [
 
     { "definition_id": "UND_ZOMBIE", "tier": "Undead", "slot": 0.5, "name": "Zombie", "role": "Pressure", "tempo": ">", "tool": "Melee", "temperament": "Ravenous", "creature_type": "Construct", "archetype": "Shambler", "rank": "I",

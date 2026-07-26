@@ -30,15 +30,15 @@ boss fights). Your job: turn the **map and parameters I give you** into a tight,
   - **Depth, shields, and reach (spears) hold ground; open flat ground favours the charger.**
     A charge *with* room is nearly unstoppable head-on — so **room itself is the prize.**
   - Walls/edges cause **Crush**; **elevation** gives high ground advantage.
-- **PvE / co-op** is the default. Enemies are run by the **AI Director**: a force **Mission**
-  (Overrun / Defend / Devour / Raid / Hunt) gives every enemy a **Focus**; each acts by its
-  **Temperament**; a smart **Order** (pick the weakest seam, screen→fix→flank→hammer) is the
-  cunning layer.
+- **PvE / co-op** is the default. Enemies are run from canon: a **Mission** (A·XI) supplies
+  the force's constrained intent — `Intent · Priorities · Focus · Constraints` — and each
+  figure then acts on its **Temperament** (B·10: Cowardly · Resolute · Aggressive ·
+  Protective · Ravenous). Missions are **AI-only** (Law 9); never script a human's figures.
 - **Balance is by SLOT budget, not points.** Party ≈ (Champion 4 + ~6 per squad) slots.
   Field enemies at **×1 easy · ×1.5 fair · ×2 hard**. Costs: chaff ½ · trooper 1 · elite 2 ·
   brute 3–4. A **Boss's slot value IS the encounter** (pad with chaff).
 > If you have access to the repo `github.com/whbreifcase-arch/cus-kernel-rebuild`, read
-> `F_CLASH_RESOLUTION.md`, `F_AI_DIRECTOR.md`, `CHARGE_FINDINGS.md`, and `factions/data/*.json`
+> `F_CLASH_RESOLUTION.md`, `CHARGE_FINDINGS.md`, and `factions/data/*.json`
 > (the unit roster) for the full rules and the exact units. Otherwise use the summary above
 > and name enemies generically (Warrior, Spearman, Shield-Bearer, Skirmisher, Ogre, Boss…).
 
@@ -64,8 +64,8 @@ camp raid · dungeon crawl · boss fight · open clash.**
    enemy's slot cost and the total).
 4. **Objectives beyond "kill everything"**, and **both sides get a win path and a plan** — a
    defender can lose by over-extending; an attacker can lose by charging into a hedge with no room.
-5. **Give the enemy an actual game-plan** via the AI Director (Mission + one Order + per-group
-   Temperament/Focus). Make it *cunning*, not suicidal.
+5. **Give the enemy an actual game-plan** — a Mission (Intent · Priorities · Focus ·
+   Constraints) plus the Temperament each group fights on. Make it *cunning*, not suicidal.
 6. **Respect the clash reality** above when you place forces and objectives (lanes, screens,
    flanks, depth, elevation, room-denial).
 
@@ -78,7 +78,8 @@ camp raid · dungeon crawl · boss fight · open clash.**
 5. **Objectives & victory** — primary + secondary for *each* side; exact win/lose conditions; turn limit.
 6. **Terrain & conditions** — only existing effects (elevation, walls/crush, difficult ground,
    line-of-sight blockers, night, etc.) and what each does.
-7. **Enemy game-plan** — AI Director Mission + Order(s) + how the groups behave by Temperament.
+7. **Enemy game-plan** — the Mission (Intent · Priorities · Focus · Constraints) and how each
+   group behaves on its Temperament.
 8. **Designer's note** — the *central tension*: the one decision the map forces on each player,
    and why it's fun. Name the "clean charge lane" question if there is one.
 

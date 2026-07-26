@@ -16,7 +16,6 @@ wins.** The old codex is now a **migration input, not authority.**
 | **D** | [Migration Map](D_MIGRATION_MAP.md) | Every old term → its new owner or replacement. Nothing valuable is silently deleted. |
 | **E** | [Decision Register](E_OPEN_DECISIONS.md) | The signed record of every ruling and amendment. **Not** a list of open questions — the filename is legacy, kept so links don't break. |
 | **F** | [Continuous Clash Resolution](F_CLASH_RESOLUTION.md) | The governing spec for how a clash/"charge" resolves — increments, reaction order, the 3″ threshold. |
-| **F** | [AI Director](F_AI_DIRECTOR.md) | Mission authoring and AI-side intent. |
 | **G** | [Why Not](G_WHY_NOT.md) | The rationale register. Every place CUS says "X is **not** Y," the argument lives here — so A–C can state rules instead of defending them. |
 
 **Supporting:** [CHARGE_FINDINGS.md](CHARGE_FINDINGS.md) — what ~1.3M simulated

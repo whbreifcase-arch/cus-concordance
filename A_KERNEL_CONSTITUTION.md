@@ -496,7 +496,7 @@ WAIT   · Trigger window· —   · one armed PACKET· resolve the PACKET when i
 ```
 Zoomed in, every resolution has the same morphology —
 `VERB + OBJECT + MODIFIER + RESOLVER + OUTCOME` — and a module supplies its own
-**Resolver** without changing the sentence shape. One AI Director can author
+**Resolver** without changing the sentence shape. A single authoring tool can write
 combat, diplomacy, and trade because it learns one morphology and swaps the
 Resolver.
 
