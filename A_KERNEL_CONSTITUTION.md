@@ -703,6 +703,7 @@ holding a hatred.
 ## Status
 ```text
 COMBAT       BUILT      — Document B, and its clash spine is closed (F)
-PERSISTENCE  PARTIAL    — Document H · HARM is written (§7); the rest is scaffold
+PERSISTENCE  RUNNABLE   — Document H · HARM (§7) + AFTER THE BATTLE (§8) are
+                          playable; storage and the clock are still scaffold
 MEANING      SCAFFOLD   — Document I · under construction, not authority
 ```

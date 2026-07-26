@@ -17,7 +17,7 @@ wins.** The old codex is now a **migration input, not authority.**
 | **E** | [Decision Register](E_OPEN_DECISIONS.md) | The signed record of every ruling and amendment. **Not** a list of open questions — the filename is legacy, kept so links don't break. |
 | **F** | [Continuous Clash Resolution](F_CLASH_RESOLUTION.md) | The governing spec for how a clash/"charge" resolves — increments, reaction order, the 3″ threshold. |
 | **G** | [Why Not](G_WHY_NOT.md) | The rationale register. Every place CUS says "X is **not** Y," the argument lives here — so A–C can state rules instead of defending them. |
-| **H** | [Persistence](H_PERSISTENCE.md) 🚧 | **PARTIAL.** What remains true between events. **§7 HARM is written and playable** — the Aftermath rolls, 36 body injuries, 8 mind injuries, 35 scars. The rest is scaffold. |
+| **H** | [Persistence](H_PERSISTENCE.md) 🚧 | **RUNNABLE.** What remains true between events. **§7 HARM** (Aftermath rolls · 36 body injuries · 8 mind · 39 scars) and **§8 AFTER THE BATTLE** (the 5-line battle result, the sequence, finite care) are written and playable with a pencil. Storage and the clock are still scaffold. |
 | **I** | [Meaning](I_MEANING.md) 🚧 | **SCAFFOLD — not authority.** Standing relationships and what events meant. *Story* is its everyday name. |
 
 ## The three domains — A · XIX

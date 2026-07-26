@@ -4,9 +4,10 @@
 
 > ```text
 > ┌─────────────────────────────────────────────────────────────┐
-> │  §7 HARM is WRITTEN — tables and all.                       │
-> │  Everything else is still a DOOR, not a room.               │
+> │  §7 HARM and §8 AFTER THE BATTLE are WRITTEN and RUNNABLE.  │
+> │  You can play a campaign on them with a pencil.             │
 > │                                                             │
+> │  Everything else is still a DOOR, not a room.               │
 > │  Where this conflicts with A–G, A–G wins.                   │
 > └─────────────────────────────────────────────────────────────┘
 > ```
@@ -75,7 +76,7 @@ A **deliberate architectural commitment, not a fallback.** The analog floor cove
 *playing the game*; it does not extend to *maintaining the campaign*.
 
 Consequence to design against: **a printed QR code cannot be written to.** Whatever
-the payload schema becomes (§8.2), the physical code is fixed at print time.
+the payload schema becomes (§9.2), the physical code is fixed at print time.
 
 ---
 
@@ -395,52 +396,145 @@ that the thing in the barn was not a child. It reads a number and a clause.
 ---
 ---
 
-# 8 · Open work
+# 8 · AFTER THE BATTLE — the procedure
 
-### 8.1 · Balance pass on §7
+> This is the loop the §7 tables hang inside. Without it you have harm rules and
+> nothing that tells you who to roll for.
+
+## 8.1 · The BATTLE RESULT — the analog tier
+
+**This is the contract** (§5). The serialized form (§9.4) will encode *this*, not
+the other way round. Five things, on paper, before anyone packs up:
+
+```text
+1. WHO WENT DOWN    every figure that ended the battle Knocked Out —
+                    and where it hit, if anyone remembers
+2. WHO DIED         killed outright on the field
+3. WHAT IT COST     supplies spent · equipment lost, broken, or taken
+4. DID YOU WIN      objectives held · taken · failed
+5. WHAT HAPPENED    one line for each moment that mattered
+```
+
+Line 5 does double duty: it is the **MIND trigger feed** (§7.6) and it is
+MEANING's raw material (Document I). *"Bram carried Aldous out and Aldous died
+anyway"* is one line, and it is both a mechanic and a story.
+
+## 8.2 · The sequence
+
+```text
+1. WRITE THE BATTLE RESULT                                        (8.1)
+2. AFTERMATH — Care check + injury roll, every figure on line 1   (7.3)
+3. MIND CHECK — Nerve check, every figure a line 5 event hit      (7.3)
+4. TEND — the Caravan spends its care                             (8.3)
+5. ADVANCE THE CLOCK — one period passes                          (8.4)
+6. WRITE IT DOWN — the Caravan sheet                              (9.2)
+```
+
+## 8.3 · TEND — care is finite, and that is the decision
+
+Care is a Caravan ACTION (§3), and there is never enough of it.
+
+```text
+CARE CAPACITY — figures the Caravan may tend each period
+
+  no surgeon             1
+  a field surgeon        2
+  surgeon + facilities   4
+```
+
+**Recovery only advances in a period the figure was tended.** An untended period
+is not a slower period; it is not a period at all.
+
+```text
+UNTENDED  →  recovery counter does not tick
+             once a figure has gone untended for as many periods as the
+             injury's recovery cost, it converts to its NEGLECTED outcome
+```
+
+So a 1-period injury goes bad almost immediately if ignored, and a 4-period one
+gives you time to get to it. The table scales itself.
+
+> **You have four wounded and two hands.** That is the between-battle game: not
+> *whether* people recover, but **who you choose.** The man you leave until next
+> period is the man who ends up with the scar, and everyone at the table will know
+> you chose him.
+
+**MIND injuries are tended too** — but by a *person*, not the surgeon (§7.8). A
+figure who spends the period beside him counts as tending him, and cannot tend
+anyone else.
+
+## 8.4 · The clock — placeholder
+
+```text
+ONE BATTLE = ONE PERIOD
+```
+
+A deliberate stub until the real clock lands (§9.3). It is enough to run a
+campaign: injuries tick, neglect bites, scars accumulate. What it cannot yet do is
+let time pass *without* a battle — no travel, no seasons, no waiting somewhere
+safe to heal.
+
+## 8.5 · What the app does with all this
+
+Nothing above needs a screen. The app (§4) reads the sheet afterwards and keeps the
+ledger: recovery counters, scar lists, who is fit, who is in the wagon, and the
+history that MEANING will want later.
+
+**If the app is not open, the campaign still runs.** That is the test §8.1 exists
+to pass.
+
+---
+
+# 9 · Open work
+
+### 9.1 · Balance pass on §7
 The tables are written and coherent; they are **not** costed. Scars that grant
 `+1 Reaction` or `immune to Terror` need checking against `factions/sim/balance.py`
 before anyone builds a veteran deliberately.
 
-### 8.2 · The QR payload schema
+### 9.2 · The QR payload schema
 What is on the code, what is referenced, versioning. See the §4 constraint.
 
-### 8.3 · The campaign clock
+### 9.3 · The campaign clock
 **Deliberately low-res for now.** §7 counts recovery in *periods*; a period is
 currently "the gap between battles." When the clock opens: seasons, travel time,
 and what rivals do while you are elsewhere. Time is already a Kernel Resource
 (A · IV) and nothing spends it.
 
-### 8.4 · The combat output schema
-Analog tier first (§5), then the serialized form. §7.3 needs to know who ended the
-battle Knocked Out and, ideally, where they were hit.
+### 9.4 · The combat output schema
+**The analog tier is written (§8.1).** What remains is serializing it — the JSON
+form of the five lines, plus actor/target references on line 5 so MEANING can key
+events to figures rather than to prose.
 
-### 8.5 · Advancement
+### 9.5 · Advancement
 Experience, what it buys, whether it can be lost — and how it interacts with scars.
 A veteran should be a ledger of both.
 
-### 8.6 · Ruin
+### 9.6 · Ruin
 What happens when the Caravan is destroyed. There is advancement and harm here, and
 still no way to lose the whole thing.
 
-### 8.7 · Whose persistence?
+### 9.7 · Whose persistence?
 Do rival factions carry injuries and scars between sessions? A world where a beaten
 warband is weaker next time is a very different game from one where it is not.
 
 ---
 
-# 9 · Module contract status  (A · XVII)
+# 10 · Module contract status  (A · XVII)
 
 ```text
 1. cites the Constitution and Dictionary          ✅
-2. translates MOVE · ACTION · WAIT                ⚠  drafted, §3, unproven
-3. owns its Procedures                            ✅  HARM (§7) — the Aftermath,
-                                                     injuries, scars, care
-4. stores facts, computes judgments               ⚠  §7 defines the records;
+2. translates MOVE · ACTION · WAIT                ✅  §3 — and TEND (§8.3) is the
+                                                     first real ACTION written
+3. owns its Procedures                            ✅  HARM (§7) and AFTER THE
+                                                     BATTLE (§8)
+4. stores facts, computes judgments               ⚠  §8.1 is the analog record;
                                                      no serialization schema yet
 5. reduces every mechanic to a primitive          ✅  §7.9 — every effect is a
                                                      State or Resource the
                                                      resolver already reads
 ```
 
-**This module is no longer only a door.** One room is furnished.
+**Four of five discharged. Persistence is a working module** — you can run a
+campaign out of §7 and §8 with a pencil today. What is missing is storage, not
+rules.
