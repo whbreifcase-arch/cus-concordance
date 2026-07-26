@@ -185,6 +185,73 @@ both spend REACTION to resolve
 
 Reaction is what unifies them — not a pretence that everything was armed.
 
+### three-verbs-is-not-three-invocations
+**Tempting.** The Kernel has exactly three verbs, so every PACKET resolution must
+begin with MOVE, ACTION or WAIT. A Counter has no verb, therefore either it's
+secretly a WAIT or we need a fourth verb.
+
+**Why not.** Both answers are wrong. Calling it a WAIT means arming is meaningless
+(see `G·wait-is-not-a-written-trigger`). Adding a fourth verb hands the player a
+choice they never make — nobody *decides* to Counter; the clause fires.
+
+**Instead.** Separate **verb** from **invocation**. The player's menu stays at
+three; the engine gets an honest fifth column:
+
+```text
+INVOCATION = MOVE | ACTION | WAIT | WRITTEN_TRIGGER | OWNED_PROCEDURE
+```
+
+Impact, Counter, Shield Intercept, a fall, Nerve — all reach the resolver through
+the last two. Three verbs, five invocations, no lying.
+
+### support-units-are-not-defenceless
+**Tempting.** If a Counter lives on the weapon PACKET, a figure whose only packets
+are HEAL, COMMAND or BLESSING has no counter clause — so wizards and healers simply
+cannot fight back. Elegant! Ship it.
+
+**Why not.** It was elegant, and it was also a figure standing in a melee with no
+legal response, forever. That is not a vulnerability, it is a hole in the rules
+wearing a vulnerability's coat. It also fractures the Reaction economy: suddenly
+"every triggered PACKET costs 1 Reaction" needs an asterisk for people who have none.
+
+**Instead.** **Fists are standard equipment** — every figure carries a weak melee
+packet with a counter trigger. The shape of the finding survives (a caster in melee
+is in serious trouble) without the degenerate case (a caster in melee is furniture).
+The floor is never zero; it is just very low.
+
+**And it buys something.** A caster out of mana isn't finished, he's *downgraded* —
+mana-out becomes a state with a path through it rather than a dead end. You talk
+with your fists.
+
+### morale-is-not-attrition
+**Tempting.** The morale track only tests on shock and only Rally reliably walks a
+figure back up, so a Shaken unit can never recover on its own. That's a missing
+recovery rule.
+
+**Why not.** It's a ratchet on purpose. If units drifted back to Steady on their
+own, breaking an enemy would be a temporary inconvenience and the only reliable way
+to remove a figure would be to kill it — which is attrition, which is the game CUS
+is deliberately not.
+
+**Instead.** **Pressure beats attrition.** A broken enemy costs you nothing further;
+a dead one cost you every wound you had to land. The leader is the recovery valve,
+which is what makes decapitation a *strategy* rather than a stat-check — and gives
+the Protective temperament something real to protect.
+
+### form-up-is-not-free
+**Tempting.** Form Up lets a whole squad move and fight for 1 AP each. That has to be
+strictly better than activating normally, so everyone will do it every round.
+
+**Why not.** It costs the thing the AP total doesn't show: **the initiative.** Every
+joiner is marked activated, so forming up eight figures burns eight activations in a
+single beat of alternation — and the opponent, having spent one, takes the next seven
+in a row against a line that has already committed and declared.
+
+**Instead.** Read Form Up as a **round-level** commitment, not a figure-level
+discount. One coordinated blow, paid for with the tempo to answer what comes back.
+Empty your side early against someone still holding theirs and you get pushed off the
+table.
+
 ### counter-is-not-an-attack
 **Tempting.** A Counter is an attack, so it should draw a Counter of its own.
 

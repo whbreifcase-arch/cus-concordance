@@ -500,6 +500,31 @@ Zoomed in, every resolution has the same morphology —
 combat, diplomacy, and trade because it learns one morphology and swaps the
 Resolver.
 
+## Verb vs. Invocation — SIGNED (William, 2026-07-25)
+The three verbs are what a **player** may choose. They are not the only way a PACKET
+gets resolved: a Counter fires from a written trigger, an Impact fires from the
+collision a MOVE created, a Shield Intercept fires from a trait. None of those began
+with a player choosing a verb, so the grammar needs one more slot — **not** a fourth
+verb.
+
+```text
+INVOCATION = MOVE | ACTION | WAIT | WRITTEN_TRIGGER | OWNED_PROCEDURE
+             └──── the player's three ────┘  └── the engine's two ──┘
+
+RESOLUTION = INVOCATION + TARGET + AREA + CONSTRAINTS + RESOLVER + EFFECTS
+```
+
+- **MOVE · ACTION · WAIT** — chosen by a player, paid in **Agency**.
+- **WRITTEN_TRIGGER** — a clause inside a PACKET fires on its condition; paid in
+  **Reaction** (Ch. IV).
+- **OWNED_PROCEDURE** — a module's own procedure invokes a PACKET as part of
+  resolving something else: Impact, Nerve, a fall, aftermath. Paid by whatever that
+  procedure says, often nothing.
+
+**The player still has exactly three verbs.** What the Kernel gains is an honest
+account of how everything else reaches the resolver, instead of pretending a
+Counter was somehow a WAIT. `→ G·three-verbs-is-not-three-invocations`
+
 ---
 
 # XV · Architectural laws

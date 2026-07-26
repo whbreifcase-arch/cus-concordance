@@ -58,6 +58,24 @@ wounds               → Wounds is a NUMBER (1–2 standard, a knob). Fine/Hurt 
                        Knocked Out and Dead are the two real States
 circle-scope         → one Circle per BANNER (its Champion); an Army holds one per
                        Banner, not one in total
+
+── second batch ──
+fists-standard       → every figure carries Fists. The Counter is universal; the only
+                       gate is Reaction
+reach-constraint     → Reach = `not_in_contact`: strikes to X", illegal while bases
+                       touch. In contact you swing Fists
+ranged-in-melee      → ranged carries `not_in_contact` BY DEFAULT; exceptions are
+                       authored and priced
+simultaneous-death   → both lethal? both die. No tiebreak
+finish-the-downed    → a Knocked Out figure that is hit is killed, and rolls no Armour
+morale-ratchet       → breaking beats killing; Rally is the only reliable valve
+form-up              → SERGEANT-ONLY group MOVE: friendlies within 4", each pays 1 AP
+                       and is ACTIVATED, all MOVE at once, strikes declared before
+                       contact, you hit only what your base moves into. Reaction untouched
+move-stays-move      → the "Advance" alias is retired; MOVE is MOVE
+invocation-layer     → 3 player verbs, 5 invocations (+ WRITTEN_TRIGGER, OWNED_PROCEDURE)
+round-boundaries     → START OF ROUND defined; refresh stays on activation
+kill-ai-director     → F_AI_DIRECTOR and its SLOT/Boss budget deleted, nothing salvaged
 ```
 
 **CUS v0.6 is closed** — every decision is signed and **no open questions remain.**

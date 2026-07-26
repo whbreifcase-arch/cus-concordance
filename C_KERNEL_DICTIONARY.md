@@ -61,8 +61,20 @@ implements the resources it needs. `→ G·position-is-not-a-resource`
 ### MOVE
 The verb that **changes Position now**. Acts on the acting entity; writes directly
 to Position. **Owner:** Kernel. **Consumes:** Agency. **Creates:** a Position
-change. **Aliases:** Advance · Sprint · Leap · Teleport · Withdraw · Sail ·
-Approach.
+change. **Aliases:** Sprint · Leap · Teleport · Withdraw · Sail · Approach — these
+name *kinds* of MOVE. **Combat does not rename MOVE** (SIGNED William 2026-07-25;
+the old *Advance* alias is retired — see [Document D](D_MIGRATION_MAP.md)).
+
+### Invocation
+**How a PACKET reaches the resolver.** Broader than *verb*: the player has three
+verbs, the engine has five invocations (SIGNED William 2026-07-25, A · XIV).
+```text
+MOVE | ACTION | WAIT | WRITTEN_TRIGGER | OWNED_PROCEDURE
+```
+The first three are chosen by a player and paid in **Agency**; `WRITTEN_TRIGGER` is
+paid in **Reaction**; `OWNED_PROCEDURE` (Impact, Nerve, a fall, aftermath) is paid
+by whatever the procedure says. **Owner:** Kernel.
+`→ G·three-verbs-is-not-three-invocations`
 
 ### ACTION
 The verb that **resolves a PACKET now** against a valid target. **Owner:** Kernel.
@@ -290,9 +302,43 @@ bases along its trajectory: `Push → Indent → Crush`. **Writes:** Position.
 One melee PACKET returned by a figure struck **in melee base contact.** A
 **Written Trigger** carried by the weapon or condition — **not a WAIT**, since no
 AP was spent arming it (SIGNED, William 2026-07-25). **Consumes:** 1 Reaction.
-No artificial cap — the figure Counters every attacker and even as it dies, but
-only while Reaction remains. A Counter does not itself draw a Counter. Ranged
-never draws one. **Owner:** Combat (B · 9).
+**Universal in practice** — every figure carries **Fists**, so every figure always
+has a legal Counter; the only thing that stops one is an empty Reaction pool. No
+artificial cap: a figure Counters every attacker and even as it dies. A Counter does
+not itself draw a Counter. Ranged never draws one. If both the ACTION and the
+Counter are lethal, **both figures die.** **Owner:** Combat (B · 9).
+
+### Fists
+**Standard equipment on every figure** (SIGNED William 2026-07-25). A weak melee
+PACKET, never printed on a card, never bought, never lost, always legal in base
+contact — and it carries the **Counter** trigger like any other weapon. Fists are
+why "strike a figure in contact and it Counters" holds without exception, and why a
+spearman in contact (§8) or a caster out of mana is downgraded rather than helpless.
+**Owner:** Combat (B · 5). `→ G·support-units-are-not-defenceless`
+
+### not_in_contact
+A **packet constraint**: this PACKET cannot be resolved while the bases are touching
+(SIGNED William 2026-07-25). Carried **by definition** by Reach packets and **by
+default** by ranged packets; a ranged packet that omits it (wrist crossbow, hand
+flamer, point-blank spell) is claiming a real, priced advantage. Reusable by any
+packet. **Owner:** Combat (B · 5, B · 8).
+
+### Reach
+A **trait and/or packet property**: strikes out to a stated **X″** but carries
+`not_in_contact` — so it works on a figure moving past and is illegal once bases
+touch. A Reach strike from outside contact **creates no engagement and draws no
+Counter**, and costs **1 Reaction** when it fires on someone else's activation.
+**Owner:** Combat (B · 8). `→ G·reach-is-not-a-role`
+
+### Form Up
+The **Sergeant's group-MOVE procedure** (SIGNED William 2026-07-25). The Sergeant
+names unactivated friendlies **within 4″**, places them in a shape, and every
+participant spends **1 AP** and is **marked activated**; they then MOVE as one body,
+declaring all strikes and Shoves **before contact**. The 1 AP covers the MOVE, the
+attacks and the Shoves — **but never the Reaction pool**, which stays intact.
+A figure may only strike what **its own base moves into** (Reach excepted).
+**Circles cannot call or join one.** **Owner:** Combat (B · 11).
+`→ G·form-up-is-not-free`
 
 ### Shield Intercept
 A Written Trigger on the **Shield** trait: spend **1 Reaction** to consume an
@@ -335,4 +381,7 @@ subtracts 1. Where the old `Fine → Hurt → KO → Dead` track went:
 ### Knocked Out · Dead
 The two genuine **States** a figure enters at `wounds_remaining = 0`. Which one is
 decided by the Effect that felled it and its Creature Type (B · 7, B · 13). They
-change what a figure *can do*. `→ G·wounds-are-not-a-track` **Owner:** Combat.
+change what a figure *can do*. **A Knocked Out figure that is hit is killed and
+rolls no Armour** (SIGNED William 2026-07-25) — armour protects the standing only.
+A downed body still occupies its base and participates in the Push cascade.
+`→ G·wounds-are-not-a-track` **Owner:** Combat.

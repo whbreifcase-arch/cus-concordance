@@ -18,6 +18,8 @@
 | Old | New treatment |
 |---|---|
 | MOVE / ATTACK / USE / READY | **MOVE / ACTION / WAIT** |
+| Advance (as combat's rename of MOVE) | **Retired** (SIGNED 2026-07-25). **MOVE stays MOVE** in combat — re-skinning the most-used verb bought nothing. *Sprint · Leap · Withdraw* remain as names for *kinds* of MOVE |
+| Formations "Advance / Reform" | **MOVE / Reform.** Group movement is now the Sergeant's **Form Up** procedure (B · 11) |
 | ATTACK (primitive) | **ACTION** resolving a PACKET |
 | USE (primitive) | **ACTION** resolving a PACKET |
 | READY (primitive) | **WAIT** arming a PACKET |
@@ -31,10 +33,11 @@
 | Attack Packet | **PACKET** |
 | Ability Packet | **PACKET** |
 | Weapon Packet | **PACKET** |
-| Reactive Packet | **PACKET** (armed by WAIT) |
+| Reactive Packet — *prepared* (the player armed it) | **PACKET armed by WAIT.** 1 AP to arm, 1 Reaction to fire (Overwatch, Brace) |
+| Reactive Packet — *innate* (it just fires) | **PACKET with a Written Trigger clause.** No AP, 1 Reaction to fire (Counter, Shield Intercept, Reach strike) |
 | Passive Packet | **Not a PACKET.** A **Trait** — referenced passive Definition (SIGNED) |
 | Typed IDs `ATK_07 · ABIL_04 · REACT_02 · PASSIVE_09` | **Neutral IDs** (`spear_thrust`) + a separate `packet_index` sidecar for classification (SIGNED) |
-| Reactive Packet as a *type* | **Retired.** A reaction is a **Written Trigger** clause inside an ordinary PACKET (SIGNED 2026-07-25, A · III) |
+| "Reactive Packet" as a packet **type** | **Retired.** There is no reactive *kind* of PACKET — there is an ordinary PACKET that is either armed (WAIT) or carries a Written Trigger (SIGNED 2026-07-25, A · III) |
 | Harmful / beneficial tag | **Do not add.** Target + context decide |
 | "The Tiers are the weapon" | The PACKET's **Grades and Effects** define its resolution |
 
@@ -100,6 +103,10 @@
 | Reactions / `counter_x` economies | **Retired.** **Reaction** is a Kernel Resource (SIGNED 2026-07-25, A · IV): 1 per figure, 2 per Circle. Every triggered PACKET costs 1. No per-effect limiters |
 | Counter as a READY/WAIT | **Retired.** A Counter is a **Written Trigger** inside the weapon/condition PACKET — no AP, costs 1 Reaction (SIGNED 2026-07-25, B · 9) |
 | Charge (as a distance/action) | **Sprint + the 3″ threshold** (SIGNED 2026-07-25, B · 3): 3″ uninterrupted run-up into contact *is* the charge. Threshold, not a budget |
+| Reach as a measured band / dead zone | **`not_in_contact` packet constraint** (SIGNED 2026-07-25, B · 8): strikes to X″, illegal while bases touch. In contact the figure swings **Fists** |
+| "Shoot into melee freely" | **Ranged carries `not_in_contact` BY DEFAULT** (SIGNED 2026-07-25, B · 5). Exceptions (wrist crossbow, hand flamer, point-blank spell) are **authored**, and are a priced advantage |
+| Unarmed / no-weapon figures | **Fists are standard equipment** (SIGNED 2026-07-25, B · 5) — every figure, never printed, carries the Counter trigger |
+| "Shield Wall" / "Form Up" as a skill | **Form Up is a universal Sergeant procedure** (SIGNED 2026-07-25, B · 11), never a purchased ability. A shield wall remains emergent geometry |
 | Armour `None/Light/Medium/Heavy = —/6+/5+/4+` | **Kept** (B · 7), Combat fact — **not** a Kernel primitive |
 | Alternation | **Kept** (B · 12), "attention management" |
 | Formations descriptive | **Kept** (B · 11) |

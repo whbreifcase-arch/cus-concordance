@@ -34,9 +34,10 @@ boss fights). Your job: turn the **map and parameters I give you** into a tight,
   the force's constrained intent — `Intent · Priorities · Focus · Constraints` — and each
   figure then acts on its **Temperament** (B·10: Cowardly · Resolute · Aggressive ·
   Protective · Ravenous). Missions are **AI-only** (Law 9); never script a human's figures.
-- **Balance is by SLOT budget, not points.** Party ≈ (Champion 4 + ~6 per squad) slots.
-  Field enemies at **×1 easy · ×1.5 fair · ×2 hard**. Costs: chaff ½ · trooper 1 · elite 2 ·
-  brute 3–4. A **Boss's slot value IS the encounter** (pad with chaff).
+- **Balance is by POINTS.** Every unit has an auditable price from the pricing model
+  (`factions/sim/balance.py`) — expected per-ACTION output over its Grades, plus
+  durability, mobility, command and traits. Field enemies at **×1 easy · ×1.5 fair ·
+  ×2 hard** against the players' total.
 > If you have access to the repo `github.com/whbreifcase-arch/cus-kernel-rebuild`, read
 > `F_CLASH_RESOLUTION.md`, `CHARGE_FINDINGS.md`, and `factions/data/*.json`
 > (the unit roster) for the full rules and the exact units. Otherwise use the summary above
@@ -44,7 +45,7 @@ boss fights). Your job: turn the **map and parameters I give you** into a tight,
 
 ## The scenario grammar (build with these, not new rules)
 A scenario = **GEOMETRY** (what the map forces) + **OBJECTIVE** (why they fight) +
-**INITIATIVE** (who acts/deploys first, reserves, ambush) + **FORCES** (slot-budgeted).
+**INITIATIVE** (who acts/deploys first, reserves, ambush) + **FORCES** (points-budgeted).
 Archetypes you can target: **smash-and-grab · hold/tower defense · city/siege defense ·
 camp raid · dungeon crawl · boss fight · open clash.**
 
@@ -52,7 +53,7 @@ camp raid · dungeon crawl · boss fight · open clash.**
 - **MAP:** [paste an ASCII grid, or attach an image, or describe it — mark walls, cover,
   elevation, doors/chokepoints, and any objective spots you already have in mind]
 - **ENCOUNTER TYPE:** [grab / raid / hold / crawl / boss / open — or "you pick what the map suggests"]
-- **THE PLAYERS' FORCE:** [list your warband, OR just a slot budget like "≈16 slots: 1 Champion + 2 squads"]
+- **THE PLAYERS' FORCE:** [list your warband, OR just a points budget like "≈380 pts: 1 Champion + 2 squads"]
 - **DIFFICULTY & THEME:** [fair ×1.5 / hard ×2 · plus any story flavour, e.g. "undead ambush at a broken bridge"]
 
 ## HARD CONSTRAINTS
@@ -60,8 +61,8 @@ camp raid · dungeon crawl · boss fight · open clash.**
 2. **Make the map matter.** Point to *specific* features and what they do tactically — the
    one clean charge lane, the chokepoint that negates cavalry, the high ground, the flank
    route, the cover that screens an approach. If the map has no tension, add terrain until it does.
-3. **Balance by slots**, show the math (party budget × difficulty = enemy budget; list each
-   enemy's slot cost and the total).
+3. **Balance by points**, show the math (party total × difficulty = enemy budget; list each
+   enemy's cost and the total).
 4. **Objectives beyond "kill everything"**, and **both sides get a win path and a plan** — a
    defender can lose by over-extending; an attacker can lose by charging into a hedge with no room.
 5. **Give the enemy an actual game-plan** — a Mission (Intent · Priorities · Focus ·
@@ -73,7 +74,7 @@ camp raid · dungeon crawl · boss fight · open clash.**
 1. **Title & premise** — one vivid paragraph.
 2. **Annotated map** — redraw/label it: deploy zones (Players ▲ / Enemy ▼), entry edges,
    cover, elevation, chokepoints, walls (crush), objective markers.
-3. **Forces** — Players (from my force) and Enemies (each with slot cost; total vs budget × difficulty).
+3. **Forces** — Players (from my force) and Enemies (each with its points cost; total vs budget × difficulty).
 4. **Deployment & initiative** — who sets up where, who activates first, any reserves/ambush/reinforcement timing.
 5. **Objectives & victory** — primary + secondary for *each* side; exact win/lose conditions; turn limit.
 6. **Terrain & conditions** — only existing effects (elevation, walls/crush, difficult ground,

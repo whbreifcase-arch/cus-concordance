@@ -13,9 +13,12 @@
 > writes, in brackets: `[Position]`, `[PACKET→Grade]`, `[Agency]`, `[State]`.
 > If a mechanic can't cite one, it doesn't belong here (Law 14).
 >
-> **Translation.** Combat renames the three verbs:
-> `MOVE→Advance · ACTION→Strike/Interact/Cast · WAIT→Brace/Overwatch`. The player
-> reads the flavour; the system reads MOVE · ACTION · WAIT.
+> **Translation.** Combat renames two of the three verbs:
+> `ACTION→Strike/Interact/Cast · WAIT→Brace/Overwatch`.
+> **MOVE stays MOVE** — SIGNED (William, 2026-07-25). The old *Advance* alias is
+> retired: re-skinning the most-used verb in the game bought nothing and made
+> every movement rule read twice. Sprint, Leap and Withdraw survive as flavour for
+> *kinds* of MOVE, not as a rename of the verb itself.
 
 ---
 
@@ -74,9 +77,9 @@ A Melee figure may be Pressure, Anchor, or Utility. `→ G·tool-does-not-set-pu
 
 # 2 · Movement  `[writes Position]`
 
-Advance is combat's MOVE: choose a legal destination or trajectory, pay Agency,
-change Position. Movement carries the usual domain aliases (Advance, Sprint,
-Leap, Withdraw) — all MOVE.
+**MOVE is MOVE.** Choose a legal destination or trajectory, pay Agency, change
+Position. *Sprint · Leap · Withdraw* name **kinds** of MOVE — they are not
+separate verbs and not a rename.
 
 - **Obstacles are paid inline** as part of one continuous MOVE (no
   stop-spend-move). Climbing/vaulting costs extra Agency per story `[Agency]`.
@@ -194,6 +197,39 @@ declare target        [Position: legality]
 > as a complete result; if an Effect should appear at several Grades, print it on
 > each. No accumulation, no "best-Wound-plus-every-passed-Effect."
 
+## Fists — standard equipment — SIGNED (William, 2026-07-25)
+**Every figure carries `fists`.** It is not printed on a card, not bought, and never
+lost. It is a real melee PACKET — weak, always legal in contact, and carrying the
+Counter trigger like any other weapon.
+
+```json
+"fists": { "dice": 1, "success": 5, "grades": { "1": "1 Wound" },
+           "trigger": { "on": "struck_in_melee_contact", "cost": "1 Reaction" } }
+```
+
+The point is that **the floor is never zero.** A caster out of mana, a spearman with
+an enemy on his base, a shieldman who dropped his shield — none of them are helpless
+statues. They are in the fight, badly.
+
+> **This is what makes the Counter universal.** Because every figure always holds a
+> packet with a counter trigger, "strike a figure in contact and it Counters" is
+> true without exception. The only thing that stops a Counter is an empty **Reaction**
+> pool (§9, §12). `→ G·support-units-are-not-defenceless`
+
+## `not_in_contact` — the standing constraint — SIGNED (William, 2026-07-25)
+A packet may declare that it **cannot be resolved while bases are touching.** It is
+the one constraint that keeps long weapons and shooting honest:
+
+```text
+Reach weapons  — not_in_contact by definition (§8)
+Ranged weapons — not_in_contact BY DEFAULT
+```
+
+**Most ranged packets carry it.** You do not shoot a bow with a man on your base;
+you drop it and swing. **Exceptions are authored, not assumed** — a wrist crossbow,
+a hand-flamer, a spell cast at point blank may omit the constraint, and that omission
+is a real, priced advantage. If a ranged packet is silent, it has the constraint.
+
 ---
 
 # 6 · Success Grades in combat
@@ -254,6 +290,22 @@ and subtracts what survives — so a 2-Wound figure drops to a clean Grade that 
 3-Wound figure walks away from. That is the whole interaction; there is no track
 to step down.
 
+## Finishing the downed — SIGNED (William, 2026-07-25)
+**A Knocked Out figure that is hit is killed. It rolls no Armour.**
+
+Armour protects the standing and nothing else. A body on the ground is not a
+defender, it is a task — and the task costs somebody an activation.
+
+- The field does not go quiet when the line breaks. Someone has to **walk the field
+  and finish people**, and every one of those is AP not spent winning.
+- Heavy 4+ buys you nothing once you're down, so **the armour arms race has a
+  ceiling** — you cannot armour your way out of being dropped.
+- Whether your Champion is finished in the minute after he falls is the stake that
+  **carries between games.** This is the hinge the campaign layer hangs on.
+
+*(A downed body is still a body: it occupies its base and participates in the
+Push → Indent → Crush cascade (§4). A field of the fallen fouls the next charge lane.)*
+
 ---
 
 # 8 · Engagement & facing  `[Position]` — SIGNED (William, 2026-07-24)
@@ -276,10 +328,30 @@ no Counter. A **Circle**, being faceless, always Counters regardless of angle.
 
 Leaving an engagement costs a **Disengage — 1 AP.**
 
-**Reach is the exception to base-contact.** A Reach figure threatens a **1–2″ band**
-and may strike a figure that tries to move past within that reach **without base
-contact** — so you can't just walk by a spearman. A Reach strike from outside contact
-is not engagement and draws **no Counter** (§9).
+## Reach — the `not_in_contact` constraint — SIGNED (William, 2026-07-25)
+A Reach packet strikes out to its stated **X″** and **cannot be resolved while the
+bases are touching.** That is the whole rule: not a measured dead-zone band, but a
+**packet constraint** — the same shape as range, LoS or cost.
+
+```json
+"spear_thrust": { "reach": 2, "constraints": ["not_in_contact"] }
+```
+
+- **Outside contact, inside X″** → the spear works. You cannot simply walk past a
+  spearman.
+- **Bases touching** → that packet is illegal. The spearman is holding a weapon he
+  cannot use at this distance, so he swings **Fists** (§5) like anyone else.
+- A Reach strike from outside contact **is not engagement** and draws **no Counter**
+  (§9) — the reach striker is not glued to anything.
+- It **costs 1 Reaction** (§12) when it fires on someone else's activation, like
+  every other triggered PACKET.
+
+> **This is why depth wins.** A rank-2 spearman is touching nobody, so his spear is
+> always legal; a front-rank spearman in contact is punching. Spear lines need a
+> front rank — which is exactly what the sim measured, and now it falls out of one
+> constraint instead of a special case.
+
+`not_in_contact` is **reusable** — any packet may carry it (see §5, ranged).
 
 ---
 
@@ -290,6 +362,11 @@ Strike a figure in melee contact and it **Counters** — one melee PACKET back �
 gets its swing** and is pulled into engagement with its attacker: the first
 attacker on an open figure eats the Counter.
 
+**This is universal, and it has exactly one condition: Reaction.** Because every
+figure carries **Fists** (§5) and Fists carry the counter trigger, no figure is ever
+without a legal Counter. Read every "it Counters" below as *"it Counters if it has
+Reaction left."* Nothing else gates it.
+
 ## A Counter is authored, not armed — SIGNED (William, 2026-07-25)
 A Counter is a **Written Trigger** — a trigger clause carried inside a PACKET. The
 weapon, or the condition, holds the wording that permits a counter-attack:
@@ -298,10 +375,12 @@ weapon, or the condition, holds the wording that permits a counter-attack:
   "trigger": { "on": "struck_in_melee_contact", "cost": "1 Reaction" }
 }
 ```
-If a figure's weapons and conditions carry no such clause, it does not Counter.
-The Counter is a property of what you are holding and what state you are in — not
-a universal reflex bolted onto every figure. This is why the Kernel needs no
-`counter_x` economy (Document A · III, IV).
+The Counter is a property of **what you are holding** — not a universal reflex
+bolted onto the figure. In practice every figure always has one, because **Fists**
+are standard (§5); what varies is how badly it hurts. A caster who Counters with
+fists and a knight who Counters with a longsword are running the same rule.
+
+This is why the Kernel needs no `counter_x` economy (Document A · III, IV).
 
 ## It costs a Reaction — SIGNED (William, 2026-07-25)
 **Every Counter spends one Reaction** (§12). That, and death, are the only limits:
@@ -317,6 +396,15 @@ and kills you; your body is shoved off; that figure is now free, **but has no
 Reaction left this round** and will not Counter the next attacker who steps up.
 
 **Ranged never draws a Counter** (§8): no contact, no engagement, no trigger.
+
+## Simultaneous death — both die — SIGNED (William, 2026-07-25)
+If your ACTION kills the target and its Counter kills you, **both figures die.**
+There is no initiative tiebreak, no "attacker resolves first," no survivor.
+
+The dying swing lands because it was already thrown. Trading your life to take
+someone with you is a legal, sometimes correct play — and a fresh enemy is more
+dangerous to kill than a spent one, because a spent one has no Reaction to swing
+with.
 
 The other ways to deny a Counter are positional:
 - **Free target** → **Counters**, turns to face, becomes engaged with you. *(No, you
@@ -434,6 +522,17 @@ in threes).
 ```text
 Steady → Shaken → Broken
 ```
+> **Breaking them beats killing them — SIGNED (William, 2026-07-25).** The morale
+> track is deliberately a **ratchet**: Nerve only tests on a *shock*, so a Shaken
+> figure in a quiet corner does not drift back to Steady on its own, and a Routing
+> figure runs *away* from the shocks that might test it. Only **Rally** — a leader's
+> ACTION — reliably walks a figure back up.
+>
+> That is the design, not a gap. Pressure is cheaper than attrition; a broken enemy
+> costs you nothing further and a dead one cost you every wound you had to land.
+> It also makes killing the leader a *strategy* rather than a stat-check, because
+> the leader is the recovery valve. `→ G·morale-is-not-attrition`
+
 - **Squares test Nerve; Circles do not** — and Circles never break. `[Definition: shape]`
 - A failed test steps a Square **down** the track (Steady → Shaken → Broken) `[State]`.
 - **Broken = it Routs**, behaving by its **Temperament** (table below).
@@ -475,17 +574,79 @@ ACTION) also steps a figure **up** one state. The test reads like every other ro
 
 ---
 
-# 11 · Formations — descriptive  `[Position]`
+# 11 · Formations & Form Up  `[Position / Agency]`
 
 > **Formations are descriptive.** Players maintain the declared shape as closely as
 > practical given Position, terrain, and contact.
 
 A Formation Definition holds only: `Name · Picture · one sentence of intent`.
-- **Advance** *translates* a shape (moves the group along a route).
+Two operations, both reducing to existing verbs and Position changes (Law 11):
+- **MOVE** *translates* a shape — the group travels, keeping its form.
 - **Reform** *changes* a shape.
 
-Both reduce to **existing verbs and Position changes** (Law 11).
 `→ G·formations-are-not-prescriptive`
+
+---
+
+## FORM UP — the group MOVE — SIGNED (William, 2026-07-25)
+
+**Only a Sergeant may call Form Up.** This is the Fireteam's reason to exist
+(A · X — the Sergeant supplies coordination and formation handling). A Circle
+**cannot** call or join one: the Champion keeps his autonomy and stands alone
+(§9b). Kill the Sergeant and the squad can no longer form up at all.
+
+```text
+FORM UP  — the Sergeant's procedure
+
+1. DECLARE   The Sergeant names every unactivated friendly figure within 4″.
+             Any of them may decline; joining is never forced.
+2. SHAPE     The Sergeant places the joiners in a formation of its choosing.
+3. PAY       Every participant — the Sergeant included — spends 1 AP,
+             and is MARKED ACTIVATED for the round.        [Agency]
+4. MOVE      They all MOVE at once, as one body, keeping shape.   [Position]
+5. DECLARE   Before contact, each figure states exactly what it will
+             strike and where it will Shove. Explicitly. Out loud.
+6. RESOLVE   Contact resolves under Continuous Clash (Document F):
+             increments, then every legal reaction, then the next increment.
+```
+
+### What the 1 AP buys
+**Everything except reacting.** One point covers that figure's MOVE, its attacks,
+and its Shoves for the whole formation action. It does **not** touch the Reaction
+pool — a formed-up figure still Counters, still intercepts with a shield, still
+fires an armed Overwatch (§12). Reaction is never prepaid and never surrendered.
+
+### Joining spends your activation
+A figure that joins is **done for the round.** It does not activate again.
+
+> **The tempo cost is the entire point.** Form up eight figures and you have burned
+> eight activations in a single beat of alternation — and the enemy, who spent one,
+> now takes seven in a row against a line that has already committed. Empty your
+> side early against someone still holding theirs and you will be pushed off the
+> table. **God speed.**
+>
+> That is the trade: one devastating coordinated blow, paid for with the initiative.
+> It is a commitment at the *round* level, not the figure level, and it is the
+> largest single decision in the game.
+
+### You hit what you move into
+A formed-up figure may only strike the enemies **it physically moves into.** Not
+the one beside it, not the one its neighbour reached — the ones its own base makes
+contact with.
+
+The exception is a **Reach** packet, which strikes out to X″ but not while bases
+touch (§8) — so a second rank contributes without being in the front.
+
+> **This is what makes shape mechanical.** A column concentrates few bases on a
+> narrow front and punches through. A line spreads contact wide and shallow. A
+> wedge splits the difference and buys flank angles. Nobody had to write a
+> column/line/wedge rule — the geometry *is* the rule.
+
+### Movement distance  ⚠ PROVISIONAL
+The formation moves up to the **shortest Move among its members**, maintaining
+shape as closely as practical. A body travels at the pace of its slowest man; put a
+Slow figure in the line and the whole line is slow. *(Derived to keep the procedure
+deterministic — ratify in play.)*
 
 ---
 
@@ -519,14 +680,37 @@ Circle (Champion/hero) →  2 Reactions
   pre-contact game is fought over (Document F, *Preparation Matters*).
 - **An armed WAIT expires** when the figure next activates, at the same moment.
 
-## Round procedure
+## Round procedure — SIGNED (William, 2026-07-25)
 ```text
-1. Sides alternate single Figure activations.
-2. On activation: refresh that Figure's AP and Reaction; expire its armed WAIT.
-3. It spends AP on MOVE / ACTION / WAIT.
-4. Triggers fired by others' activations spend Reaction as they occur.
-5. Round ends when neither side has an eligible unactivated Figure.
+START OF ROUND
+  1. Every surviving figure is marked ELIGIBLE (unactivated).
+  2. The starting side ALTERNATES from the previous round.
+     (First round of the game: the scenario says, or roll off.)
+  3. The starting side picks its first eligible figure.
+
+THE ROUND
+  4. Sides alternate single figure activations.
+  5. On activation: refresh that figure's AP and Reaction;
+     expire its armed WAIT; mark it ACTIVATED.
+  6. It spends AP on MOVE / ACTION / WAIT.
+     — or a Sergeant calls FORM UP (§11), which activates every
+       joiner at once. Those figures are spent for the round and
+       the alternation continues from the other side.
+  7. Triggers fired during anyone else's activation spend Reaction
+     as they occur, whether or not the reactor has activated yet.
+  8. If one side runs out of eligible figures, the other resolves
+     its remainder one at a time.
+
+END OF ROUND
+  9. The round ends when neither side has an eligible figure.
+     Wild/uncontrolled figures resolve last, per the owning procedure.
 ```
+
+> **Refresh is on activation, not on the round.** A figure that emptied its
+> Reaction pool late last round walks into this one still empty, and stays empty
+> until its own activation comes around. **Hit the tired ones.** That is not a
+> quirk — it is the whole reason activation order carries weight.
+> `→ G·alternation-is-not-initiative`
 Inside a clash, resolution runs in movement increments rather than whole moves —
 see **[Document F · Continuous Clash Resolution](F_CLASH_RESOLUTION.md)**. The
 pools above are unchanged by it; the clash is a cadence, not an exception to the
