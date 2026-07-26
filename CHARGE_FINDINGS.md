@@ -5,12 +5,21 @@ The clash system is **done**. This is the distilled conclusion from ~1.3M+
 simulated charges (`factions/sim/` — `clash_sim.py`, `study.py`, `holdtest.py`,
 `angletest.py`; sandbox `play/CHARGE_LAB.html`). Governing spec: [[F_CLASH_RESOLUTION]].
 
+## No new rules were added
+Important: the sim did **not** author mechanics. Every rule it enforces already
+existed in CUS — 1 reaction/figure, push→indent→crush (resolved lateral-first),
+the 3″ run-up to count as a charge, the 3″ push cap, Square facing with flank/rear,
+no-turn, Circles faceless, shields intercepting for an adjacent ally. The sim's job
+was **conformance**: make sure all of the existing rules were honored together and
+show how they interact at speed. The "findings" below are consequences of the
+existing kernel, not additions. (Only nuance applied: shield interception used
+*symmetrically* — a shield can soak for an adjacent ally on either side, per the
+existing shield-reaction ruling.)
+
 ## The core works
 A charge is not a special action — it's an emergent clash resolved inch-by-inch
-under the normal activation/reaction economy. The signed rules (1 reaction/figure,
-lateral-first push cascade, 3″ run-up to count as a charge, 3″ push cap, Square
-facing with flank +1d / rear +2d and no-turn, Circles faceless, symmetric shield
-interception) produce real, emergent tactics with nothing scripted.
+under the normal activation/reaction economy. Those existing rules, run together,
+produce real, emergent tactics with nothing scripted.
 
 ## What decides a clash (measured, ranked)
 1. **Run-up is king.** No 3″ lane → the charge halts (no impact). Denying room is
