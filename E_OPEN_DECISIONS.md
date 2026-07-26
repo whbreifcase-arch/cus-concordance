@@ -67,7 +67,7 @@ git history and mirrored in A/B/C. This register no longer holds open questions.
 
 ## Amendments — signed 2026-07-25 (William)
 
-Six rulings, taken after an external consistency review of the published A–E set.
+Eight rulings, taken after an external consistency review of the published A–E set.
 v0.6 stays **closed**; these are amendments, not reopened questions.
 
 | ID | Ruling | In |
@@ -79,6 +79,7 @@ v0.6 stays **closed**; these are amendments, not reopened questions.
 | brace-vs-overwatch | **Brace grants no Reaction** (hard bonuses and step-ups only). **Overwatch** = 1 AP to arm a better PACKET, and **still spends the Reaction** when it fires | B·9b |
 | sprint-to-charge | The **3″** is the **sprint→charge transition threshold** — a threshold, not a distance budget. Only physical contact interrupts | B·3, F |
 | wounds | **Wounds is a number, not a track** — 1–2 standard, a tunable knob. *Fine* and *Hurt* are **deleted**; **Knocked Out** and **Dead** survive as the two real States at `wounds_remaining = 0` | B·7, C |
+| circle-scope | **One Circle per Banner** (its Champion). An Army holds one Circle *per Banner*, not one in total | B·1 |
 
 ### On the wounds ruling
 The earlier register parked this as "a tuning call for whenever William wants it."
@@ -87,17 +88,22 @@ standard and it's a knob that gets twisted. Get rid of the fine hurt knockout an
 dead. Knockout and dead are both states now, fine and hurt are not."* Fine/Hurt were
 never State — they duplicated the number and violated Law 1. Gone.
 
-### Still awaiting an owner ruling
-```text
-⚠ circle-scope   B·1 heads "One Circle per army" and then says "A Banner fields
-                 exactly one Circle." An Army holds many Banners, so both cannot be
-                 true. Left UNTOUCHED pending William. This is the one genuine open
-                 item in v0.6.
-```
+### circle-scope — SIGNED (William, 2026-07-25)
+B·1 previously headed "One Circle per army" and then said "A Banner fields exactly
+one Circle." An Army holds many Banners, so both could not be true.
+
+> **Ruling: one Circle per Banner.** Each Banner fields exactly one Circle — its
+> Champion. An **Army** holds **one Circle per Banner**, not one in total.
+
+This matches the built content: all seven CUS_FACTIONS warbands field exactly one
+Champion, and non-champion Circles were already converted to Squares. Only the
+heading was wrong. → B·1.
+
+**No open items remain.**
 
 ---
 
 ### v0.6 is closed
-No open constitutional questions remain beyond `circle-scope` above. The next change
-to CUS is an **amendment**, recorded here as a new signed entry with its date — not a
-blank awaiting a ruling.
+**No open constitutional questions remain.** The next change to CUS is an
+**amendment**, recorded here as a new signed entry with its date — not a blank
+awaiting a ruling.

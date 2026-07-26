@@ -28,8 +28,10 @@ Circle = hero / avatar          Square = crew / commandable body
   Nerve, never breaks.
 - **Square** — crew. **Has a facing.** May test Nerve, may break.
 
-> **One Circle per army — SIGNED (William, 2026-07-24).** A Banner fields **exactly one
-> Circle: its Champion.** Every other figure — sergeants, casters, monsters, all — is a
+> **One Circle per Banner — SIGNED (William, 2026-07-24 · scope clarified 2026-07-25).**
+> A **Banner** fields **exactly one Circle: its Champion.** An **Army**, being many
+> Banners (A · X), therefore holds **one Circle per Banner** — not one in total.
+> Every other figure — sergeants, casters, monsters, all — is a
 > **Square.** Only the Champion keeps full agency and is faceless/unbreakable; everyone
 > else trades agency for the Square's mutual protection (facing, Brace, shields — and
 > the risk of being flanked and broken).

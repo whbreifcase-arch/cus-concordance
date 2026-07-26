@@ -56,12 +56,13 @@ brace-vs-overwatch   → Brace grants no Reaction; Overwatch costs 1 AP AND 1 Re
 sprint-to-charge     → the 3″ is the sprint→charge threshold, not a distance budget
 wounds               → Wounds is a NUMBER (1–2 standard, a knob). Fine/Hurt deleted;
                        Knocked Out and Dead are the two real States
+circle-scope         → one Circle per BANNER (its Champion); an Army holds one per
+                       Banner, not one in total
 ```
 
-**CUS v0.6 is closed** — every decision is signed. See
-[Document E · Decision Register](E_OPEN_DECISIONS.md). The next change is an
-amendment, not an open question. One item awaits a ruling: `circle-scope` (one
-Circle per Banner, or per Army?) — recorded in E.
+**CUS v0.6 is closed** — every decision is signed and **no open questions remain.**
+See [Document E · Decision Register](E_OPEN_DECISIONS.md). The next change is an
+amendment, not an open question.
 
 ## What changed at the root (closed rulings — Brief §17)
 
@@ -96,5 +97,5 @@ read it to find out *why* something is the way it is.
 - **SIGNED** — a closed owner ruling. Stable. Cite it.
 - **⚠ PROVISIONAL** — a SIGNED rule awaiting ratification **in play**. It is in
   force now; playing decides whether it stays. Not an open question.
-- **⚠ OPEN → E·<topic>** — a genuine unanswered question. Currently only
-  `circle-scope`.
+- **⚠ OPEN → E·<topic>** — a genuine unanswered question. **There are currently
+  none.**
