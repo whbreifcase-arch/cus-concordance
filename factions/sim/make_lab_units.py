@@ -88,22 +88,27 @@ SOURCES = [
     ("faction_dragon.json",  "Dragon"),
     ("faction_bestiary.json","Bestiary"),
 ]
-units = []
-for fname, label in SOURCES:
-    d = load(fname)
-    if not d: continue
-    src = d.get("faction", label)
-    for u in d.get("units", []):
-        units.append(convert(u, label))
+def build_units():
+    units = []
+    for fname, label in SOURCES:
+        d = load(fname)
+        if not d: continue
+        for u in d.get("units", []):
+            units.append(convert(u, label))
+    return units
 
-blob = json.dumps(units, separators=(",", ":"), ensure_ascii=False)
-print(f"converted {len(units)} units from {len(SOURCES)} sources")
+def main():
+    units = build_units()
+    blob = json.dumps(units, separators=(",", ":"), ensure_ascii=False)
+    print(f"converted {len(units)} units from {len(SOURCES)} sources")
+    with open(HTML, encoding="utf-8") as f: html = f.read()
+    new = re.sub(r"/\*UNITS_START\*/.*?/\*UNITS_END\*/",
+                 f"/*UNITS_START*/{blob}/*UNITS_END*/", html, flags=re.S)
+    if new == html:
+        print("!! markers /*UNITS_START*/.../*UNITS_END*/ not found in CHARGE_LAB.html")
+    else:
+        with open(HTML, "w", encoding="utf-8") as f: f.write(new)
+        print(f"injected into {os.path.basename(HTML)} ({len(blob)} bytes)")
 
-with open(HTML, encoding="utf-8") as f: html = f.read()
-new = re.sub(r"/\*UNITS_START\*/.*?/\*UNITS_END\*/",
-             f"/*UNITS_START*/{blob}/*UNITS_END*/", html, flags=re.S)
-if new == html:
-    print("!! markers /*UNITS_START*/.../*UNITS_END*/ not found in CHARGE_LAB.html")
-else:
-    with open(HTML, "w", encoding="utf-8") as f: f.write(new)
-    print(f"injected into {os.path.basename(HTML)} ({len(blob)} bytes)")
+if __name__ == "__main__":
+    main()

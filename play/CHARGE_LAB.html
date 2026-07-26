@@ -112,6 +112,7 @@
       <div class="row"><label>Seed</label><input type="number" id="seed" value="1" style="width:70px"></div>
     </fieldset>
 
+    <div class="btns"><button id="demo" class="sec">⚙ Load escort-breakthrough demo</button></div>
     <div class="btns"><button id="go">Simulate the charge ▶</button></div>
     <div class="btns"><button id="edit" class="sec" style="width:auto;flex:1">◀ Back to editing</button>
       <button id="copy" class="sec" style="width:auto;flex:1">Copy setup</button></div>
@@ -205,6 +206,8 @@ class Charge{
   gap(a,b){return Math.hypot(a.x-b.x,a.y-b.y)-a.r-b.r;}
   nearestAhead(f){let best=null,bd=1e9;for(const o of this.figs){if(!o.alive||o.side===f.side)continue;
     if(o.y>f.y&&this.colOverlap(f,o)&&o.y<bd){bd=o.y;best=o;}}return best;}
+  fwdGap(c,ahead){const dx=ahead.x-c.x,sr=c.r+ahead.r,dy=ahead.y-c.y;
+    return Math.abs(dx)>=sr?Infinity:dy-Math.sqrt(sr*sr-dx*dx);}  // +y distance to real base contact
   sideBias(f){return f.x<this.centerX?-1:1;}
   shoveLateral(fig,side,need,vis){
     if(need<=EPS||vis.has(fig))return 0; vis.add(fig);
@@ -236,7 +239,7 @@ class Charge{
     if(step<=EPS){c.stopped=true;return;}
     const ahead=this.nearestAhead(c);
     if(!ahead){c.y+=step;if(!c.contacted){c.sprinted+=step;c.travel-=step;if(c.travel<=0)c.stopped=true;}else c.budget-=step;return;}
-    const g=ahead.y-c.y-(c.r+ahead.r);
+    const g=this.fwdGap(c,ahead);
     if(g>=step){c.y+=step;if(!c.contacted){c.sprinted+=step;c.travel-=step;}else c.budget-=step;return;}
     c.y+=Math.max(0,g);if(!c.contacted)c.sprinted+=Math.max(0,g);
     if(!c.contacted)return;
@@ -485,21 +488,18 @@ function copySetup(){ const out={units:editFigs.map(e=>({side:e.side,unit:unitOf
   navigator.clipboard.writeText(JSON.stringify(out,null,1)).then(()=>{const b=$("copy");b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy setup",1400);});
 }
 
-// ---------- demo seed ----------
+// ---------- escort-breakthrough demo (shields drive a wizard through a line) ----------
 function demo(){
-  const id=n=>{const i=LAB_UNITS.findIndex(u=>u.id===n||u.name===n);return i<0?0:i;};
-  const lancer=LAB_UNITS.findIndex(u=>u.w.impact), warrior=id("Warrior"), spear=id("Spearman"), shield=LAB_UNITS.findIndex(u=>u.w.shield);
+  const wizI=(()=>{const i=LAB_UNITS.findIndex(u=>u.shape==="Circle"&&/Mystic|Wizard|Priest|Necromancer|Warlock/.test(u.name));
+    return i<0?LAB_UNITS.findIndex(u=>u.shape==="Circle"):i;})();
+  const shieldI=LAB_UNITS.findIndex(u=>u.w.shield), spearI=LAB_UNITS.findIndex(u=>u.w.reach>0);
+  const S=shieldI<0?0:shieldI, W=wizI<0?0:wizI, P=spearI<0?0:spearI;
   editFigs=[];
-  // chargers (bottom, facing up): a wedge of a lancer + warriors
-  const cU=lancer<0?warrior:lancer;
-  editFigs.push({side:"C",x:0,y:-8,unitIdx:cU,faceDeg:0});
-  editFigs.push({side:"C",x:-1.4,y:-9.4,unitIdx:warrior,faceDeg:0});
-  editFigs.push({side:"C",x:1.4,y:-9.4,unitIdx:warrior,faceDeg:0});
-  editFigs.push({side:"C",x:-2.8,y:-10.8,unitIdx:warrior,faceDeg:0});
-  editFigs.push({side:"C",x:2.8,y:-10.8,unitIdx:warrior,faceDeg:0});
-  // defenders (top, facing down): shield front rank + spears behind
-  for(let i=-2;i<=2;i++)editFigs.push({side:"D",x:i*1.3,y:0,unitIdx:shield<0?warrior:shield,faceDeg:180});
-  for(let i=-2;i<=2;i++)editFigs.push({side:"D",x:i*1.3,y:1.3,unitIdx:spear,faceDeg:180});
+  editFigs.push({side:"C",x:0,y:-8,unitIdx:W,faceDeg:0});                 // wizard, tucked in
+  for(const[x,y]of [[0,-6.8],[-1.15,-7.4],[1.15,-7.4],[-1.25,-8.5],[1.25,-8.5]])
+    editFigs.push({side:"C",x,y,unitIdx:S,faceDeg:0});                    // 5 shields wrapped around it
+  for(let r=0;r<2;r++)for(let i=0;i<6;i++)                                // 6-wide, 2-rank spear line
+    editFigs.push({side:"D",x:(i-2.5)*1.25,y:r*1.25,unitIdx:P,faceDeg:180});
   selected=-1; updateRoster();
 }
 
@@ -529,6 +529,7 @@ function setTool(t){ tool=t; selected=-1;
   $("toolHelp").innerHTML=TOOLHELP[t];
   cv.style.cursor = t==="place"?"crosshair":(t==="move"?"grab":"pointer"); }
 $("tPlace").onclick=()=>setTool("place"); $("tMove").onclick=()=>setTool("move"); $("tDel").onclick=()=>setTool("delete");
+$("demo").onclick=()=>{ backToEdit(); demo(); };
 window.addEventListener("resize",render);
 updateRoster(); requestAnimationFrame(tick);   // start with an empty board
 </script>
