@@ -17,6 +17,7 @@ wins.** The old codex is now a **migration input, not authority.**
 | **E** | [Decision Register](E_OPEN_DECISIONS.md) | The signed record of every ruling and amendment. **Not** a list of open questions — the filename is legacy, kept so links don't break. |
 | **F** | [Continuous Clash Resolution](F_CLASH_RESOLUTION.md) | The governing spec for how a clash/"charge" resolves — increments, reaction order, the 3″ threshold. |
 | **F** | [AI Director](F_AI_DIRECTOR.md) | Mission authoring and AI-side intent. |
+| **G** | [Why Not](G_WHY_NOT.md) | The rationale register. Every place CUS says "X is **not** Y," the argument lives here — so A–C can state rules instead of defending them. |
 
 **Supporting:** [CHARGE_FINDINGS.md](CHARGE_FINDINGS.md) — what ~1.3M simulated
 charges taught us (capstone, closed 2026-07-25) · [SCENARIO_PROMPT.md](SCENARIO_PROMPT.md)
@@ -89,11 +90,20 @@ Position creates tactical depth · Force creates functional identity
 
 ## Reading order
 Start with **A**. Read **C** alongside it as a glossary. **B** shows the Kernel
-doing real work. **F** is how a clash actually resolves at the table. **D** tells
-you where your old vocabulary went. **E** is the signed record of every ruling —
-read it to find out *why* something is the way it is.
+doing real work. **F** is how a clash actually resolves at the table.
+
+Three reference documents answer three different "why" questions, and it's worth
+knowing which one you want:
+
+```text
+"where did my old word go?"        → D · Migration Map
+"who decided this, and when?"      → E · Decision Register
+"why isn't it the obvious thing?"  → G · Why Not
+```
 
 ## Convention used in these documents
+- **`→ G·<slug>`** — the obvious reading of this rule is wrong, and
+  [Document G](G_WHY_NOT.md) explains why. A–C state rules; they don't argue.
 - **SIGNED** — a closed owner ruling. Stable. Cite it.
 - **⚠ PROVISIONAL** — a SIGNED rule awaiting ratification **in play**. It is in
   force now; playing decides whether it stays. Not an open question.

@@ -5,6 +5,11 @@
 > Dictionary, either add an alias to an existing entry or the word is inventing a
 > mechanic (forbidden, Law 11). Entries note the **owner** and what the term
 > **reads / writes / consumes / creates.**
+>
+> **On "not."** Entries define; they don't argue. Where a word is commonly
+> mistaken for a neighbour you'll see `→ G·<slug>` — the reasoning lives in
+> **[Document G · Why Not](G_WHY_NOT.md)**. Where a word is *retired*, the
+> forwarding address is **[Document D](D_MIGRATION_MAP.md)**.
 
 ---
 
@@ -32,8 +37,7 @@ expressed by writing State, Position, or a Resource. **Owner:** Kernel.
 The limited capacity an entity has to act during **its own** activation; carried as
 **AP**. Unless a module says otherwise, **1 AP buys one MOVE, one ACTION, or one
 WAIT.** **Owner:** Kernel. **Consumed by:** the three verbs. One of the exchangeable
-Resources. *(Not to be confused with a figure's **autonomy** — its freedom of
-self-determination. A Square trades autonomy for protection; it spends the same AP.)*
+Resources. `→ G·agency-is-not-autonomy`
 
 ### Reaction
 The limited capacity an entity has to act during **someone else's** activation
@@ -48,8 +52,7 @@ the start of the figure's own activation (B · 12).
 ### Resource
 Any limited quantity spent to produce change: `Agency · Reaction · Health ·
 Morale · Information · Influence · Supply · Time`. **Owner:** Kernel; each module
-implements the resources it needs. **Position is not a Resource** — it is a
-substrate (A · II); you change it, you do not spend it.
+implements the resources it needs. `→ G·position-is-not-a-resource`
 
 ---
 
@@ -73,12 +76,11 @@ The verb that **arms a PACKET against a trigger**, deferring its resolution.
 **Creates:** a primed `trigger → resolution`. **Aliases:** Brace · Overwatch ·
 Prepare Response · Wait.
 
-> **WAIT is not a Written Trigger.** A WAIT is armed by a player who spent AP. A
-> **Written Trigger** is a clause carried inside a PACKET that fires on its own
-> condition with no AP and no prior arming (a Counter, a shield intercept, a reach
-> strike). **Both spend Reaction** — that, not a pretence of prior arming, is what
-> unifies them (A · III, SIGNED William 2026-07-25). An armed WAIT on a figure with
-> no Reaction left does **not** resolve: arming is not permission.
+> **WAIT vs. Written Trigger.** A WAIT is armed by a player who spent AP; a
+> **Written Trigger** is a clause inside a PACKET that fires on its own condition,
+> no AP and no arming. **Both spend Reaction** (A · III, SIGNED William
+> 2026-07-25). An armed WAIT on a figure with no Reaction left does not resolve.
+> `→ G·wait-is-not-a-written-trigger`
 
 ### Written Trigger
 A trigger clause authored **into a PACKET** — `{ "trigger": { "on": …, "cost":
@@ -103,10 +105,10 @@ Procedure. Counted to determine the Grade.
 
 ### Grade  *(Success Grade)*
 How well a PACKET succeeded — the highest Grade reached by the Success count.
-**Owner:** the resolving Procedure. Replaces Ladder/Tiers/Rungs. **Discrete
-(Model 2, SIGNED William 2026-07-24):** resolving Grade *N* resolves **only** the
-Effects written on Grade *N* — no inheritance of lower Grades' Effects. **Not** to
-be called a Tier.
+**Owner:** the resolving Procedure. Replaces Ladder/Tiers/Rungs
+([Document D](D_MIGRATION_MAP.md)). **Discrete (Model 2, SIGNED William
+2026-07-24):** resolving Grade *N* resolves **only** the Effects written on Grade
+*N* — no inheritance. `→ G·grade-is-not-a-tier`
 
 ### Effect
 The state change a resolved Grade produces (Wound, **Shove**, Knockdown, Guard,
@@ -120,12 +122,11 @@ An **always-true** property a Figure carries — a **referenced passive Definiti
 (SIGNED William 2026-07-24; keyword **trait**). Defined once, referenced by ID
 (`{ "trait_id": "reach" }`), like a PACKET but **passive**: it resolves nothing and
 holds no runtime state. Examples: Flying, Fearless, Amphibious, Reach, Shield,
-Unstoppable. **Not** a PACKET. **Owner:** the module that defines it.
+Unstoppable. A Trait resolves nothing. **Owner:** the module that defines it.
 
-> **Base properties are not Traits** (Law 1 — one owner). `size_class`
-> (Small · Medium · Large) and `mounted` are **base facts**, stored in `base`,
-> never duplicated into `traits`. A "monstrous" figure is a Large base carrying
-> `unstoppable` — not a trait called *Large*.
+> **Base properties live in `base`** (Law 1 — one owner): `size_class`
+> (Small · Medium · Large) and `mounted`. A "monstrous" figure is a Large base
+> carrying `unstoppable`. `→ G·traits-are-not-base-properties`
 
 ---
 
@@ -133,8 +134,7 @@ Unstoppable. **Not** a PACKET. **Owner:** the module that defines it.
 
 ### Role
 An agent's **primary relationship with Force**. **Owner:** Kernel. Exactly three:
-**Pressure · Anchor · Utility.** Names the agent's main relationship, not every
-effect its PACKETs can produce.
+**Pressure · Anchor · Utility.** `→ G·role-is-not-a-job-list`
 
 ### Pressure
 The Role that **applies Force** — threatens, breaches, displaces, suppresses,
@@ -149,10 +149,10 @@ The Role that **changes Force** — amplifies, weakens, redirects, restores,
 reveals, coordinates, relocates, transforms. Absorbs older Control + Support.
 
 ### Tempo
-The **relative timing of Force**: how soon an agent can bring its Role to bear
-compared with others in the same environment. **Ordinal, not a formula:**
+**The time it takes to apply Force relative to its peers.** Ordinal:
 `> Slow · >> Normal · >>> Fast`. A designer-assigned **classification** (Law 10),
-never a measured statistic; not Move distance, initiative, range, AP, or damage.
+**read by humans and never by the resolver** — no procedure consumes it.
+`→ G·tempo-is-not-speed` · `→ G·not-every-axis-needs-teeth`
 
 ### Tool
 **How Force is delivered** — the channel or mechanism through which an agent
@@ -179,8 +179,9 @@ relationships owned by a module. Combat set: `Man · Beast · Spirit · Construc
 
 ### Archetype
 **Who an entity is** in play language: `(Role + Tool + signature) → Archetype`
-(Gunslinger, Berserker, Knight, Scout, Artillery). A readable combination, **not a
-primitive.** Old role words (Skirmisher, Tank, Sniper, Support) may survive here.
+(Gunslinger, Berserker, Knight, Scout, Artillery). A readable combination. Old role
+words (Skirmisher, Tank, Sniper, Support) live here.
+`→ G·archetype-is-not-a-primitive`
 
 ---
 
@@ -220,7 +221,7 @@ supplies coordination, Rally, formation handling, command continuity.
 
 ### Banner
 The warband / persistent tactical group: a **Champion + Fireteams + loose
-specialists.** Not an Order, a Mission, a command-state, or a flag-bearer.
+specialists.** `→ G·banner-is-not-a-command-state`
 
 ### Caravan
 The primary **persistent expedition**; physically carries what survives between
@@ -270,11 +271,11 @@ any Wound/state change `[PACKET→Grade]`. A Combat Module procedure. Replaces t
 retired keyword **Charge**.
 
 ### Charge
-Not a keyword and not an action — the **name for a Sprint that earned it.** A
-Sprint becomes a charge when it covers **3″ of uninterrupted straight run-up into
-contact** (SIGNED, William 2026-07-25; B · 3). Only *physical contact* interrupts;
-a shot or reach-strike taken on the way in resolves without stopping the run. The
-3″ is a **threshold, not a distance budget.** Governing spec: **Document F**.
+The **name for a Sprint that earned it.** A Sprint becomes a charge when it covers
+**3″ of uninterrupted straight run-up into contact** (SIGNED, William 2026-07-25;
+B · 3). Only *physical contact* interrupts; a shot or reach-strike taken on the way
+in resolves without stopping the run. A **threshold, not a distance budget.**
+Governing spec: **Document F**. `→ G·charge-is-not-an-action`
 
 ### Push
 The **charge plow** — the §4 geometry by which a moving base displaces contacted
@@ -328,10 +329,10 @@ effect. **Breaks a Brace** rather than merely nudging it. **Writes:** Position.
 **A number, not a track** (SIGNED, William 2026-07-25). How much punishment a
 figure absorbs before it goes down; **1 or 2 is standard** and it is a tunable
 knob. Definition: `Wounds`. Instance: `wounds_remaining`. Each unsaved Wound
-subtracts 1. The old `Fine → Hurt` wording is **retired** — those were prose for
-the number, not States. **Owner:** Combat.
+subtracts 1. Where the old `Fine → Hurt → KO → Dead` track went:
+[Document D](D_MIGRATION_MAP.md). `→ G·wounds-are-not-a-track` **Owner:** Combat.
 
 ### Knocked Out · Dead
 The two genuine **States** a figure enters at `wounds_remaining = 0`. Which one is
 decided by the Effect that felled it and its Creature Type (B · 7, B · 13). They
-change what a figure *can do*; they are not degrees of injury. **Owner:** Combat.
+change what a figure *can do*. `→ G·wounds-are-not-a-track` **Owner:** Combat.

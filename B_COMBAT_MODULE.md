@@ -2,9 +2,12 @@
 ### v0.6 · the reference implementation · rebuilt 2026-07-23
 
 > **What this is.** The Kernel (Document A) doing real work: physical conflict.
-> Combat is the *reference* implementation — it exercises the most primitives —
-> but it is **not** the Kernel's master (Law 12). Everything here is a **Combat
-> Module fact** and may be retuned; none of it is promoted to Kernel law.
+> Combat is the *reference* implementation — it exercises the most primitives.
+> Everything here is a **Combat Module fact** and may be retuned; none of it is
+> promoted to Kernel law (Law 12). `→ G·combat-is-not-the-kernel`
+>
+> **On "not."** Where the obvious reading of a rule is wrong, you'll see
+> `→ G·<slug>`; the reasoning lives in **[Document G · Why Not](G_WHY_NOT.md)**.
 >
 > **Citation rule.** Every mechanic names the Kernel primitive it reads or
 > writes, in brackets: `[Position]`, `[PACKET→Grade]`, `[Agency]`, `[State]`.
@@ -47,16 +50,16 @@ Small · Medium · Large
 | Medium | 25 mm | 32 mm |
 | Large | 40 mm | 40 mm |
 
-A "monstrous" creature is simply a **Large** figure, distinguished by its **traits**
-(§14) — e.g. a plow-through-bodies trait — not by a fourth size.
+A "monstrous" creature is simply a **Large** figure distinguished by its **traits**
+(§14) — e.g. a plow-through-bodies trait. `→ G·traits-are-not-base-properties`
 
 ## Elongated = mounted  `[Definition]`
-**Mounted is geometry, not a size class.** An elongated base — an elongated Small,
-Medium, or Large — communicates mounted geometry: **narrow frontage penetrates
-deeply; wide frontage bulldozes broadly.** A mounted figure keeps its size class and
-**plows as one class larger** (the lance, §4). There is **no** heavy/light cavalry
-base split — cavalry doctrine emerges from Role · Tempo · Tool · Temperament ·
-PACKETs · geometry, not a second size system.
+**Mounted is geometry.** An elongated base — an elongated Small, Medium, or Large —
+communicates mounted geometry: **narrow frontage penetrates deeply; wide frontage
+bulldozes broadly.** A mounted figure keeps its size class and **plows as one class
+larger** (the lance, §4). Cavalry doctrine emerges from
+`Role · Tempo · Tool · Temperament · PACKETs · geometry`.
+`→ G·mounted-is-not-a-size-class`
 
 ## Tool set  `[Definition]` — SIGNED (William, 2026-07-24)
 The Combat Module's Tool vocabulary — *how* a figure delivers Force — is a
@@ -65,7 +68,7 @@ The Combat Module's Tool vocabulary — *how* a figure delivers Force — is a
 Melee · Ranged · Hybrid
 ```
 *Hybrid* = a figure that meaningfully delivers Force both in contact and at range.
-Tool never sets purpose; a Melee figure may be Pressure, Anchor, or Utility.
+A Melee figure may be Pressure, Anchor, or Utility. `→ G·tool-does-not-set-purpose`
 
 ---
 
@@ -86,14 +89,13 @@ Leap, Withdraw) — all MOVE.
 
 # 3 · Sprint & Impact  `[writes Position]`
 
-**Charge is retired as an *action*** — it collided with movement. Instead:
 ```text
 Sprint = continued MOVE
 Impact = the contact that MOVE creates
 ```
-"Charge" survives as the **name for a Sprint that qualified** (the 3″ threshold
-below) — a description of a movement, never a verb you declare or an action you
-spend AP on.
+**"Charge" is the name for a Sprint that qualified** (the 3″ threshold below) — a
+description of a movement, not a verb you declare.
+`→ G·charge-is-not-an-action`
 
 > **When a Sprint contacts another body, resolve an Impact.**
 
@@ -143,13 +145,12 @@ path. Slide the models; don't measure. The cascade:
    stops**, and the Impact receives the appropriate bonus (nowhere to go = it
    crushes).
 
-**Displacement is not damage.** The Push changes **Position**; any Wound or state
-change comes from the **PACKET** the Impact resolves `[PACKET→Grade]`. The
-wall-crush is the only place a blocked shove feeds the hit.
+**The Push writes Position.** Any Wound or state change comes from the **PACKET**
+the Impact resolves `[PACKET→Grade]`. The wall-crush is the only place a blocked
+shove feeds the hit. `→ G·push-is-not-damage`
 
-> **"Push" here = the charge plow only.** The *weapon* displacement effect that used
-> to be called "Push" is now **Shove** (§9b), so "push" is free to be ordinary
-> language. This §4 geometry — Push → Indent → Crush — is untouched.
+> **"Push" = the charge plow.** The *weapon* displacement Effect is **Shove**
+> (§9b). `→ G·shove-is-not-push`
 
 Size gating across the three classes (Small · Medium · Large):
 - **larger plows smaller** — always, charge or not;
@@ -213,7 +214,7 @@ GREATAXE — Dice 3 · Success 5+
 
 **Discrete (Model 2):** the Greataxe above restates "2 Wounds" at Grade 3 on
 purpose — you read **only** the reached line, so any Effect meant to carry up is
-written on each line. Do **not** call this a Tier or a Ladder.
+written on each line. `→ G·grade-is-not-a-tier`
 
 ---
 
@@ -228,18 +229,16 @@ Wounds : 2        ← Definition (on the card)
 wounds_remaining  ← Instance (on the table)
 ```
 
-**The old `Fine → Hurt → Knocked Out → Dead` track is retired.** *Fine* and *Hurt*
-were never states — they were prose for "has wounds left" and "has fewer wounds
-left," and storing them duplicated the number (Law 1). They are gone. What
-survives are the two real states, entered when the number runs out:
-
 ```text
 wounds_remaining > 0   →  standing (no state; read the number)
 wounds_remaining = 0   →  KNOCKED OUT  or  DEAD    [State]
 ```
 
-**Knocked Out** and **Dead** are genuine State: they change what the figure can
-do, not merely how hurt it is. Which one a downed figure enters is decided by the
+**Knocked Out** and **Dead** are genuine State — they change what the figure can
+do. `→ G·wounds-are-not-a-track` · where the old track went:
+[Document D](D_MIGRATION_MAP.md).
+
+Which one a downed figure enters is decided by the
 Effect that felled it, its Creature Type (§13), and the aftermath procedure — an
 `execute` Effect kills outright; ordinary Wounds put a figure down.
 
@@ -292,9 +291,8 @@ gets its swing** and is pulled into engagement with its attacker: the first
 attacker on an open figure eats the Counter.
 
 ## A Counter is authored, not armed — SIGNED (William, 2026-07-25)
-A Counter is **not a WAIT.** Nobody spent AP to arm it. It is a **trigger clause
-written into a PACKET** — the weapon, or the condition, carries the wording that
-permits a counter-attack:
+A Counter is a **Written Trigger** — a trigger clause carried inside a PACKET. The
+weapon, or the condition, holds the wording that permits a counter-attack:
 ```json
 "spear_thrust": {
   "trigger": { "on": "struck_in_melee_contact", "cost": "1 Reaction" }
@@ -311,8 +309,8 @@ a universal reflex bolted onto every figure. This is why the Kernel needs no
   **Counters even as it dies** — the dying swing lands.
 - **The cap is the pool.** Out of Reaction, out of Counters, however many enemies
   step up. A shieldman who has already intercepted has nothing left to swing with.
-- **A Counter does not itself draw a Counter (SIGNED, William 2026-07-24)** — a
-  Counter is a *response*, not a hostile ACTION, so two figures never loop forever.
+- **A Counter does not itself draw a Counter (SIGNED, William 2026-07-24).**
+  `→ G·counter-is-not-an-attack`
 
 Worked example — you strike a figure, engage, it spends its Reaction to Counter
 and kills you; your body is shoved off; that figure is now free, **but has no
@@ -343,11 +341,11 @@ gives up freedom (locked facing, breakable morale, no independent will once it
 Routs) in exchange for mutual protection. A **Circle keeps full autonomy and stands
 alone**: faceless, never braces, never breaks.
 
-*(**Autonomy**, not Agency. **Agency** is AP — the Kernel Resource, Document A · IV.
-A Square spends exactly the same AP a Circle does; what it surrenders is
-self-determination, not action points.)* A "shield wall" is therefore **not a
-skill** — it is **emergent geometry**: Squares standing shoulder-to-shoulder, facing
-the same way, are a wall because of where they stand, not because of a keyword.
+`→ G·agency-is-not-autonomy`
+
+A "shield wall" is therefore **emergent geometry**: Squares standing
+shoulder-to-shoulder, facing the same way, are a wall because of where they stand.
+There is no Shield Wall skill. `→ G·brace-is-not-an-ability`
 
 ## Shield — a trait, and an *intercept* reaction  `[Trait → Reaction]`
 A **shield** is gear (a Trait). Beyond the obvious (it comes with armour), it carries a
@@ -374,8 +372,8 @@ within 1″ — take the hit yourself instead.** *"No, I'll take that one over h
   *(⚠ If ranged feels gutted in play, restrict to melee.)*
 
 ## Brace — a fixed-facing stance  `[WAIT — Square only]`
-**Brace is a universal action — any Square may do it; it is not a special ability and
-is never printed on a card.** (Only the Champion is a Circle, and Circles can't Brace.)
+**Brace is universal — any Square may do it, and it is never printed on a card.**
+(Only the Champion is a Circle, and Circles can't Brace.) `→ G·brace-is-not-an-ability`
 It is a WAIT — **1 AP, ends your activation, lasts until your next activation** —
 that **locks your facing** and turns you into a wall in **one direction**:
 - **+1 die** attacking into your **front arc**; **enemies attacking your front roll
@@ -477,18 +475,17 @@ ACTION) also steps a figure **up** one state. The test reads like every other ro
 
 ---
 
-# 11 · Formations — descriptive, not prescriptive  `[Position]`
+# 11 · Formations — descriptive  `[Position]`
 
-> **Formations are descriptive, not prescriptive.** Players maintain the declared
-> shape as closely as practical given Position, terrain, and contact.
+> **Formations are descriptive.** Players maintain the declared shape as closely as
+> practical given Position, terrain, and contact.
 
 A Formation Definition holds only: `Name · Picture · one sentence of intent`.
 - **Advance** *translates* a shape (moves the group along a route).
 - **Reform** *changes* a shape.
 
-Both reduce to **existing verbs and Position changes** — they are **not** new
-Kernel verbs (Law 11). Avoid rigid spacing matrices or transformation maths unless
-playtesting proves the precision buys a better decision (Law 8).
+Both reduce to **existing verbs and Position changes** (Law 11).
+`→ G·formations-are-not-prescriptive`
 
 ---
 
@@ -501,7 +498,7 @@ Side A activates one Figure → Side B activates one Figure → repeat until exh
 If one side runs out of eligible Figures, the other resolves its remainder one at
 a time. Wild/uncontrolled figures resolve afterward per the owning procedure.
 Alternation is **attention management** — a camera that directs focus to the
-hottest fight — not mere initiative bookkeeping.
+hottest fight. `→ G·alternation-is-not-initiative`
 
 ## The Reaction budget — SIGNED (William, 2026-07-25)
 Reaction is combat's second Resource (Document A · IV) — what a figure may spend
@@ -562,18 +559,18 @@ holds runtime state (Law 5). The player-facing word is **trait**.
 ```json
 { "trait_id": "reach" }        { "trait_id": "unstoppable" }
 ```
-A figure lists its `traits: [ ... ]`. Traits are **not** PACKETs (they resolve
-nothing). **Reach** is a Trait (and/or a PACKET property), no longer a Role.
+A figure lists its `traits: [ ... ]`. A Trait resolves nothing — that is what makes
+it passive. **Reach** is a Trait (and/or a PACKET property).
+`→ G·reach-is-not-a-role`
 
-## Base properties are not Traits — one owner (Law 1)
-`Large` and `Mounted` are **base facts** (§1), read off the footprint. They live in
-`base`, never in `traits`, and are never stored in both places:
+## Base properties live in `base` — one owner (Law 1)
+`size_class` and `mounted` are **base facts** (§1), read off the footprint:
 ```json
 "base": { "size_class": "Large", "mounted": false, "shape": "square" },
 "traits": [ "unstoppable", "reach" ]
 ```
-A "monstrous" figure is therefore a **Large base carrying the `unstoppable` trait**
-(plow through bodies, only a wall stops it — §4) — not a trait called `Large`.
+A "monstrous" figure is a **Large base carrying `unstoppable`** (plow through
+bodies, only a wall stops it — §4). `→ G·traits-are-not-base-properties`
 
 ---
 

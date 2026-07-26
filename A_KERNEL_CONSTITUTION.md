@@ -15,6 +15,10 @@
 > **No constitutional question is currently open.** A rule marked
 > **⚠ PROVISIONAL** is a *signed* rule awaiting ratification in play — in force
 > now, not a gap. See [Document E · Decision Register](E_OPEN_DECISIONS.md).
+>
+> **On "not."** This document states rules; it does not argue for them. Where the
+> obvious reading of a rule is wrong, you'll see a token — `→ G·<slug>` — and the
+> reasoning lives in **[Document G · Why Not](G_WHY_NOT.md)**. Read it once.
 
 ```text
 REALITY  →  GRAMMAR  →  CAMPAIGN  →  CONFLICT  →  MECHANICS
@@ -54,9 +58,10 @@ CARRIERS     State    — what is currently true (stored in an Instance)
              Resource — a limited quantity that can be spent
 ```
 
-Position is a substrate, **not** a Resource. It is strategically valuable without
-being consumable; you do not spend Position, you change it (that is what MOVE is
-for). The two sections below define the substrates.
+Position is a substrate, not a Resource — you change it, you do not spend it.
+`→ G·position-is-not-a-resource`
+
+The two sections below define the substrates.
 
 ## Position
 **Position is where an entity stands relative to other entities, objects,
@@ -84,7 +89,7 @@ ROLE · TEMPO · TOOL · TEMPERAMENT
 four, alongside Position, State, and Resource. It remains
 **non-numerical**: there is no Force stat. An agent's Force is *read* through the
 four axes (Role · Tempo · Tool · Temperament) and *expressed* by writing State,
-Position, or a Resource — never by comparing a number called "Force."
+Position, or a Resource. `→ G·force-is-not-a-stat`
 
 ---
 
@@ -116,8 +121,8 @@ Attack · Use · Cast · Heal · Repair · Persuade · Accuse · Interact · Hac
 
 An ACTION may target **Self · another agent · an object · a point · an area · any
 legal target the owning module defines.** The **PACKET** decides what happens.
-The Kernel needs **no** harmful/beneficial distinction — an effect helps, harms,
-enables, or obstructs depending on target and context (SIGNED: no such tag).
+An effect helps, harms, enables, or obstructs depending on target and context;
+the Kernel carries no alignment tag (SIGNED). `→ G·packet-has-no-alignment`
 
 ## WAIT — arms a PACKET for later
 ```text
@@ -128,27 +133,25 @@ PACKET resolves; it does not spawn a second reaction system outside the PACKET
 grammar. WAIT stays its own verb because **deferred timing** is its defining
 property, not the packet it references.
 
-### WAIT is not the same thing as a written trigger — SIGNED (William, 2026-07-25)
-Two different things resolve on someone else's activation, and the Kernel keeps
-them apart:
+### WAIT and the Written Trigger — SIGNED (William, 2026-07-25)
+Two things resolve on someone else's activation, and the Kernel keeps them apart:
 
 ```text
-WAIT             the player spends 1 AP NOW to arm a chosen PACKET.
-Written trigger  a PACKET carries its own trigger clause and fires when the
-                 condition occurs. Nothing was armed; no AP was spent.
+WAIT             the player spends 1 AP NOW to arm a chosen PACKET
+Written Trigger  a PACKET carries its own trigger clause and fires when the
+                 condition occurs — no AP, no arming
+                 ↓
+both spend REACTION (Ch. IV) to resolve
 ```
 
-A **Counter** is a written trigger, not a WAIT: the weapon or condition PACKET
-carries the clause that permits it (Document B · 9). It costs no AP because the
-player never chose to spend one.
+A **Counter** is a Written Trigger: the weapon or condition PACKET carries the
+clause that permits it (Document B · 9).
 
-**Both spend Reaction** (Ch. IV). That is what unifies them — not a pretence that
-every triggered rule was previously armed. Overwatch is the instructive case:
-you pay **1 AP to arm a better PACKET** than your written triggers would give
-you, and when it fires you **still spend the Reaction.** The AP buys the upgrade;
-the Reaction buys the right to act out of turn.
-
-A WAIT with no Reaction left to spend does not resolve. Arming is not permission.
+**Overwatch is the instructive case.** You pay **1 AP to arm a better PACKET**
+than your written triggers would give you, and when it fires you **still spend
+the Reaction.** The AP buys the upgrade; the Reaction buys the right to act out
+of turn. A WAIT with an empty pool does not resolve — arming is not permission.
+`→ G·wait-is-not-a-written-trigger`
 
 ## The distinction
 ```text
@@ -183,9 +186,8 @@ Reaction     →  what you do on their turn
 
 A triggered PACKET — a Counter, an intercept, an opportunity strike, an armed
 Overwatch — **costs one Reaction to resolve.** When the pool is empty the figure
-can no longer respond, however many triggers fire. That is the cap: there is
-never a bespoke `counter_x` economy or a per-effect limiter, because Reaction
-already is the limiter.
+can no longer respond, however many triggers fire. **The pool is the cap.**
+`→ G·reaction-is-not-agency`
 
 The **module sets the budget.** Combat's is `1 per figure · 2 for a Circle`
 (Document B · 12); another module may set a different number or none at all.
@@ -197,8 +199,8 @@ quantities spent to produce change. Each module implements the ones it needs:
 Agency · Reaction · Health · Morale · Information · Influence · Supply · Time
 ```
 Combat spends **Agency + Reaction**; politics spends **Influence**; travel spends
-**Time + Supply**. Same Kernel idea, made concrete per module. **Position is not
-a Resource** — it is a substrate (Ch. II); you change it, you do not spend it.
+**Time + Supply**. Same Kernel idea, made concrete per module.
+`→ G·position-is-not-a-resource`
 
 ---
 
@@ -247,17 +249,17 @@ with no index entry is still valid — the index only aids retrieval, never reso
 ```text
 PACKET = { id · name · constraints · cost · dice · success_number · grades · effects }
 ```
-Not every PACKET rolls dice. The **owning module** decides which fields are
-required. Do not stuff every possible field into the universal object.
+The **owning module** decides which fields its packets require.
+`→ G·not-every-packet-rolls-dice`
 
 ---
 
 # VI · Success Grade — SIGNED
 
 The result of resolving a PACKET is a **Success Grade** (short: **Grade**) — how
-well the PACKET succeeded. The terms *Ladder, Tiers, Rungs, Outcome Track* are
-retired. (**Tier / Class** are reserved for persistent size or organizational
-classification, never for this result.)
+well the PACKET succeeded. **Tier** and **Class** are reserved for persistent size
+and organizational classification. Where *Ladder · Tiers · Rungs · Outcome Track*
+went: [Document D](D_MIGRATION_MAP.md). `→ G·grade-is-not-a-tier`
 
 ```text
 roll → count successes → determine Grade → resolve the Grade
@@ -310,43 +312,43 @@ PRESSURE applies Force.     ANCHOR prevents Force.     UTILITY changes Force.
   relocates, transforms; alters the conditions of Force. Utility absorbs what
   older drafts split into Control and Support.
 
-Role names an agent's **primary** relationship, not every effect its PACKETs can
-produce. Retired as *universal* Roles: Assault, Skirmisher, Control, Support,
-Reach, Projection — they may survive as **archetypes, tags, doctrines, or PACKET
-effects** (Document D), never as peers of Pressure/Anchor/Utility.
+Role names an agent's **primary** relationship with Force.
+`→ G·role-is-not-a-job-list`
+
+The older role words — Assault, Skirmisher, Control, Support, Reach, Projection —
+survive as archetypes, tags, doctrines, or PACKET effects. Where each one went:
+[Document D](D_MIGRATION_MAP.md).
 
 ## TEMPO — relative timing of Force (SIGNED: ordinal)
-Tempo is the relative interval between an opportunity and the agent's next
-effective application of Force — **how quickly it brings its Role to bear**
-compared with others in the same environment.
+**Tempo is the time it takes to apply Force relative to its peers** — the interval
+between an opportunity and the agent's next effective application of Force.
 ```text
 >    Slow        >>   Normal        >>>  Fast
-```
-Tempo is an **ordinal vibe-check classification, not a derived formula** (Law 10
-— it is a *classification*, never disguised as a measured statistic). It is **not**
-Move distance, initiative, attack speed, range, AP count, or damage.
-```text
+
 Artillery >     Tank >     Infantry >>     Cavalry >>>
 ```
-An artillery piece may out-range everything and still be Slow.
+An ordinal classification (Law 10). **Read by humans, never by the resolver** — it
+is a vibe check that makes a card legible at a glance, and no procedure consumes
+it. An artillery piece may out-range everything and still be Slow.
+`→ G·tempo-is-not-speed` · `→ G·not-every-axis-needs-teeth`
 
 ## TOOL — delivery of Force
 Tool defines **how Force is delivered** — the channel or mechanism through which
-an agent expresses its Role. Tool does **not** define purpose; the same Tool may
-deliver Pressure, Anchor, or Utility.
+an agent expresses its Role. The same Tool may deliver Pressure, Anchor, or
+Utility. `→ G·tool-does-not-set-purpose`
 
 > **SIGNED (William, 2026-07-24).** The Kernel defines Tool **abstractly** and lets
 > each module declare its own controlled Tool vocabulary. **The Combat Module's Tool
-> set is `Melee · Ranged · Hybrid`** — read as **vibe-checks** (an ordinal
-> classification like Tempo, not a measured statistic; Law 10), where *Hybrid*
-> covers a figure that delivers Force meaningfully both in contact and at a
-> distance. Old `Utility` is **not** a Tool — it is now a Role.
+> set is `Melee · Ranged · Hybrid`** — an ordinal classification like Tempo (Law 10),
+> where *Hybrid* covers a figure that delivers Force meaningfully both in contact
+> and at a distance.
 
 ## TEMPERAMENT — preferred application of Force
 Temperament is the agent's **behavioural bias** when several legal applications
 of Force are available: when to commit, where to direct Force, which target to
 prioritise, how much risk to accept, and what it does when command or cohesion
-fails. Temperament describes **preference, not capability.**
+fails. Temperament describes **preference, not capability** — it never modifies a
+die. `→ G·temperament-is-preference-not-capability`
 
 **SIGNED (William delegated → designed, 2026-07-24).** Five Temperaments, each a
 *preferred application of Force*:
@@ -367,15 +369,13 @@ combat procedures. The five words themselves are the signed Kernel axis.
 
 # VIII · Creature Type vs Archetype
 
-Different concepts, never confused.
 - **Creature Type — what the entity *is*.** Governs broad biological, morale,
   repair, healing, or targeting relationships owned by a module. Combat's set:
   `Man · Beast · Spirit · Construct`.
 - **Archetype — *who* it is** in recognizable play language:
   `(Role + Tool + signature) → Archetype` → Gunslinger, Berserker, Assassin,
-  Knight, Scout, Artillery. Archetypes are **readable combinations, not
-  primitives.** "Skirmisher / Tank / Sniper / Support" may live here as
-  player-facing descriptions.
+  Knight, Scout, Artillery. Say *Skirmisher* or *Sniper* at the table freely.
+  `→ G·archetype-is-not-a-primitive`
 
 ---
 
@@ -418,8 +418,7 @@ FIGURE  acts within  FIRETEAM  maneuvers within  BANNER
   Retinue.** The Sergeant supplies coordination, Rally, formation handling, and
   command continuity.
 - **Banner** — the warband / persistent tactical group: a **Champion + Fireteams +
-  loose specialists.** Not an Order, a Mission, a command-state, or a literal
-  flag-bearer.
+  loose specialists.** `→ G·banner-is-not-a-command-state`
 - **Caravan** — the primary **persistent expedition**; physically carries what
   survives between events (figures, Banners, civilians, wagons, beasts, supplies,
   injuries, wealth, quests, relationships, reputation, crafting facilities).

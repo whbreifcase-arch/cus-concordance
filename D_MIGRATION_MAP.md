@@ -6,6 +6,10 @@
 > value, the "New treatment" column says so. Every mapping below is **settled**;
 > the rulings behind them are recorded in
 > [Document E · Decision Register](E_OPEN_DECISIONS.md).
+>
+> **This is the "where did my word go" document.** If you want to know *why* the
+> obvious reading is wrong rather than where the old term went, that's
+> **[Document G · Why Not](G_WHY_NOT.md)**.
 
 ---
 
