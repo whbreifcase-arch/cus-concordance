@@ -78,15 +78,31 @@ A model earns its **3″ of charge-push** only by a **3″ uninterrupted sprint 
 into contact** — a clean, unbroken run of at least 3″ that ends in base contact with an
 enemy. The clean run *is* the charge; the 3″ of push is its reward.
 
-- If the run into contact was **shorter than 3″**, or was **interrupted** (it stopped,
-  was blocked, redirected, or was already in/entering another engagement), the model does
-  **not** charge — it simply **halts on contact** and generates no charge-push. Its normal
-  attacks and reactions still apply; it just doesn't get the driving 3″.
 - The 3″ push is the *maximum penetration* after contact, not a free move — it is spent
   driving into/through the enemy and is subject to the normal push→indent→crush resolution.
 
-This is why room matters so much: deny an enemy a clean 3″ lane and you deny them the
-charge itself, before a blow is struck.
+**Interruption commits the charge where it happens.** "Interrupted" means **physical
+contact** — a body gets in the way before the run is complete. When that happens, the
+charge **commits at the point of contact**: the push begins *there*, against whatever was
+hit, and the intended charge into the target beyond is **fumbled**. If ≥3″ of clean sprint
+was already covered when the interrupting body was struck, that contact is itself a valid
+charge *into the interrupter* (it gets the push); if less, the model simply halts there.
+Either way the intended charge is spent on the wrong target.
+
+> This is exactly why a **screen** defeats a charge: the chargers commit on the chaff,
+> spend their push there, and arrive at the real line already spent. Deny an enemy a clean
+> 3″ lane — with terrain, spacing, or a screen — and you deny them the charge itself,
+> before a blow is struck.
+
+**A reaction is not an interruption.** A shot, a reach-strike, or any triggered effect that
+fires *while the model is moving* simply **resolves** — it does not fumble the sprint.
+Getting hit on the way in ≠ getting stopped. Only physical contact interrupts.
+
+**It is still one activation.** The entire sprint-charge is a single activation (the
+attacker's) carrying many reactions inside it: the attacker declares, defenders choose how
+to respond and whether to counter, cascades resolve — and all normal AP, activation, and
+reaction budgets remain fully in force throughout. The clash is the container, not an
+exception to the economy.
 
 ## Shields Eat Packets — a reaction, either side
 
