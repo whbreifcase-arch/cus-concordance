@@ -107,6 +107,8 @@
       <legend>Terrain & charge</legend>
       <div class="row"><label>Back wall (crush)</label><input type="checkbox" id="dWall"></div>
       <div class="row"><label>Side walls (box them)</label><input type="checkbox" id="sWall"></div>
+      <div class="row"><label>Increment (pacing)</label>
+        <select id="step"><option value="1">1″ beats</option><option value="0.5">½″ beats</option></select></div>
       <div class="row"><label>Seed</label><input type="number" id="seed" value="1" style="width:70px"></div>
     </fieldset>
 
@@ -162,9 +164,10 @@ function rngFromSeed(s){ let a=(s>>>0)||1;
 
 // ===================== ENGINE (charge axis = +y) ===================== //
 class Charge{
-  constructor(chargers,defenders,{wallY=null,xMin=null,xMax=null,seed=1}={}){
+  constructor(chargers,defenders,{wallY=null,xMin=null,xMax=null,seed=1,step=STEP}={}){
     this.figs=[...chargers,...defenders]; this.all=[...chargers,...defenders];
     this.chargers=chargers; this.defenders=defenders; this.wallY=wallY; this.xMin=xMin; this.xMax=xMax;
+    this.step=step;
     this.rnd=rngFromSeed(seed); this.frames=[]; this.ev=[]; this.logs=[];
     this.m={reach:0,impact:0,counter:0,push:0,crush:0,intercept:0,knock:0,halt:0,flank:0,rear:0,ckill:0,dkill:0};
     this.centerX=this.all.reduce((s,f)=>s+f.x,0)/(this.all.length||1);
@@ -229,7 +232,7 @@ class Charge{
   }
   advanceOne(c){
     if(c.stopped)return;
-    const step=c.contacted?Math.min(STEP,c.budget):STEP;
+    const base=this.step, step=c.contacted?Math.min(base,c.budget):base;
     if(step<=EPS){c.stopped=true;return;}
     const ahead=this.nearestAhead(c);
     if(!ahead){c.y+=step;if(!c.contacted){c.sprinted+=step;c.travel-=step;if(c.travel<=0)c.stopped=true;}else c.budget-=step;return;}
@@ -415,7 +418,7 @@ function assemble(){ FID=0;
   let wallY=null,xMin=null,xMax=null;
   if($("dWall").checked&&def.length)wallY=Math.max(...def.map(f=>f.y+f.r))+0.4;
   if($("sWall").checked&&editFigs.length){const xs=[...chg,...def].map(f=>f.x);xMin=Math.min(...xs)-0.5;xMax=Math.max(...xs)+0.5;}
-  return new Charge(chg,def,{wallY,xMin,xMax,seed:+$("seed").value});
+  return new Charge(chg,def,{wallY,xMin,xMax,seed:+$("seed").value,step:+$("step").value});
 }
 function simulate(){
   if(!editFigs.some(e=>e.side==="C")||!editFigs.some(e=>e.side==="D")){alert("Place at least one charger and one defender.");return;}
