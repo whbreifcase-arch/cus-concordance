@@ -72,6 +72,30 @@ Nothing is artificially delayed. Interactions occur the **moment they become pos
 - Counterattacks.
 - Any other triggered effect.
 
+## Earning the Charge-Push (the 3″)
+
+A model earns its **3″ of charge-push** only by a **3″ uninterrupted sprint straight
+into contact** — a clean, unbroken run of at least 3″ that ends in base contact with an
+enemy. The clean run *is* the charge; the 3″ of push is its reward.
+
+- If the run into contact was **shorter than 3″**, or was **interrupted** (it stopped,
+  was blocked, redirected, or was already in/entering another engagement), the model does
+  **not** charge — it simply **halts on contact** and generates no charge-push. Its normal
+  attacks and reactions still apply; it just doesn't get the driving 3″.
+- The 3″ push is the *maximum penetration* after contact, not a free move — it is spent
+  driving into/through the enemy and is subject to the normal push→indent→crush resolution.
+
+This is why room matters so much: deny an enemy a clean 3″ lane and you deny them the
+charge itself, before a blow is struck.
+
+## Shields Eat Packets — a reaction, either side
+
+A shield-bearer may spend its **reaction** to intercept a packet aimed at an **adjacent
+ally within 1″**, taking the hit on its own armour. This is a **universal reaction, not a
+defender-only ability** — a shield escorting a charging model protects it exactly as a
+shield in a standing line protects its neighbour. (One reaction per model per clash, as
+normal; a spent shield can't intercept again.)
+
 ## Emergent Formations
 
 Formations are **never activated as special modes**.
