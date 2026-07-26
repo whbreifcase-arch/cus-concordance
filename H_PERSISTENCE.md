@@ -328,7 +328,37 @@ structurally the same object as a grudge (I · 3). No new machinery.
 | `the_dark` | Cannot enter enclosed terrain without passing a Nerve test. **But** once inside and Braced: **+1 die.** Cornered is a place he understands. |
 | `oathsick` | **He will not break again. Cannot go Broken.** But he cannot Disengage either — leaving a fight is the thing he cannot make himself do twice. |
 | `cannot_watch` | **Trigger:** a friendly figure within 3″ goes Knocked Out. **Effect:** he must MOVE toward it on his next activation if he legally can. |
-| `hollow` | Nerve worsens by 1 · **cannot form or hold Bonds** (MEANING). He does not recover from anything any more, because recovery needs people and he has none. The end state of an untended mind. |
+| `hollow` | See §7.7b. It does not fit in a row. |
+
+### 7.7b · `hollow` — the end state of an untended mind
+
+Every neglected MIND injury walks down its column and arrives here. This is where
+the campaign keeps its worst outcome.
+
+```text
+hollow
+
+  DEEPENS      Nerve worsens by 1 — and by 1 more at the end of every period
+               he finishes with no friendly figure within 3″. It does not stop.
+
+  EMPTY        Cannot form or hold a Bond. Not loyalty, not kinship, not a debt.
+               Whatever he had lapses.
+
+  CANNOT MEND  He may take no ACTION that repairs anything between people. He
+               cannot Rally another figure, cannot tend the wounded, cannot make
+               amends, cannot apologise, cannot reconcile. Nothing he does helps
+               anyone.
+
+  LASHES OUT   WRITTEN TRIGGER — when he is Wounded, or when any figure goes
+               Knocked Out within 3″, he strikes the NEAREST figure, friend or
+               foe, if he has Reaction remaining. He is Wild in that moment
+               (B · 10) and he does not choose it.
+```
+
+He is not a villain. He is a man nobody sat with.
+
+> **What is done *for* him is not his to refuse.**
+
 
 ---
 
