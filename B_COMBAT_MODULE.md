@@ -765,7 +765,7 @@ bodies, only a wall stops it — §4). `→ G·traits-are-not-base-properties`
 
 What the player sees is translation, never a parallel mechanic:
 ```text
-player:  Advance · [weapon] "Spear Thrust" · GRADE 1/2/3 · Brace
+player:  MOVE · [weapon] "Spear Thrust" · GRADE 1/2/3 · Brace
 system:  MOVE   · ACTION packet_id:spear_thrust · Grade · WAIT (armed packet)
 ```
 Floating table state shows **Instance** only (Position, Wounds, Agency left,

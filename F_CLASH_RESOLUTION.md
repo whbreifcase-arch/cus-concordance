@@ -44,7 +44,7 @@ a complex engagement into understandable moments.
 
 After each increment:
 
-1. **Advance** all participating models.
+1. **MOVE** all participating models (the Form Up body — B · 11).
 2. **Resolve** every interaction that has become legal.
 3. **Repeat** until movement is complete or the engagement naturally ends.
 

@@ -112,7 +112,10 @@ which is why an outside reviewer graded a doc set that trailed the rulings. See
 | move-stays-move | **The *Advance* alias is retired.** Combat does not rename MOVE. *Sprint · Leap · Withdraw* name kinds of MOVE | B·2, C, D |
 | invocation-layer | **Verb ≠ invocation.** Player keeps three verbs; the grammar gains `WRITTEN_TRIGGER` and `OWNED_PROCEDURE` so Counter, Impact and Intercept reach the resolver honestly | A·XIV, C |
 | round-boundaries | **START OF ROUND** defined: eligibility resets, the starting side alternates, that side picks first. Refresh stays **on activation** — hit the tired ones | B·12 |
-| kill-ai-director | **F_AI_DIRECTOR deleted**, along with its play aids and its SLOT/Boss encounter budget. Nothing salvaged | — |
+| kill-ai-director | **F_AI_DIRECTOR deleted**, along with its play aids and its SLOT/Boss encounter budget. Nothing salvaged — the name is **deliberately cleared** for William's own campaign-preparation system (slot reserved, I·6) | — |
+| domains | **Three co-equal domains: COMBAT · PERSISTENCE · MEANING**, peer modules intersecting at the Figure. *Story* is MEANING's everyday name. Rejected: *Bond* (one subsystem), *Identity* (too narrow), *Character* (collides with Creature Type / Archetype) | A·XIX, H, I |
+| caravan-ownership | **Persistence is the module; the Caravan is the entity it operates on.** Caravan is *not* a flavour-name for the domain — it is a canonical hierarchy layer (A·X) and demoting it would give one concept two owners (Law 1) | H·2 |
+| app-required | **Play is analog; Persistence requires the companion application.** A deliberate architectural commitment, not a fallback. Between-session bookkeeping is the app's job | A·XIX, H·4 |
 
 ### On Form Up and the tempo trade
 The consequence was raised before signing and accepted deliberately: forming up

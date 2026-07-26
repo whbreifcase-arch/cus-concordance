@@ -422,8 +422,8 @@ cost of every interesting decision. Rigid spacing also fights terrain, which is
 where the whole game lives.
 
 **Instead.** A Formation holds `Name · Picture · one sentence of intent`. Players
-maintain the shape as closely as practical. Advance translates it; Reform changes
-it. Both reduce to existing verbs and Position changes.
+maintain the shape as closely as practical. MOVE translates it; Reform changes it.
+Both reduce to existing verbs and Position changes.
 
 ### alternation-is-not-initiative
 **Tempting.** Alternating activations is an initiative system, so it should be

@@ -17,6 +17,23 @@ wins.** The old codex is now a **migration input, not authority.**
 | **E** | [Decision Register](E_OPEN_DECISIONS.md) | The signed record of every ruling and amendment. **Not** a list of open questions — the filename is legacy, kept so links don't break. |
 | **F** | [Continuous Clash Resolution](F_CLASH_RESOLUTION.md) | The governing spec for how a clash/"charge" resolves — increments, reaction order, the 3″ threshold. |
 | **G** | [Why Not](G_WHY_NOT.md) | The rationale register. Every place CUS says "X is **not** Y," the argument lives here — so A–C can state rules instead of defending them. |
+| **H** | [Persistence](H_PERSISTENCE.md) 🚧 | **SCAFFOLD — not authority.** What remains true between events. A door with a sign on it. |
+| **I** | [Meaning](I_MEANING.md) 🚧 | **SCAFFOLD — not authority.** Standing relationships and what events meant. *Story* is its everyday name. |
+
+## The three domains — A · XIX
+
+```text
+COMBAT       what you can do         Position · Force              BUILT     (B, F)
+PERSISTENCE  what is still true      State · Resource              SCAFFOLD  (H)
+MEANING      what it meant           relationships between agents  SCAFFOLD  (I)
+```
+
+Peer modules, not layers. They intersect at **the Figure** — one Figure, one
+Instance, three projections of it. **Play is analog; Persistence requires the
+companion app.**
+
+> 🚧 **H and I contain no rules.** They declare what each domain will own and what
+> it must answer. Where they conflict with A–G, A–G wins.
 
 **Supporting:** [CHARGE_FINDINGS.md](CHARGE_FINDINGS.md) — what ~1.3M simulated
 charges taught us (capstone, closed 2026-07-25) · [SCENARIO_PROMPT.md](SCENARIO_PROMPT.md)
