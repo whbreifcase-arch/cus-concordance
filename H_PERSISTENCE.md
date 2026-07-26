@@ -1,31 +1,22 @@
 # CUS — THE PERSISTENCE MODULE
 
-### v0.6 · 🚧 **SCAFFOLD — UNDER CONSTRUCTION** 🚧 · opened 2026-07-25
+### v0.6 · 🚧 **PARTIAL** 🚧 · opened 2026-07-25
 
 > ```text
 > ┌─────────────────────────────────────────────────────────────┐
-> │                    UNDER CONSTRUCTION                       │
+> │  §7 HARM is WRITTEN — tables and all.                       │
+> │  Everything else is still a DOOR, not a room.               │
 > │                                                             │
-> │  This document is a DOOR, not a room. It declares what      │
-> │  Persistence will own and what it must answer. It contains  │
-> │  no rules yet and is NOT AUTHORITY.                         │
-> │                                                             │
-> │  Nothing here may be cited to settle a question.            │
-> │  Where it conflicts with A–G, A–G wins.                     │
+> │  Where this conflicts with A–G, A–G wins.                   │
 > └─────────────────────────────────────────────────────────────┘
 > ```
 >
-> **What this will be.** The second of the three domains (A · XIX): the module
-> that owns **what remains true between events.** Peer to Combat, not beneath it.
->
-> **How to use it now.** As a place to put things. When a persistence question
-> comes up mid-work, write it into §7 rather than answering it in passing.
+> **What this is.** The second of the three domains (A · XIX): the module that owns
+> **what remains true between events.** Peer to Combat, not beneath it.
 
 ---
 
 # 1 · What Persistence owns
-
-The long-lived facts about a Figure, a Caravan, and the world.
 
 ```text
 FIGURE          lasting injuries · scars · advancement · experience
@@ -35,8 +26,7 @@ FIGURE          lasting injuries · scars · advancement · experience
 CARAVAN         supplies · wealth · beasts · wagons · civilians
                 crafting facilities · roster · what survived
 
-WORLD           what changed and stayed changed
-                the campaign clock
+WORLD           what changed and stayed changed · the campaign clock
 ```
 
 **Persistence records truth. It does not decide what that truth meant** — that is
@@ -46,15 +36,12 @@ MEANING's job (Document I), and the split is deliberate.
 
 # 2 · Persistence is the module; the Caravan is the entity
 
-A correction worth writing down before it becomes folklore:
-
 ```text
 Combat       is the module.   Figure · Banner   are what it operates on.
 Persistence  is the module.   THE CARAVAN       is what it operates on.
 ```
 
-**Caravan is not a flavour-name for Persistence.** It is a canonical Kernel term —
-a layer in the recursive hierarchy (A · X) — and it is a **real model on the table:
+The Caravan is a canonical hierarchy layer (A · X) and a **real model on the table:
 the physical representation of the persistence axis.** Wagons, capacity, facilities,
 who is riding because they cannot walk. You read it the way you read a base (B · 1).
 
@@ -64,23 +51,16 @@ who is riding because they cannot walk. You read it the way you read a base (B �
 > Figure's Instance.** Persistence owns the procedures that change it. The Caravan
 > is where those figures physically are.
 
-Persistence is **what the Caravan does between events.**
-
 ---
 
 # 3 · Verb translation  *(the module contract's load-bearing clause)*
 
-A domain that cannot express the three verbs is not a module (A · XVII, A · XIX).
-
 ```text
 KERNEL   MOVE                  ACTION                      WAIT
-Persist  travel — the Caravan  craft · heal · trade ·      hold in reserve —
+Persist  travel — the Caravan  tend · craft · trade ·      hold in reserve —
          relocates, marches,   recruit · repair · train    bank supply, keep a
          makes for the pass                                bed open, stand watch
 ```
-
-⚠ **Unproven.** These are the obvious readings, not signed rulings. The first real
-procedure written here has to honour them or replace them.
 
 ---
 
@@ -91,61 +71,49 @@ PLAY         is analog.   Miniature · card · dice · pencil. No screen at the 
 PERSISTENCE  requires the companion application.
 ```
 
-This is a **deliberate architectural commitment, not a fallback.** Between-session
-bookkeeping is the app's job. The analog floor covers *playing the game*; it does
-not extend to *maintaining the campaign*.
+A **deliberate architectural commitment, not a fallback.** The analog floor covers
+*playing the game*; it does not extend to *maintaining the campaign*.
 
 Consequence to design against: **a printed QR code cannot be written to.** Whatever
-the payload schema ends up being (§7.2), the physical code is fixed at print time
-and everything mutable lives where it can actually change.
+the payload schema becomes (§8.2), the physical code is fixed at print time.
 
 ---
 
 # 5 · The contract with Combat
 
-Combat stays **sealed**. Persistence never reaches into the resolver; it hands
-Combat inputs and reads Combat's outputs.
-
 ```text
 PERSISTENCE ──▶ COMBAT INPUT ──▶ [ SEALED RESOLVER ] ──▶ DELTAS + EVENTS ──▶ PERSISTENCE
 ```
 
-**In** — who is available, what they're carrying, what condition they're in, what
-lasting injuries apply. Note this largely already exists in canon: constrained
-intent for an AI force is a **Mission** (A · XI), so the input contract should
-*produce a Mission*, not invent a parallel object.
+**In** — who is available, what they carry, what condition they are in. Constrained
+intent for an AI force is already a **Mission** (A · XI), so the input contract
+should *produce a Mission*, not invent a parallel object.
 
-**Out** — state deltas (what mechanically changed) and event records (what
-happened, in a form MEANING can interpret).
+**Out** — state deltas and event records.
 
-> ⚠ **The output contract must have an analog tier.** If it exists only as JSON it
-> works for two sessions and then quietly dies, because §4 says nobody has a screen
-> open during play. Design the five things you scribble on paper *first*, and let
-> the schema serialize that.
+> ⚠ **The output contract needs an analog tier.** If it exists only as JSON it works
+> for two sessions and then dies, because §4 says nobody has a screen open during
+> play. Design the five things you scribble on paper first.
 
 ---
 
 # 6 · Mostly new data, not new combat mechanics
 
-The intended shape: Persistence extends Combat through **Instance fields**, not by
-reopening the resolver. A lasting arm injury is a modifier the resolver already
-knows how to read. It does not need to know it came from a wolf in the spring.
-
 ```text
 NEW CAMPAIGN DATA  →  EXISTING COMBAT INPUTS  →  SEALED RESOLVER  →  DELTAS + EVENTS
 ```
 
-If a Persistence feature requires a *new* combat mechanic, that is a signal to stop
-and check whether the feature is really Persistence's.
+If a Persistence feature requires a *new* combat mechanic, stop and check whether
+the feature is really Persistence's.
 
 ---
+---
 
-# 7 · HARM — injury, healing and scars  🚧 *framework only*
+# 7 · HARM — injury, healing and scars
 
-> The shape is set below. **The tables are not written.** Everything here is
-> structure; §8.1 is the content job.
+> The first real content in this module. Everything below is playable.
 
-## 7.1 · The lifecycle — one procedure, two axes
+## 7.1 · The lifecycle
 
 ```text
 WOUND            transient · numeric · resolved at the table          [B · 7]
@@ -159,13 +127,9 @@ INJURY           persistent · has effects NOW · has a recovery clock
 RECOVERED  ─or─  SCAR            permanent · has effects forever
 ```
 
-**Wounds are combat's. Injuries and Scars are Persistence's.** The fork already
-exists in canon: `wounds_remaining = 0 → Knocked Out or Dead` (B · 7). A figure
-that went down and lived is a figure that rolls for harm.
+**Wounds are Combat's. Injuries and Scars are Persistence's.**
 
-## 7.2 · The two axes — BODY and MIND
-
-Same lifecycle, **different sources.** This is the part worth noticing:
+## 7.2 · Two axes, one lifecycle, different sources
 
 ```text
 COMBAT   ── wounds ──▶  BODY injury  ──▶  BODY scar
@@ -177,159 +141,258 @@ BODY harm comes from **damage**. MIND harm comes from **what happened**, which i
 not the same thing and is not measured in Wounds. A figure can walk off the field
 untouched and ruined.
 
-## 7.3 · BODY — generated, not enumerated
+---
 
-Do not hand-author two hundred injuries. Generate them:
+## 7.3 · The Aftermath — how harm is rolled
+
+Both checks use the **same three-dice shape as a Nerve test** (B · 10). Nothing new
+is learned.
+
+### BODY — the Care check
+**Every figure that ended the battle Knocked Out** rolls once. *(Dead is dead.
+Figures still standing take no BODY harm.)*
 
 ```text
-LOCATION  ×  TISSUE  ×  SEVERITY   →   a specific, named injury
+Roll 3 dice against the Caravan's CARE number.
 
-LOCATION   head · eye · torso · arm · hand · leg · foot
-TISSUE     bone · joint · tendon/muscle · nerve · organ · skin
-SEVERITY   minor · major · grievous
+  no surgeon, no wagon   6+
+  a field surgeon        5+
+  surgeon + facilities   4+
+
+0 successes  →  DIED OF WOUNDS. He never woke up.
+1–2          →  lives · roll on the injury table, +1 to the severity die
+3            →  lives · roll on the injury table
 ```
 
+Then roll **d6 for LOCATION** — or use the location the killing blow actually
+struck, where anyone remembers — and **d6 on that location's table.**
+
 ```text
-leg  · joint  · minor     →  rolled ankle
-leg  · bone   · major     →  broken ankle
-leg  · tendon · grievous  →  torn achilles
-arm  · joint  · major     →  dislocated shoulder
-hand · joint  · minor     →  sprained wrist
+LOCATION   1 Head   2 Torso   3 Arm   4 Hand   5 Leg   6 Foot
 ```
 
-Location comes from **what actually hit the figure** where the record supports it,
-and is rolled where it doesn't.
+### MIND — the Nerve check
+Rolled **only if a trigger happened to that figure** (§7.6). Not tied to going down.
 
-### The injury record
 ```text
-injury_id · axis · location · tissue · severity
-active_effect    what it does while unhealed
-recovery         periods required · whether care is required
-on_heal          RECOVERED  |  SCAR:<scar_id>
-on_neglect       what it becomes if untreated
+Roll 3 dice against the figure's NERVE.
+
+3 successes  →  he carries it. No injury.
+0–2          →  MIND injury from the trigger table
 ```
 
-### Worked example
+*(Circles test too. Heroes do not break in combat; that is not the same as being
+untouched by it.)*
+
+---
+
+## 7.4 · BODY injuries
+
+`ACTIVE` = while unhealed. `RECOVERY` = periods of rest, **with care**.
+`NEGLECT` = what it becomes if he keeps marching instead.
+
+### 1 · HEAD
+
+| d6 | Injury | Active | Recovery | Heals to | Neglected |
+|---|---|---|---|---|---|
+| 1 | **Split brow** | blood in the eyes — −1 die on ranged | 1 | `weathered` | `weathered` |
+| 2 | **Broken nose** | −1 die on ranged | 1 | `weathered` | `crooked_nose` |
+| 3 | **Cracked skull** | Nerve worsens by 1 | 3 | recovered | `rattled` |
+| 4 | **Shattered jaw** | cannot speak — **a Sergeant cannot call Form Up**, a leader cannot Rally | 3 | recovered | `wired_jaw` |
+| 5 | **Eye destroyed** | −2 dice on ranged, −1 die on melee | 2 | `one_eye` | `one_eye` |
+| 6 | **Skull staved in** | −1 AP · Nerve worsens by 2 | 5 | `rattled` | **retired — he is not himself** |
+
+### 2 · TORSO
+
+| d6 | Injury | Active | Recovery | Heals to | Neglected |
+|---|---|---|---|---|---|
+| 1 | **Deep gash** | −1 die on melee | 1 | recovered | `knotted_scar` |
+| 2 | **Cracked ribs** | −1 die on melee · cannot Sprint | 2 | recovered | `bad_ribs` |
+| 3 | **Broken collarbone** | cannot use a shield or a two-handed packet | 3 | recovered | `dropped_shoulder` |
+| 4 | **Bruised spine** | Move −2″ · cannot Brace | 3 | recovered | `stiff_back` |
+| 5 | **Punctured lung** | Move halved · cannot Sprint · −1 Wound | 4 | `short_wind` | `short_wind` |
+| 6 | **Gut wound** | −1 Wound · **roll Care again next period or die** | 5 | `iron_gut` | **dies** |
+
+### 3 · ARM
+
+| d6 | Injury | Active | Recovery | Heals to | Neglected |
+|---|---|---|---|---|---|
+| 1 | **Sprained elbow** | −1 die on melee | 1 | recovered | `weak_arm` |
+| 2 | **Dislocated shoulder** | cannot use a two-handed packet | 2 | recovered | `loose_shoulder` |
+| 3 | **Torn bicep** | −1 die on melee · cannot Shove | 3 | recovered | `weak_arm` |
+| 4 | **Broken forearm** | that arm is useless — shield **or** weapon, not both | 3 | recovered | `crooked_arm` |
+| 5 | **Nerve severed** | the arm will not grip | 4 | `dead_arm` | `dead_arm` |
+| 6 | **Arm lost** | — | 4 | `one_arm` | **dies** |
+
+### 4 · HAND
+
+| d6 | Injury | Active | Recovery | Heals to | Neglected |
+|---|---|---|---|---|---|
+| 1 | **Sprained wrist** | −1 die on melee | 1 | recovered | `weak_grip` |
+| 2 | **Crushed knuckles** | −1 die on melee | 2 | recovered | `weak_grip` |
+| 3 | **Fingers broken** | cannot use a two-handed packet | 2 | recovered | `claw_hand` |
+| 4 | **Tendon severed** | cannot use a shield | 4 | `claw_hand` | `claw_hand` |
+| 5 | **Fingers lost** | −1 die on melee | 3 | `three_fingers` | `three_fingers` |
+| 6 | **Hand lost** | — | 4 | `one_hand` | **dies** |
+
+### 5 · LEG
+
+| d6 | Injury | Active | Recovery | Heals to | Neglected |
+|---|---|---|---|---|---|
+| 1 | **Rolled ankle** | Move −1″ · cannot Sprint | 1 | recovered | `bad_ankle` |
+| 2 | **Deep thigh cut** | Move −2″ | 1 | recovered | `bad_ankle` |
+| 3 | **Broken ankle** | Move halved · cannot Sprint · cannot Form Up | 3 | `bad_ankle` | `short_stride` |
+| 4 | **Knee wrecked** | Move halved · cannot Sprint | 4 | `short_stride` | `bad_knee` |
+| 5 | **Torn achilles** | cannot Sprint · Move halved · cannot Form Up | 3 (never heals without care) | `short_stride` | `crippled_leg` |
+| 6 | **Leg lost** | — | 5 | `peg_leg` | **dies** |
+
+### 6 · FOOT
+
+| d6 | Injury | Active | Recovery | Heals to | Neglected |
+|---|---|---|---|---|---|
+| 1 | **Bruised heel** | Move −1″ | 1 | recovered | recovered |
+| 2 | **Broken toes** | Move −1″ · cannot Sprint | 2 | recovered | `bad_ankle` |
+| 3 | **Arch destroyed** | Move −2″ · cannot Sprint | 3 | `short_stride` | `short_stride` |
+| 4 | **Crushed foot** | Move halved · cannot Form Up | 4 | `short_stride` | `crippled_leg` |
+| 5 | **Rot has set in** | Move halved · **roll Care again next period or lose the foot** | 4 | recovered | → *Foot lost* |
+| 6 | **Foot lost** | — | 4 | `peg_leg` | **dies** |
+
+---
+
+## 7.5 · BODY scars
+
+**A scar changes how a figure fights; it does not merely subtract.** Every entry
+below takes something and gives something, because that is what surviving does.
+
+| Scar | Effect |
+|---|---|
+| `weathered` | Cosmetic. He looks like he has been somewhere. **Meaning:** reads as a veteran. |
+| `crooked_nose` | −1 die on ranged. **Meaning:** reads as a brawler. |
+| `rattled` | Nerve worsens by 1. **But** he has already been through the worst thing he can imagine: **immune to Terror Effects.** |
+| `wired_jaw` | Cannot call Form Up or Rally. He commands with his hands now — **may still initiate a Form Up if every joiner is within 2″** instead of 4″. |
+| `one_eye` | −2 dice on ranged. **But** he stopped trying to shoot and learned the other side of the fight: **+1 die on melee in his front arc.** |
+| `knotted_scar` | Armour worsens one step on the torso… **but** the scar tissue itself is thick: **first Wound each battle is ignored on a 6+.** |
+| `bad_ribs` | Cannot Sprint. **+1 die while Braced** — he fights standing still now. |
+| `dropped_shoulder` | Cannot use a two-handed packet. **+1 die with a shield equipped.** |
+| `stiff_back` | Move −2″. Cannot Brace. **+1 Reaction** — he stopped moving and started watching. |
+| `short_wind` | Move −2″ · cannot Sprint · −1 Wound. He is old before his time. |
+| `iron_gut` | −1 Wound permanently. **But** he has been opened up and lived: **ignores the first Nerve test of each battle.** |
+| `weak_arm` | −1 die on melee. |
+| `loose_shoulder` | Cannot use a two-handed packet. **May Shove for free once per battle** — he has learned exactly how to lean. |
+| `crooked_arm` | Shield **or** weapon, never both. |
+| `dead_arm` | One arm only. Cannot use two-handed or shield packets. **+1 die with a one-handed weapon** — everything he has goes into it. |
+| `one_arm` | As `dead_arm`, and he cannot carry a second item at all. |
+| `weak_grip` | −1 die on melee. Drops his weapon on a natural roll of all 1s. |
+| `claw_hand` | Cannot use a shield. **+1 die on Reach packets** — the hand hooks the haft and never lets go. |
+| `three_fingers` | −1 die on melee. |
+| `one_hand` | One-handed packets only. **+1 Reaction** — nothing to fumble with. |
+| `bad_ankle` | Move −1″. Cannot Sprint on ground that is not flat and dry. |
+| `short_stride` | Move −2″. **+1 die while Braced.** He stopped chasing people and learned to hold ground. |
+| `bad_knee` | Move −2″ · cannot Sprint · cannot charge (§B · 3). **+1 die while Braced.** |
+| `crippled_leg` | Move halved · cannot Sprint or Form Up. **He rides in the wagon.** Deployable only in defensive scenarios. |
+| `peg_leg` | Move −3″ · cannot Sprint or charge. **Immune to Shove** — he is nailed to the ground and knows it. |
+
+---
+
+## 7.6 · MIND injuries — by what happened
+
+MIND harm is **looked up, not rolled.** The event is owned by MEANING (I · 5);
+Persistence owns what it does to him.
+
+| Trigger | MIND injury | Active | Recovery | Heals to | Neglected |
+|---|---|---|---|---|---|
+| An ally died in his hands | **Shaking** | −1 die on the first ACTION of each battle | 2 | recovered | `cannot_watch` |
+| He answered a call for help and it was a trap | **Haunted** | cannot Rally others · Nerve worsens by 1 near the thing that fooled him | 2 | `never_again` | `hollow` |
+| He was the only one who walked away | **Survivor** | Nerve worsens by 1 while no ally is within 3″ | 3 | `the_last_one` | `hollow` |
+| One of his own betrayed him | **Suspicious** | cannot be the target of a friendly Shield Intercept — he flinches away | 3 | `trusts_slowly` | `hollow` |
+| He did a thing that cannot be undone | **Sick with it** | −1 die on melee against anything that resembles what he did it to | 3 | `no_quarter` | `butcher` |
+| He saw something that should not exist | **Unmoored** | Nerve worsens by 1 · cannot Brace | 3 | `has_seen_worse` | `hollow` |
+| He was buried, trapped, or left for dead | **Closed in** | cannot enter enclosed terrain without passing a Nerve test | 2 | `the_dark` | `hollow` |
+| He broke and ran, and people died for it | **Ashamed** | Nerve worsens by 1 | 2 | `oathsick` | `hollow` |
+
+---
+
+## 7.7 · MIND scars
+
+Written as **Written Triggers** (A · XIV) wherever they fire on a condition —
+structurally the same object as a grudge (I · 3). No new machinery.
+
+| Scar | Effect |
+|---|---|
+| `never_again` | **Trigger:** a child — or a thing wearing a child — calls for help. **Effect:** he will not MOVE toward it, and treats it as hostile until something proves otherwise. |
+| `the_last_one` | Nerve worsens by 1 while no ally is within 3″. **But** while he is the last of his Fireteam standing: **+1 die and +1 Reaction.** He has done this before. |
+| `trusts_slowly` | Cannot be the target of a friendly Shield Intercept. **But** he covers his own line: **+1 die on any Shield Intercept he performs.** |
+| `no_quarter` | **Trigger:** an enemy is Knocked Out within his reach. **Effect:** he finishes it, and he does not ask. Costs him nothing; costs the Caravan its reputation (MEANING). |
+| `butcher` | As `no_quarter`, and he will do it to a surrendering foe. **Meaning:** the Caravan is known for it now. |
+| `has_seen_worse` | **Immune to Terror Effects.** Nerve worsens by 1 against ordinary men — he has stopped taking them seriously, and it gets him hurt. |
+| `the_dark` | Cannot enter enclosed terrain without passing a Nerve test. **But** once inside and Braced: **+1 die.** Cornered is a place he understands. |
+| `oathsick` | **He will not break again. Cannot go Broken.** But he cannot Disengage either — leaving a fight is the thing he cannot make himself do twice. |
+| `cannot_watch` | **Trigger:** a friendly figure within 3″ goes Knocked Out. **Effect:** he must MOVE toward it on his next activation if he legally can. |
+| `hollow` | Nerve worsens by 1 · **cannot form or hold Bonds** (MEANING). He does not recover from anything any more, because recovery needs people and he has none. The end state of an untended mind. |
+
+---
+
+## 7.8 · Care — what the Caravan is for
+
+Recovery is never automatic. It needs **care**, and care is a Caravan ACTION (§3).
+This is what gives the physical Caravan model real weight.
+
 ```text
-torn_achilles
-  axis        BODY
-  active      cannot Sprint; Move halved; cannot join a Form Up
-  recovery    3 periods WITH care · never heals without it
-  on_heal     SCAR:short_stride
-  on_neglect  SCAR:crippled_leg — permanent, and he rides in the wagon
-```
-
-## 7.4 · MIND — triggered by events, not damage
-
-MIND injuries are caused by things that happened, and the causing event is owned by
-**MEANING** (Document I), not by Combat.
-
-```text
-TRIGGERS   an ally died in your hands · you failed to save someone
-           you were the only one who walked away · you were betrayed
-           you did something that cannot be undone · you saw a thing that
-           should not exist
-```
-
-### The skinwalker case — the architecture's proof
-William's example, worked all the way through:
-
-> *A child runs out of a burning barn screaming. You break cover to put him out.
-> As you reach him, he opens up like a flower and lunges. He was never a child.*
-
-```text
-MIND INJURY   haunted
-  active      cannot Rally others; tests Nerve at a penalty near fire
-  recovery    2 periods WITH companionship · does not heal alone
-  on_heal     SCAR:never_again
-  on_neglect  SCAR:hollow — will not close with anyone, ever
-
-MIND SCAR     never_again
-  trigger     a child — or a thing wearing a child — calls for help
-  effect      this figure will not MOVE toward it, and treats it as hostile
-              until something proves otherwise
-```
-
-**A MIND scar is a Written Trigger** (A · XIV). It is a clause the Figure simply
-carries, firing when its condition is met, chosen by nobody — structurally the same
-object as a grudge (I · 3). No new machinery is required to make trauma work.
-
-## 7.5 · Scars are not just penalties
-
-> **Design rule: a scar should change *how* a figure fights, not merely subtract
-> from it.**
-
-A man whose ankle never set right stops chasing people and learns to hold ground.
-That is `short_stride`: −2″ Move, **+1 die while Braced**. He is not a worse
-soldier, he is a *different* soldier, and he got that way by surviving something.
-
-Veterans should be legible from their scars. A twenty-year man should read as a
-list of things that nearly killed him and what each one taught him.
-
-## 7.6 · Care — what the Caravan is for
-
-Recovery is not automatic; it needs **care**, and care is a Caravan ACTION (§3).
-This is what gives the physical Caravan model weight — a surgeon, a wagon, a warm
-place to lie down are the difference between a scar and a cripple.
-
-```text
-BODY heals with CARE and TIME        →  surgeon · facilities · rest
+BODY heals with CARE and TIME        →  surgeon · wagon · a warm place to lie down
 MIND heals with RELATIONSHIPS        →  kin · a companion · someone who was there
 ```
 
-**That asymmetry is deliberate.** It makes MEANING mechanically load-bearing rather
-than decorative: a figure with no bonds does not recover from what he saw. Being
-alone is a mechanical disadvantage, not a mood.
+**The asymmetry is deliberate.** A figure with no Bonds does not recover from what
+he saw — every MIND injury above simply runs to its `Neglected` column, and that
+column ends at `hollow`. **Being alone is a mechanical disadvantage, not a mood.**
 
-## 7.7 · How harm reaches Combat without reopening it
+It also means the chaplain, the cook and the man's brother are worth as much roster
+space as the surgeon. That is the intended shape.
 
-Every effect above is a modifier the resolver **already knows how to read** (§6):
+## 7.9 · How harm reaches Combat without reopening it
 
 ```text
-BODY scar  →  Move · dice · Wounds · Armour · a packet it may no longer use
+BODY scar  →  Move · dice · Wounds · Armour · Reaction · a packet he may not use
 MIND scar  →  a Temperament procedure modifier, or a Written Trigger
 ```
 
 The resolver never learns that the achilles tore in the mud outside Greyfen, or
-that the thing in the barn was not a child. It reads a number and a clause. The
-meaning stays in MEANING.
+that the thing in the barn was not a child. It reads a number and a clause.
 
+---
 ---
 
 # 8 · Open work
 
-Nothing below is decided. Ordered by what unblocks the most.
-
-### 8.1 · The harm tables  ← **start here**
-The framework is §7. What is missing is **content**: the BODY injury table across
-location × tissue × severity, the MIND injury list against its triggers, and the
-scar catalogue both feed into. Author the scars *first* — they are the payoff, and
-they tell you what injuries need to exist.
+### 8.1 · Balance pass on §7
+The tables are written and coherent; they are **not** costed. Scars that grant
+`+1 Reaction` or `immune to Terror` need checking against `factions/sim/balance.py`
+before anyone builds a veteran deliberately.
 
 ### 8.2 · The QR payload schema
-What is on the code, what is referenced, versioning, what happens when a Definition
-changes after printing. See the §4 constraint.
+What is on the code, what is referenced, versioning. See the §4 constraint.
 
 ### 8.3 · The campaign clock
-**Not started — deliberately low-res for now.** A campaign without a clock is a
-series of unrelated fights. Time is already a Kernel Resource (A · IV) and nothing
-spends it. When this opens: seasons, travel time, healing over weeks, and what
-rivals do while you are elsewhere.
+**Deliberately low-res for now.** §7 counts recovery in *periods*; a period is
+currently "the gap between battles." When the clock opens: seasons, travel time,
+and what rivals do while you are elsewhere. Time is already a Kernel Resource
+(A · IV) and nothing spends it.
 
 ### 8.4 · The combat output schema
-Analog tier first (§5), then the serialized form.
+Analog tier first (§5), then the serialized form. §7.3 needs to know who ended the
+battle Knocked Out and, ideally, where they were hit.
 
 ### 8.5 · Advancement
-Experience, what it buys, and whether it can be lost.
+Experience, what it buys, whether it can be lost — and how it interacts with scars.
+A veteran should be a ledger of both.
 
 ### 8.6 · Ruin
-What happens when the Caravan is destroyed. The genre's emotional engine runs on
-permanent loss; there is currently advancement and no ruin.
+What happens when the Caravan is destroyed. There is advancement and harm here, and
+still no way to lose the whole thing.
 
 ### 8.7 · Whose persistence?
-Everything above assumes the players' Caravan. If rival factions have state — and a
-world where a beaten warband is weaker next time is a very different game from one
-where it isn't — somebody owns that too.
+Do rival factions carry injuries and scars between sessions? A world where a beaten
+warband is weaker next time is a very different game from one where it is not.
 
 ---
 
@@ -338,9 +401,13 @@ where it isn't — somebody owns that too.
 ```text
 1. cites the Constitution and Dictionary          ✅
 2. translates MOVE · ACTION · WAIT                ⚠  drafted, §3, unproven
-3. owns its Procedures and Resource budgets       ❌  none written
-4. stores facts, computes judgments               ❌  no schema
-5. reduces every mechanic to a primitive          ❌  no mechanics yet
+3. owns its Procedures                            ✅  HARM (§7) — the Aftermath,
+                                                     injuries, scars, care
+4. stores facts, computes judgments               ⚠  §7 defines the records;
+                                                     no serialization schema yet
+5. reduces every mechanic to a primitive          ✅  §7.9 — every effect is a
+                                                     State or Resource the
+                                                     resolver already reads
 ```
 
-**Until line 3 has something in it, this is a door with a sign on it.**
+**This module is no longer only a door.** One room is furnished.

@@ -123,7 +123,9 @@ which is why an outside reviewer graded a doc set that trailed the rulings. See
 | harm-granularity | BODY injuries are **generated, not enumerated**: `LOCATION × TISSUE × SEVERITY` → rolled ankle, broken ankle, torn achilles, dislocated shoulder, sprained wrist | H·7.3 |
 | mind-scars-are-triggers | **A MIND scar is a Written Trigger** — structurally the same object as a grudge. No new machinery is required to make trauma work | H·7.4, I·5 |
 | scars-change-not-subtract | **A scar should change *how* a figure fights, not merely subtract.** A bad ankle stops him chasing and teaches him to hold ground: −2″ Move, +1 die Braced. Veterans should be legible from their scars | H·7.5 |
-| recovery-asymmetry | **BODY heals with care and time; MIND heals with relationships.** A figure with no bonds does not recover from what he saw — being alone is a mechanical disadvantage, which is what makes MEANING load-bearing rather than decorative | H·7.6, I·5 |
+| recovery-asymmetry | **BODY heals with care and time; MIND heals with relationships.** A figure with no Bonds does not recover from what he saw — every MIND injury runs to its neglect column, ending at `hollow` (cannot form or hold Bonds, ever). Being alone is a mechanical disadvantage | H·7.8, I·5 |
+| aftermath-rolls | **BODY = a Care check; MIND = a Nerve check.** Both use the existing **three-dice, count-successes** shape (B·10) so nothing new is learned. Care 6+ / 5+ surgeon / 4+ surgeon+facilities; 0 successes = died of wounds | H·7.3 |
+| harm-tables | **Written 2026-07-25.** 6 locations × d6 = **36 BODY injuries** · **8 MIND injuries** keyed to triggers · **25 BODY scars + 10 MIND scars**. Every scar takes something and gives something | H·7.4–7.7 |
 
 ### On Form Up and the tempo trade
 The consequence was raised before signing and accepted deliberately: forming up

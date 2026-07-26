@@ -48,7 +48,8 @@ outcome Law 13 wants.
 # 2 · What Meaning owns
 
 ```text
-BETWEEN AGENTS   loyalty · grudge · kinship · debt · trust · rivalry
+BONDS            the standing tie between two agents — the domain's core object.
+                 loyalty · grudge · kinship · debt · trust · rivalry
                  promises · obligations · oaths
 
 STANDING         reputation with a person, a faction, a place
@@ -139,6 +140,11 @@ BODY harm comes from damage. **MIND harm comes from what happened** — an ally 
 in your hands, a rescue that was a trap, being the only one who walked away. Those
 are events, and events are Meaning's.
 
+**The eight triggers are written and live in H · 7.6.** Meaning owns *recognising
+that one occurred* and recording what it meant; Persistence owns what it does to
+the figure. When Meaning gains a real event vocabulary (§8.3), those eight are its
+first consumers.
+
 ```text
 COMBAT   ── wounds ──▶  BODY injury  ──▶  BODY scar
 MEANING  ── events ──▶  MIND injury  ──▶  MIND scar
@@ -167,9 +173,13 @@ BODY heals with CARE and TIME     surgeon · wagon · rest
 MIND heals with RELATIONSHIPS     kin · a companion · someone who was there
 ```
 
-A figure with no bonds does not recover from what he saw. **Being alone is a
-mechanical disadvantage, not a mood** — which is what makes Meaning a module rather
-than flavour text.
+A figure with no Bonds does not recover from what he saw — every MIND injury simply
+runs to its neglect column, and that column ends at **`hollow`**: *cannot form or
+hold Bonds, ever again.* A man who is alone stops being able to stop being alone.
+
+**Being alone is a mechanical disadvantage, not a mood** — which is what makes
+Meaning a module rather than flavour text, and makes the chaplain worth as much
+roster space as the surgeon.
 
 ---
 

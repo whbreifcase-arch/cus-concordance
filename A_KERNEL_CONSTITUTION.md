@@ -703,6 +703,6 @@ holding a hatred.
 ## Status
 ```text
 COMBAT       BUILT      — Document B, and its clash spine is closed (F)
-PERSISTENCE  SCAFFOLD   — Document H · under construction, not authority
+PERSISTENCE  PARTIAL    — Document H · HARM is written (§7); the rest is scaffold
 MEANING      SCAFFOLD   — Document I · under construction, not authority
 ```
