@@ -302,13 +302,13 @@ Persistence owns what it does to him.
 | Trigger | MIND injury | Active | Recovery | Heals to | Neglected |
 |---|---|---|---|---|---|
 | An ally died in his hands | **Shaking** | −1 die on the first ACTION of each battle | 2 | recovered | `cannot_watch` |
-| He answered a call for help and it was a trap | **Haunted** | cannot Rally others · Nerve worsens by 1 near the thing that fooled him | 2 | `never_again` | `hollow` |
-| He was the only one who walked away | **Survivor** | Nerve worsens by 1 while no ally is within 3″ | 3 | `the_last_one` | `hollow` |
-| One of his own betrayed him | **Suspicious** | cannot be the target of a friendly Shield Intercept — he flinches away | 3 | `trusts_slowly` | `hollow` |
+| He answered a call for help and it was a trap | **Haunted** | cannot Rally others · Nerve worsens by 1 near the thing that fooled him | 2 | `never_again` | `no_quarter` |
+| He was the only one who walked away | **Survivor** | Nerve worsens by 1 while no ally is within 3″ | 3 | `the_last_one` | `thousand_yard` |
+| One of his own betrayed him | **Suspicious** | cannot be the target of a friendly Shield Intercept — he flinches away | 3 | `trusts_slowly` | `trusts_no_one` |
 | He did a thing that cannot be undone | **Sick with it** | −1 die on melee against anything that resembles what he did it to | 3 | `no_quarter` | `butcher` |
-| He saw something that should not exist | **Unmoored** | Nerve worsens by 1 · cannot Brace | 3 | `has_seen_worse` | `hollow` |
-| He was buried, trapped, or left for dead | **Closed in** | cannot enter enclosed terrain without passing a Nerve test | 2 | `the_dark` | `hollow` |
-| He broke and ran, and people died for it | **Ashamed** | Nerve worsens by 1 | 2 | `oathsick` | `hollow` |
+| He saw something that should not exist | **Unmoored** | Nerve worsens by 1 · cannot Brace | 3 | `has_seen_worse` | `thousand_yard` |
+| He was buried, trapped, or left for dead | **Closed in** | cannot enter enclosed terrain without passing a Nerve test | 2 | `the_dark` | `wont_go_in` |
+| He broke and ran, and people died for it | **Ashamed** | Nerve worsens by 1 | 2 | `oathsick` | `craven` |
 
 ---
 
@@ -328,12 +328,17 @@ structurally the same object as a grudge (I · 3). No new machinery.
 | `the_dark` | Cannot enter enclosed terrain without passing a Nerve test. **But** once inside and Braced: **+1 die.** Cornered is a place he understands. |
 | `oathsick` | **He will not break again. Cannot go Broken.** But he cannot Disengage either — leaving a fight is the thing he cannot make himself do twice. |
 | `cannot_watch` | **Trigger:** a friendly figure within 3″ goes Knocked Out. **Effect:** he must MOVE toward it on his next activation if he legally can. |
+| `trusts_no_one` | Cannot be the target of a friendly Shield Intercept, and cannot be Rallied by another figure. **+1 Reaction** — he watches everybody, all the time. |
+| `thousand_yard` | −1 die on his first ACTION of each battle. **+1 die while no friendly is within 3″.** He works better alone now, which is the problem. |
+| `wont_go_in` | Cannot enter enclosed terrain. Not for an objective, not for a friend, not at all. **+1 die in open ground.** |
+| `craven` | Cannot charge (B · 3), and must Disengage from any fight he legally can while Shaken. **+2″ Move directly away from an enemy.** |
 | `hollow` | See §7.7b. It does not fit in a row. |
 
-### 7.7b · `hollow` — the end state of an untended mind
+### 7.7b · `hollow`
 
-Every neglected MIND injury walks down its column and arrives here. This is where
-the campaign keeps its worst outcome.
+> **How a figure becomes hollow is not written here, and is not written anywhere
+> in A–I.** What follows is the complete mechanical definition of the state. If a
+> figure in your Caravan is hollow, you will be told that he is.
 
 ```text
 hollow
@@ -357,8 +362,6 @@ hollow
 
 He is not a villain. He is a man nobody sat with.
 
-> **What is done *for* him is not his to refuse.**
-
 
 ---
 
@@ -373,8 +376,8 @@ MIND heals with RELATIONSHIPS        →  kin · a companion · someone who was 
 ```
 
 **The asymmetry is deliberate.** A figure with no Bonds does not recover from what
-he saw — every MIND injury above simply runs to its `Neglected` column, and that
-column ends at `hollow`. **Being alone is a mechanical disadvantage, not a mood.**
+he saw — his MIND injuries simply run to their `Neglected` column and stay there.
+**Being alone is a mechanical disadvantage, not a mood.**
 
 It also means the chaplain, the cook and the man's brother are worth as much roster
 space as the surgeon. That is the intended shape.

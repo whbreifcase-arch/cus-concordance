@@ -243,31 +243,17 @@ the Protective temperament something real to protect.
 looks like an oversight — so write a Redemption procedure: a cost, a number of
 periods, a check, and the man comes back.
 
-**Why not.** The moment there is a procedure, there is a *checklist*, and the
-most important thing a person can do for another person becomes a line item you
-tick on the way to a stat correction. Players would optimise it. Someone would
-work out the cheapest way to un-hollow a veteran and it would stop meaning
-anything at all.
+**Why not.** The moment there is a procedure, there is a *checklist*, and the most
+important thing one person can do for another becomes a line item you tick on the
+way to a stat correction. Someone would work out the cheapest way to un-hollow a
+veteran, and it would stop meaning anything at all.
 
-The design also does not need one. **Nothing in the rules closes the door** — it
-is simply not marked. What a hollow man cannot do is exhaustively written; what
-can be done *to* him, *for* him, or *near* him is not restricted anywhere, and
-that asymmetry is deliberate. `hollow` describes a man's capacity, never the
-world's.
+**Instead.** Write no procedure. `hollow` is a description of what a man has lost,
+not a puzzle with a printed solution.
 
-**Instead.** Leave it emergent. Two standing instructions for anyone editing this
-system:
-
-```text
-DO NOT sign-post it.   No "Redemption" heading, no procedure, no table entry.
-DO NOT brick it up.    Hardening `hollow` is welcome — but every edit must leave
-                       what OTHER figures may do unrestricted. He may be
-                       impossible to reach. He may never be impossible to help.
-```
-
-This is the one place in CUS where the correct rules text is an absence. If a
-group finds the way through, they will have found it themselves, and it will be
-the best thing that ever happened at their table.
+**No "Redemption" heading, no procedure, no table entry.** This is the one place in
+CUS where the correct rules text is an absence — and if a group works something out
+at their own table, what they worked out is theirs.
 
 ### form-up-is-not-free
 **Tempting.** Form Up lets a whole squad move and fight for 1 AP each. That has to be
