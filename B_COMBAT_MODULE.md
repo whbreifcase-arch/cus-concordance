@@ -642,11 +642,14 @@ touch (§8) — so a second rank contributes without being in the front.
 > wedge splits the difference and buys flank angles. Nobody had to write a
 > column/line/wedge rule — the geometry *is* the rule.
 
-### Movement distance  ⚠ PROVISIONAL
-The formation moves up to the **shortest Move among its members**, maintaining
-shape as closely as practical. A body travels at the pace of its slowest man; put a
-Slow figure in the line and the whole line is slow. *(Derived to keep the procedure
-deterministic — ratify in play.)*
+### Movement distance — SIGNED (William, 2026-07-25)
+The formation moves up to the **shortest Move among its members**, maintaining shape
+as closely as practical.
+
+A body travels at the pace of its slowest man. Put a Slow figure in the line and the
+**whole line is slow** — so who you bring is a real cost, not just a body count. It
+also gives the wounded, the armoured and the heavy a downside that no stat line had
+to carry, and it makes leaving someone out of the formation a live decision.
 
 ---
 

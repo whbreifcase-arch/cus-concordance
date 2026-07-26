@@ -108,6 +108,7 @@ which is why an outside reviewer graded a doc set that trailed the rulings. See
 | finish-the-downed | **A Knocked Out figure that is hit is killed and rolls no Armour.** Armour protects the standing only | B·7, C |
 | morale-ratchet | **Breaking beats killing** — the one-way morale track is deliberate. Rally (a leader's ACTION) is the recovery valve, which makes decapitation a strategy | B·10, G |
 | form-up | **Form Up** — a **Sergeant-only** group MOVE. Names unactivated friendlies within **4″**, shapes them, each pays **1 AP** and is **marked activated**; they MOVE as one body and declare strikes/Shoves **before contact**. The AP covers MOVE + attacks + Shoves but **never Reaction**. You hit only what your own base moves into (Reach excepted). Circles cannot call or join | B·11, C |
+| form-up-pace | **A formation moves at the shortest Move among its members**, keeping shape as closely as practical. A body travels at the pace of its slowest man — so who you bring is a cost, and leaving someone out is a live decision | B·11 |
 | move-stays-move | **The *Advance* alias is retired.** Combat does not rename MOVE. *Sprint · Leap · Withdraw* name kinds of MOVE | B·2, C, D |
 | invocation-layer | **Verb ≠ invocation.** Player keeps three verbs; the grammar gains `WRITTEN_TRIGGER` and `OWNED_PROCEDURE` so Counter, Impact and Intercept reach the resolver honestly | A·XIV, C |
 | round-boundaries | **START OF ROUND** defined: eligibility resets, the starting side alternates, that side picks first. Refresh stays **on activation** — hit the tired ones | B·12 |

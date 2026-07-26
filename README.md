@@ -72,6 +72,8 @@ morale-ratchet       → breaking beats killing; Rally is the only reliable valv
 form-up              → SERGEANT-ONLY group MOVE: friendlies within 4", each pays 1 AP
                        and is ACTIVATED, all MOVE at once, strikes declared before
                        contact, you hit only what your base moves into. Reaction untouched
+form-up-pace         → a formation moves at the SHORTEST Move among its members. A
+                       body travels at the pace of its slowest man
 move-stays-move      → the "Advance" alias is retired; MOVE is MOVE
 invocation-layer     → 3 player verbs, 5 invocations (+ WRITTEN_TRIGGER, OWNED_PROCEDURE)
 round-boundaries     → START OF ROUND defined; refresh stays on activation
