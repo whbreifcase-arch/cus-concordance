@@ -236,9 +236,11 @@ The warband / persistent tactical group: a **Champion + Fireteams + loose
 specialists.** `→ G·banner-is-not-a-command-state`
 
 ### Caravan
-The primary **persistent expedition**; physically carries what survives between
-events (figures, Banners, civilians, wagons, supplies, injuries, wealth, quests,
-relationships, reputation, crafting facilities). **Progression lives here.**
+The **persistent expedition** — the body of people, beasts, wagons and materiel
+that travels between events, and the **physical representation of the persistence
+axis** (a real model, read like a base). An **entity**, not a module: what persists
+and how it changes is owned by **Persistence** (Document H). **Owner:** Kernel
+(as a hierarchy layer, A · X).
 
 ### Army
 Many Banners coordinated for a military campaign.

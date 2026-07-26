@@ -419,10 +419,13 @@ FIGURE  acts within  FIRETEAM  maneuvers within  BANNER
   command continuity.
 - **Banner** — the warband / persistent tactical group: a **Champion + Fireteams +
   loose specialists.** `→ G·banner-is-not-a-command-state`
-- **Caravan** — the primary **persistent expedition**; physically carries what
-  survives between events (figures, Banners, civilians, wagons, beasts, supplies,
-  injuries, wealth, quests, relationships, reputation, crafting facilities).
-  **Progression lives in the Caravan.**
+- **Caravan** — the **persistent expedition**: the body of people, beasts, wagons
+  and materiel that travels between events. It is the **physical representation of
+  the persistence axis** — an actual model on the table, read the way a base is
+  read (B · 1). What it carries is legible from what it *is*: wagons, capacity,
+  facilities, who is riding because they cannot walk.
+  *(The Caravan is an **entity**, not a module. What persists and how it changes
+  is owned by **Persistence**, Document H — not by the Caravan itself.)*
 - **Army** — many Banners coordinated for a campaign.
 - **Kingdom** — the political society containing institutions, law, Caravans, and
   Armies.

@@ -116,6 +116,14 @@ which is why an outside reviewer graded a doc set that trailed the rulings. See
 | domains | **Three co-equal domains: COMBAT · PERSISTENCE · MEANING**, peer modules intersecting at the Figure. *Story* is MEANING's everyday name. Rejected: *Bond* (one subsystem), *Identity* (too narrow), *Character* (collides with Creature Type / Archetype) | A·XIX, H, I |
 | caravan-ownership | **Persistence is the module; the Caravan is the entity it operates on.** Caravan is *not* a flavour-name for the domain — it is a canonical hierarchy layer (A·X) and demoting it would give one concept two owners (Law 1) | H·2 |
 | app-required | **Play is analog; Persistence requires the companion application.** A deliberate architectural commitment, not a fallback. Between-session bookkeeping is the app's job | A·XIX, H·4 |
+| progression-location | **"Progression lives in the Caravan" is STRUCK.** Pure flavour wearing an ownership claim's clothes. **Progression lives in the Figure's Instance**; Persistence owns the procedures that change it | A·X, C, H·2 |
+| caravan-physical | The **Caravan is the physical representation of the persistence axis** — a real model, read like a base (B·1): wagons, capacity, facilities, who is riding because they cannot walk | A·X, C, H·2 |
+| harm-lifecycle | **WOUND → INJURY → SCAR (or RECOVERY).** Wounds are Combat's and transient; Injuries and Scars are Persistence's and persist. The fork is the existing `wounds_remaining = 0 → KO or Dead` | H·7 |
+| harm-two-axes | **BODY and MIND, one lifecycle, different sources.** BODY harm comes from *damage* (Combat); MIND harm comes from *what happened* (Meaning). A figure can walk off untouched and ruined | H·7.2, I·5 |
+| harm-granularity | BODY injuries are **generated, not enumerated**: `LOCATION × TISSUE × SEVERITY` → rolled ankle, broken ankle, torn achilles, dislocated shoulder, sprained wrist | H·7.3 |
+| mind-scars-are-triggers | **A MIND scar is a Written Trigger** — structurally the same object as a grudge. No new machinery is required to make trauma work | H·7.4, I·5 |
+| scars-change-not-subtract | **A scar should change *how* a figure fights, not merely subtract.** A bad ankle stops him chasing and teaches him to hold ground: −2″ Move, +1 die Braced. Veterans should be legible from their scars | H·7.5 |
+| recovery-asymmetry | **BODY heals with care and time; MIND heals with relationships.** A figure with no bonds does not recover from what he saw — being alone is a mechanical disadvantage, which is what makes MEANING load-bearing rather than decorative | H·7.6, I·5 |
 
 ### On Form Up and the tempo trade
 The consequence was raised before signing and accepted deliberately: forming up

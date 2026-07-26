@@ -129,7 +129,51 @@ procedures, invent nothing.**
 
 ---
 
-# 5 · Guardrails
+# 5 · The harm seam — where Meaning becomes load-bearing
+
+Persistence owns the **injury and scar lifecycle** (H · 7). Meaning owns two things
+inside it, and they are what stop this domain from being decoration.
+
+## Meaning supplies the events that wound the MIND
+BODY harm comes from damage. **MIND harm comes from what happened** — an ally dead
+in your hands, a rescue that was a trap, being the only one who walked away. Those
+are events, and events are Meaning's.
+
+```text
+COMBAT   ── wounds ──▶  BODY injury  ──▶  BODY scar
+MEANING  ── events ──▶  MIND injury  ──▶  MIND scar
+```
+
+## A MIND scar is a Written Trigger
+Structurally identical to a grudge (§3): a clause the Figure carries, firing when
+its condition is met, armed by nobody. William's case, worked:
+
+```text
+never_again
+  origin   a child ran from a burning barn screaming for help. It was not a child.
+  trigger  a child — or a thing wearing a child — calls for help
+  effect   will not MOVE toward it; treats it as hostile until proven otherwise
+```
+
+**Persistence owns the scar and its mechanical effect. Meaning owns the event and
+what it meant. Combat reads a clause and never learns why.** Three domains, one
+Figure, one machinery — this case is the architecture working.
+
+## Relationships heal the mind
+Recovery is asymmetric on purpose (H · 7.6):
+
+```text
+BODY heals with CARE and TIME     surgeon · wagon · rest
+MIND heals with RELATIONSHIPS     kin · a companion · someone who was there
+```
+
+A figure with no bonds does not recover from what he saw. **Being alone is a
+mechanical disadvantage, not a mood** — which is what makes Meaning a module rather
+than flavour text.
+
+---
+
+# 6 · Guardrails
 
 The fourteen **Architectural Laws (A · XV) apply unchanged** — they are not
 restated here, because a paraphrase silently disagrees with the original the first
@@ -148,7 +192,7 @@ Specific to this domain:
 
 ---
 
-# 6 · The AI Director  🔒 **slot reserved**
+# 7 · The AI Director  🔒 **slot reserved**
 
 Deliberately left empty. The previous `F_AI_DIRECTOR` — a combat activation
 heuristic — was **deleted on purpose** (commit `12aaf76`) to clear this name for a
@@ -163,9 +207,9 @@ anyone believes.
 
 ---
 
-# 7 · Open work
+# 8 · Open work
 
-### 7.1 · The Wide State Read  ← the crown jewel
+### 8.1 · The Wide State Read  ← the crown jewel
 The canonical, structured statement of what is currently true, which the Director
 reads before generating anything. It must answer: what is true, what changed last
 session, who is involved, what relationships exist, what is unresolved, what is
@@ -183,24 +227,24 @@ state ⇒ coherent generation, because every possibility projects from one truth
 should be designed once two real subsystems have shown what they need to read from
 it.
 
-### 7.2 · Relationship representation
+### 8.2 · Relationship representation
 Directed or mutual? Graded or binary? Does a grudge decay? Can it be discharged?
 
-### 7.3 · Event records
+### 8.3 · Event records
 The vocabulary Combat emits and Meaning consumes (H · 5). Actor, target, act,
 witnesses — enough for a later rule to fire on, without becoming prose.
 
-### 7.4 · Abundant hooks, singular commitment
+### 8.4 · Abundant hooks, singular commitment
 Generation is cheap, so many possibilities can exist without a human authoring
 each. Only one activates. **All of them must project from one canonical state** —
 contradictory hooks turn a persistent world into procedural noise.
 
-### 7.5 · Reputation scope
+### 8.5 · Reputation scope
 With whom? A person, a faction, a settlement, the world? Does it travel?
 
 ---
 
-# 8 · Module contract status  (A · XVII)
+# 9 · Module contract status  (A · XVII)
 
 ```text
 1. cites the Constitution and Dictionary          ✅
