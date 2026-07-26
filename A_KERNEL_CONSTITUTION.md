@@ -12,6 +12,9 @@
 >
 > **On gaps.** Where a genuine question is unresolved it is marked
 > `⚠ OPEN → E·<topic>` and left open. A blank is never filled for convenience.
+> **No constitutional question is currently open.** A rule marked
+> **⚠ PROVISIONAL** is a *signed* rule awaiting ratification in play — in force
+> now, not a gap. See [Document E · Decision Register](E_OPEN_DECISIONS.md).
 
 ```text
 REALITY  →  GRAMMAR  →  CAMPAIGN  →  CONFLICT  →  MECHANICS
@@ -37,9 +40,23 @@ kingdom obey the same grammar, so nothing is re-learned as the game grows.
 
 ---
 
-# II · The two substrates
+# II · The primitives — Position · State · Resource · Force
 
-Everything the Kernel reads or writes ultimately touches one of two things.
+The Kernel has exactly **four primitives.** Two of them — **Position** and
+**Force** — are the *substrates*: everything the Kernel reads or writes
+ultimately touches one of them. The other two — **State** and **Resource** — are
+how a substrate is *stored* and *spent*.
+
+```text
+SUBSTRATES   Position — where things are
+             Force    — capacity to produce, resist, or alter change
+CARRIERS     State    — what is currently true (stored in an Instance)
+             Resource — a limited quantity that can be spent
+```
+
+Position is a substrate, **not** a Resource. It is strategically valuable without
+being consumable; you do not spend Position, you change it (that is what MOVE is
+for). The two sections below define the substrates.
 
 ## Position
 **Position is where an entity stands relative to other entities, objects,
@@ -63,8 +80,8 @@ An agent is read through **four independent relationships with Force:**
 ROLE · TEMPO · TOOL · TEMPERAMENT
 ```
 
-**SIGNED (William, 2026-07-24): Force is a formal Kernel primitive** — a
-first-class citizen alongside Position, State, and Resource. It remains
+**SIGNED (William, 2026-07-24): Force is a formal Kernel primitive** — one of the
+four, alongside Position, State, and Resource. It remains
 **non-numerical**: there is no Force stat. An agent's Force is *read* through the
 four axes (Role · Tempo · Tool · Temperament) and *expressed* by writing State,
 Position, or a Resource — never by comparing a number called "Force."
@@ -106,10 +123,32 @@ enables, or obstructs depending on target and context (SIGNED: no such tag).
 ```text
 WAIT → select PACKET → declare/load its trigger → arm it → resolve when the trigger fires
 ```
-Overwatch · Brace · Intercept · Counter · prepared responses reduce to WAIT.
-WAIT changes **when** a PACKET resolves; it does not spawn a second reaction
-system outside the PACKET grammar. WAIT stays its own verb because **deferred
-timing** is its defining property, not the packet it references.
+Overwatch · Brace · prepared responses reduce to WAIT. WAIT changes **when** a
+PACKET resolves; it does not spawn a second reaction system outside the PACKET
+grammar. WAIT stays its own verb because **deferred timing** is its defining
+property, not the packet it references.
+
+### WAIT is not the same thing as a written trigger — SIGNED (William, 2026-07-25)
+Two different things resolve on someone else's activation, and the Kernel keeps
+them apart:
+
+```text
+WAIT             the player spends 1 AP NOW to arm a chosen PACKET.
+Written trigger  a PACKET carries its own trigger clause and fires when the
+                 condition occurs. Nothing was armed; no AP was spent.
+```
+
+A **Counter** is a written trigger, not a WAIT: the weapon or condition PACKET
+carries the clause that permits it (Document B · 9). It costs no AP because the
+player never chose to spend one.
+
+**Both spend Reaction** (Ch. IV). That is what unifies them — not a pretence that
+every triggered rule was previously armed. Overwatch is the instructive case:
+you pay **1 AP to arm a better PACKET** than your written triggers would give
+you, and when it fires you **still spend the Reaction.** The AP buys the upgrade;
+the Reaction buys the right to act out of turn.
+
+A WAIT with no Reaction left to spend does not resolve. Arming is not permission.
 
 ## The distinction
 ```text
@@ -122,23 +161,44 @@ the packet-resolving verb.
 
 ---
 
-# IV · Agency & Resources
+# IV · Agency, Reaction & Resources
 
-**AP is Agency** — the limited capacity an entity has to act during its
-activation. Unless a module says otherwise:
+**AP is Agency** — the limited capacity an entity has to act during its **own
+activation**. Unless a module says otherwise:
 ```text
 1 AP  →  one MOVE, one ACTION, or one WAIT
 ```
 Named abilities and flavour verbs never create new universal actions; they
 translate to one of the three invariants (Law 11).
 
-Agency is one of the Kernel's exchangeable **Resources** — a limited quantity
-spent to produce change. Each module implements the resources it needs:
+## Reaction — the second spend — SIGNED (William, 2026-07-25)
+**Reaction is the limited capacity an entity has to act during *someone else's*
+activation.** It is a Resource in its own right, budgeted and spent exactly like
+Agency, and it is **never paid out of AP** — the two pools are separate.
+
 ```text
-Agency · Position · Health · Morale · Information · Influence · Supply · Time
+Agency (AP)  →  what you do on your turn
+Reaction     →  what you do on their turn
 ```
-Combat spends **Agency**; politics spends **Influence**; travel spends **Time +
-Supply**. Same Kernel idea, made concrete per module.
+
+A triggered PACKET — a Counter, an intercept, an opportunity strike, an armed
+Overwatch — **costs one Reaction to resolve.** When the pool is empty the figure
+can no longer respond, however many triggers fire. That is the cap: there is
+never a bespoke `counter_x` economy or a per-effect limiter, because Reaction
+already is the limiter.
+
+The **module sets the budget.** Combat's is `1 per figure · 2 for a Circle`
+(Document B · 12); another module may set a different number or none at all.
+
+## Resources
+Agency and Reaction are two of the Kernel's exchangeable **Resources** — limited
+quantities spent to produce change. Each module implements the ones it needs:
+```text
+Agency · Reaction · Health · Morale · Information · Influence · Supply · Time
+```
+Combat spends **Agency + Reaction**; politics spends **Influence**; travel spends
+**Time + Supply**. Same Kernel idea, made concrete per module. **Position is not
+a Resource** — it is a substrate (Ch. II); you change it, you do not spend it.
 
 ---
 
@@ -501,7 +561,10 @@ necessary structure or free-floating clutter — and cut the clutter.
 A new module (Combat, Politics, Caravan, War, Trade, …):
 1. **cites** this Constitution and the Dictionary; it does not restate structure;
 2. **translates** MOVE · ACTION · WAIT into its domain language (Ch. XIII);
-3. **owns** its Procedures and its controlled Tool/Temperament vocabularies;
+3. **owns** its Procedures, its controlled **Tool** vocabulary, its Resource
+   budgets (e.g. the Reaction allowance, Ch. IV), and its **Temperament
+   procedures** — but **not** the Temperament vocabulary: the five words are
+   Kernel law (Ch. VII) and a module may not add, rename, or drop one;
 4. **stores facts, computes judgments** (Law 10);
 5. reduces every mechanic to a primitive relationship — or marks a true
    constitutional question in **Document E** rather than inventing an answer.
@@ -530,4 +593,15 @@ SIGNED  counter              · turn-and-face · no cap · dying swing · Circle
 SIGNED  counter-loop         · a Counter does not itself draw a Counter
 SIGNED  morale-states        · Steady → Shaken → Broken (Broken = Rout by Temperament)
 SIGNED  nerve-trigger        · shock (wounded / ally falls within 3″) → roll 3, count Nerve
+```
+
+**Amendments — signed 2026-07-25 (William).** v0.6 stays closed; these are
+recorded amendments, not reopened questions:
+```text
+SIGNED  reaction-resource    · Reaction is a Kernel Resource, separate from AP (Ch. IV)
+SIGNED  counter-authoring    · a Counter is a written trigger inside a PACKET, not a WAIT
+SIGNED  reaction-budget      · combat: 1 per figure · 2 for a Circle (B·12)
+SIGNED  brace-vs-overwatch   · Brace grants bonuses/step-ups, never a Reaction;
+                               Overwatch = 1 AP to arm a better PACKET, still spends Reaction
+SIGNED  sprint-to-charge     · a 3″ uninterrupted sprint into contact is the charge threshold (B·3)
 ```

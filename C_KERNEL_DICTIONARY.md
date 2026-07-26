@@ -29,15 +29,27 @@ expressed by writing State, Position, or a Resource. **Owner:** Kernel.
 ## Resources
 
 ### Agency
-The limited capacity an entity has to act during its activation; carried as **AP**.
-Unless a module says otherwise, **1 AP buys one MOVE, one ACTION, or one WAIT.**
-**Owner:** Kernel. **Consumed by:** the three verbs. One of the exchangeable
-Resources.
+The limited capacity an entity has to act during **its own** activation; carried as
+**AP**. Unless a module says otherwise, **1 AP buys one MOVE, one ACTION, or one
+WAIT.** **Owner:** Kernel. **Consumed by:** the three verbs. One of the exchangeable
+Resources. *(Not to be confused with a figure's **autonomy** — its freedom of
+self-determination. A Square trades autonomy for protection; it spends the same AP.)*
+
+### Reaction
+The limited capacity an entity has to act during **someone else's** activation
+(SIGNED, William 2026-07-25). A second Resource, budgeted and spent exactly like
+Agency and **never paid out of AP**. **Every triggered PACKET costs 1 Reaction** —
+Counter, shield intercept, reach strike, or a firing Overwatch. When the pool is
+empty the figure cannot respond, however many triggers fire: Reaction *is* the cap,
+which is why the Kernel needs no `counter_x` limiter. **Owner:** Kernel; the module
+sets the budget. **Combat's budget:** `1 per figure · 2 for a Circle`, refreshed at
+the start of the figure's own activation (B · 12).
 
 ### Resource
-Any limited quantity spent to produce change: `Agency · Position · Health ·
+Any limited quantity spent to produce change: `Agency · Reaction · Health ·
 Morale · Information · Influence · Supply · Time`. **Owner:** Kernel; each module
-implements the resources it needs.
+implements the resources it needs. **Position is not a Resource** — it is a
+substrate (A · II); you change it, you do not spend it.
 
 ---
 
@@ -57,9 +69,22 @@ Strike · Attack · Use · Cast · Heal · Repair · Persuade · Accuse · Inter
 
 ### WAIT
 The verb that **arms a PACKET against a trigger**, deferring its resolution.
-**Owner:** Kernel. **Consumes:** Agency (and the figure's reaction). **Creates:** a
-primed `trigger → resolution`. **Aliases:** Brace · Overwatch · Intercept ·
-Counter · Prepare Response · Wait.
+**Owner:** Kernel. **Consumes:** Agency to arm it, then **Reaction to resolve it.**
+**Creates:** a primed `trigger → resolution`. **Aliases:** Brace · Overwatch ·
+Prepare Response · Wait.
+
+> **WAIT is not a Written Trigger.** A WAIT is armed by a player who spent AP. A
+> **Written Trigger** is a clause carried inside a PACKET that fires on its own
+> condition with no AP and no prior arming (a Counter, a shield intercept, a reach
+> strike). **Both spend Reaction** — that, not a pretence of prior arming, is what
+> unifies them (A · III, SIGNED William 2026-07-25). An armed WAIT on a figure with
+> no Reaction left does **not** resolve: arming is not permission.
+
+### Written Trigger
+A trigger clause authored **into a PACKET** — `{ "trigger": { "on": …, "cost":
+"1 Reaction" } }` — that fires when its condition occurs, without AP and without
+being armed. **Owner:** the PACKET that carries it. **Consumes:** Reaction. If a
+figure's weapons and conditions carry no such clause, it simply does not respond.
 
 ---
 
@@ -84,17 +109,23 @@ Effects written on Grade *N* — no inheritance of lower Grades' Effects. **Not*
 be called a Tier.
 
 ### Effect
-The state change a resolved Grade produces (Wound, Push, Knockdown, Guard, heal,
-reveal, …). **Owner:** the PACKET (defined) / the Procedure (applied). **Writes:**
-State (or Position, for displacement Effects).
+The state change a resolved Grade produces (Wound, **Shove**, Knockdown, Guard,
+Cleave, Execute, Terror, heal, reveal, …). **Owner:** the PACKET (defined) / the
+Procedure (applied). **Writes:** State (or Position, for displacement Effects).
+*(The displacement Effect is **Shove**. "Push" now names only the charge plow,
+B · 4.)*
 
 ### Trait
 An **always-true** property a Figure carries — a **referenced passive Definition**
 (SIGNED William 2026-07-24; keyword **trait**). Defined once, referenced by ID
 (`{ "trait_id": "reach" }`), like a PACKET but **passive**: it resolves nothing and
-holds no runtime state. Examples: Large, Flying, Mounted, Fearless, Amphibious,
-Reach, Unstoppable. **Not** a PACKET, **not** a size class. **Owner:** the module
-that defines it.
+holds no runtime state. Examples: Flying, Fearless, Amphibious, Reach, Shield,
+Unstoppable. **Not** a PACKET. **Owner:** the module that defines it.
+
+> **Base properties are not Traits** (Law 1 — one owner). `size_class`
+> (Small · Medium · Large) and `mounted` are **base facts**, stored in `base`,
+> never duplicated into `traits`. A "monstrous" figure is a Large base carrying
+> `unstoppable` — not a trait called *Large*.
 
 ---
 
@@ -220,9 +251,9 @@ The shape an Effect covers: none · a radius · a template. A property of the
 grammar statement, resolved by the PACKET.
 
 ### State
-What is true of an Instance right now and can change: Wounds, conditions, morale,
-armed WAIT, activation flags. **Written by** Effects and Procedures; **stored** in
-the Instance.
+What is true of an Instance right now and can change: `wounds_remaining`,
+Reaction remaining, conditions, morale, an armed WAIT, activation flags.
+**Written by** Effects and Procedures; **stored** in the Instance.
 
 ---
 
@@ -237,3 +268,70 @@ The **contact a MOVE creates**, and its resolution. Names the collision, not the
 movement. Displaces bodies via the Push `[Position]` and may invoke a PACKET for
 any Wound/state change `[PACKET→Grade]`. A Combat Module procedure. Replaces the
 retired keyword **Charge**.
+
+### Charge
+Not a keyword and not an action — the **name for a Sprint that earned it.** A
+Sprint becomes a charge when it covers **3″ of uninterrupted straight run-up into
+contact** (SIGNED, William 2026-07-25; B · 3). Only *physical contact* interrupts;
+a shot or reach-strike taken on the way in resolves without stopping the run. The
+3″ is a **threshold, not a distance budget.** Governing spec: **Document F**.
+
+### Push
+The **charge plow** — the §4 geometry by which a moving base displaces contacted
+bases along its trajectory: `Push → Indent → Crush`. **Writes:** Position.
+**Owner:** Combat. *(Not the weapon Effect — that is **Shove**.)*
+
+---
+
+## Combat reactions
+
+### Counter
+One melee PACKET returned by a figure struck **in melee base contact.** A
+**Written Trigger** carried by the weapon or condition — **not a WAIT**, since no
+AP was spent arming it (SIGNED, William 2026-07-25). **Consumes:** 1 Reaction.
+No artificial cap — the figure Counters every attacker and even as it dies, but
+only while Reaction remains. A Counter does not itself draw a Counter. Ranged
+never draws one. **Owner:** Combat (B · 9).
+
+### Shield Intercept
+A Written Trigger on the **Shield** trait: spend **1 Reaction** to consume an
+ACTION packet aimed at a friendly within 1″ and take the hit on your own Armour.
+Declared before the packet resolves; works regardless of facing; eats melee and
+ranged alike; draws no Counter. **Uncapped by design** — the limits are that he
+spent his Reaction and that he can die eating it (SIGNED, William 2026-07-25).
+**Owner:** Combat (B · 9b).
+
+### Brace
+A **WAIT**, Square only: 1 AP, ends the activation, lasts until the next one.
+Locks facing; **+1 die** into the front arc and **−1 die** for enemies attacking
+it; concedes flank and rear entirely. **Grants no Reaction** (SIGNED, William
+2026-07-25) — it buys hard bonuses and step-ups, never extra availability. Broken
+by a Shove. Circles cannot Brace. **Owner:** Combat (B · 9b).
+
+### Overwatch
+A **WAIT**: spend **1 AP** to arm a chosen PACKET against a declared trigger —
+buying a *better* response than your Written Triggers would give. **Still spends
+1 Reaction when it fires** (SIGNED, William 2026-07-25); with an empty pool it does
+not resolve. **Owner:** Combat (B · 9b).
+
+### Shove
+The weapon displacement **Effect** (renamed from "Push"): move the target directly
+away, up to X″, ending no more than Y″ away — default X = Y = 1″, tunable per
+effect. **Breaks a Brace** rather than merely nudging it. **Writes:** Position.
+**Owner:** Combat (B · 9b).
+
+---
+
+## Health
+
+### Wounds
+**A number, not a track** (SIGNED, William 2026-07-25). How much punishment a
+figure absorbs before it goes down; **1 or 2 is standard** and it is a tunable
+knob. Definition: `Wounds`. Instance: `wounds_remaining`. Each unsaved Wound
+subtracts 1. The old `Fine → Hurt` wording is **retired** — those were prose for
+the number, not States. **Owner:** Combat.
+
+### Knocked Out · Dead
+The two genuine **States** a figure enters at `wounds_remaining = 0`. Which one is
+decided by the Effect that felled it and its Creature Type (B · 7, B · 13). They
+change what a figure *can do*; they are not degrees of injury. **Owner:** Combat.

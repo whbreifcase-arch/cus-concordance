@@ -8,10 +8,17 @@ simulated charges (`factions/sim/` — `clash_sim.py`, `study.py`, `holdtest.py`
 ## No new rules were added
 Important: the sim did **not** author mechanics. Every rule it enforces already
 existed in CUS — 1 reaction/figure, push→indent→crush (resolved lateral-first),
-the 3″ run-up to count as a charge, the 3″ push cap, Square facing with flank/rear,
-no-turn, Circles faceless, shields intercepting for an adjacent ally. The sim's job
+the 3″ run-up to count as a charge, Square facing with flank/rear, no-turn, Circles
+faceless, shields intercepting for an adjacent ally. The sim's job
 was **conformance**: make sure all of the existing rules were honored together and
-show how they interact at speed. The "findings" below are consequences of the
+show how they interact at speed.
+
+> **Written into canon 2026-07-25.** Two of those rules were live in the sim but had
+> never been written down in A–E. They are now: the **Reaction resource**
+> (1 per figure · 2 per Circle) is A · IV + B · 12, and the **3″ sprint→charge
+> threshold** is B · 3 + F. One item on the original list — the **3″ push cap** — is
+> a **sandbox tuning parameter**, not a CUS rule, and has been struck from this list;
+> the plow runs under B · 4 geometry until Move is spent or the mover jams. The "findings" below are consequences of the
 existing kernel, not additions. (Only nuance applied: shield interception used
 *symmetrically* — a shield can soak for an adjacent ally on either side, per the
 existing shield-reaction ruling.)

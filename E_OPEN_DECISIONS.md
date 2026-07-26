@@ -1,10 +1,23 @@
 # CUS — DECISION REGISTER
-### v0.6 · CLOSED · 2026-07-24
+### v0.6 · CLOSED · 2026-07-24 · amended 2026-07-25
 
 > Every open decision is now **signed** (William, 2026-07-24) and folded into A/B/C.
 > **CUS v0.6 is closed** — there are no unresolved constitutional questions. This
 > register is kept as the record of what was decided and why; any *future* change is
 > a fresh amendment, not an open item.
+>
+> **This document is the Decision Register.** The filename `E_OPEN_DECISIONS.md` is
+> kept only so existing links and published URLs don't break — it is **not** a list
+> of open decisions and has not been one since 2026-07-24. Cite it as *Document E ·
+> Decision Register*.
+>
+> **Three statuses are used across A–F, and they are not the same thing:**
+> ```text
+> SIGNED         a closed owner ruling. Stable. Cite it.
+> ⚠ PROVISIONAL  a SIGNED rule awaiting ratification in PLAY, not a ruling.
+>                It is in force now; playing decides whether it stays.
+> ⚠ OPEN         a genuine unanswered question. There are currently NONE.
+> ```
 
 ## Status board — all signed ✅
 
@@ -50,11 +63,41 @@ git history and mirrored in A/B/C. This register no longer holds open questions.
 
 ---
 
-### v0.6 is closed
-No open constitutional questions remain. The next change to CUS is an **amendment**,
-recorded here as a new signed entry with its date — not a blank awaiting a ruling.
+---
 
-*(One item was raised and deliberately left to the owner's discretion, not blocking:
-whether the **Wounds** track should also become three states. Currently
-`Fine → Hurt → KO → Dead` (B·7). Not an open constitutional question — a tuning call
-for whenever William wants it.)*
+## Amendments — signed 2026-07-25 (William)
+
+Six rulings, taken after an external consistency review of the published A–E set.
+v0.6 stays **closed**; these are amendments, not reopened questions.
+
+| ID | Ruling | In |
+|---|---|---|
+| reaction-resource | **Reaction is a Kernel Resource**, separate from and never paid out of AP. Every triggered PACKET costs 1 | A·IV, C |
+| reaction-budget | **1 per figure · 2 for a Circle**, refreshed at the start of the figure's own activation | B·12 |
+| counter-authoring | A Counter is a **Written Trigger inside a PACKET** — authored on the weapon/condition, not armed by WAIT, costs no AP | B·9, A·III |
+| shield-cap | Shield intercept has **no artificial cap** — the limits are that he spent his Reaction and that he can die eating the hit | B·9b |
+| brace-vs-overwatch | **Brace grants no Reaction** (hard bonuses and step-ups only). **Overwatch** = 1 AP to arm a better PACKET, and **still spends the Reaction** when it fires | B·9b |
+| sprint-to-charge | The **3″** is the **sprint→charge transition threshold** — a threshold, not a distance budget. Only physical contact interrupts | B·3, F |
+| wounds | **Wounds is a number, not a track** — 1–2 standard, a tunable knob. *Fine* and *Hurt* are **deleted**; **Knocked Out** and **Dead** survive as the two real States at `wounds_remaining = 0` | B·7, C |
+
+### On the wounds ruling
+The earlier register parked this as "a tuning call for whenever William wants it."
+He took it on 2026-07-25: *"Typically they will have 1 or 2 wounds, that's the
+standard and it's a knob that gets twisted. Get rid of the fine hurt knockout and
+dead. Knockout and dead are both states now, fine and hurt are not."* Fine/Hurt were
+never State — they duplicated the number and violated Law 1. Gone.
+
+### Still awaiting an owner ruling
+```text
+⚠ circle-scope   B·1 heads "One Circle per army" and then says "A Banner fields
+                 exactly one Circle." An Army holds many Banners, so both cannot be
+                 true. Left UNTOUCHED pending William. This is the one genuine open
+                 item in v0.6.
+```
+
+---
+
+### v0.6 is closed
+No open constitutional questions remain beyond `circle-scope` above. The next change
+to CUS is an **amendment**, recorded here as a new signed entry with its date — not a
+blank awaiting a ruling.

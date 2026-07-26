@@ -3,8 +3,9 @@
 
 > How the old vocabulary maps onto the rebuilt Kernel. **Nothing valuable is
 > silently deleted** — where a retired term keeps useful flavour or archetype
-> value, the "New treatment" column says so. Terms marked ⚠ point to an open
-> ruling in [Document E](E_OPEN_DECISIONS.md).
+> value, the "New treatment" column says so. Every mapping below is **settled**;
+> the rulings behind them are recorded in
+> [Document E · Decision Register](E_OPEN_DECISIONS.md).
 
 ---
 
@@ -27,8 +28,9 @@
 | Ability Packet | **PACKET** |
 | Weapon Packet | **PACKET** |
 | Reactive Packet | **PACKET** (armed by WAIT) |
-| Passive Packet | **Not a PACKET.** A persistent trait — home ⚠ E·persistent-traits |
-| Typed IDs `ATK_07 · ABIL_04 · REACT_02 · PASSIVE_09` | **Neutral IDs** (`spear_thrust`); classification deferred to separate JSON ⚠ E·packet-classification |
+| Passive Packet | **Not a PACKET.** A **Trait** — referenced passive Definition (SIGNED) |
+| Typed IDs `ATK_07 · ABIL_04 · REACT_02 · PASSIVE_09` | **Neutral IDs** (`spear_thrust`) + a separate `packet_index` sidecar for classification (SIGNED) |
+| Reactive Packet as a *type* | **Retired.** A reaction is a **Written Trigger** clause inside an ordinary PACKET (SIGNED 2026-07-25, A · III) |
 | Harmful / beneficial tag | **Do not add.** Target + context decide |
 | "The Tiers are the weapon" | The PACKET's **Grades and Effects** define its resolution |
 
@@ -52,7 +54,7 @@
 | Control | **Utility** (or an Effect / tag / archetype) |
 | Support | **Utility** (or an archetype) |
 | Anchor (old) | **Anchor** (kept, redefined: *prevents Force*) |
-| Reach (as a Role) | **Removed as a Role.** A PACKET property or trait ⚠ E·persistent-traits |
+| Reach (as a Role) | **Removed as a Role.** A **trait** and/or PACKET property (SIGNED) |
 | Projection | **Removed as a Role.** Express via Role + Tempo + Tool + PACKETs |
 | Heavy / Light cavalry Role split | **Removed.** Express through Role · Tempo · Tool · PACKETs · geometry |
 
@@ -90,7 +92,10 @@
 |---|---|
 | Bases: shape=type, size=class, elongated=mounted | **Kept** (B · 1). Size classes SIGNED = **Small / Medium / Large** (no Monstrous, no Cavalry-as-class); mounted = elongated geometry; "monstrous" = a Large + `unstoppable` trait |
 | Push / Indent / Crush geometry | **Kept** (B · 4), now driven by Sprint→Impact |
-| Wounds `Fine→Hurt→KO→Dead` | **Kept** (B · 7), Combat fact |
+| Wounds `Fine→Hurt→KO→Dead` | **Retired as a track** (SIGNED 2026-07-25, B · 7). **Wounds is a number** — 1–2 standard, a tunable knob. *Fine* and *Hurt* are deleted (they were prose for the number). **Knocked Out** and **Dead** survive as the two real States, entered at `wounds_remaining = 0` |
+| Reactions / `counter_x` economies | **Retired.** **Reaction** is a Kernel Resource (SIGNED 2026-07-25, A · IV): 1 per figure, 2 per Circle. Every triggered PACKET costs 1. No per-effect limiters |
+| Counter as a READY/WAIT | **Retired.** A Counter is a **Written Trigger** inside the weapon/condition PACKET — no AP, costs 1 Reaction (SIGNED 2026-07-25, B · 9) |
+| Charge (as a distance/action) | **Sprint + the 3″ threshold** (SIGNED 2026-07-25, B · 3): 3″ uninterrupted run-up into contact *is* the charge. Threshold, not a budget |
 | Armour `None/Light/Medium/Heavy = —/6+/5+/4+` | **Kept** (B · 7), Combat fact — **not** a Kernel primitive |
 | Alternation | **Kept** (B · 12), "attention management" |
 | Formations descriptive | **Kept** (B · 11) |
@@ -108,10 +113,10 @@ migration debt to reconcile against A–C when the open rulings land.
 | Artifact | Uses (old) | Migration when signed |
 |---|---|---|
 | `CUS_TTS_MOD/` (TTS playtest) | four verbs, five Roles, typed packet IDs (`ATK_*`), "Tiers" | remap radial wheel to MOVE·ACTION·WAIT; Roles→P/A/U; packet IDs→neutral; "Tiers"→"Grade"; Charge→Sprint/Impact |
-| `unit_library.json` (73 units) | `role` (5-way), `base.class` Small/Normal/Cavalry/Large/Monstrous, `attack_packet_ids:["ATK_*"]`, `tiers` | roles → Pressure/Anchor/Utility (+archetype); **classes → Small/Medium/Large**, Cavalry→elongated `mounted:true`, Monstrous→Large + `unstoppable` trait; `tool` → Melee/Ranged/Hybrid; neutral packet IDs; `tiers` → discrete `grades`; add `traits:[]` |
+| `unit_library.json` (73 units) | `role` (5-way), `base.class` Small/Normal/Cavalry/Large/Monstrous, `attack_packet_ids:["ATK_*"]`, `tiers` | roles → Pressure/Anchor/Utility (+archetype); **classes → `base.size_class` Small/Medium/Large**, Cavalry→`base.mounted:true`, Monstrous→Large + `unstoppable` trait; `tool` → Melee/Ranged/Hybrid; neutral packet IDs; `tiers` → discrete `grades`; add `traits:[]` (**never** containing Large/Mounted); add numeric `wounds` (1–2 standard) and drop any Fine/Hurt state field; add `reactions` (1, or 2 for a Circle) |
 | `card_forge_v3.html` bindings | `{role}`, `{tiers}`, `{tool}` | `{tiers}` → `{grades}`; `{tool}` values → Melee/Ranged/Hybrid; add a `{traits}` binding |
 | `CUS_CODEX.md` v0.5 | everything above | becomes a retired **migration input**; not edited in place — superseded by this folder |
 
-> Do not migrate the downstream artifacts until the relevant open rulings in
-> **Document E** are signed — several remaps (Roles, Tool vocabulary, Grade
-> accumulation, neutral-ID scheme) depend on decisions that don't exist yet.
+> **Every ruling these remaps depend on is now signed** (2026-07-24, amended
+> 2026-07-25). The downstream artifacts above are clear to migrate — they are
+> migration *debt*, not blocked work.
