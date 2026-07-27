@@ -46,6 +46,11 @@ local DEFAULTS = {
     speed = "—",
     ap = 2,
     reactions = 1,
+    -- MUST be here. A miniature with no unit stamped on it falls back to
+    -- DEFAULTS alone, and a missing key here becomes a nil that reaches
+    -- math.floor() in initializeRuntime and kills onLoad before the context
+    -- menu is ever registered.
+    mp = 0,
     nerve = "—",
     rank = "—",
     weapon = "—",
@@ -862,7 +867,8 @@ local function initializeRuntime()
 
     runtime.current_reactions = clamp(math.floor(asNumber(runtime.current_reactions, definition.reactions)),
                                       0, definition.reactions)
-    runtime.current_mp = clamp(math.floor(asNumber(runtime.current_mp, definition.mp)), 0, definition.mp)
+    local maxMP = math.max(0, math.floor(asNumber(definition.mp, 0)))
+    runtime.current_mp = clamp(math.floor(asNumber(runtime.current_mp, maxMP)), 0, maxMP)
 
     local validNerve = false
     for _, value in ipairs(NERVE_STATES) do
@@ -2151,9 +2157,10 @@ local function changeReactions(amount, player)
 end
 
 local function changeMP(amount, player)
-    if definition.mp <= 0 then return end
+    local maxMP = math.max(0, asNumber(definition.mp, 0))
+    if maxMP <= 0 then return end
     local before = runtime.current_mp
-    runtime.current_mp = clamp(runtime.current_mp + amount, 0, definition.mp)
+    runtime.current_mp = clamp(runtime.current_mp + amount, 0, maxMP)
     refreshAll()
 
     if runtime.current_mp <= 0 and before > 0 then
@@ -2161,7 +2168,7 @@ local function changeMP(amount, player)
             {1.00, 0.55, 0.35})
     else
         notify(player, definition.name .. " has " .. runtime.current_mp ..
-            "/" .. definition.mp .. " MP.")
+            "/" .. maxMP .. " MP.")
     end
 end
 
@@ -2200,7 +2207,7 @@ local function newRound(player)
     -- FULL RESET's job (between games).
     local msg = definition.name .. " refreshed: " .. definition.ap .. " AP, " ..
         definition.reactions .. " Reaction."
-    if definition.mp > 0 then
+    if asNumber(definition.mp, 0) > 0 then
         msg = msg .. "  MP unchanged (" .. runtime.current_mp .. "/" .. definition.mp .. ") — it is per battle."
     end
     notify(player, msg, {0.40, 0.80, 1.00})
@@ -2211,7 +2218,7 @@ local function resetRuntime(player)
     runtime.current_wounds = definition.wounds
     runtime.current_ap = definition.ap
     runtime.current_reactions = definition.reactions
-    runtime.current_mp = definition.mp        -- between battles, the specials come back
+    runtime.current_mp = math.max(0, asNumber(definition.mp, 0))   -- between battles, the specials come back
     runtime.armed_packet = nil
     runtime.nerve_state = "Steady"
     runtime.turn_state = "Unactivated"
@@ -2766,10 +2773,32 @@ function onLoad(savedData)
         local ok, saved = pcall(JSON.decode, savedData)
         if ok and type(saved) == "table" then runtime = saved.runtime or saved end
     end
-    loadDefinition(nil, false)
-    installCustomAssets()
+
+    -- THE MENU GOES ON FIRST, AND NOTHING IS ALLOWED TO PREVENT IT.
+    --
+    -- This used to run third, after loadDefinition and installCustomAssets. A
+    -- single nil reaching math.floor() inside loadDefinition therefore killed
+    -- onLoad before the menu was ever registered, and the miniature became
+    -- completely inert - no menu, no HUD, no error anyone would think to look
+    -- for. It read exactly like "the script never loaded", and cost most of a
+    -- session to find.
+    --
+    -- The context menu is the only diagnostic surface this object has. If it
+    -- is present, the script ran; if it is absent, it did not. That signal is
+    -- worth more than any single feature, so it is registered before anything
+    -- that can fail, and every fallible step below is wrapped.
     setupContextMenu()
-    refreshAll()
+
+    local ok, err = pcall(function()
+        loadDefinition(nil, false)
+        installCustomAssets()
+        refreshAll()
+    end)
+    if not ok then
+        print("CUS ERROR on load: " .. tostring(err))
+        broadcastToAll("CUS: this miniature failed to initialise - see the console (~). " ..
+            "Right-click still works.", {1.00, 0.45, 0.45})
+    end
 end
 
 function onSave()
