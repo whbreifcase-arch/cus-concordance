@@ -150,12 +150,22 @@ local ICON_ASSETS = {
     armour_medium = ICON_BASE .. "armour_medium.png",   -- 5+  gold
     armour_heavy  = ICON_BASE .. "armour_heavy.png",    -- 4+  red
 
-    -- Not drawn yet; leave empty and the glyph fallback is used.
-    heart_full = "",
-    heart_empty = "",
+    -- Resource orbs. Spent does not merely DIM — it cracks and smokes. Same
+    -- grammar as the activation triangle burning out and the nerve banner
+    -- shattering: in this HUD, spending something visibly costs it.
+    ap_full  = ICON_BASE .. "ap_full.png",    ap_spent = ICON_BASE .. "ap_spent.png",   -- green
+    rp_full  = ICON_BASE .. "rp_full.png",    rp_spent = ICON_BASE .. "rp_spent.png",   -- yellow
+    mp_full  = ICON_BASE .. "mp_full.png",    mp_spent = ICON_BASE .. "mp_spent.png",   -- red
+
+    -- Wounds is a NUMBER, not a track (B · 7) — so this is ONE heart whose
+    -- colour reads the fraction left, with the number written on it.
+    heart_full     = ICON_BASE .. "heart_full.png",      -- green,  untouched
+    heart_hurt     = ICON_BASE .. "heart_hurt.png",      -- gold,   bloodied
+    heart_critical = ICON_BASE .. "heart_critical.png",  -- red,    cracked, one left
+    heart_empty    = ICON_BASE .. "heart_empty.png",     -- burnt hollow — KNOCKED OUT
+
+    -- Not drawn yet; glyph fallback is used.
     trait_shield = "",      -- static badge: this figure carries a shield
-    ap_full = "", ap_spent = "",     -- green pips
-    rp_full = "", rp_spent = "",     -- yellow pips — reactions available
 }
 
 local function assetEnabled(name)
@@ -587,6 +597,7 @@ local function normalizePackets(value)
                 range = asNumber(packet.range, 0),
                 area = cleanDisplayText(first(packet.area, "")),
                 cost_ap = asNumber(first(packet.cost_ap, packet.ap_cost, packet.cost), 0),
+                cost_mp = asNumber(first(packet.cost_mp, packet.mp_cost), 0),
                 grades = type(packet.grades) == "table" and copyTable(packet.grades) or {},
                 grades_text = formatPacketGrades(packet.grades),
             })
@@ -679,6 +690,11 @@ local function normalizeDefinition(decoded)
         -- default is what will actually fire: a Champion answers twice (B.12).
         reactions = asNumber(first(stats.reactions, root.reactions),
                              (first(baseObject.shape, baseObject.type) == "Circle") and 2 or 1),
+
+        -- MP — the special-ability budget. Defaults to ZERO, because most
+        -- figures have no specials and an all-empty pip row is wasted HUD.
+        -- Unlike AP and Reaction this is a PER-BATTLE pool: see newRound().
+        mp = asNumber(first(stats.mp, stats.max_mp, root.mp, root.max_mp), 0),
         armour = normalizeArmour(first(stats.armour, stats.armor, display.armour, display.armor, DEFAULTS.armour)),
 
         weapon = first(packetWeapon, display.weapon, root.weapon, DEFAULTS.weapon),
@@ -839,6 +855,7 @@ local function initializeRuntime()
 
     runtime.current_reactions = clamp(math.floor(asNumber(runtime.current_reactions, definition.reactions)),
                                       0, definition.reactions)
+    runtime.current_mp = clamp(math.floor(asNumber(runtime.current_mp, definition.mp)), 0, definition.mp)
 
     local validNerve = false
     for _, value in ipairs(NERVE_STATES) do
@@ -1118,10 +1135,29 @@ end
 -- A vertical column of pips, filled BOTTOM-UP so the top pip is the last one
 -- spent. Reaction and AP get separate columns on purpose: the two pools never
 -- exchange (A.IV), and one shared bar would imply a conversion that does not exist.
-local function buildPipColumn(idPrefix, current, maximum, filledHex, label)
+local function buildPipColumn(idPrefix, current, maximum, filledHex, label, artFull, artSpent)
     maximum = math.max(0, math.floor(tonumber(maximum) or 0))
     current = clamp(math.floor(tonumber(current) or 0), 0, maximum)
     if maximum <= 0 then return "", 0 end
+
+    -- Orb art when it is available, glyph pips when it is not.
+    if artFull ~= nil and maximum <= 6 and assetEnabled(artFull) and assetEnabled(artSpent) then
+        local rows, tip = {}, xmlEscape(label .. "\nLeft: spend 1\nRight: restore 1")
+        for i = 1, maximum do
+            local filled = i > (maximum - current)   -- fills bottom-up
+            rows[#rows+1] = '<Panel width="22" height="22" preferredWidth="22" preferredHeight="22">' ..
+                '<Image image="' .. (filled and artFull or artSpent) ..
+                '" width="22" height="22" preferredWidth="22" preferredHeight="22" preserveAspect="true" raycastTarget="false" />' ..
+                '<Button id="' .. idPrefix .. i .. '" onClick="cusUiClick" text="" width="22" height="22"' ..
+                ' preferredWidth="22" preferredHeight="22" colors="#00000000|#FFFFFF20|#FFFFFF10|#00000000"' ..
+                ' tooltip="' .. tip .. '" /></Panel>'
+        end
+        local hh = tostring(maximum * 23 + 2)
+        return '<VerticalLayout spacing="1" childAlignment="LowerCenter" childForceExpandWidth="false"' ..
+            ' childForceExpandHeight="false" width="26" height="' .. hh ..
+            '" preferredWidth="26" preferredHeight="' .. hh .. '">' ..
+            table.concat(rows) .. '</VerticalLayout>', 26
+    end
 
     local parts = {}
     if maximum > 6 then
@@ -1154,16 +1190,54 @@ end
 
 -- ONE heart carrying the number. Wounds are 1-2 as standard (B.7), so a row of
 -- hearts is noise. Skull at zero.
+-- ONE heart with the number written on it — Wounds is a number, not a track
+-- (B · 7). The ART reads the fraction remaining so you get the shape of a
+-- figure's health at a glance without reading the digit:
+--
+--   full        green,   untouched
+--   hurt        gold,    bloodied but standing
+--   one left    red,     cracked
+--   zero        hollow,  burnt out and smoking — KNOCKED OUT
+--
+-- At the 1-2 Wound standard most figures only ever show green -> red -> hollow;
+-- gold appears on the 3+ Wound brutes, which is exactly who should look tougher.
+local function woundArt(current, maximum)
+    if current <= 0 then return "heart_empty" end
+    if current <= 1 then return "heart_critical" end
+    if current >= maximum then return "heart_full" end
+    return "heart_hurt"
+end
+
 local function buildWoundBadge()
     local maximum = math.max(0, tonumber(definition.wounds) or 0)
     local current = clamp(math.floor(tonumber(runtime.current_wounds) or 0), 0, maximum)
+    local tip = xmlEscape("Wounds " .. current .. "/" .. maximum ..
+        (current <= 0 and "\nKNOCKED OUT — a downed figure that is hit is KILLED,\nand rolls no Armour." or "") ..
+        "\nLeft: lose 1\nRight: heal 1")
+    local asset = woundArt(current, maximum)
+
+    if assetEnabled(asset) then
+        local W, H = 40, 36
+        return '<Panel width="' .. W .. '" height="' .. H .. '" preferredWidth="' .. W ..
+            '" preferredHeight="' .. H .. '">' ..
+            '<Image image="' .. asset .. '" width="' .. W .. '" height="' .. H ..
+            '" preferredWidth="' .. W .. '" preferredHeight="' .. H ..
+            '" preserveAspect="true" raycastTarget="false" />' ..
+            (current > 0 and ('<Text text="' .. current ..
+                '" width="' .. W .. '" height="' .. H .. '" preferredWidth="' .. W ..
+                '" preferredHeight="' .. H .. '" fontSize="17" color="#FFFFFF"' ..
+                ' alignment="MiddleCenter" offsetXY="0 -2" raycastTarget="false" />') or "") ..
+            '<Button id="cus-heart-1" onClick="cusUiClick" text="" width="' .. W ..
+            '" height="' .. H .. '" preferredWidth="' .. W .. '" preferredHeight="' .. H ..
+            '" colors="#00000000|#FFFFFF20|#FFFFFF10|#00000000" tooltip="' .. tip .. '" />' ..
+            '</Panel>', W
+    end
+
     local glyph = (current <= 0) and "☠" or "♥"
-    local tint  = (current <= 0) and HEX.red or woundsColor()
     local text  = (current <= 0) and glyph or (glyph .. " " .. tostring(current))
     return '<Button id="cus-heart-1" onClick="cusUiClick" text="' .. text ..
         '" width="46" height="30" preferredWidth="46" preferredHeight="30" fontSize="20" colors="#11111100|#FFFFFF14|#FFFFFF0A|#11111100" textColor="#' ..
-        tint .. '" tooltip="' .. xmlEscape("Wounds " .. current .. "/" .. maximum ..
-        "\nLeft: lose 1\nRight: heal 1") .. '" />', 46
+        ((current <= 0) and HEX.red or woundsColor()) .. '" tooltip="' .. tip .. '" />', 46
 end
 
 -- One triangle. Point UP = still has its turn, point DOWN = spent.
@@ -1821,8 +1895,13 @@ local function buildUIXml()
     --      ●        ●                     ⏻
     --      ○        ●
     --             MOVE  ATK  WAIT  ↻
-    local rxXml   = buildPipColumn("cus-rx-pip-", runtime.current_reactions, definition.reactions, HEX.gold, "Reaction")
-    local apCol   = buildPipColumn("cus-ap-pip-", runtime.current_ap, definition.ap, HEX.blue, "AP")
+    local rxXml   = buildPipColumn("cus-rx-pip-", runtime.current_reactions, definition.reactions,
+        HEX.gold, "REACTION\nSpent on someone else's activation", "rp_full", "rp_spent")
+    local apCol   = buildPipColumn("cus-ap-pip-", runtime.current_ap, definition.ap,
+        HEX.green, "AP — Agency\nSpent on your own activation", "ap_full", "ap_spent")
+    -- MP returns "" at 0, so most figures show no third column at all.
+    local mpCol   = buildPipColumn("cus-mp-pip-", runtime.current_mp, definition.mp, HEX.red,
+        "MP — specials\nPER BATTLE: it does not refresh on activation", "mp_full", "mp_spent")
     local woundXml  = buildWoundBadge()
     local activXml  = buildActivationBadge()
     local nerveBadge = buildNerveBadge()
@@ -1830,8 +1909,8 @@ local function buildUIXml()
 
     -- Panel height follows the TALLER column, so a 2 AP figure does not
     -- reserve room for six pips.
-    local tallest = math.max(math.min(definition.reactions or 1, 6), math.min(definition.ap or 2, 6), 2)
-    local colHeight = math.max(34, tallest * 17 + 2)
+    local tallest = math.max(math.min(definition.reactions or 1, 6), math.min(definition.ap or 2, 6), math.min(definition.mp or 0, 6), 2)
+    local colHeight = math.max(40, tallest * 23 + 2)
     local panelHeight = colHeight + 34   -- + the 28px action row and its spacing
 
     local xml = [[
@@ -1842,7 +1921,7 @@ local function buildUIXml()
 <Panel position="]] .. position .. [[" width="164" height="]] .. panelHeight .. [[" rotation="0 0 ]] .. tostring(runtime.ui_rotation) .. [[" scale="]] .. panelScale .. [[" color="#00000000">
     <VerticalLayout spacing="2" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="164" height="]] .. panelHeight .. [[">
         <HorizontalLayout spacing="6" childAlignment="LowerCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="164" height="]] .. colHeight .. [[" preferredWidth="164" preferredHeight="]] .. colHeight .. [[">
-            ]] .. rxXml .. apCol .. woundXml .. [[
+            ]] .. rxXml .. apCol .. mpCol .. woundXml .. [[
             <VerticalLayout spacing="1" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="36" height="]] .. colHeight .. [[" preferredWidth="36" preferredHeight="]] .. colHeight .. [[">
                 ]] .. activXml .. nerveBadge .. [[
             </VerticalLayout>
@@ -1899,6 +1978,21 @@ local function changeReactions(amount, player)
     end
 end
 
+local function changeMP(amount, player)
+    if definition.mp <= 0 then return end
+    local before = runtime.current_mp
+    runtime.current_mp = clamp(runtime.current_mp + amount, 0, definition.mp)
+    refreshAll()
+
+    if runtime.current_mp <= 0 and before > 0 then
+        notify(player, definition.name .. " is out of MP — no specials left this battle.",
+            {1.00, 0.55, 0.35})
+    else
+        notify(player, definition.name .. " has " .. runtime.current_mp ..
+            "/" .. definition.mp .. " MP.")
+    end
+end
+
 local function changeNerve(direction, player)
     runtime.nerve_state = stepState(NERVE_STATES, runtime.nerve_state, direction)
     refreshAll()
@@ -1926,8 +2020,18 @@ local function newRound(player)
     runtime.turn_state = "Unactivated"
     synchronizeTurnFlags()
     refreshAll()
-    notify(player, definition.name .. " refreshed: " .. definition.ap .. " AP, " ..
-        definition.reactions .. " Reaction.", {0.40, 0.80, 1.00})
+
+    -- MP is DELIBERATELY not refreshed here. AP and Reaction are per-activation
+    -- budgets; MP is a PER-BATTLE one, which is the whole reason it is a
+    -- different resource and not a second AP. A champion holding 3 MP has to
+    -- decide WHEN in the entire battle the big thing happens. Restoring it is
+    -- FULL RESET's job (between games).
+    local msg = definition.name .. " refreshed: " .. definition.ap .. " AP, " ..
+        definition.reactions .. " Reaction."
+    if definition.mp > 0 then
+        msg = msg .. "  MP unchanged (" .. runtime.current_mp .. "/" .. definition.mp .. ") — it is per battle."
+    end
+    notify(player, msg, {0.40, 0.80, 1.00})
 end
 
 local function resetRuntime(player)
@@ -1935,6 +2039,7 @@ local function resetRuntime(player)
     runtime.current_wounds = definition.wounds
     runtime.current_ap = definition.ap
     runtime.current_reactions = definition.reactions
+    runtime.current_mp = definition.mp        -- between battles, the specials come back
     runtime.armed_packet = nil
     runtime.nerve_state = "Steady"
     runtime.turn_state = "Unactivated"
@@ -2037,6 +2142,8 @@ function cusUiClick(player, value, id)
         changeReactions(rightClick and 1 or -1, player)
     elseif id ~= nil and string.sub(id, 1, 11) == "cus-ap-pip-" then
         changeAP(rightClick and 1 or -1, player)
+    elseif id ~= nil and string.sub(id, 1, 11) == "cus-mp-pip-" then
+        changeMP(rightClick and 1 or -1, player)
     elseif id == "cus-act-attack" then
         contextAttack(playerColorOfClick(player))
     elseif id == "cus-act-wait" then
