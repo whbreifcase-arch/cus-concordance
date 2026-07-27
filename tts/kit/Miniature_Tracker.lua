@@ -128,12 +128,16 @@ local ICON_ASSETS = {
     activation_activated   = ICON_BASE .. "activated.png",     -- bronze, spent
     activation_ready       = ICON_BASE .. "wait.png",          -- retired v0.5 key
 
+    -- Armour, by save quality. Green leather 6+ · gold plate 5+ · red plate 4+.
+    -- Note the colour scale runs the OPPOSITE way to the pip rows: here red is
+    -- the BEST armour, because it reads as "dangerous to attack", not "low".
+    armour_light  = ICON_BASE .. "armour_light.png",    -- 6+  green
+    armour_medium = ICON_BASE .. "armour_medium.png",   -- 5+  gold
+    armour_heavy  = ICON_BASE .. "armour_heavy.png",    -- 4+  red
+
     -- Not drawn yet; leave empty and the glyph fallback is used.
     heart_full = "",
     heart_empty = "",
-    armour_light = "",
-    armour_medium = "",
-    armour_heavy = "",
     nerve_fine = "",
     nerve_shaken = "",
     nerve_breaking = "",
