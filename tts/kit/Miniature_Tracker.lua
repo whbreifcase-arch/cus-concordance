@@ -116,17 +116,32 @@ local COLOR_PRESETS = {
 -- paste their URLs here. SVG source art should be exported to transparent PNGs.
 local ICON_BASE = "https://raw.githubusercontent.com/whbreifcase-arch/cus-kernel-rebuild/main/tts/icons/"
 
+-- One colour language across the whole HUD, so a state and the button that
+-- produced it read as the same thing:
+--
+--   GREEN  available / not yet spent      MOVE      · unactivated
+--   GOLD   deferred, held against a trigger   WAIT  · waiting
+--   RED    spent / resolved                ACTION   · activated
+--
 local ICON_ASSETS = {
-    -- Square badges for the action row.
-    action_act   = ICON_BASE .. "act.png",
-    action_move  = ICON_BASE .. "move.png",
-    action_wait  = ICON_BASE .. "wait2.png",
+    -- Square buttons for the action row — the three verbs.
+    action_move  = ICON_BASE .. "action_move.png",   -- green  · a boot
+    action_act   = ICON_BASE .. "action_act.png",    -- red    · an open hand
+    action_wait  = ICON_BASE .. "action_wait.png",   -- gold   · an hourglass
 
-    -- Triangles for the activation state. Point up = still has its turn.
-    activation_unactivated = ICON_BASE .. "unactivated.png",   -- green, up
-    activation_waiting     = ICON_BASE .. "wait.png",          -- armed
-    activation_activated   = ICON_BASE .. "activated.png",     -- bronze, spent
-    activation_ready       = ICON_BASE .. "wait.png",          -- retired v0.5 key
+    -- Triangles for the activation state.
+    activation_unactivated = ICON_BASE .. "activation_unactivated.png", -- green flame, burning
+    activation_waiting     = ICON_BASE .. "activation_waiting.png",     -- gold hourglass
+    activation_activated   = ICON_BASE .. "activation_activated.png",   -- burnt out, smoking
+    activation_ready       = ICON_BASE .. "activation_waiting.png",     -- retired v0.5 key
+
+    -- Nerve banners (B · 10: Steady → Shaken → Broken). These are WIDE — 3:2
+    -- landscape with the word spelled out — not square badges. They render as a
+    -- strip, because a state you want readable across the table should be a
+    -- word, not a glyph you lean in for.
+    nerve_steady = ICON_BASE .. "nerve_steady.png",   -- green, intact stone
+    nerve_shaken = ICON_BASE .. "nerve_shaken.png",   -- gold, cracked
+    nerve_broken = ICON_BASE .. "nerve_broken.png",   -- red, shattered, rubble fallen
 
     -- Armour, by save quality. Green leather 6+ · gold plate 5+ · red plate 4+.
     -- Note the colour scale runs the OPPOSITE way to the pip rows: here red is
@@ -138,9 +153,9 @@ local ICON_ASSETS = {
     -- Not drawn yet; leave empty and the glyph fallback is used.
     heart_full = "",
     heart_empty = "",
-    nerve_fine = "",
-    nerve_shaken = "",
-    nerve_breaking = "",
+    trait_shield = "",      -- static badge: this figure carries a shield
+    ap_full = "", ap_spent = "",     -- green pips
+    rp_full = "", rp_spent = "",     -- yellow pips — reactions available
 }
 
 local function assetEnabled(name)
@@ -999,13 +1014,18 @@ local function activationTokenData()
     return {asset = "activation_unactivated", glyph = "△", fg = HEX.green, tooltip = "Activation: Unactivated. Left click: next state. Right click: previous state."}
 end
 
+-- B · 10: Steady → Shaken → Broken. Broken is where a Square ROUTS, so the art
+-- escalates rather than merely recolouring — intact stone, cracked, shattered.
 local function nerveTokenData()
     if runtime.nerve_state == "Broken" then
-        return {asset = "nerve_breaking", glyph = "◆", fg = HEX.red, tooltip = "Nerve: Breaking / Routed. Left click: worsen. Right click: improve."}
+        return {asset = "nerve_broken", glyph = "◆", fg = HEX.red,
+                tooltip = "Nerve: BROKEN — it Routs by its Temperament.\nLeft click: worsen. Right click: improve."}
     elseif runtime.nerve_state == "Shaken" then
-        return {asset = "nerve_shaken", glyph = "◆", fg = HEX.amber, tooltip = "Nerve: Shaken. Left click: worsen. Right click: improve."}
+        return {asset = "nerve_shaken", glyph = "◆", fg = HEX.amber,
+                tooltip = "Nerve: Shaken.\nLeft click: worsen. Right click: improve."}
     end
-    return {asset = "nerve_fine", glyph = "◇", fg = HEX.gold, tooltip = "Nerve: Fine / Steady. Left click: worsen. Right click: improve."}
+    return {asset = "nerve_steady", glyph = "◇", fg = HEX.green,
+            tooltip = "Nerve: Steady.\nLeft click: worsen. Right click: improve."}
 end
 
 local function transparentButton(id, tooltip, width, height)
@@ -1173,11 +1193,30 @@ local function buildActivationBadge()
         tint .. '" tooltip="' .. tip .. '" />', 34
 end
 
+-- The nerve art is a WIDE BANNER with the word written on it (3:2), not a
+-- square badge — so it gets a wide slot. A 28x22 square would render "SHAKEN"
+-- as four unreadable pixels. Falls back to the small glyph if the art is off.
+local NERVE_BANNER_W, NERVE_BANNER_H = 78, 52
+
 local function buildNerveBadge()
     local t = nerveTokenData()
+    local tip = xmlEscape(t.tooltip)
+
+    if assetEnabled(t.asset) then
+        return '<Panel width="' .. NERVE_BANNER_W .. '" height="' .. NERVE_BANNER_H ..
+            '" preferredWidth="' .. NERVE_BANNER_W .. '" preferredHeight="' .. NERVE_BANNER_H .. '">' ..
+            '<Image image="' .. t.asset .. '" width="' .. NERVE_BANNER_W .. '" height="' .. NERVE_BANNER_H ..
+            '" preserveAspect="true" raycastTarget="false" />' ..
+            '<Button id="cus-nerve" onClick="cusUiClick" text="" width="' .. NERVE_BANNER_W ..
+            '" height="' .. NERVE_BANNER_H .. '" preferredWidth="' .. NERVE_BANNER_W ..
+            '" preferredHeight="' .. NERVE_BANNER_H ..
+            '" colors="#00000000|#FFFFFF18|#FFFFFF0C|#00000000" tooltip="' .. tip .. '" />' ..
+            '</Panel>', NERVE_BANNER_W
+    end
+
     return '<Button id="cus-nerve" onClick="cusUiClick" text="' .. t.glyph ..
         '" width="28" height="22" preferredWidth="28" preferredHeight="22" fontSize="16" colors="#11111100|#FFFFFF14|#FFFFFF0A|#11111100" textColor="#' ..
-        t.fg .. '" tooltip="' .. xmlEscape(t.tooltip) .. '" />', 28
+        t.fg .. '" tooltip="' .. tip .. '" />', 28
 end
 
 -- The whole core loop, permanently on the token instead of behind a right-click.
