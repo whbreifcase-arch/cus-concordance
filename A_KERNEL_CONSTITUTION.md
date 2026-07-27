@@ -629,7 +629,8 @@ recorded amendments, not reopened questions:
 SIGNED  reaction-resource    · Reaction is a Kernel Resource, separate from AP (Ch. IV)
 SIGNED  counter-authoring    · a Counter is a written trigger inside a PACKET, not a WAIT
 SIGNED  reaction-budget      · combat: 1 per figure · 2 for a Circle (B·12)
-SIGNED  domains              · three peer domains: COMBAT · PERSISTENCE · MEANING (Ch. XIX)
+SIGNED  modules              · TWO peer modules: COMBAT · STORY (Ch. XIX). Persistence
+                               is Kernel architecture, not a module — reserved (2026-07-26)
 SIGNED  brace-vs-overwatch   · Brace grants bonuses/step-ups, never a Reaction;
                                Overwatch = 1 AP to arm a better PACKET, still spends Reaction
 SIGNED  sprint-to-charge     · a 3″ uninterrupted sprint into contact is the charge threshold (B·3)
@@ -637,73 +638,73 @@ SIGNED  sprint-to-charge     · a 3″ uninterrupted sprint into contact is the 
 
 ---
 
-# XIX · The three domains — SIGNED (William, 2026-07-25)
+# XIX · The two modules — SIGNED (William, 2026-07-26)
 
-The Kernel is observed through **three co-equal domains.** They are peer modules
-under this Constitution (Ch. XVII), not layers, and none is a species of another.
+The Kernel has **two implementations**: one for the fight, one for everything
+said. They are **peers** under the module contract (Ch. XVII) — neither is a
+species of the other, and Combat is not the master (Law 12).
 
 ```text
-              COMBAT
-                 \
-                  \
-MEANING ------- THE FIGURE ------- PERSISTENCE
-                  /
-                 /
-             THE KERNEL
+COMBAT  ── Document B ──▶  contested force        what you can do to them
+STORY   ── Document I ──▶  contested everything    what you can do about them
+                                                   else
+                    both meet at THE FIGURE
 ```
 
-| Domain | Owns | Answers | Primitives it mostly touches |
-|---|---|---|---|
-| **COMBAT** | immediate physical conflict | *what can you do* | Position · Force |
-| **PERSISTENCE** | what remains true between events | *what is still true* | State · Resource |
-| **MEANING** | standing relationships and what events meant | *what did it mean* | relationships between agents |
+| Module | Owns | Resolves |
+|---|---|---|
+| **COMBAT** | physical conflict — Position, Force, the clash | a strike |
+| **STORY** | the parley, the bargain, the grudge, the oath, the crowd | an Ask |
 
-*(**Story** is the everyday word for MEANING. Use whichever is clearer to the
-person you're talking to; **MEANING** is the Kernel term.)*
+**Story is the name.** Not *Meaning*, not *Social*, not *Bond* — the word people
+actually use for the thing. If a rule needs a longer name than the thing it
+governs, the rule is wrong.
 
-**The Figure is the intersection.** One Figure, one **Instance**, three
-projections of it. A skirmish card, a Caravan sheet and a history log are not
-three records — they are three windows onto one truth (Ch. IX).
+## The razor already had the slot
+Ch. XVI asks whether a mechanic reads or writes *"Position, Force, State, a
+Resource, **or a relationship between agents**."* Combat owns Position and Force.
+That last clause is **Story's**, and it was unowned until now. No fifth primitive
+was required, which is the real test this architecture had to pass.
 
-**The razor already had a slot for this.** Ch. XVI asks whether a mechanic reads or
-writes *"Position, Force, State, a Resource, **or a relationship between agents**."*
-Combat owns the first two. Persistence owns the next two. That last clause was
-unowned until now — it is MEANING's.
-
-## Why Combat was built first
-Combat has the tightest tolerances: an error becomes visible immediately, at the
-table, in positioning and timing and resolution. By surviving that pressure it has
-already stress-tested the grammar. Persistence and Meaning inherit a proven
-structure rather than laying a second foundation.
-
-## What a domain must do
-Each domain discharges the module contract (Ch. XVII) — and the load-bearing clause
-is **translation**: a domain that cannot express MOVE · ACTION · WAIT in its own
-terms is not a module, it is a database.
+## What a module must do
+The load-bearing clause of the contract is **translation**: a module that cannot
+express MOVE · ACTION · WAIT in its own terms is not a module, it is a database.
 
 ```text
-KERNEL       MOVE                ACTION                    WAIT
-Combat       MOVE                Strike / Cast / Interact  Brace / Overwatch
-Persistence  travel the Caravan  craft · heal · trade      hold in reserve
-Meaning      approach · distance  promise · accuse · forgive  a vow
+KERNEL   MOVE                    ACTION                     WAIT
+Combat   MOVE                    Strike · Cast · Interact   Brace · Overwatch
+Story    approach · distance ·   Address — promise ·        Prepare — a VOW
+         side with · abandon     accuse · confess · forgive
 ```
 
 A **vow** is a WAIT — something spent now, armed against a later trigger. A
 **grudge** is a **Written Trigger** (Ch. XIV) — a clause carried inside a Figure
-that fires when its condition occurs, chosen by nobody. The invocation layer built
-for Counters turns out to explain the difference between swearing an oath and
-holding a hatred.
+that fires when its condition occurs, armed by nobody. The invocation layer built
+to explain a Counter turns out to explain the difference between swearing an oath
+and holding a hatred, with no new machinery.
+
+## Why Combat was built first
+It has the tightest tolerances: an error is visible immediately, at the table, in
+positioning and timing. Having survived that, the grammar is proven, and Story
+inherits a foundation instead of laying a second one.
+
+## Persistence is not a module — ⚠ RESERVED
+What survives between events — injuries, scars, advancement, the Caravan, the
+clock — is **Kernel architecture, not a peer implementation.** It is not a third
+thing the Figure does; it is what the Figure *is* when nothing is happening.
+
+**William is writing it into this Constitution.** Until he does, the harm and
+aftermath procedures live in **[Document H](H_PERSISTENCE.md)** as a holding pen —
+playable, but awaiting absorption. Do not cite H as a domain.
 
 ## Interface commitment
 - **Play is analog.** Miniature, card, dice, pencil. No screen at the table.
-- **Persistence requires the companion application** — SIGNED (William,
-  2026-07-25). Between-session bookkeeping is the app's job, not the player's.
-  This is a deliberate commitment, not a fallback.
+- **Campaign bookkeeping requires the companion application** — SIGNED (William,
+  2026-07-25). A deliberate commitment, not a fallback.
 
 ## Status
 ```text
-COMBAT       BUILT      — Document B, and its clash spine is closed (F)
-PERSISTENCE  RUNNABLE   — Document H · HARM (§7) + AFTER THE BATTLE (§8) are
-                          playable; storage and the clock are still scaffold
-MEANING      SCAFFOLD   — Document I · under construction, not authority
+COMBAT   BUILT      — Document B; the clash spine is closed (F)
+STORY    PROPOSED   — Document I; drafted, unsigned, register at its foot
+HARM     HOLDING    — Document H; playable, awaiting the Kernel rewrite
 ```

@@ -1,6 +1,6 @@
 # CUS — THE PERSISTENCE MODULE
 
-### v0.6 · 🚧 **PARTIAL** 🚧 · opened 2026-07-25
+### v0.6 · 🚧 HOLDING PEN — awaiting absorption into the Kernel 🚧
 
 > ```text
 > ┌─────────────────────────────────────────────────────────────┐
@@ -12,8 +12,10 @@
 > └─────────────────────────────────────────────────────────────┘
 > ```
 >
-> **What this is.** The second of the three domains (A · XIX): the module that owns
-> **what remains true between events.** Peer to Combat, not beneath it.
+> **What this is.** ⚠ **NOT A MODULE.** Persistence is Kernel architecture, and
+> **William is writing it into Document A** (A·XIX). This file is a HOLDING PEN:
+> the harm and aftermath procedures are playable and should survive the move, but
+> nothing here may be cited as a domain.
 
 ---
 
@@ -31,7 +33,7 @@ WORLD           what changed and stayed changed · the campaign clock
 ```
 
 **Persistence records truth. It does not decide what that truth meant** — that is
-MEANING's job (Document I), and the split is deliberate.
+**Story's** job (Document I), and the split is deliberate.
 
 ---
 
@@ -134,7 +136,7 @@ RECOVERED  ─or─  SCAR            permanent · has effects forever
 
 ```text
 COMBAT   ── wounds ──▶  BODY injury  ──▶  BODY scar
-MEANING  ── events ──▶  MIND injury  ──▶  MIND scar
+STORY    ── events ──▶  MIND injury  ──▶  MIND scar
                   PERSISTENCE owns the lifecycle for both
 ```
 
@@ -297,7 +299,7 @@ below takes something and gives something, because that is what surviving does.
 
 ## 7.6 · MIND injuries — by what happened
 
-MIND harm is **looked up, not rolled.** The event is owned by MEANING (I · 5);
+MIND harm is **looked up, not rolled.** The event is owned by STORY (I · 9);
 Persistence owns what it does to him.
 
 | Trigger | MIND injury | Active | Recovery | Heals to | Neglected |
@@ -323,7 +325,7 @@ structurally the same object as a grudge (I · 3). No new machinery.
 | `never_again` | **Trigger:** a child — or a thing wearing a child — calls for help. **Effect:** he will not MOVE toward it, and treats it as hostile until something proves otherwise. |
 | `the_last_one` | Nerve worsens by 1 while no ally is within 3″. **But** while he is the last of his Fireteam standing: **+1 die and +1 Reaction.** He has done this before. |
 | `trusts_slowly` | Cannot be the target of a friendly Shield Intercept. **But** he covers his own line: **+1 die on any Shield Intercept he performs.** |
-| `no_quarter` | **Trigger:** an enemy is Knocked Out within his reach. **Effect:** he finishes it, and he does not ask. Costs him nothing; costs the Caravan its reputation (MEANING). |
+| `no_quarter` | **Trigger:** an enemy is Knocked Out within his reach. **Effect:** he finishes it, and he does not ask. Costs him nothing; costs the Caravan its Standing (STORY). |
 | `butcher` | As `no_quarter`, and he will do it to a surrendering foe. **Meaning:** the Caravan is known for it now. |
 | `has_seen_worse` | **Immune to Terror Effects.** Nerve worsens by 1 against ordinary men — he has stopped taking them seriously, and it gets him hurt. |
 | `the_dark` | Cannot enter enclosed terrain without passing a Nerve test. **But** once inside and Braced: **+1 die.** Cornered is a place he understands. |
@@ -416,7 +418,7 @@ the other way round. Five things, on paper, before anyone packs up:
 ```
 
 Line 5 does double duty: it is the **MIND trigger feed** (§7.6) and it is
-MEANING's raw material (Document I). *"Bram carried Aldous out and Aldous died
+STORY's raw material (Document I). *"Bram carried Aldous out and Aldous died
 anyway"* is one line, and it is both a mechanic and a story.
 
 ## 8.2 · The sequence
@@ -478,7 +480,7 @@ safe to heal.
 
 Nothing above needs a screen. The app (§4) reads the sheet afterwards and keeps the
 ledger: recovery counters, scar lists, who is fit, who is in the wagon, and the
-history that MEANING will want later.
+history that STORY will want later.
 
 **If the app is not open, the campaign still runs.** That is the test §8.1 exists
 to pass.
@@ -503,7 +505,7 @@ and what rivals do while you are elsewhere. Time is already a Kernel Resource
 
 ### 9.4 · The combat output schema
 **The analog tier is written (§8.1).** What remains is serializing it — the JSON
-form of the five lines, plus actor/target references on line 5 so MEANING can key
+form of the five lines, plus actor/target references on line 5 so STORY can key
 events to figures rather than to prose.
 
 ### 9.5 · Advancement

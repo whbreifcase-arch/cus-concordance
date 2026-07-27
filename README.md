@@ -17,23 +17,24 @@ wins.** The old codex is now a **migration input, not authority.**
 | **E** | [Decision Register](E_OPEN_DECISIONS.md) | The signed record of every ruling and amendment. **Not** a list of open questions — the filename is legacy, kept so links don't break. |
 | **F** | [Continuous Clash Resolution](F_CLASH_RESOLUTION.md) | The governing spec for how a clash/"charge" resolves — increments, reaction order, the 3″ threshold. |
 | **G** | [Why Not](G_WHY_NOT.md) | The rationale register. Every place CUS says "X is **not** Y," the argument lives here — so A–C can state rules instead of defending them. |
-| **H** | [Persistence](H_PERSISTENCE.md) 🚧 | **RUNNABLE.** What remains true between events. **§7 HARM** (Aftermath rolls · 36 body injuries · 8 mind · 39 scars) and **§8 AFTER THE BATTLE** (the 5-line battle result, the sequence, finite care) are written and playable with a pencil. Storage and the clock are still scaffold. |
-| **I** | [Meaning](I_MEANING.md) 🚧 | **SCAFFOLD — not authority.** Standing relationships and what events meant. *Story* is its everyday name. |
+| **H** | [Persistence](H_PERSISTENCE.md) 🚧 | **HOLDING PEN — not a module.** Persistence is Kernel architecture and William is writing it into **A**. Until then the **harm and aftermath procedures** live here and are playable: the Aftermath rolls, 36 body injuries, 8 mind, 39 scars, and the 5-line battle result. |
+| **I** | [Story](I_STORY.md) ⚠ | **PROPOSED — Combat's peer.** The parley, the bargain, the grudge, the oath, the crowd. Composure, the Retort, Bonds. Unsigned; the Register at its foot is the pen. |
 
-## The three domains — A · XIX
+## The two modules — A · XIX
 
 ```text
-COMBAT       what you can do         Position · Force              BUILT     (B, F)
-PERSISTENCE  what is still true      State · Resource              PARTIAL   (H · harm)
-MEANING      what it meant           relationships between agents  SCAFFOLD  (I)
+COMBAT   Document B ── contested force          BUILT     (clash spine closed, F)
+STORY    Document I ── contested everything else PROPOSED  (drafted, unsigned)
+
+PERSISTENCE — not a module. Kernel architecture, being written into A.
+              Harm and Aftermath wait in H until it lands.
 ```
 
-Peer modules, not layers. They intersect at **the Figure** — one Figure, one
-Instance, three projections of it. **Play is analog; Persistence requires the
-companion app.**
+Two peers, meeting at **the Figure**. Neither is a species of the other, and
+Combat is not the master (Law 12). **Play is analog; campaign bookkeeping needs
+the companion app.**
 
-> 🚧 **H and I contain no rules.** They declare what each domain will own and what
-> it must answer. Where they conflict with A–G, A–G wins.
+> ⚠ **Nothing in I is authority yet.** Where it conflicts with A–H, A–H wins.
 
 **Playable:** [tts/](tts/) — the Tabletop Simulator implementation. Two Lua
 scripts; the miniature tracker pulls its units live from `factions/data/` over
