@@ -36,9 +36,11 @@ the companion app.**
 
 > ⚠ **Nothing in I is authority yet.** Where it conflicts with A–H, A–H wins.
 
-**Playable:** [tts/](tts/) — the Tabletop Simulator implementation. Two Lua
-scripts; the miniature tracker pulls its units live from `factions/data/` over
-HTTPS, so a balance change here is live in game on the next pick.
+**Playable:** [tts/](tts/) — the Tabletop Simulator build. **`tts/kit/`** is the
+live one: a per-miniature tracker plus a Global that stamps units onto minis from
+an 81-unit library generated out of `factions/data/`. No cards, no linking, and
+no XML slot at all. `tts/mod/` is the older full mod, kept for its build
+pipeline.
 
 **Supporting:** [CHARGE_FINDINGS.md](CHARGE_FINDINGS.md) — what ~1.3M simulated
 charges taught us (capstone, closed 2026-07-25) · [SCENARIO_PROMPT.md](SCENARIO_PROMPT.md)

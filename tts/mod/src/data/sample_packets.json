@@ -1,0 +1,30 @@
+{
+  "attack_packets": [
+    { "id": "ATK_SWORD_01", "alias": "Sword", "parent_action": "ATTACK", "dice": 3, "hit": 3, "range": 0, "cost_ap": 1,
+      "tags": ["Melee"], "tiers": [ { "successes": 1, "wounds": 1, "effects": [] }, { "successes": 3, "wounds": 1, "effects": ["Guard"] } ] },
+    { "id": "ATK_DAGGER_01", "alias": "Dagger", "parent_action": "ATTACK", "dice": 2, "hit": 2, "range": 0, "cost_ap": 1,
+      "tags": ["Melee"], "tiers": [ { "successes": 1, "wounds": 1, "effects": [] }, { "successes": 2, "wounds": 1, "effects": ["ignore Armour"] } ] },
+    { "id": "ATK_SPEAR_01", "alias": "Spear", "parent_action": "ATTACK", "dice": 2, "hit": 4, "range": 0, "cost_ap": 1,
+      "tags": ["Melee", "Reach"], "tiers": [ { "successes": 1, "wounds": 1, "effects": [] }, { "successes": 2, "wounds": 1, "effects": ["Push"] } ] },
+    { "id": "ATK_GREATAXE_01", "alias": "Greataxe", "parent_action": "ATTACK", "dice": 3, "hit": 5, "range": 0, "cost_ap": 1,
+      "tags": ["Melee"], "tiers": [ { "successes": 1, "wounds": 1, "effects": [] }, { "successes": 2, "wounds": 2, "effects": [] }, { "successes": 3, "wounds": 2, "effects": ["Cleave"] } ] },
+    { "id": "ATK_ASSASSIN_01", "alias": "Assassin Blade", "parent_action": "ATTACK", "dice": 3, "hit": 3, "range": 0, "cost_ap": 1,
+      "tags": ["Melee"], "tiers": [ { "successes": 1, "wounds": 1, "effects": [] }, { "successes": 3, "wounds": 2, "effects": [] }, { "successes": 5, "wounds": 2, "effects": ["Execute"] } ] },
+    { "id": "ATK_BOW_01", "alias": "Bow", "parent_action": "ATTACK", "dice": 2, "hit": 4, "range": 18, "cost_ap": 1,
+      "tags": ["Ranged", "never countered"], "tiers": [ { "successes": 1, "wounds": 1, "effects": [] }, { "successes": 3, "wounds": 2, "effects": [] } ] },
+    { "id": "ATK_CROSSBOW_01", "alias": "Crossbow", "parent_action": "ATTACK", "dice": 2, "hit": 3, "range": 24, "cost_ap": 1,
+      "tags": ["Ranged", "no Multi-Shot", "never countered"], "tiers": [ { "successes": 1, "wounds": 1, "effects": [] }, { "successes": 2, "wounds": 2, "effects": [] } ] }
+  ],
+  "ability_packets": [
+    { "id": "ABIL_GUARD_01", "alias": "Guard", "type": "Reactive", "parent_action": "READY",
+      "trigger": "Defined by packet", "condition": "Defined by packet", "resolution": "Defined by packet", "tags": [] },
+    { "id": "ABIL_OVERWATCH_01", "alias": "Overwatch", "type": "Reactive", "parent_action": "READY",
+      "trigger": "Enemy enters LoS in range", "condition": "Player confirms", "resolution": "Resolve a Regular Shot", "tags": ["Ranged"] },
+    { "id": "ABIL_BRACE_01", "alias": "Brace", "type": "Reactive", "parent_action": "READY",
+      "trigger": "Charged / struck", "condition": "Player confirms", "resolution": "Defined by packet", "tags": [] },
+    { "id": "ABIL_HEAL_01", "alias": "Field Dressing", "type": "Active", "parent_action": "USE",
+      "note": "Restore 1 Wound to an adjacent ally (per packet).", "tags": [] },
+    { "id": "ABIL_REACH_PASSIVE", "alias": "Reach", "type": "Passive", "parent_action": null,
+      "note": "Threatens its band; no lock, no Counter suffered.", "tags": [] }
+  ]
+}

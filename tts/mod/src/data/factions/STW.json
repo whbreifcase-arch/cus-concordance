@@ -1,0 +1,776 @@
+{
+  "faction": "Stormwarden",
+  "prefix": "STW",
+  "attack_packets": [
+    {
+      "id": "ATK_STW_CAPTAIN",
+      "alias": "Arming Sword",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 3,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 0, "effects": ["Guard"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_SHIELDKNIGHT",
+      "alias": "Sword & Shield",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 3,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 0, "effects": ["Guard"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_IRONWARDEN",
+      "alias": "Warhammer",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_HALBERDIER",
+      "alias": "Halberd",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 2,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Reach", "never countered"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Knockdown"] },
+        { "successes": 3, "wounds": 0, "effects": ["Guard"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_GREATSWORD",
+      "alias": "Greatsword",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 0, "effects": ["Cleave"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_RANGER_BOW",
+      "alias": "Shortbow",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 15,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Ranged"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_STW_RANGER_SWORD",
+      "alias": "Shortsword",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 3,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_STW_SHADOWBLADE",
+      "alias": "Stiletto",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 3,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": [] },
+        { "successes": 5, "wounds": 0, "effects": ["Execute"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_LONGBOWMAN",
+      "alias": "Longbow",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 24,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Ranged", "never countered"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_STW_CLERIC",
+      "alias": "Mace",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_STORMMAGE",
+      "alias": "Chain Lightning",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 12,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Ranged"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_STW_WARHOUND",
+      "alias": "Bite",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_WARGOLEM",
+      "alias": "Great Fists",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 0, "effects": ["Knockdown", "Push"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_LANCER",
+      "alias": "Warlance",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Push"] },
+        { "successes": 3, "wounds": 0, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_OUTRIDER",
+      "alias": "Horseman's Lance",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Push"] },
+        { "successes": 3, "wounds": 0, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_DRAKE_CLAWS",
+      "alias": "Claws & Fangs",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 3, "effects": ["Cleave"] }
+      ]
+    },
+    {
+      "id": "ATK_STW_DRAKE_BREATH",
+      "alias": "Storm Breath",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 10,
+      "area": 4,
+      "cost_ap": 1,
+      "tags": ["Ranged", "no Multi-Shot"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": ["Push"] }
+      ]
+    }
+  ],
+  "ability_packets": [
+    {
+      "id": "ABIL_STW_CAPTAIN_1",
+      "alias": "Aura - Steady",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Friendly Squares within 6\" re-roll failed Nerve.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_SHIELDKNIGHT_1",
+      "alias": "Shield Wall",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Base-to-base with another Shield Knight: +1 die defending a Counter.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_IRONWARDEN_1",
+      "alias": "Bulwark",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Attackers targeting it roll -1 die; cannot be Pushed.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_HALBERDIER_1",
+      "alias": "Brace",
+      "type": "Reactive",
+      "parent_action": "READY",
+      "note": "+1 die striking an enemy that Charged this turn.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_RANGER_1",
+      "alias": "Skirmish",
+      "type": "Active",
+      "parent_action": "MOVE",
+      "note": "Free Disengage; may MOVE after a Regular Shot (kite).",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_SHADOWBLADE_1",
+      "alias": "From the Shadows",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "+2 dice attacking from the rear; ignores Counter. Glass cannon.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_CLERIC_1",
+      "alias": "Heal",
+      "type": "Active",
+      "parent_action": "USE",
+      "note": "x2: remove 1 Wound or stand a Knockdown, range 6\".",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_CLERIC_2",
+      "alias": "Bless",
+      "type": "Active",
+      "parent_action": "USE",
+      "note": "1/turn: a friendly gains Guard +1 or re-rolls a Nerve.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_CLERIC_3",
+      "alias": "Purify",
+      "type": "Active",
+      "parent_action": "USE",
+      "note": "Clear a Stun/condition.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_STORMMAGE_1",
+      "alias": "Ward",
+      "type": "Active",
+      "parent_action": "READY",
+      "note": "Friendly Squares within 4cm roll Armour +1.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_STORMMAGE_2",
+      "alias": "Arc",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "On 3 successes the bolt arcs to the nearest enemy within 4cm and repeats the roll.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_WARHOUND_1",
+      "alias": "Pack",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Sprint 12\"; +1 die if another Hound is engaged with the same target.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_WARGOLEM_1",
+      "alias": "Immovable",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Cannot be Pushed/Knocked; blocks LoS.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_LANCER_1",
+      "alias": "Couched Lance",
+      "type": "Active",
+      "parent_action": "MOVE",
+      "note": "On a Charge: +1 die and plows a class up (the lance).",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_OUTRIDER_1",
+      "alias": "Outflank",
+      "type": "Active",
+      "parent_action": "MOVE",
+      "note": "Free Disengage; +1 die on a Flank charge.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_STW_DRAKE_1",
+      "alias": "Flight",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Flies; ignores ground obstacles and engagement when moving over.",
+      "tags": []
+    }
+  ],
+  "units": [
+    {
+      "schema_version": 1,
+      "definition_id": "STW_CAPTAIN",
+      "name": "Warden Captain",
+      "role": "Support",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Commander",
+      "signature": "Defensive shaping - makes the line un-break-able.",
+      "counter_uses": 2,
+      "stats": { "max_wounds": 4, "armour": "Heavy", "speed": 6, "max_ap": 3, "nerve": 0, "rank": "III" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_CAPTAIN"],
+      "ability_packet_ids": ["ABIL_STW_CAPTAIN_1"],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Arming Sword",
+        "dice": 3,
+        "hit": "3+",
+        "tiers": "1->1W · 3->Guard +2",
+        "armour": "4+",
+        "base": "Circle / Normal",
+        "note": "Counter (2). Aura - Steady: friendly squares re-roll Nerve."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_SHIELDKNIGHT",
+      "name": "Shield Knight",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Line Infantry",
+      "signature": "The shield wall - wins the exchange by surviving it.",
+      "stats": { "max_wounds": 2, "armour": "Medium", "speed": 6, "max_ap": 2, "nerve": 3, "rank": "II" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_SHIELDKNIGHT"],
+      "ability_packet_ids": ["ABIL_STW_SHIELDKNIGHT_1"],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Sword & Shield",
+        "dice": 3,
+        "hit": "3+",
+        "tiers": "1->1W · 3->Guard +1",
+        "armour": "5+",
+        "base": "Square / Normal",
+        "note": "Shield Wall: +1 die defending a Counter beside another Shield Knight."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_IRONWARDEN",
+      "name": "Iron Warden",
+      "role": "Anchor",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Tank",
+      "signature": "The anvil - reliable, immovable, low damage.",
+      "stats": { "max_wounds": 3, "armour": "Heavy", "speed": 4, "max_ap": 2, "nerve": 3, "rank": "II" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_IRONWARDEN"],
+      "ability_packet_ids": ["ABIL_STW_IRONWARDEN_1"],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Warhammer",
+        "dice": 2,
+        "hit": "5+",
+        "tiers": "1->1W · 2->Knockdown",
+        "armour": "4+",
+        "base": "Square / Normal",
+        "note": "Bulwark: attackers roll -1 die; cannot be Pushed. Exceptional armour."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_HALBERDIER",
+      "name": "Halberdier",
+      "role": "Anchor",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Reach Infantry",
+      "signature": "Punishes the charge before it lands.",
+      "stats": { "max_wounds": 2, "armour": "Medium", "speed": 6, "max_ap": 2, "nerve": 3, "rank": "II" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_HALBERDIER"],
+      "ability_packet_ids": ["ABIL_STW_HALBERDIER_1"],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Halberd",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "1->1W · 2->Knockdown · 3->Guard +1",
+        "armour": "5+",
+        "base": "Square / Normal",
+        "note": "Reach 2\" / Fend, no Counter. Brace: +1 die vs a charger."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_GREATSWORD",
+      "name": "Greatsword",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Heavy Weapon",
+      "signature": "A clean, readable 3-rung ladder - the control sample.",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 5, "max_ap": 2, "nerve": 2, "rank": "II" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_GREATSWORD"],
+      "ability_packet_ids": [],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Greatsword",
+        "dice": 3,
+        "hit": "4+",
+        "tiers": "1->1W · 2->2W · 3->Cleave",
+        "armour": "6+",
+        "base": "Square / Normal",
+        "note": "Two-handed, no shield (thin armour)."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_RANGER",
+      "name": "Ranger",
+      "role": "Skirmisher",
+      "tool": "Ranged",
+      "creature_type": "Man",
+      "archetype": "Skirmisher",
+      "signature": "Move-shoot-move - reach the objective, stay untouchable.",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 7, "max_ap": 2, "nerve": 0, "rank": "I" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_RANGER_BOW", "ATK_STW_RANGER_SWORD"],
+      "ability_packet_ids": ["ABIL_STW_RANGER_1"],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Shortbow / Shortsword",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "Bow 1->1W · 3->2W",
+        "armour": "6+",
+        "base": "Circle / Normal",
+        "note": "Skirmish: free Disengage; MOVE after a Regular Shot (obeys 3-shot rule)."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_SHADOWBLADE",
+      "name": "Shadowblade",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Assassin",
+      "signature": "Reaches Execute only by stacking positional dice.",
+      "stats": { "max_wounds": 1, "armour": "None", "speed": 8, "max_ap": 2, "nerve": 0, "rank": "I" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_SHADOWBLADE"],
+      "ability_packet_ids": ["ABIL_STW_SHADOWBLADE_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Stiletto",
+        "dice": 3,
+        "hit": "3+",
+        "tiers": "1->1W · 3->2W · 5->Execute",
+        "armour": "—",
+        "base": "Circle / Normal",
+        "note": "From the Shadows: +2 dice from rear, ignores Counter. Dies if caught."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_LONGBOWMAN",
+      "name": "Longbowman",
+      "role": "Skirmisher",
+      "tool": "Ranged",
+      "creature_type": "Man",
+      "archetype": "Archer",
+      "signature": "The disciplined kiting-brake - the Precision sniper.",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 6, "max_ap": 2, "nerve": 2, "rank": "I" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_LONGBOWMAN"],
+      "ability_packet_ids": [],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Longbow",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "1->1W · 3->2W",
+        "armour": "6+",
+        "base": "Square / Normal",
+        "note": "Range 24\", never countered. Best with Precision Shot (+1 die, ignore Cover)."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_CLERIC",
+      "name": "Cleric",
+      "role": "Support",
+      "tool": "Utility",
+      "creature_type": "Man",
+      "archetype": "Support",
+      "signature": "Heal-from-safety-and-bless - keeps the wall standing.",
+      "stats": { "max_wounds": 2, "armour": "Medium", "speed": 6, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_CLERIC"],
+      "ability_packet_ids": ["ABIL_STW_CLERIC_1", "ABIL_STW_CLERIC_2", "ABIL_STW_CLERIC_3"],
+      "temperament": "Protective",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Mace",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "1->1W · 2->Knockdown",
+        "armour": "5+",
+        "base": "Circle / Normal",
+        "note": "Heal x2, Bless (1/turn), Purify. Safe, ranged, reliable."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_STORMMAGE",
+      "name": "Storm Mage",
+      "role": "Control",
+      "tool": "Ranged",
+      "creature_type": "Man",
+      "archetype": "Mage",
+      "signature": "Precise AoE + control - threads through a formation.",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 6, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_STORMMAGE"],
+      "ability_packet_ids": ["ABIL_STW_STORMMAGE_1", "ABIL_STW_STORMMAGE_2"],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Chain Lightning",
+        "dice": 3,
+        "hit": "4+",
+        "tiers": "1->1W · 2->2W · 3->arc & repeat",
+        "armour": "6+",
+        "base": "Circle / Normal",
+        "note": "Range 12\". Ward: friendly squares within 4cm roll Armour +1."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_WARHOUND",
+      "name": "War Hound",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Beast",
+      "archetype": "Beast",
+      "signature": "The disciplined runner - grabs the far objective on command.",
+      "stats": { "max_wounds": 2, "armour": "None", "speed": 10, "max_ap": 2, "nerve": 0, "rank": "I" },
+      "base": { "shape": "Circle", "class": "Small", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_WARHOUND"],
+      "ability_packet_ids": ["ABIL_STW_WARHOUND_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Bite",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "1->1W · 2->Knockdown",
+        "armour": "—",
+        "base": "Circle / Small",
+        "note": "Pack: Sprint 12\"; +1 die if another Hound shares the target."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_WARGOLEM",
+      "name": "War Golem",
+      "role": "Anchor",
+      "tool": "Melee",
+      "creature_type": "Construct",
+      "archetype": "Monster",
+      "signature": "High-armour large base - the immovable construct.",
+      "stats": { "max_wounds": 6, "armour": "Heavy", "speed": 5, "max_ap": 3, "nerve": 0, "rank": "III" },
+      "base": { "shape": "Circle", "class": "Large", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_WARGOLEM"],
+      "ability_packet_ids": ["ABIL_STW_WARGOLEM_1"],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Great Fists",
+        "dice": 3,
+        "hit": "4+",
+        "tiers": "1->1W · 2->2W · 3->Knockdown + Push 4cm",
+        "armour": "4+",
+        "base": "Circle / Large",
+        "note": "Immovable: cannot be Pushed/Knocked; blocks LoS. Construct never tests Nerve."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_LANCER",
+      "name": "Warden Lancer",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Heavy Cavalry",
+      "signature": "The disciplined charge - couched lance plows the line.",
+      "stats": { "max_wounds": 3, "armour": "Medium", "speed": 11, "max_ap": 2, "nerve": 3, "rank": "II" },
+      "base": { "shape": "Square", "class": "Cavalry", "mounted": true, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_LANCER"],
+      "ability_packet_ids": ["ABIL_STW_LANCER_1"],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Warlance",
+        "dice": 3,
+        "hit": "4+",
+        "tiers": "1->1W · 2->Push · 3->Knockdown",
+        "armour": "5+",
+        "base": "Square / Cavalry",
+        "note": "Mounted, plows a class up. Couched Lance: +1 die on the Charge."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_OUTRIDER",
+      "name": "Knight Outrider",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Light Cavalry",
+      "signature": "The fast flank - harasses and wheels away.",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 12, "max_ap": 2, "nerve": 2, "rank": "I" },
+      "base": { "shape": "Square", "class": "Cavalry", "mounted": true, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_OUTRIDER"],
+      "ability_packet_ids": ["ABIL_STW_OUTRIDER_1"],
+      "temperament": "Resolute",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Horseman's Lance",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "1->1W · 2->Push · 3->Knockdown",
+        "armour": "6+",
+        "base": "Square / Cavalry",
+        "note": "Mounted, plows a class up. Outflank: free Disengage; +1 die on a Flank charge."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "STW_DRAKE",
+      "name": "Storm Drake",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Beast",
+      "archetype": "Monster",
+      "signature": "The winged storm - a flying monstrous breath-attacker.",
+      "stats": { "max_wounds": 7, "armour": "Medium", "speed": 10, "max_ap": 3, "nerve": 0, "rank": "III" },
+      "base": { "shape": "Circle", "class": "Monstrous", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_STW_DRAKE_CLAWS", "ATK_STW_DRAKE_BREATH"],
+      "ability_packet_ids": ["ABIL_STW_DRAKE_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Claws & Fangs / Storm Breath",
+        "dice": 3,
+        "hit": "4+",
+        "tiers": "Claws 1->1W · 2->2W · 3->3W + Cleave",
+        "armour": "5+",
+        "base": "Circle / Monstrous",
+        "note": "Flight. Storm Breath: Range 10\" blast (4cm), no Multi-Shot. Monstrous - unstoppable by bodies."
+      }
+    }
+  ]
+}

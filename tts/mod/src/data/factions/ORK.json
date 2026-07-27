@@ -1,0 +1,788 @@
+{
+  "faction": "Orks",
+  "prefix": "ORK",
+  "attack_packets": [
+    {
+      "id": "ATK_ORK_WARBOSS",
+      "alias": "Boss Choppa",
+      "parent_action": "ATTACK",
+      "dice": 4,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Push"] },
+        { "successes": 4, "wounds": 2, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_BOY",
+      "alias": "Choppa",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Push"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_MEGABRUTE",
+      "alias": "Krusha",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 0, "effects": ["Knockdown", "Push"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_SPEARBOY",
+      "alias": "Stabba",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee", "Reach", "never countered"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Push"] },
+        { "successes": 3, "wounds": 0, "effects": ["Push"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_CHOPPABRUTE",
+      "alias": "Twin Choppas",
+      "parent_action": "ATTACK",
+      "dice": 4,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 4, "wounds": 3, "effects": ["Cleave"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_KOMMANDO",
+      "alias": "Sneaky Choppa",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_KOMMANDO_BOMB",
+      "alias": "Stikkbomb",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 8,
+      "area": 2,
+      "cost_ap": 1,
+      "tags": ["Ranged", "no Multi-Shot"],
+      "tiers": [
+        { "successes": 1, "wounds": 0, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_SNEAKYGIT",
+      "alias": "Shiv",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": [] },
+        { "successes": 5, "wounds": 0, "effects": ["Execute"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_GOBLINARCHER",
+      "alias": "Short Bow",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 5,
+      "range": 15,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Ranged", "never countered"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_PAINBOY",
+      "alias": "Saw",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_WEIRDBOY",
+      "alias": "Da Krunch",
+      "parent_action": "ATTACK",
+      "dice": 4,
+      "hit": 4,
+      "range": 12,
+      "area": 4,
+      "cost_ap": 1,
+      "tags": ["Ranged", "no Multi-Shot"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_SQUIG",
+      "alias": "Chompa",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_TROLL",
+      "alias": "Big Club",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 3, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_SQUIGGOTH",
+      "alias": "Goring Charge",
+      "parent_action": "ATTACK",
+      "dice": 4,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": ["Push"] },
+        { "successes": 4, "wounds": 3, "effects": ["Knockdown", "Cleave"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_BOARBOY",
+      "alias": "Choppa & Tusks",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 0, "effects": ["Push"] },
+        { "successes": 3, "wounds": 2, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_ORK_WARBOAR",
+      "alias": "Tusker Lance",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": ["Push"] },
+        { "successes": 3, "wounds": 3, "effects": ["Knockdown"] }
+      ]
+    }
+  ],
+  "ability_packets": [
+    {
+      "id": "ABIL_ORK_WARBOSS_1",
+      "alias": "'Ere We Go (Aura)",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Friendly Orks within 6\" ignore their first Knockdown each round.",
+      "tags": ["Aura"]
+    },
+    {
+      "id": "ABIL_ORK_WARBOSS_2",
+      "alias": "Brutal",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Counter rolls +1 die.",
+      "tags": ["Counter"]
+    },
+    {
+      "id": "ABIL_ORK_BOY_1",
+      "alias": "Mob ('Ere We Go)",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "+1 Attack die while >=2 friendly Boyz are within 3\".",
+      "tags": []
+    },
+    {
+      "id": "ABIL_ORK_MEGABRUTE_1",
+      "alias": "Brutal Retaliation",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Counter rolls +1 die and ignores Guard.",
+      "tags": ["Counter"]
+    },
+    {
+      "id": "ABIL_ORK_SPEARBOY_1",
+      "alias": "Open the Line",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "On a Pull, an adjacent friendly Ork gets +1 die vs the dragged target.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_ORK_CHOPPABRUTE_1",
+      "alias": "Reckless Swing",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Swingy monster ladder; the top rung needs Charge or Flank dice to reach.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_ORK_KOMMANDO_1",
+      "alias": "Infiltrate",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Deploys forward + hidden; its first attack from stealth counts as Backstab.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_ORK_SNEAKYGIT_1",
+      "alias": "Gang Up",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "+2 dice while another friendly Ork is engaged with the same target.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_ORK_GOBLINARCHER_1",
+      "alias": "Multi-Shot",
+      "type": "Active",
+      "parent_action": "ATTACK",
+      "note": "Fires two shots (any targets in range), each at Hit one step worse.",
+      "tags": ["Ranged"]
+    },
+    {
+      "id": "ABIL_ORK_PAINBOY_1",
+      "alias": "Patch",
+      "type": "Active",
+      "parent_action": "USE",
+      "note": "Remove 1 Wound - base contact only (2 uses).",
+      "tags": ["Heal"]
+    },
+    {
+      "id": "ABIL_ORK_PAINBOY_2",
+      "alias": "Stimm",
+      "type": "Active",
+      "parent_action": "USE",
+      "note": "Target Ork gets +1 die & ignores Knockdown this turn, then takes 1 Wound after.",
+      "tags": ["Buff"]
+    },
+    {
+      "id": "ABIL_ORK_WEIRDBOY_1",
+      "alias": "Warp Risk (Heat)",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "If Da Krunch shows >=2 misses, the Weirdboy takes 1 Wound and the blast scatters.",
+      "tags": ["Warp"]
+    },
+    {
+      "id": "ABIL_ORK_SQUIG_1",
+      "alias": "Boing",
+      "type": "Active",
+      "parent_action": "MOVE",
+      "note": "Must Sprint (14\") toward the nearest enemy each activation - semi-uncontrolled.",
+      "tags": ["Forced Movement"]
+    },
+    {
+      "id": "ABIL_ORK_TROLL_1",
+      "alias": "Regeneration",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Recover 1 Wound at the start of each activation.",
+      "tags": []
+    },
+    {
+      "id": "ABIL_ORK_TROLL_2",
+      "alias": "Brutal",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Counter rolls +1 die.",
+      "tags": ["Counter"]
+    },
+    {
+      "id": "ABIL_ORK_SQUIGGOTH_1",
+      "alias": "Unstoppable",
+      "type": "Passive",
+      "parent_action": null,
+      "note": "Monstrous - unstoppable by bodies; only a wall jams the charge (crush at +2 dice).",
+      "tags": ["Monstrous"]
+    },
+    {
+      "id": "ABIL_ORK_SQUIGGOTH_2",
+      "alias": "Stampede",
+      "type": "Active",
+      "parent_action": "MOVE",
+      "note": "Sprint-into-charge tramples a straight lane, plowing bodies aside.",
+      "tags": ["Charge"]
+    },
+    {
+      "id": "ABIL_ORK_BOARBOY_1",
+      "alias": "Boar Charge",
+      "type": "Active",
+      "parent_action": "MOVE",
+      "note": "Mounted - charges a class up (the tusk plow).",
+      "tags": ["Charge"]
+    },
+    {
+      "id": "ABIL_ORK_WARBOAR_1",
+      "alias": "Gore Charge",
+      "type": "Active",
+      "parent_action": "MOVE",
+      "note": "Mounted lance charge - plows a class up and hits hardest on the impact.",
+      "tags": ["Charge"]
+    }
+  ],
+  "units": [
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_WARBOSS",
+      "name": "Warboss",
+      "role": "Support",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Warlord",
+      "signature": "'Ere We Go",
+      "counter_uses": 2,
+      "stats": { "max_wounds": 6, "armour": "Light", "speed": 7, "max_ap": 3, "nerve": 0, "rank": "III" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_WARBOSS"],
+      "ability_packet_ids": ["ABIL_ORK_WARBOSS_1", "ABIL_ORK_WARBOSS_2"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Boss Choppa",
+        "dice": 4,
+        "hit": "4+",
+        "tiers": "1->1W · 2->Push · 4->2W + Knockdown",
+        "armour": "6+",
+        "base": "Circle / Normal",
+        "note": "Aura: friendly Orks ignore first Knockdown. Counter (2), Brutal."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_BOY",
+      "name": "Boy",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Ork Boy",
+      "signature": "Mob",
+      "stats": { "max_wounds": 3, "armour": "Light", "speed": 6, "max_ap": 2, "nerve": 2, "rank": "II" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_BOY"],
+      "ability_packet_ids": ["ABIL_ORK_BOY_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Choppa",
+        "dice": 3,
+        "hit": "4+",
+        "tiers": "1->1W · 2->Push",
+        "armour": "6+",
+        "base": "Square / Normal",
+        "note": "Mob: +1 die while >=2 Boyz within 3\"."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_MEGABRUTE",
+      "name": "Mega Brute",
+      "role": "Anchor",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Ork Tank",
+      "signature": "Brutal Retaliation",
+      "counter_uses": 1,
+      "stats": { "max_wounds": 7, "armour": "Light", "speed": 5, "max_ap": 2, "nerve": 0, "rank": "III" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_MEGABRUTE"],
+      "ability_packet_ids": ["ABIL_ORK_MEGABRUTE_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Krusha",
+        "dice": 3,
+        "hit": "5+",
+        "tiers": "1->1W · 2->2W · 3->Knockdown + Push",
+        "armour": "6+",
+        "base": "Circle / Normal",
+        "note": "Brutal Retaliation: Counter +1 die, ignores Guard. Survives on wounds."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_SPEARBOY",
+      "name": "Spear Boy",
+      "role": "Anchor",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Reach Boy",
+      "signature": "Open the Line",
+      "stats": { "max_wounds": 3, "armour": "Light", "speed": 6, "max_ap": 2, "nerve": 2, "rank": "II" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_SPEARBOY"],
+      "ability_packet_ids": ["ABIL_ORK_SPEARBOY_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Stabba",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "1->1W · 2->Push · 3->Pull",
+        "armour": "6+",
+        "base": "Square / Normal",
+        "note": "Reach 2\", no Counter. Open the Line: pulled target ganged +1 die."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_CHOPPABRUTE",
+      "name": "Choppa Brute",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Berserker",
+      "signature": "Twin Choppas",
+      "stats": { "max_wounds": 4, "armour": "Light", "speed": 6, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_CHOPPABRUTE"],
+      "ability_packet_ids": ["ABIL_ORK_CHOPPABRUTE_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Twin Choppas",
+        "dice": 4,
+        "hit": "5+",
+        "tiers": "1->1W · 2->2W · 4->3W + Cleave",
+        "armour": "6+",
+        "base": "Circle / Normal",
+        "note": "Swingy ladder; top rung needs Charge or Flank dice."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_KOMMANDO",
+      "name": "Kommando",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Infiltrator",
+      "signature": "Infiltrate",
+      "stats": { "max_wounds": 3, "armour": "Light", "speed": 7, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_KOMMANDO", "ATK_ORK_KOMMANDO_BOMB"],
+      "ability_packet_ids": ["ABIL_ORK_KOMMANDO_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Sneaky Choppa",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "1->1W · 2->2W",
+        "armour": "6+",
+        "base": "Circle / Normal",
+        "note": "Infiltrate: deploys forward + hidden; first attack is Backstab. Stikkbomb (1 use)."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_SNEAKYGIT",
+      "name": "Sneaky Git",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Assassin",
+      "signature": "Gang Up",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 7, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_SNEAKYGIT"],
+      "ability_packet_ids": ["ABIL_ORK_SNEAKYGIT_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Shiv",
+        "dice": 3,
+        "hit": "4+",
+        "tiers": "1->1W · 3->2W · 5->Execute",
+        "armour": "6+",
+        "base": "Circle / Normal",
+        "note": "Gang Up: +2 dice while another Ork is engaged with the same target."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_GOBLINARCHER",
+      "name": "Goblin Archer",
+      "role": "Skirmisher",
+      "tool": "Ranged",
+      "creature_type": "Man",
+      "archetype": "Grot Archer",
+      "signature": "Multi-Shot Spray",
+      "stats": { "max_wounds": 1, "armour": "None", "speed": 7, "max_ap": 2, "nerve": 1, "rank": "I" },
+      "base": { "shape": "Square", "class": "Small", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_GOBLINARCHER"],
+      "ability_packet_ids": ["ABIL_ORK_GOBLINARCHER_1"],
+      "temperament": "Cowardly",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Short Bow",
+        "dice": 2,
+        "hit": "5+",
+        "tiers": "1->1W · 2->2W",
+        "armour": "—",
+        "base": "Square / Small",
+        "note": "Multi-Shot standard - sprays two weak shots. Fragile chaff-clearer."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_PAINBOY",
+      "name": "Painboy",
+      "role": "Support",
+      "tool": "Utility",
+      "creature_type": "Man",
+      "archetype": "Field Medic",
+      "signature": "Stimm",
+      "stats": { "max_wounds": 3, "armour": "Light", "speed": 6, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_PAINBOY"],
+      "ability_packet_ids": ["ABIL_ORK_PAINBOY_1", "ABIL_ORK_PAINBOY_2"],
+      "temperament": "Protective",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Saw",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "1->1W · 2->2W",
+        "armour": "6+",
+        "base": "Circle / Normal",
+        "note": "Patch x2 (base contact). Stimm: +1 die & ignore Knockdown, then 1 Wound."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_WEIRDBOY",
+      "name": "Weirdboy",
+      "role": "Control",
+      "tool": "Ranged",
+      "creature_type": "Man",
+      "archetype": "Warp Mage",
+      "signature": "Warp Risk",
+      "stats": { "max_wounds": 2, "armour": "None", "speed": 6, "max_ap": 2, "nerve": 0, "rank": "I" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_WEIRDBOY"],
+      "ability_packet_ids": ["ABIL_ORK_WEIRDBOY_1"],
+      "temperament": "Ravenous",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Da Krunch",
+        "dice": 4,
+        "hit": "4+",
+        "tiers": "1->1W · 3->2W + Knockdown",
+        "armour": "—",
+        "base": "Circle / Normal",
+        "note": "Warp blast: hits all within 4cm. >=2 misses -> Weirdboy takes 1 Wound + scatter."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_SQUIG",
+      "name": "Squig",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Beast",
+      "archetype": "Runner Beast",
+      "signature": "Boing",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 10, "max_ap": 2, "nerve": 0, "rank": "I" },
+      "base": { "shape": "Circle", "class": "Small", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_SQUIG"],
+      "ability_packet_ids": ["ABIL_ORK_SQUIG_1"],
+      "temperament": "Ravenous",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Chompa",
+        "dice": 2,
+        "hit": "4+",
+        "tiers": "1->1W · 3->2W",
+        "armour": "6+",
+        "base": "Circle / Small",
+        "note": "Boing: must Sprint 14\" toward nearest enemy each activation."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_TROLL",
+      "name": "Troll",
+      "role": "Anchor",
+      "tool": "Melee",
+      "creature_type": "Beast",
+      "archetype": "Regenerating Brute",
+      "signature": "Regeneration",
+      "counter_uses": 1,
+      "stats": { "max_wounds": 8, "armour": "Light", "speed": 6, "max_ap": 3, "nerve": 0, "rank": "III" },
+      "base": { "shape": "Circle", "class": "Large", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_TROLL"],
+      "ability_packet_ids": ["ABIL_ORK_TROLL_1", "ABIL_ORK_TROLL_2"],
+      "temperament": "Ravenous",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Big Club",
+        "dice": 3,
+        "hit": "5+",
+        "tiers": "1->1W · 2->2W · 3->3W + Knockdown",
+        "armour": "6+",
+        "base": "Circle / Large",
+        "note": "Regeneration: recover 1 Wound each activation. Brutal: Counter +1 die."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_SQUIGGOTH",
+      "name": "Great Squiggoth",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Beast",
+      "archetype": "Monstrous Beast",
+      "signature": "Unstoppable",
+      "stats": { "max_wounds": 12, "armour": "Medium", "speed": 7, "max_ap": 3, "nerve": 0, "rank": "III" },
+      "base": { "shape": "Circle", "class": "Monstrous", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_SQUIGGOTH"],
+      "ability_packet_ids": ["ABIL_ORK_SQUIGGOTH_1", "ABIL_ORK_SQUIGGOTH_2"],
+      "temperament": "Ravenous",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Goring Charge",
+        "dice": 4,
+        "hit": "5+",
+        "tiers": "1->1W · 2->2W + Push · 4->3W + Knockdown + Cleave",
+        "armour": "5+",
+        "base": "Circle / Monstrous",
+        "note": "Unstoppable by bodies - only a wall jams it (crush +2 dice). Tramples on the charge."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_BOARBOY",
+      "name": "Boar Boy",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Boar Cavalry",
+      "signature": "Boar Charge",
+      "stats": { "max_wounds": 3, "armour": "Light", "speed": 12, "max_ap": 2, "nerve": 2, "rank": "II" },
+      "base": { "shape": "Square", "class": "Cavalry", "mounted": true, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_BOARBOY"],
+      "ability_packet_ids": ["ABIL_ORK_BOARBOY_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Choppa & Tusks",
+        "dice": 3,
+        "hit": "4+",
+        "tiers": "1->1W · 2->Push · 3->2W + Knockdown",
+        "armour": "6+",
+        "base": "Square / Cavalry",
+        "note": "Mounted - charges a class up (tusk plow). Fast green shock cavalry."
+      }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "ORK_WARBOAR",
+      "name": "Warboar Rider",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Heavy Cavalry",
+      "signature": "Gore Charge",
+      "stats": { "max_wounds": 4, "armour": "Medium", "speed": 12, "max_ap": 2, "nerve": 2, "rank": "II" },
+      "base": { "shape": "Square", "class": "Cavalry", "mounted": true, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_ORK_WARBOAR"],
+      "ability_packet_ids": ["ABIL_ORK_WARBOAR_1"],
+      "temperament": "Aggressive",
+      "display": {
+        "card_image_url": "",
+        "weapon": "Tusker Lance",
+        "dice": 3,
+        "hit": "4+",
+        "tiers": "1->1W · 2->2W + Push · 3->3W + Knockdown",
+        "armour": "5+",
+        "base": "Square / Cavalry",
+        "note": "Mounted lance - plows a class up, hits hardest on impact. Armoured warboar."
+      }
+    }
+  ]
+}

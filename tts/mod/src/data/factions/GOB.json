@@ -1,0 +1,507 @@
+{
+  "faction": "Goblins",
+  "prefix": "GOB",
+  "attack_packets": [
+    {
+      "id": "ATK_GOB_BOSS",
+      "alias": "Cruel Blade",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 1, "effects": ["Push"] },
+        { "successes": 4, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_RABBLE",
+      "alias": "Rusty Blade",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 1, "effects": ["Push"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_SPEARGIT",
+      "alias": "Pokey Spear",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Reach", "never countered"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 1, "effects": ["Push"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_BIGSHIELD",
+      "alias": "Jagged Shiv",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 1, "effects": ["Guard"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_CHAINBALL",
+      "alias": "Whirling Chain",
+      "parent_action": "ATTACK",
+      "dice": 4,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_ARCHER",
+      "alias": "Short Bow",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 5,
+      "range": 15,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Ranged"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_WOLFRIDER_SPEAR",
+      "alias": "Rider Spear",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 1, "effects": ["Push"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_WOLFRIDER_BITE",
+      "alias": "Wolf Bite",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 1, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_SNEAKY",
+      "alias": "Back-Stabba",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": [] },
+        { "successes": 5, "wounds": 2, "effects": ["Execute"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_FUNGUSDOC",
+      "alias": "Bone Saw",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_SHAMAN",
+      "alias": "Green Bolt",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 4,
+      "range": 12,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Ranged"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": ["Cleave"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_SQUIG",
+      "alias": "Chompa",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 3, "wounds": 2, "effects": [] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_TROLL",
+      "alias": "Big Club",
+      "parent_action": "ATTACK",
+      "dice": 3,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 3, "effects": ["Knockdown"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_CAVETROLL",
+      "alias": "Boulder Fists",
+      "parent_action": "ATTACK",
+      "dice": 4,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 2, "effects": [] },
+        { "successes": 3, "wounds": 3, "effects": [] },
+        { "successes": 4, "wounds": 3, "effects": ["Knockdown", "Push"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_SPIDERRIDER_FANGS",
+      "alias": "Spider Fangs",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 5,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 1, "effects": ["ignore Armour"] }
+      ]
+    },
+    {
+      "id": "ATK_GOB_SPIDERRIDER_JAB",
+      "alias": "Rider Jab",
+      "parent_action": "ATTACK",
+      "dice": 2,
+      "hit": 4,
+      "range": 0,
+      "area": null,
+      "cost_ap": 1,
+      "tags": ["Melee"],
+      "tiers": [
+        { "successes": 1, "wounds": 1, "effects": [] },
+        { "successes": 2, "wounds": 1, "effects": ["Push"] }
+      ]
+    }
+  ],
+  "ability_packets": [
+    { "id": "ABIL_GOB_BOSS_1", "alias": "Rally Aura", "type": "Passive", "parent_action": null, "note": "6\": Goblins stop routing and ignore the Mob -1 while the Boss lives.", "tags": ["Aura", "Morale"] },
+    { "id": "ABIL_GOB_BOSS_2", "alias": "Decapitation", "type": "Passive", "parent_action": null, "note": "If the Boss dies, all Goblins within 6\" test Nerve at -1.", "tags": ["Morale"] },
+    { "id": "ABIL_GOB_RABBLE_1", "alias": "Mob Courage", "type": "Passive", "parent_action": null, "note": "+1 Nerve while Goblins outnumber enemies within 6\"; -1 while outnumbered.", "tags": ["Morale"] },
+    { "id": "ABIL_GOB_RABBLE_2", "alias": "Gang", "type": "Passive", "parent_action": null, "note": "+1 die while 2+ Rabble on one target.", "tags": [] },
+    { "id": "ABIL_GOB_SPEARGIT_1", "alias": "Set 'Em Up", "type": "Passive", "parent_action": null, "note": "On a Push, an adjacent Goblin gets +1 die vs the shoved model.", "tags": [] },
+    { "id": "ABIL_GOB_BIGSHIELD_1", "alias": "Big Shield", "type": "Passive", "parent_action": null, "note": "Attackers roll -1 die.", "tags": [] },
+    { "id": "ABIL_GOB_BIGSHIELD_2", "alias": "Cover for the Boys", "type": "Passive", "parent_action": null, "note": "Goblins directly behind it get Cover (-1 die when shot).", "tags": [] },
+    { "id": "ABIL_GOB_CHAINBALL_1", "alias": "Uncontrolled", "type": "Passive", "parent_action": null, "note": "Must attack the nearest model, friend or foe, if any is adjacent; fearless.", "tags": [] },
+    { "id": "ABIL_GOB_ARCHER_1", "alias": "Brave From Afar", "type": "Passive", "parent_action": null, "note": "+1 Nerve while 12\"+ from any enemy.", "tags": ["Morale"] },
+    { "id": "ABIL_GOB_ARCHER_2", "alias": "Multi-Shot", "type": "Passive", "parent_action": null, "note": "Fires two shots, each at Hit one step worse (standard).", "tags": [] },
+    { "id": "ABIL_GOB_WOLFRIDER_1", "alias": "Hit & Run", "type": "Active", "parent_action": "MOVE", "note": "Sprint 18\"; free Disengage.", "tags": [] },
+    { "id": "ABIL_GOB_WOLFRIDER_2", "alias": "Charging Lance", "type": "Passive", "parent_action": null, "note": "+1 die on the turn it Charges; plows a class up (mounted).", "tags": [] },
+    { "id": "ABIL_GOB_SNEAKY_1", "alias": "Sneaky Stabbin'", "type": "Passive", "parent_action": null, "note": "+2 dice from the rear or while another Goblin engages the target.", "tags": [] },
+    { "id": "ABIL_GOB_SNEAKY_2", "alias": "Now Ya See Me", "type": "Passive", "parent_action": null, "note": "Hides if it ends its turn out of LoS.", "tags": [] },
+    { "id": "ABIL_GOB_FUNGUSDOC_1", "alias": "Patch", "type": "Active", "parent_action": "USE", "note": "x2: remove 1W, base contact.", "tags": ["Heal"] },
+    { "id": "ABIL_GOB_FUNGUSDOC_2", "alias": "Mad Cap Mushroom", "type": "Active", "parent_action": "USE", "note": "Target Goblin ignores the Mob -1 and +1 die this turn, then takes 1W after.", "tags": ["Buff"] },
+    { "id": "ABIL_GOB_FUNGUSDOC_3", "alias": "Spore Cloud", "type": "Active", "parent_action": "USE", "note": "Goblins within 4cm +1 Nerve for one round.", "tags": ["Aura", "Morale"] },
+    { "id": "ABIL_GOB_SHAMAN_1", "alias": "Warp Risk", "type": "Passive", "parent_action": null, "note": "If the roll shows 2+ misses, the Shaman takes 1W (Heat).", "tags": [] },
+    { "id": "ABIL_GOB_SHAMAN_2", "alias": "Fungus Hex", "type": "Active", "parent_action": "ATTACK", "note": "A target enemy square tests Nerve at -1 on its next trigger.", "tags": ["Morale"] },
+    { "id": "ABIL_GOB_SQUIG_1", "alias": "Boing", "type": "Active", "parent_action": "MOVE", "note": "Must Sprint (14\") toward the nearest enemy each activation.", "tags": ["Forced"] },
+    { "id": "ABIL_GOB_TROLL_1", "alias": "Regeneration", "type": "Passive", "parent_action": null, "note": "Recover 1W at activation start.", "tags": [] },
+    { "id": "ABIL_GOB_TROLL_2", "alias": "Too Stupid to Flee", "type": "Passive", "parent_action": null, "note": "Ignores Mob-Courage swings; on a Rout it rampages at the nearest model.", "tags": [] },
+    { "id": "ABIL_GOB_CAVETROLL_1", "alias": "Regeneration", "type": "Passive", "parent_action": null, "note": "Recover 1W at activation start.", "tags": [] },
+    { "id": "ABIL_GOB_CAVETROLL_2", "alias": "Stone Hide", "type": "Passive", "parent_action": null, "note": "Monstrous: unstoppable by bodies; only a wall jams it.", "tags": [] },
+    { "id": "ABIL_GOB_SPIDERRIDER_1", "alias": "Wall Crawler", "type": "Active", "parent_action": "MOVE", "note": "Climbs and crosses vertical terrain freely (no per-story AP).", "tags": [] },
+    { "id": "ABIL_GOB_SPIDERRIDER_2", "alias": "Venom", "type": "Passive", "parent_action": null, "note": "Spider Fangs ignore Armour on the second success tier.", "tags": [] }
+  ],
+  "units": [
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_BOSS",
+      "name": "Goblin Boss",
+      "role": "Support",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Commander",
+      "signature": "Bully of the mob; his death collapses the line",
+      "counter_uses": 1,
+      "stats": { "max_wounds": 3, "armour": "Light", "speed": 7, "max_ap": 3, "nerve": 0, "rank": "III" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_BOSS"],
+      "ability_packet_ids": ["ABIL_GOB_BOSS_1", "ABIL_GOB_BOSS_2"],
+      "temperament": "Aggressive",
+      "display": { "card_image_url": "", "weapon": "Cruel Blade", "dice": 3, "hit": "4+", "tiers": "1->1W · 2->Push · 4->2W", "armour": "6+", "base": "Circle / Normal", "note": "Rally aura; decapitation collapse" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_RABBLE",
+      "name": "Goblin Rabble",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Line Fighter",
+      "signature": "Brave in numbers, gone when thinned",
+      "stats": { "max_wounds": 1, "armour": "None", "speed": 7, "max_ap": 2, "nerve": 1, "rank": "I" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_RABBLE"],
+      "ability_packet_ids": ["ABIL_GOB_RABBLE_1", "ABIL_GOB_RABBLE_2"],
+      "temperament": "Cowardly",
+      "display": { "card_image_url": "", "weapon": "Rusty Blade", "dice": 2, "hit": "4+", "tiers": "1->1W · 2->Push", "armour": "—", "base": "Square / Normal", "note": "Mob Courage + Gang" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_SPEARGIT",
+      "name": "Spear Git",
+      "role": "Anchor",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Reach Spearman",
+      "signature": "Stabs from the second rank to make openings",
+      "stats": { "max_wounds": 1, "armour": "None", "speed": 7, "max_ap": 2, "nerve": 1, "rank": "I" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_SPEARGIT"],
+      "ability_packet_ids": ["ABIL_GOB_SPEARGIT_1"],
+      "temperament": "Cowardly",
+      "display": { "card_image_url": "", "weapon": "Pokey Spear", "dice": 2, "hit": "5+", "tiers": "1->1W · 2->Push", "armour": "—", "base": "Square / Normal", "note": "Reach 2\"; no Counter; Set 'Em Up" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_BIGSHIELD",
+      "name": "Big Shield Goblin",
+      "role": "Anchor",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Shield Tank",
+      "signature": "Shields the mob's nerve, not a lane",
+      "stats": { "max_wounds": 2, "armour": "Medium", "speed": 6, "max_ap": 2, "nerve": 2, "rank": "I" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_BIGSHIELD"],
+      "ability_packet_ids": ["ABIL_GOB_BIGSHIELD_1", "ABIL_GOB_BIGSHIELD_2"],
+      "temperament": "Protective",
+      "display": { "card_image_url": "", "weapon": "Jagged Shiv", "dice": 2, "hit": "5+", "tiers": "1->1W · 2->Guard", "armour": "5+", "base": "Square / Normal", "note": "Big Shield; Cover for the Boys" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_CHAINBALL",
+      "name": "Chain Ball Lunatic",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Fungus-Mad Flail",
+      "signature": "Fearless AoE melee that endangers its own side",
+      "stats": { "max_wounds": 2, "armour": "None", "speed": 6, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_CHAINBALL"],
+      "ability_packet_ids": ["ABIL_GOB_CHAINBALL_1"],
+      "temperament": "Ravenous",
+      "display": { "card_image_url": "", "weapon": "Whirling Chain", "dice": 4, "hit": "5+", "tiers": "1->1W · 2->2W · 3->Knockdown", "armour": "—", "base": "Circle / Normal", "note": "Uncontrolled; hits nearest model any side" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_ARCHER",
+      "name": "Gobbo Archer",
+      "role": "Skirmisher",
+      "tool": "Ranged",
+      "creature_type": "Man",
+      "archetype": "Volume Archer",
+      "signature": "Sprays volume; breaks the instant anything reaches it",
+      "stats": { "max_wounds": 1, "armour": "None", "speed": 7, "max_ap": 2, "nerve": 1, "rank": "I" },
+      "base": { "shape": "Square", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_ARCHER"],
+      "ability_packet_ids": ["ABIL_GOB_ARCHER_1", "ABIL_GOB_ARCHER_2"],
+      "temperament": "Cowardly",
+      "display": { "card_image_url": "", "weapon": "Short Bow", "dice": 2, "hit": "5+", "tiers": "1->1W · 2->2W", "armour": "—", "base": "Square / Normal", "note": "Multi-Shot; Brave From Afar" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_WOLFRIDER",
+      "name": "Wolf Rider",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Light Cavalry",
+      "signature": "Fast flanker that picks off stragglers",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 12, "max_ap": 2, "nerve": 2, "rank": "II" },
+      "base": { "shape": "Square", "class": "Cavalry", "mounted": true, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_WOLFRIDER_SPEAR", "ATK_GOB_WOLFRIDER_BITE"],
+      "ability_packet_ids": ["ABIL_GOB_WOLFRIDER_1", "ABIL_GOB_WOLFRIDER_2"],
+      "temperament": "Aggressive",
+      "display": { "card_image_url": "", "weapon": "Rider Spear / Wolf Bite", "dice": 2, "hit": "4+", "tiers": "1->1W · 2->Push / Knockdown", "armour": "6+", "base": "Cavalry / Mounted", "note": "Hit & Run; two attacks; charges a class up" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_SNEAKY",
+      "name": "Purple Sneaky Git",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Assassin",
+      "signature": "Hunts the enemy support hero to collapse their morale",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 8, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_SNEAKY"],
+      "ability_packet_ids": ["ABIL_GOB_SNEAKY_1", "ABIL_GOB_SNEAKY_2"],
+      "temperament": "Cowardly",
+      "display": { "card_image_url": "", "weapon": "Back-Stabba", "dice": 3, "hit": "4+", "tiers": "1->1W · 3->2W · 5->Execute", "armour": "6+", "base": "Circle / Normal", "note": "Sneaky Stabbin'; Now Ya See Me" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_FUNGUSDOC",
+      "name": "Fungus Doctor",
+      "role": "Support",
+      "tool": "Utility",
+      "creature_type": "Man",
+      "archetype": "Chem-Medic",
+      "signature": "Momentum in a syringe; chemical morale",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 6, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_FUNGUSDOC"],
+      "ability_packet_ids": ["ABIL_GOB_FUNGUSDOC_1", "ABIL_GOB_FUNGUSDOC_2", "ABIL_GOB_FUNGUSDOC_3"],
+      "temperament": "Protective",
+      "display": { "card_image_url": "", "weapon": "Bone Saw", "dice": 2, "hit": "5+", "tiers": "1->1W", "armour": "6+", "base": "Circle / Normal", "note": "Patch x2; Mad Cap Mushroom; Spore Cloud" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_SHAMAN",
+      "name": "Cave Shaman",
+      "role": "Control",
+      "tool": "Ranged",
+      "creature_type": "Man",
+      "archetype": "Warp Mage",
+      "signature": "AoE bolt with a push-your-luck backlash",
+      "stats": { "max_wounds": 2, "armour": "None", "speed": 6, "max_ap": 2, "nerve": 0, "rank": "II" },
+      "base": { "shape": "Circle", "class": "Normal", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_SHAMAN"],
+      "ability_packet_ids": ["ABIL_GOB_SHAMAN_1", "ABIL_GOB_SHAMAN_2"],
+      "temperament": "Cowardly",
+      "display": { "card_image_url": "", "weapon": "Green Bolt", "dice": 3, "hit": "4+", "tiers": "1->1W · 2->2W · 3->blast", "armour": "—", "base": "Circle / Normal", "note": "Warp Heat risk; Fungus Hex on enemy morale" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_SQUIG",
+      "name": "Squig",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Beast",
+      "archetype": "Chaotic Biter",
+      "signature": "Semi-uncontrolled; must charge the nearest enemy",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 10, "max_ap": 2, "nerve": 0, "rank": "I" },
+      "base": { "shape": "Circle", "class": "Small", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_SQUIG"],
+      "ability_packet_ids": ["ABIL_GOB_SQUIG_1"],
+      "temperament": "Ravenous",
+      "display": { "card_image_url": "", "weapon": "Chompa", "dice": 2, "hit": "4+", "tiers": "1->1W · 3->2W", "armour": "6+", "base": "Circle / Small", "note": "Boing: forced Sprint at nearest enemy" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_TROLL",
+      "name": "Troll",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Beast",
+      "archetype": "Regenerating Monster",
+      "signature": "Too dumb to scare; regenerates; rampages on a rout",
+      "stats": { "max_wounds": 8, "armour": "Light", "speed": 6, "max_ap": 3, "nerve": 3, "rank": "III" },
+      "base": { "shape": "Square", "class": "Large", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_TROLL"],
+      "ability_packet_ids": ["ABIL_GOB_TROLL_1", "ABIL_GOB_TROLL_2"],
+      "temperament": "Ravenous",
+      "display": { "card_image_url": "", "weapon": "Big Club", "dice": 3, "hit": "5+", "tiers": "1->1W · 2->2W · 3->3W+Knockdown", "armour": "6+", "base": "Square / Large", "note": "Regeneration; Too Stupid to Flee" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_CAVETROLL",
+      "name": "Cave Troll",
+      "role": "Assault",
+      "tool": "Melee",
+      "creature_type": "Beast",
+      "archetype": "Monstrous Bruiser",
+      "signature": "A stone-hided horror bodies cannot stop",
+      "stats": { "max_wounds": 10, "armour": "Medium", "speed": 5, "max_ap": 3, "nerve": 3, "rank": "III" },
+      "base": { "shape": "Square", "class": "Monstrous", "mounted": false, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_CAVETROLL"],
+      "ability_packet_ids": ["ABIL_GOB_CAVETROLL_1", "ABIL_GOB_CAVETROLL_2"],
+      "temperament": "Ravenous",
+      "display": { "card_image_url": "", "weapon": "Boulder Fists", "dice": 4, "hit": "5+", "tiers": "1->1W · 2->2W · 3->3W · 4->Knockdown+Push", "armour": "5+", "base": "Square / Monstrous", "note": "Regeneration; Stone Hide (unstoppable by bodies)" }
+    },
+    {
+      "schema_version": 1,
+      "definition_id": "GOB_SPIDERRIDER",
+      "name": "Spider Rider",
+      "role": "Skirmisher",
+      "tool": "Melee",
+      "creature_type": "Man",
+      "archetype": "Wall-Crawling Cavalry",
+      "signature": "Venomous flanker that scales any terrain",
+      "stats": { "max_wounds": 2, "armour": "Light", "speed": 12, "max_ap": 2, "nerve": 2, "rank": "II" },
+      "base": { "shape": "Square", "class": "Cavalry", "mounted": true, "forward_axis": "local_z" },
+      "attack_packet_ids": ["ATK_GOB_SPIDERRIDER_FANGS", "ATK_GOB_SPIDERRIDER_JAB"],
+      "ability_packet_ids": ["ABIL_GOB_SPIDERRIDER_1", "ABIL_GOB_SPIDERRIDER_2"],
+      "temperament": "Aggressive",
+      "display": { "card_image_url": "", "weapon": "Spider Fangs / Rider Jab", "dice": 2, "hit": "5+", "tiers": "1->1W · 2->ignore Armour / Push", "armour": "6+", "base": "Cavalry / Mounted", "note": "Wall Crawler; Venom; two attacks" }
+    }
+  ]
+}

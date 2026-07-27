@@ -1,20 +1,6 @@
 --[[
-CUS MINIATURE TRACKER v6.1  —  aligned to CUS v0.6 canon
+CUS MINIATURE TRACKER v5.0
 Standalone Tabletop Simulator Object script.
-
-HUD layout (William's spec):
-
-    [yellow]  [blue]   [heart]   [triangle]
-    REACTION    AP      WOUNDS   ACTIVATION
-      ●         ●        ♥ 2        △
-      ●         ●
-      ○         ●
-                                  MOVE ATK WAIT ↻
-
-  * Yellow column — REACTION, full circles. Spent on someone else's turn.
-  * Blue column   — AP / Agency, full circles. Spent on your own turn.
-  * Heart         — one heart, with the remaining Wounds written on it.
-  * Triangle      — △ unactivated · ▲ waiting · ▽ activated.
 
 Paste a unit definition as JSON into this miniature's GM Notes, then paste this
 script into the miniature's Object Lua script and press Save & Play.
@@ -37,7 +23,7 @@ Controls:
   * Aura control: type a radius such as 1, 2, 3 or 1.4 inches
 --]]
 
-local VERSION = "6.1"
+local VERSION = "5.1"
 
 local definition = {}
 local runtime = {}
@@ -59,13 +45,9 @@ local DEFAULTS = {
     armour = "—",
     speed = "—",
     ap = 2,
-    -- v6: Reaction is a Kernel Resource in its own right (A·IV). It is spent on
-    -- SOMEONE ELSE'S activation and is never paid out of AP. Combat budget is
-    -- 1 per figure, 2 for a Circle (B·12), refreshed on the figure's own
-    -- activation. Every triggered PACKET costs 1 — Counter, Shield Intercept,
-    -- Reach strike, a firing Overwatch.
     reactions = 1,
     nerve = "—",
+    rank = "—",
     weapon = "—",
     grades = "—",
     note = "",
@@ -107,13 +89,12 @@ local ROLE_COLORS = {
 local TOOL_COLORS = {
     melee = "F28C45",
     ranged = "55A7FF",
-    utility = "B784FF",
+    hybrid  = "B784FF",   -- v0.6: the Tool set is Melee · Ranged · Hybrid (B·1).
+    utility = "B784FF",   -- retired: Utility is a ROLE, not a Tool. Kept so old JSON still colours.
 }
 
--- CUS v0.6 (B · 10, SIGNED): the morale track is Steady → Shaken → Broken.
--- "Routed" was the v0.5 name for the third state and is what a Broken figure
--- DOES, not a state it is in. Migrated on load. (Table-driven per William's
--- version — it also catches "Breaking".)
+-- CUS v0.6 (B.10, SIGNED): the morale track is Steady -> Shaken -> Broken.
+-- "Routed" was the v0.5 name for the third state; it is migrated on load.
 local NERVE_STATES = {"Steady", "Shaken", "Broken"}
 local NERVE_MIGRATE = {Routed = "Broken", Breaking = "Broken"}
 local TURN_STATES = {"Unactivated", "Waiting", "Activated"}
@@ -133,15 +114,26 @@ local COLOR_PRESETS = {
 -- Optional custom token art. Leave a URL empty to use the built-in placeholder.
 -- Once your PNGs are uploaded to Steam Cloud or another direct HTTPS host,
 -- paste their URLs here. SVG source art should be exported to transparent PNGs.
+local ICON_BASE = "https://raw.githubusercontent.com/whbreifcase-arch/cus-kernel-rebuild/main/tts/icons/"
+
 local ICON_ASSETS = {
+    -- Square badges for the action row.
+    action_act   = ICON_BASE .. "act.png",
+    action_move  = ICON_BASE .. "move.png",
+    action_wait  = ICON_BASE .. "wait2.png",
+
+    -- Triangles for the activation state. Point up = still has its turn.
+    activation_unactivated = ICON_BASE .. "unactivated.png",   -- green, up
+    activation_waiting     = ICON_BASE .. "wait.png",          -- armed
+    activation_activated   = ICON_BASE .. "activated.png",     -- bronze, spent
+    activation_ready       = ICON_BASE .. "wait.png",          -- retired v0.5 key
+
+    -- Not drawn yet; leave empty and the glyph fallback is used.
     heart_full = "",
     heart_empty = "",
     armour_light = "",
     armour_medium = "",
     armour_heavy = "",
-    activation_unactivated = "",
-    activation_activated = "",
-    activation_ready = "",
     nerve_fine = "",
     nerve_shaken = "",
     nerve_breaking = "",
@@ -250,6 +242,11 @@ local function mergeDefaults(source)
     return result
 end
 
+-- NOTE the ordering. `&` is escaped FIRST, so a tooltip written with a literal
+-- "&#10;" would come out as "&amp;#10;" and display as visible garbage. Write
+-- tooltips with a real newline instead; the newline is converted to the entity
+-- LAST, after the & pass. This now matches Global.lua, which already did it
+-- correctly — the two files used to disagree.
 local function xmlEscape(value)
     local text = tostring(value or "")
     text = text:gsub("&", "&amp;")
@@ -257,9 +254,6 @@ local function xmlEscape(value)
     text = text:gsub(">", "&gt;")
     text = text:gsub('"', "&quot;")
     text = text:gsub("'", "&apos;")
-    -- v6.1 BUGFIX: escaping runs "&" -> "&amp;" FIRST, so a tooltip written
-    -- with a literal "&#10;" came out as "&amp;#10;" and rendered as visible
-    -- garbage. Write tooltips with real "\n" and convert here, after escaping.
     text = text:gsub("\r\n", "\n")
     text = text:gsub("\r", "\n")
     text = text:gsub("\n", "&#10;")
@@ -647,19 +641,32 @@ local function normalizeDefinition(decoded)
         creature = first(root.creature_type, root.creature, root.type, DEFAULTS.creature),
         archetype = first(root.archetype, root.class, DEFAULTS.archetype),
         signature = first(root.signature, ""),
+        -- counter_uses deleted: the counter_x economy is retired (B·9).
+        -- Reaction is the only cap now.
         points = first(root.points, DEFAULTS.points),
 
         wounds = asNumber(first(stats.max_wounds, stats.wounds, root.max_wounds, root.wounds), DEFAULTS.wounds),
         ap = asNumber(first(stats.max_ap, stats.ap, root.max_ap, root.ap), DEFAULTS.ap),
         speed = first(stats.speed, root.speed, DEFAULTS.speed),
-        -- v6: `rank` was the old name for this stat and is retired — the Nerve
-        -- test rolls 3 dice against it (B · 10). Legacy JSON still reads.
+        -- `rank` was the v0.5 name for the Nerve stat, so it is read as a
+        -- FALLBACK ONLY. This order is load-bearing: library_generic.json
+        -- carries BOTH stats.nerve AND a "rank":"I" field, where rank means the
+        -- unit's tier, not its Nerve. stats.nerve must win, or every generic
+        -- profile is corrupted.
         nerve = first(stats.nerve, root.nerve, root.rank, stats.rank, DEFAULTS.nerve),
+        rank = first(root.tier, root.rank, stats.rank, DEFAULTS.rank),
+
+        -- REACTION (A.IV). No library JSON carries this yet, so the shape
+        -- default is what will actually fire: a Champion answers twice (B.12).
+        reactions = asNumber(first(stats.reactions, root.reactions),
+                             (first(baseObject.shape, baseObject.type) == "Circle") and 2 or 1),
         armour = normalizeArmour(first(stats.armour, stats.armor, display.armour, display.armor, DEFAULTS.armour)),
 
         weapon = first(packetWeapon, display.weapon, root.weapon, DEFAULTS.weapon),
         dice = first(packetDice, display.dice, root.dice, DEFAULTS.dice),
         hit = threshold(first(packetHit, display.hit, root.hit, DEFAULTS.hit)),
+        -- Ladder / Tiers / Rungs became Success Grade (A·VI). Old keys are
+        -- read as fallbacks so existing unit files still display.
         grades = cleanDisplayText(first(packetGrades, display.grades, root.grades, display.tiers, root.tiers, DEFAULTS.grades)),
         note = first(display.note, root.note, root.notes, DEFAULTS.note),
 
@@ -681,16 +688,6 @@ local function normalizeDefinition(decoded)
 
     normalized.wounds = math.max(0, math.floor(normalized.wounds or DEFAULTS.wounds))
     normalized.ap = math.max(0, math.floor(normalized.ap or DEFAULTS.ap))
-
-    -- v6: Reaction budget. Explicit value wins; otherwise B · 12 default —
-    -- 1 per figure, 2 for a Circle (the Champion answers twice).
-    local declaredReactions = asNumber(first(stats.reactions, stats.reaction, root.reactions, root.reaction), nil)
-    if declaredReactions == nil then
-        local shape = lower(normalized.base_shape or "")
-        declaredReactions = (shape == "circle") and 2 or 1
-    end
-    normalized.reactions = math.max(0, math.floor(declaredReactions))
-
     return mergeDefaults(normalized)
 end
 
@@ -741,16 +738,24 @@ local function synchronizeDefinitionLimits(previousMaxWounds, previousMaxAP, for
 end
 
 local function initializeRuntime()
-    runtime.current_wounds = asNumber(runtime.current_wounds, definition.wounds)
-    runtime.current_ap = asNumber(runtime.current_ap, definition.ap)
-    runtime.nerve_state = first(runtime.nerve_state, "Steady")
-
-    -- v6 migration: the old "Readied" state was the retired READY verb
-    -- (Document D · 1 — READY became WAIT). Saved figures carry over.
+    -- Retired v0.5 names are migrated FIRST, before anything validates against
+    -- the allowed lists. Otherwise a figure saved as "Readied" or "Routed"
+    -- fails validation and silently resets to the default state.
     if runtime.turn_state == "Readied" then runtime.turn_state = "Waiting" end
     if NERVE_MIGRATE[runtime.nerve_state] ~= nil then
         runtime.nerve_state = NERVE_MIGRATE[runtime.nerve_state]
     end
+
+    runtime.current_wounds = asNumber(runtime.current_wounds, definition.wounds)
+    runtime.current_ap = asNumber(runtime.current_ap, definition.ap)
+    runtime.nerve_state = first(runtime.nerve_state, "Steady")
+
+    -- REACTION is its own Kernel Resource (A.IV): what a figure may spend
+    -- during SOMEONE ELSE'S activation. It is never paid out of AP and the two
+    -- pools never exchange. Every triggered PACKET — a Counter, a Shield
+    -- intercept, a Reach strike, a firing Overwatch — costs 1 Reaction. When
+    -- the pool is empty the figure cannot respond at all. That is the only cap.
+    runtime.current_reactions = asNumber(runtime.current_reactions, definition.reactions)
 
     if runtime.turn_state ~= "Unactivated" and runtime.turn_state ~= "Waiting" and runtime.turn_state ~= "Activated" then
         if runtime.activated == true then
@@ -762,10 +767,6 @@ local function initializeRuntime()
         end
     end
     synchronizeTurnFlags()
-
-    -- v6: Reaction pool. Refreshed on the figure's own activation (B · 12).
-    runtime.current_reactions = asNumber(runtime.current_reactions, definition.reactions)
-    runtime.current_reactions = clamp(math.floor(runtime.current_reactions), 0, math.max(0, asNumber(definition.reactions, 1)))
 
     runtime.ui_hidden = runtime.ui_hidden == true
     runtime.ui_rotation = asNumber(runtime.ui_rotation, 0)
@@ -781,7 +782,6 @@ local function initializeRuntime()
         runtime.ui_z = asNumber(runtime.ui_z, -105)
     end
     runtime.ui_config_open = runtime.ui_config_open == true
-    runtime.library_open = runtime.library_open == true
 
     -- v3.1 layout migration: keep the permanent display clean and above the
     -- base. Expanded tools remain available through the right-click menu.
@@ -817,6 +817,9 @@ local function initializeRuntime()
 
     runtime.current_wounds = clamp(math.floor(runtime.current_wounds), 0, definition.wounds)
     runtime.current_ap = clamp(math.floor(runtime.current_ap), 0, definition.ap)
+
+    runtime.current_reactions = clamp(math.floor(asNumber(runtime.current_reactions, definition.reactions)),
+                                      0, definition.reactions)
 
     local validNerve = false
     for _, value in ipairs(NERVE_STATES) do
@@ -994,7 +997,7 @@ end
 
 local function nerveTokenData()
     if runtime.nerve_state == "Broken" then
-        return {asset = "nerve_breaking", glyph = "◆", fg = HEX.red, tooltip = "Nerve: Broken. Left click: worsen. Right click: improve."}
+        return {asset = "nerve_breaking", glyph = "◆", fg = HEX.red, tooltip = "Nerve: Breaking / Routed. Left click: worsen. Right click: improve."}
     elseif runtime.nerve_state == "Shaken" then
         return {asset = "nerve_shaken", glyph = "◆", fg = HEX.amber, tooltip = "Nerve: Shaken. Left click: worsen. Right click: improve."}
     end
@@ -1035,161 +1038,201 @@ local function buildArmourXml(armor)
     </Panel>]], width
 end
 
--- ---------------------------------------------------------------------------
--- v6.1 HUD — four readouts in a row, per William's layout sketch:
---
---     [ yellow ]  [ blue ]   [ heart ]   [ triangle ]
---     REACTION      AP        WOUNDS      ACTIVATION
---     ●            ●         ♥ 2         △
---     ●            ●
---     ○            ●
---
--- Reaction and AP are VERTICAL COLUMNS of full circles because they are
--- pools you burn down. Wounds is ONE heart with a number, because at 1-2
--- Wounds standard (B · 7) a row of hearts is noise. Activation is one
--- triangle with three states.
--- ---------------------------------------------------------------------------
+local function buildHeartsXml()
+    local maximum = math.max(0, tonumber(definition.wounds) or 0)
+    local current = math.max(0, tonumber(runtime.current_wounds) or 0)
+    if maximum <= 0 then
+        return [[<Panel width="28" height="28">
+            <Text text="☠" width="28" height="28" fontSize="22" color="#]] .. HEX.red .. [[" alignment="MiddleCenter" />
+            ]] .. transparentButton("cus-heart-0", "No wounds remaining. Right click to heal.", 28, 28) .. [[
+        </Panel>]], 28
+    end
 
-local COLUMN_SLOT = 20      -- height of one circle row
-local COLUMN_WIDTH = 22
-
--- Forward declaration: the Unit Library panel is defined much further down
--- (it needs loadDefinition), but buildUIXml has to be able to append it.
-local buildLibraryPanelXml = function() return "" end
-
--- One vertical stack of full circles. Filled = still available.
---
--- v6.1 BUGFIX: this used to emit <Panel><Text/><Button/></Panel> nested inside
--- a VerticalLayout inside a HorizontalLayout. TTS layout groups force-expand
--- their children by default, so the whole stack collapsed and the circles were
--- invisible. Plain <Button> elements with a text glyph render reliably — that
--- is what the original AP pip row used — and every layout group now explicitly
--- turns force-expand OFF.
-local function buildPoolColumnXml(idPrefix, current, maximum, filledHex, emptyHex, tooltip)
-    if maximum <= 0 then return "", 0, 0 end
-
-    local tip = xmlEscape(tooltip)
-
-    -- Absurd budgets fall back to a number so the HUD never grows off-screen.
     if maximum > 8 then
-        local txt = string.format("%d/%d", current, maximum)
-        local xml = [[<Button id="]] .. idPrefix .. [[1" onClick="cusUiClick" text="]] .. xmlEscape(txt)
-            .. [[" width="]] .. COLUMN_WIDTH .. [[" height="]] .. COLUMN_SLOT
-            .. [[" fontSize="11" colors="#00000000|#FFFFFF14|#FFFFFF08|#00000000" textColor="#]] .. filledHex
-            .. [[" tooltip="]] .. tip .. [[" />]]
-        return xml, COLUMN_WIDTH, COLUMN_SLOT
+        local txt = tostring(current) .. "/" .. tostring(maximum)
+        return [[<Panel width="62" height="28">
+            <Text text="♥" width="24" height="28" fontSize="22" color="#]] .. woundsColor() .. [[" alignment="MiddleLeft" />
+            <Text text="]] .. xmlEscape(txt) .. [[" width="40" height="28" fontSize="13" color="#F2F4F8" alignment="MiddleRight" />
+            ]] .. transparentButton("cus-heart-1", "Wounds. Left click: lose 1. Right click: heal 1.", 62, 28) .. [[
+        </Panel>]], 62
     end
 
     local parts = {}
-    for i = maximum, 1, -1 do          -- top of the column is the last point spent
+    local totalWidth = 0
+    for i = 1, maximum do
         local filled = i <= current
-        local glyph = filled and "●" or "○"
-        local colour = filled and filledHex or emptyHex
-        parts[#parts + 1] = [[<Button id="]] .. idPrefix .. i .. [[" onClick="cusUiClick" text="]] .. glyph
-            .. [[" width="]] .. COLUMN_WIDTH .. [[" height="]] .. COLUMN_SLOT
-            .. [[" fontSize="18" colors="#00000000|#FFFFFF14|#FFFFFF08|#00000000" textColor="#]] .. colour
-            .. [[" tooltip="]] .. tip .. [[" />]]
+        local asset = filled and "heart_full" or "heart_empty"
+        local heartColor = filled and HEX.red or "181A1F"
+        if assetEnabled(asset) then
+            parts[#parts + 1] = [[<Panel width="28" height="28">
+                <Image image="]] .. asset .. [[" width="27" height="27" preserveAspect="true" />
+                ]] .. transparentButton("cus-heart-" .. i, "Wounds. Left click: lose 1. Right click: heal 1.", 28, 28) .. [[
+            </Panel>]]
+        else
+            parts[#parts + 1] = [[<Panel width="28" height="28">
+                <Text text="♥" width="28" height="28" fontSize="24" color="#]] .. heartColor .. [[" alignment="MiddleCenter" />
+                ]] .. transparentButton("cus-heart-" .. i, "Wounds. Left click: lose 1. Right click: heal 1.", 28, 28) .. [[
+            </Panel>]]
+        end
+        totalWidth = totalWidth + 28
+        if i < maximum then totalWidth = totalWidth + 1 end
     end
-
-    local height = maximum * COLUMN_SLOT
-    local xml = [[<VerticalLayout spacing="0" padding="0 0 0 0" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="]]
-        .. COLUMN_WIDTH .. [[" height="]] .. height .. [[">]] .. table.concat(parts) .. [[</VerticalLayout>]]
-    return xml, COLUMN_WIDTH, height
+    return table.concat(parts), totalWidth
 end
 
--- ONE heart, with the remaining Wounds written on it.
-local function buildWoundHeartXml()
-    local maximum = math.max(0, tonumber(definition.wounds) or 0)
-    local current = math.max(0, tonumber(runtime.current_wounds) or 0)
-    local size = 46
-    local tooltip = "WOUNDS " .. current .. "/" .. maximum
-        .. "\nLeft: lose 1\nRight: heal 1\nAt 0 the figure is KNOCKED OUT."
 
-    if current <= 0 then
-        -- Down. Armour protects the standing and nothing else (H · 7).
-        return [[<Panel width="]] .. size .. [[" height="]] .. size .. [[" tooltip="KNOCKED OUT&#10;A downed figure that is hit is KILLED, and rolls no Armour.">
-            <Text text="☠" width="]] .. size .. [[" height="]] .. size .. [[" fontSize="34" color="#]] .. HEX.red .. [[" alignment="MiddleCenter" />
-            ]] .. transparentButton("cus-heart-1", tooltip, size, size) .. [[
-        </Panel>]], size
-    end
+-- ---------------------------------------------------------------------------
+-- HUD builders (spec §7)
+--
+-- §5.3: TTS layout groups FORCE-EXPAND their children by default. A Panel
+-- holding Text + Button, nested two layouts deep, collapses to nothing — that
+-- is why the pips were invisible and why buttons flew out of the panel. Every
+-- layout below therefore sets childForceExpandWidth/Height="false", and every
+-- clickable element is a plain <Button>, never a Panel wrapping a Text.
+-- ---------------------------------------------------------------------------
 
-    if assetEnabled("heart_full") then
-        return [[<Panel width="]] .. size .. [[" height="]] .. size .. [[">
-            <Image image="heart_full" width="]] .. size .. [[" height="]] .. size .. [[" preserveAspect="true" />
-            <Text text="]] .. tostring(current) .. [[" width="]] .. size .. [[" height="]] .. size .. [[" fontSize="20" color="#FFFFFF" alignment="MiddleCenter" offsetXY="0 -2" />
-            ]] .. transparentButton("cus-heart-1", tooltip, size, size) .. [[
-        </Panel>]], size
-    end
+-- A vertical column of pips, filled BOTTOM-UP so the top pip is the last one
+-- spent. Reaction and AP get separate columns on purpose: the two pools never
+-- exchange (A.IV), and one shared bar would imply a conversion that does not exist.
+local function buildPipColumn(idPrefix, current, maximum, filledHex, label)
+    maximum = math.max(0, math.floor(tonumber(maximum) or 0))
+    current = clamp(math.floor(tonumber(current) or 0), 0, maximum)
+    if maximum <= 0 then return "", 0 end
 
-    return [[<Panel width="]] .. size .. [[" height="]] .. size .. [[">
-        <Text text="♥" width="]] .. size .. [[" height="]] .. size .. [[" fontSize="42" color="#]] .. HEX.red .. [[" alignment="MiddleCenter" />
-        <Text text="]] .. tostring(current) .. [[" width="]] .. size .. [[" height="]] .. size .. [[" fontSize="19" color="#FFFFFF" alignment="MiddleCenter" offsetXY="0 -3" />
-        ]] .. transparentButton("cus-heart-1", tooltip, size, size) .. [[
-    </Panel>]], size
-end
-
--- ONE triangle, three states. Point up = it still has its turn. Filled purple
--- = an armed WAIT. Point down = spent.
-local function buildActivationTriangleXml()
-    local size = 40
-    local glyph, colour, label
-
-    if runtime.turn_state == "Activated" then
-        glyph, colour, label = "▽", HEX.grey, "ACTIVATED — spent for this round."
-    elseif runtime.turn_state == "Waiting" then
-        glyph, colour, label = "▲", HEX.purple, "WAITING — a PACKET is armed. It still costs a Reaction to fire."
+    local parts = {}
+    if maximum > 6 then
+        parts[#parts+1] = '<Button id="' .. idPrefix .. '1" onClick="cusUiClick" text="' ..
+            current .. "/" .. maximum ..
+            '" width="30" height="16" preferredWidth="30" preferredHeight="16" fontSize="11" colors="#11111100|#FFFFFF14|#FFFFFF0A|#11111100" textColor="#' ..
+            filledHex .. '" tooltip="' .. xmlEscape(label .. "\nLeft: spend 1\nRight: restore 1") .. '" />'
     else
-        glyph, colour, label = "△", HEX.green, "UNACTIVATED — this figure has not gone yet."
+        for i = 1, maximum do
+            -- i counts from the TOP; a pip is filled once it is below the spent band.
+            local filled = i > (maximum - current)
+            parts[#parts+1] = '<Button id="' .. idPrefix .. i .. '" onClick="cusUiClick" text="' ..
+                (filled and "●" or "○") ..
+                '" width="18" height="16" preferredWidth="18" preferredHeight="16" fontSize="15" colors="#11111100|#FFFFFF14|#FFFFFF0A|#11111100" textColor="#' ..
+                (filled and filledHex or "55637A") .. '" tooltip="' ..
+                xmlEscape(label .. "\nLeft: spend 1\nRight: restore 1") .. '" />'
+        end
     end
 
-    local tooltip = label .. "\nLeft: next state\nRight: previous state"
-    return [[<Panel width="]] .. size .. [[" height="]] .. size .. [[">
-        <Text text="]] .. glyph .. [[" width="]] .. size .. [[" height="]] .. size .. [[" fontSize="34" color="#]] .. colour .. [[" alignment="MiddleCenter" />
-        ]] .. transparentButton("cus-turn-state", tooltip, size, size) .. [[
-    </Panel>]], size
+    -- preferredWidth/Height are REQUIRED, not decoration. A Unity layout group
+    -- reads `preferredHeight` from its children and ignores `height` entirely,
+    -- so a child carrying only `height` collapses to zero once its parent has
+    -- childForceExpandHeight="false". That is what made the wound badge, the
+    -- activation triangle and the whole action row invisible.
+    local h = tostring(math.max(18, math.min(maximum, 6) * 17 + 2))
+    return [[<VerticalLayout spacing="1" childAlignment="LowerCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="26" height="]] ..
+        h .. [[" preferredWidth="26" preferredHeight="]] .. h .. [[">]] ..
+        table.concat(parts) .. [[</VerticalLayout>]], 26
 end
 
+-- ONE heart carrying the number. Wounds are 1-2 as standard (B.7), so a row of
+-- hearts is noise. Skull at zero.
+local function buildWoundBadge()
+    local maximum = math.max(0, tonumber(definition.wounds) or 0)
+    local current = clamp(math.floor(tonumber(runtime.current_wounds) or 0), 0, maximum)
+    local glyph = (current <= 0) and "☠" or "♥"
+    local tint  = (current <= 0) and HEX.red or woundsColor()
+    local text  = (current <= 0) and glyph or (glyph .. " " .. tostring(current))
+    return '<Button id="cus-heart-1" onClick="cusUiClick" text="' .. text ..
+        '" width="46" height="30" preferredWidth="46" preferredHeight="30" fontSize="20" colors="#11111100|#FFFFFF14|#FFFFFF0A|#11111100" textColor="#' ..
+        tint .. '" tooltip="' .. xmlEscape("Wounds " .. current .. "/" .. maximum ..
+        "\nLeft: lose 1\nRight: heal 1") .. '" />', 46
+end
+
+-- One triangle. Point UP = still has its turn, point DOWN = spent.
+-- Uses the painted badge when its asset is installed, and falls back to the
+-- glyph when it is not, so the HUD still works with no network.
+local function buildActivationBadge()
+    local glyph, tint, word, asset
+    if runtime.turn_state == "Activated" then
+        glyph, tint, word, asset = "▽", HEX.grey, "Activated", "activation_activated"
+    elseif runtime.turn_state == "Waiting" then
+        glyph, tint, word, asset = "▲", HEX.purple, "Waiting (armed)", "activation_waiting"
+    else
+        glyph, tint, word, asset = "△", HEX.gold, "Unactivated", "activation_unactivated"
+    end
+    local tip = xmlEscape("Activation: " .. word .. "\nLeft: next state\nRight: previous")
+
+    if assetEnabled(asset) then
+        return '<Panel width="34" height="32" preferredWidth="34" preferredHeight="32">' ..
+            '<Image image="' .. asset .. '" width="32" height="32" preferredWidth="32" preferredHeight="32" preserveAspect="true" />' ..
+            '<Button id="cus-turn-state" onClick="cusUiClick" text="" width="34" height="32" preferredWidth="34" preferredHeight="32"' ..
+            ' colors="#00000000|#FFFFFF18|#FFFFFF0C|#00000000" tooltip="' .. tip .. '" />' ..
+            '</Panel>', 34
+    end
+
+    return '<Button id="cus-turn-state" onClick="cusUiClick" text="' .. glyph ..
+        '" width="34" height="30" preferredWidth="34" preferredHeight="30" fontSize="22" colors="#11111100|#FFFFFF14|#FFFFFF0A|#11111100" textColor="#' ..
+        tint .. '" tooltip="' .. tip .. '" />', 34
+end
+
+local function buildNerveBadge()
+    local t = nerveTokenData()
+    return '<Button id="cus-nerve" onClick="cusUiClick" text="' .. t.glyph ..
+        '" width="28" height="22" preferredWidth="28" preferredHeight="22" fontSize="16" colors="#11111100|#FFFFFF14|#FFFFFF0A|#11111100" textColor="#' ..
+        t.fg .. '" tooltip="' .. xmlEscape(t.tooltip) .. '" />', 28
+end
+
+-- The whole core loop, permanently on the token instead of behind a right-click.
+local function buildActionRow()
+    -- preferredWidth/Height are required here too: this row lives inside a
+    -- layout group, and a child with only width/height collapses to zero.
+    local function b(id, text, tip, w)
+        return '<Button id="' .. id .. '" onClick="cusUiClick" text="' .. text ..
+            '" width="' .. w .. '" height="18" preferredWidth="' .. w .. '" preferredHeight="18"' ..
+            ' fontSize="10" colors="#1C2733CC|#2B3D4FEE|#141C24AA|#1C2733CC" textColor="#C8D4E0" tooltip="' ..
+            xmlEscape(tip) .. '" />'
+    end
+
+    -- A painted square badge when the asset is installed, text otherwise.
+    local function icon(id, asset, label, tip, w)
+        if not assetEnabled(asset) then return b(id, label, tip, w) end
+        return '<Panel width="' .. w .. '" height="26" preferredWidth="' .. w .. '" preferredHeight="26">' ..
+            '<Image image="' .. asset .. '" width="26" height="26" preferredWidth="26" preferredHeight="26" preserveAspect="true" />' ..
+            '<Button id="' .. id .. '" onClick="cusUiClick" text="" width="' .. w .. '" height="26" preferredWidth="' .. w .. '" preferredHeight="26"' ..
+            ' colors="#00000000|#FFFFFF18|#FFFFFF0C|#00000000" tooltip="' .. xmlEscape(tip) .. '" />' ..
+            '</Panel>'
+    end
+
+    return [[<HorizontalLayout spacing="2" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="146" height="28" preferredWidth="146" preferredHeight="28">]] ..
+        icon("cus-move-toggle", "action_move",
+             runtime.move_panel_open and "CLOSE" or "MOVE",
+             "MOVE - open the movement ruler and start tracking", 30) ..
+        -- ACT, not ATK: ATTACK is a retired verb (D.1). Everything a figure
+        -- does to someone else resolves a PACKET under ACTION.
+        icon("cus-act-attack", "action_act", "ACT",
+             "ACT - choose one of your packets, then a target", 30) ..
+        icon("cus-act-wait", "action_wait", "WAIT",
+             "WAIT - spend 1 AP to arm a packet. It still costs 1 Reaction when it fires.", 30) ..
+        b("cus-new-round",   "↻",    "Refresh AP + Reaction, clear the armed WAIT", 26) ..
+        [[</HorizontalLayout>]]
+end
 
 local function buildAPPipsXml()
-    -- BLUE column — Agency (AP). What you spend on YOUR OWN activation.
-    return buildPoolColumnXml(
-        "cus-ap-pip-",
-        math.max(0, tonumber(runtime.current_ap) or 0),
-        math.max(0, tonumber(definition.ap) or 0),
-        HEX.blue, "1E2A3A",
-        "AP — AGENCY\nSpent on your OWN activation.\n1 AP = one MOVE, one ACTION, or one WAIT.\nLeft: spend 1\nRight: restore 1"
-    )
-end
+    local maximum = math.max(0, tonumber(definition.ap) or 0)
+    local current = math.max(0, tonumber(runtime.current_ap) or 0)
+    if maximum <= 0 then
+        return "", 0
+    end
 
--- YELLOW column — Reaction. A separate Kernel Resource (A · IV): what you can
--- spend on SOMEONE ELSE'S activation. It is never paid out of AP and the two
--- pools never exchange, which is why they are two columns and not one. Every
--- triggered PACKET costs one — Counter, Shield Intercept, Reach strike, a
--- firing Overwatch. Empty column, and the figure cannot respond at all.
-local function buildReactionPipsXml()
-    return buildPoolColumnXml(
-        "cus-react-pip-",
-        math.max(0, tonumber(runtime.current_reactions) or 0),
-        math.max(0, tonumber(definition.reactions) or 0),
-        HEX.gold, "3A3018",
-        "REACTION\nSpent on SOMEONE ELSE'S activation.\nCounter · Shield Intercept · Reach · Overwatch.\nRefreshes at the start of your own activation.\nLeft: spend 1\nRight: restore 1"
-    )
-end
+    if maximum > 8 then
+        local txt = string.format("%d/%d", current, maximum)
+        return [[<Button id="cus-ap-pips" onClick="cusUiClick" text="]] .. xmlEscape(txt) .. [[" width="46" height="16" preferredWidth="46" preferredHeight="16" fontSize="11" colors="#11111100|#11111100|#11111100|#11111100" textColor="#]] .. HEX.blue .. [[" tooltip="AP&#10;Left: spend 1&#10;Right: restore 1" />]], 46
+    end
 
--- v6: the Tier-1 action row. These four are the whole core loop, so they live
--- permanently on the token instead of behind a right-click menu.
-local function buildActionRowXml()
-    local accent = runtime.ui_accent or HEX.cyan
-    local waitOn = runtime.turn_state == "Waiting"
-    local waitColor = waitOn and HEX.purple or "2A3442"
-    -- v6.1: MOVE is a TOGGLE. It was opening the ruler with no way back.
-    local moveLabel = runtime.move_panel_open and "CLOSE" or "MOVE"
-    local moveHex = runtime.move_panel_open and HEX.red or accent
-    return [[
-<Button id="cus-act-move" onClick="cusUiClick" text="]] .. moveLabel .. [[" width="42" height="17" fontSize="9" colors="#]] .. moveHex .. [[55|#]] .. moveHex .. [[99|#]] .. moveHex .. [[33|#]] .. moveHex .. [[55" tooltip="Movement ruler — click again to close.&#10;START, move, + WP, DONE." />
-<Button id="cus-act-attack" onClick="cusUiClick" text="ATK" width="34" height="17" fontSize="9" colors="#F28C4555|#F28C4599|#F28C4533|#F28C4555" tooltip="Attack Controller.&#10;Then click the target." />
-<Button id="cus-act-wait" onClick="cusUiClick" text="WAIT" width="38" height="17" fontSize="9" colors="#]] .. waitColor .. [[AA|#]] .. waitColor .. [[EE|#]] .. waitColor .. [[77|#]] .. waitColor .. [[AA" tooltip="WAIT — 1 AP to arm a PACKET.&#10;Still spends a Reaction when it fires.&#10;Right click: cancel." />
-<Button id="cus-act-round" onClick="cusUiClick" text="↻" width="24" height="17" fontSize="12" colors="#65D46E55|#65D46E99|#65D46E33|#65D46E55" tooltip="Activation refresh — restore AP and Reaction,&#10;set Unactivated, clear the movement path (B · 12)." />]], 42 + 34 + 38 + 24 + 9
+    local parts = {}
+    local totalWidth = 0
+    for i = 1, maximum do
+        local filled = i <= current
+        local pipColor = filled and HEX.blue or "273546"
+        parts[#parts+1] = [[<Button id="cus-ap-pip-]] .. i .. [[" onClick="cusUiClick" text="●" width="12" height="14" preferredWidth="12" preferredHeight="14" fontSize="14" colors="#11111100|#11111100|#11111100|#11111100" textColor="#]] .. pipColor .. [[" tooltip="AP&#10;Left: spend 1&#10;Right: restore 1" />]]
+        totalWidth = totalWidth + 12
+        if i < maximum then totalWidth = totalWidth + 2 end
+    end
+    return table.concat(parts), totalWidth
 end
 
 local function colorFromHex(hex)
@@ -1233,11 +1276,12 @@ local function canonicalBaseRadiusInches()
     local class = lower(definition.base_class)
     local diameterMm = 0
 
-    -- v6: canonical base classes are Small · Medium · Large ONLY (B · 1).
-    -- Monstrous and Cavalry are retired as classes — a "monstrous" figure is a
-    -- Large base carrying the `unstoppable` trait, and mounted is elongated
-    -- geometry, not a size. Legacy JSON saying "normal"/"monstrous"/"cavalry"
-    -- still resolves so old miniatures do not have to be rebuilt.
+    -- CUS v0.6 (B.1, SIGNED): THREE size classes, read from the footprint.
+    --   Square: Small 20mm, Medium 25mm, Large 40mm
+    --   Circle: Small 25mm, Medium 32mm, Large 40mm
+    -- There is no Monstrous class (a monster is Large + the unstoppable trait)
+    -- and no Cavalry class (mounted is elongated GEOMETRY, not a size). The
+    -- retired v0.5 names are still accepted so older JSON keeps working.
     if class == "small" then
         diameterMm = shape == "circle" and 25 or 20
     elseif class == "medium" or class == "normal" then
@@ -1248,9 +1292,8 @@ local function canonicalBaseRadiusInches()
         diameterMm = 40                      -- retired v0.5 class
     end
 
-    -- Mounted is elongated geometry laid ON TOP of whatever class the figure
-    -- already is — not a replacement for it. Use the longer dimension so the
-    -- ring stays conservative. (William's handling; better than replacing.)
+    -- Mounted is elongated geometry on top of whatever class the figure is.
+    -- Use the longer dimension so the ring stays conservative.
     if definition.mounted == true and diameterMm < 40 then
         diameterMm = 40
     end
@@ -1372,38 +1415,42 @@ local function movementOverLimit()
     return speed ~= nil and movementDistance() > speed + 0.001
 end
 
--- v6: the 3" sprint→charge threshold (B · 3). A Sprint becomes a CHARGE when it
--- covers 3" of uninterrupted straight run-up into contact. "Straight" is the
--- part the ruler can actually check: a path with committed waypoints has turned,
--- so only the FINAL leg counts toward the run-up.
-local CHARGE_THRESHOLD = 3.0
+-- CHARGE THRESHOLD (B.3): a Sprint becomes a charge when it covers 3" of
+-- UNINTERRUPTED STRAIGHT run-up into contact.
+--
+-- Only the FINAL LEG counts — the distance from the last committed waypoint to
+-- the current endpoint. A path with a waypoint in it has turned, and a run-up
+-- has to be straight, so the earlier legs are irrelevant.
+--
+-- The ruler reports geometry and nothing else. Whether contact was actually
+-- made, and whether the run-up was interrupted, stays with the players (B.3).
+local CHARGE_RUNUP_INCHES = 3.0
 
 local function finalLegDistance()
-    local points = routeWorldPoints()
-    if #points < 2 then return 0 end
-    return horizontalDistance(points[#points - 1], points[#points])
+    local points = runtime.move_points or {}
+    local last = points[#points]
+    local endpoint = runtime.move_endpoint
+    if last == nil or endpoint == nil then return 0 end
+    return horizontalDistance(last, endpoint)
 end
 
-local function chargeEarned()
-    return finalLegDistance() >= CHARGE_THRESHOLD - 0.001
+local function chargeLabel()
+    local runup = finalLegDistance()
+    if runup >= CHARGE_RUNUP_INCHES - 0.001 then
+        return string.format('   CHARGE %.1f\"', runup)
+    end
+    return string.format('   run-up %.1f\"/%d\"', runup, CHARGE_RUNUP_INCHES)
+end
+
+local function hasCharge()
+    return finalLegDistance() >= CHARGE_RUNUP_INCHES - 0.001
 end
 
 local function movementDistanceLabel()
     local total = movementDistance()
     local speed = movementSpeed()
     local prefix = runtime.move_active and "TRACKING  " or "MOVE  "
-
-    -- The charge tag reports the final straight leg, because that is what earns
-    -- it. Contact and interruption are still the players' call (B · 3, F).
-    local charge = ""
-    if finalLegDistance() > 0.05 then
-        if chargeEarned() then
-            charge = string.format('   CHARGE %.1f\"', finalLegDistance())
-        else
-            charge = string.format('   run-up %.1f\"/3\"', finalLegDistance())
-        end
-    end
-
+    local charge = (total > 0.05) and chargeLabel() or ""
     if speed ~= nil then
         local suffix = total > speed + 0.001 and "  OVER" or ""
         return string.format('%s%.1f\" / %.1f\"%s%s', prefix, total, speed, suffix, charge)
@@ -1578,7 +1625,6 @@ local function buildDescription()
     end
     table.insert(statParts, bb(HEX.blue, "SPD", true) .. " " .. tostring(definition.speed))
     table.insert(statParts, bb(HEX.purple, "NERVE", true) .. " " .. tostring(definition.nerve))
-    table.insert(statParts, bb(HEX.pink, "REACT", true) .. " " .. runtime.current_reactions .. "/" .. definition.reactions)
     if definition.points ~= nil and definition.points ~= "—" then
         table.insert(statParts, bb(HEX.gold, "PTS", true) .. " " .. tostring(definition.points))
     end
@@ -1668,13 +1714,9 @@ local function buildUIXml()
     local panelScale = string.format("%.4f %.4f %.4f", sx * uiScale, sy * uiScale, sz * uiScale)
 
     local accent = runtime.ui_accent or HEX.cyan
-    local apXml, apWidth, apHeight = buildAPPipsXml()
-    local reactXml, reactWidth, reactHeight = buildReactionPipsXml()
-    local actionXml, actionWidth = buildActionRowXml()
-    local heartXml, heartWidth = buildWoundHeartXml()
-    local armorXml, armorWidth = buildArmourXml(armorStateData())
-    local actXml, actWidth = buildActivationTriangleXml()
-    local nerveXml = buildTokenXml("cus-nerve", nerveTokenData(), 34, 30)
+    -- The old row-of-hearts / token-panel builders are superseded by the §7
+    -- column layout below (buildPipColumn, buildWoundBadge, buildActivationBadge).
+    -- Armour is no longer a HUD badge; it lives in the description text.
     local auraRadius = asNumber(runtime.aura_radius, 0)
     local auraLabel = auraRadius > 0 and ("AURA " .. formatInches(auraRadius)) or "SET AURA"
     local auraToggleLabel = runtime.aura_visible and "ON" or "OFF"
@@ -1686,15 +1728,15 @@ local function buildUIXml()
         local moveStartText = runtime.move_active and "RESET" or "START"
         local moveOutline = movementOverLimit() and HEX.red or accent
         moveXml = [[
-<Panel position="]] .. position .. [[" width="220" height="64" rotation="0 0 ]] .. tostring(runtime.ui_rotation) .. [[" scale="]] .. panelScale .. [[" offsetXY="150 28" color="#11151CDD" outline="#]] .. moveOutline .. [[" outlineSize="2 2">
-    <VerticalLayout spacing="3" childAlignment="MiddleCenter" width="216" height="60" padding="3 3 3 3">
-        <Text id="cus-move-distance" text="]] .. xmlEscape(movementDistanceLabel()) .. [[" width="210" height="22" fontSize="13" color="#]] .. (movementOverLimit() and HEX.red or HEX.white) .. [[" alignment="MiddleCenter" />
-        <HorizontalLayout spacing="3" childAlignment="MiddleCenter" width="210" height="28">
-            <Button id="cus-move-start" onClick="cusUiClick" text="]] .. moveStartText .. [[" width="48" height="24" fontSize="10" />
-            <Button id="cus-move-waypoint" onClick="cusUiClick" text="+ WP" width="42" height="24" fontSize="11" colors="#]] .. accent .. [[AA|#]] .. accent .. [[DD|#]] .. accent .. [[88|#]] .. accent .. [[AA" />
-            <Button id="cus-move-undo" onClick="cusUiClick" text="↶" width="30" height="24" fontSize="15" />
-            <Button id="cus-move-finish" onClick="cusUiClick" text="DONE" width="42" height="24" fontSize="10" />
-            <Button id="cus-move-clear" onClick="cusUiClick" text="×" width="30" height="24" fontSize="15" colors="#]] .. HEX.red .. [[99|#]] .. HEX.red .. [[CC|#]] .. HEX.red .. [[77|#]] .. HEX.red .. [[99" />
+<Panel position="]] .. position .. [[" width="300" height="84" rotation="0 0 ]] .. tostring(runtime.ui_rotation) .. [[" scale="]] .. panelScale .. [[" offsetXY="195 36" color="#11151CDD" outline="#]] .. moveOutline .. [[" outlineSize="2 2">
+    <VerticalLayout spacing="3" childAlignment="MiddleCenter" width="292" height="76" childForceExpandWidth="false" childForceExpandHeight="false" padding="3 3 3 3">
+        <Text id="cus-move-distance" text="]] .. xmlEscape(movementDistanceLabel()) .. [[" width="284" height="36" preferredWidth="284" preferredHeight="36" fontSize="12" color="#]] .. (movementOverLimit() and HEX.red or HEX.white) .. [[" alignment="MiddleCenter" />
+        <HorizontalLayout spacing="4" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="284" height="26" preferredWidth="284" preferredHeight="26">
+            <Button id="cus-move-start" onClick="cusUiClick" text="]] .. moveStartText .. [[" width="58" height="24" preferredWidth="58" preferredHeight="24" fontSize="10" />
+            <Button id="cus-move-waypoint" onClick="cusUiClick" text="+ WP" width="52" height="24" preferredWidth="52" preferredHeight="24" fontSize="11" colors="#]] .. accent .. [[AA|#]] .. accent .. [[DD|#]] .. accent .. [[88|#]] .. accent .. [[AA" />
+            <Button id="cus-move-undo" onClick="cusUiClick" text="UNDO" width="48" height="24" preferredWidth="48" preferredHeight="24" fontSize="10" />
+            <Button id="cus-move-finish" onClick="cusUiClick" text="DONE" width="52" height="24" preferredWidth="52" preferredHeight="24" fontSize="10" />
+            <Button id="cus-move-clear" onClick="cusUiClick" text="CLOSE" width="56" height="24" preferredWidth="56" preferredHeight="24" fontSize="10" colors="#]] .. HEX.red .. [[99|#]] .. HEX.red .. [[CC|#]] .. HEX.red .. [[77|#]] .. HEX.red .. [[99" />
         </HorizontalLayout>
     </VerticalLayout>
 </Panel>]]
@@ -1729,26 +1771,42 @@ local function buildUIXml()
 </Panel>]]
     end
 
-    -- v6.1 layout: one horizontal row — reaction column, AP column, heart,
-    -- triangle, then armour and nerve badges. Height is driven by whichever
-    -- pool column is tallest, so a 2 AP figure does not reserve room for 6.
-    local rowHeight = math.max(48, asNumber(apHeight, 0), asNumber(reactHeight, 0))
-    local rowWidth = asNumber(reactWidth, 0) + asNumber(apWidth, 0) + heartWidth
-        + asNumber(actWidth, 0) + armorWidth + 34 + (6 * 5)
-    local baseWidth = math.max(120, rowWidth + 8, actionWidth + 6)
-    local totalHeight = rowHeight + 23
+    -- ---- spec §7 layout -------------------------------------------------
+    --    [gold]   [blue]    [heart]   [triangle]
+    --   REACTION    AP      WOUNDS    ACTIVATION
+    --      ●        ●        ♥ 2          △
+    --      ●        ●                     ⏻
+    --      ○        ●
+    --             MOVE  ATK  WAIT  ↻
+    local rxXml   = buildPipColumn("cus-rx-pip-", runtime.current_reactions, definition.reactions, HEX.gold, "Reaction")
+    local apCol   = buildPipColumn("cus-ap-pip-", runtime.current_ap, definition.ap, HEX.blue, "AP")
+    local woundXml  = buildWoundBadge()
+    local activXml  = buildActivationBadge()
+    local nerveBadge = buildNerveBadge()
+    local actionRow = buildActionRow()
+
+    -- Panel height follows the TALLER column, so a 2 AP figure does not
+    -- reserve room for six pips.
+    local tallest = math.max(math.min(definition.reactions or 1, 6), math.min(definition.ap or 2, 6), 2)
+    local colHeight = math.max(34, tallest * 17 + 2)
+    local panelHeight = colHeight + 34   -- + the 28px action row and its spacing
+
     local xml = [[
 <Defaults>
     <Button fontSize="14" textColor="#F2F4F8" colors="#00000000|#FFFFFF12|#FFFFFF08|#00000000" />
     <Text color="#F2F4F8" alignment="MiddleCenter" />
 </Defaults>
-<Panel position="]] .. position .. [[" width="]] .. baseWidth .. [[" height="]] .. totalHeight .. [[" rotation="0 0 ]] .. tostring(runtime.ui_rotation) .. [[" scale="]] .. panelScale .. [[" color="#00000000">
-    <VerticalLayout spacing="3" padding="0 0 0 0" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="]] .. baseWidth .. [[" height="]] .. totalHeight .. [[">
-        <HorizontalLayout spacing="6" padding="0 0 0 0" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="]] .. baseWidth .. [[" height="]] .. rowHeight .. [[">]]
-            .. reactXml .. apXml .. heartXml .. actXml .. armorXml .. nerveXml .. [[</HorizontalLayout>
-        <HorizontalLayout spacing="3" padding="0 0 0 0" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="]] .. baseWidth .. [[" height="19">]] .. actionXml .. [[</HorizontalLayout>
+<Panel position="]] .. position .. [[" width="164" height="]] .. panelHeight .. [[" rotation="0 0 ]] .. tostring(runtime.ui_rotation) .. [[" scale="]] .. panelScale .. [[" color="#00000000">
+    <VerticalLayout spacing="2" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="164" height="]] .. panelHeight .. [[">
+        <HorizontalLayout spacing="6" childAlignment="LowerCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="164" height="]] .. colHeight .. [[" preferredWidth="164" preferredHeight="]] .. colHeight .. [[">
+            ]] .. rxXml .. apCol .. woundXml .. [[
+            <VerticalLayout spacing="1" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="36" height="]] .. colHeight .. [[" preferredWidth="36" preferredHeight="]] .. colHeight .. [[">
+                ]] .. activXml .. nerveBadge .. [[
+            </VerticalLayout>
+        </HorizontalLayout>
+        ]] .. actionRow .. [[
     </VerticalLayout>
-</Panel>]] .. moveXml .. configXml .. buildLibraryPanelXml(position, panelScale, accent)
+</Panel>]] .. moveXml .. configXml
     return xml
 end
 
@@ -1780,57 +1838,28 @@ local function changeAP(amount, player)
     notify(player, definition.name .. " has " .. runtime.current_ap .. "/" .. definition.ap .. " AP.")
 end
 
--- v6: Reaction never comes out of AP (A · IV). Separate pool, separate control.
+-- REACTION is spent on SOMEONE ELSE'S turn (A.IV). Hitting zero is the single
+-- most-forgotten state in the game, so say it loudly rather than quietly
+-- letting a player Counter with a pool they no longer have.
 local function changeReactions(amount, player)
-    local maximum = math.max(0, asNumber(definition.reactions, 1))
     local before = runtime.current_reactions
-    runtime.current_reactions = clamp(runtime.current_reactions + amount, 0, maximum)
+    runtime.current_reactions = clamp(runtime.current_reactions + amount, 0, definition.reactions)
     refreshAll()
 
-    if runtime.current_reactions == 0 and before > 0 then
-        notify(player, definition.name .. " has NO REACTION left — it cannot Counter, intercept, or fire an armed WAIT.", {1.00, 0.45, 0.55})
+    if runtime.current_reactions <= 0 and before > 0 then
+        notify(player, definition.name ..
+            " has NO REACTION left — it cannot Counter, intercept, or fire an armed WAIT.",
+            {1.00, 0.45, 0.35})
     else
-        notify(player, definition.name .. " has " .. runtime.current_reactions .. "/" .. maximum .. " Reaction.")
+        notify(player, definition.name .. " has " .. runtime.current_reactions ..
+            "/" .. definition.reactions .. " Reaction.")
     end
 end
 
 local function changeNerve(direction, player)
     runtime.nerve_state = stepState(NERVE_STATES, runtime.nerve_state, direction)
     refreshAll()
-    if runtime.nerve_state == "Broken" then
-        notify(player, definition.name .. " is BROKEN — it Routs by its Temperament (" .. tostring(definition.temper) .. ").", {1.00, 0.40, 0.40})
-    else
-        notify(player, definition.name .. " is " .. runtime.nerve_state .. ".")
-    end
-end
-
--- v6: WAIT is 1 AP to arm a PACKET, and it STILL spends a Reaction when it
--- fires (A · III). Arming is not permission — with an empty pool it does not
--- resolve, so the button refuses when there is nothing to fire with.
-local function armWait(player)
-    if runtime.turn_state == "Waiting" then
-        runtime.turn_state = "Unactivated"
-        synchronizeTurnFlags()
-        refreshAll()
-        notify(player, definition.name .. " cancelled its WAIT. (AP is not refunded.)")
-        return
-    end
-
-    if runtime.current_ap <= 0 then
-        notify(player, definition.name .. " has no AP to arm a WAIT.", {1.00, 0.45, 0.45})
-        return
-    end
-
-    runtime.current_ap = clamp(runtime.current_ap - 1, 0, definition.ap)
-    runtime.turn_state = "Waiting"
-    synchronizeTurnFlags()
-    refreshAll()
-
-    if runtime.current_reactions <= 0 then
-        notify(player, definition.name .. " armed a WAIT — but has NO REACTION, so it will not resolve. Arming is not permission.", {1.00, 0.55, 0.35})
-    else
-        notify(player, definition.name .. " armed a WAIT. It still spends a Reaction when it fires.", {0.72, 0.52, 1.00})
-    end
+    notify(player, definition.name .. " is " .. runtime.nerve_state .. ".")
 end
 
 local function changeTurnState(direction, player)
@@ -1840,25 +1869,30 @@ local function changeTurnState(direction, player)
     notify(player, definition.name .. " is " .. runtime.turn_state .. ".")
 end
 
--- v6: this is the ACTIVATION refresh, not a round-wide one. Per B · 12 a figure
--- refreshes its AP and Reaction and expires its armed WAIT at the start of its
--- OWN activation — which is why a figure that emptied its pool late last round
--- walks into this one still empty. Hit the tired ones.
+-- Per B.12 a figure refreshes AP + Reaction and expires its armed WAIT at the
+-- start of ITS OWN activation, not at the top of the round. So this button is
+-- "my activation begins", pressed by the figure's own player — it deliberately
+-- does not refill anybody else. A figure that emptied its Reaction pool late
+-- last round walks into this one still empty until it activates. That is the
+-- point: hit the tired ones.
 local function newRound(player)
     clearMovementPath(true)
     runtime.current_ap = definition.ap
-    runtime.current_reactions = math.max(0, asNumber(definition.reactions, 1))
+    runtime.current_reactions = definition.reactions
+    runtime.armed_packet = nil
     runtime.turn_state = "Unactivated"
     synchronizeTurnFlags()
     refreshAll()
-    notify(player, definition.name .. " refreshed: " .. runtime.current_ap .. " AP, " .. runtime.current_reactions .. " Reaction. Armed WAIT expired.", {0.40, 0.80, 1.00})
+    notify(player, definition.name .. " refreshed: " .. definition.ap .. " AP, " ..
+        definition.reactions .. " Reaction.", {0.40, 0.80, 1.00})
 end
 
 local function resetRuntime(player)
     clearMovementPath(true)
     runtime.current_wounds = definition.wounds
     runtime.current_ap = definition.ap
-    runtime.current_reactions = math.max(0, asNumber(definition.reactions, 1))
+    runtime.current_reactions = definition.reactions
+    runtime.armed_packet = nil
     runtime.nerve_state = "Steady"
     runtime.turn_state = "Unactivated"
     synchronizeTurnFlags()
@@ -1868,6 +1902,49 @@ end
 
 local function isRightClick(value)
     return tostring(value) == "-2"
+end
+
+local function playerColorOfClick(playerOrColor)
+    if type(playerOrColor) == "string" then return playerOrColor end
+    if playerOrColor ~= nil and playerOrColor.color ~= nil then return playerOrColor.color end
+    return nil
+end
+
+-- WAIT (A.III): spend 1 AP NOW to arm a chosen PACKET, and it STILL costs
+-- 1 Reaction when it actually fires. Arming is not permission — a figure with
+-- an empty Reaction pool may arm a packet that will never resolve, and the
+-- tracker says so rather than letting the player discover it mid-fight.
+local function toggleWait(player)
+    -- Already waiting? Cancel the state. AP is NOT refunded — it was spent.
+    if runtime.turn_state == "Waiting" then
+        runtime.turn_state = "Unactivated"
+        runtime.armed_packet = nil
+        synchronizeTurnFlags()
+        refreshAll()
+        notify(player, definition.name .. " cancels its WAIT. The AP is not refunded.")
+        return
+    end
+
+    if (runtime.current_ap or 0) < 1 then
+        notify(player, definition.name .. " has no AP to spend on WAIT.", {1.00, 0.45, 0.35})
+        return
+    end
+
+    runtime.current_ap = runtime.current_ap - 1
+    runtime.turn_state = "Waiting"
+    runtime.armed_packet = true
+    synchronizeTurnFlags()
+    refreshAll()
+
+    if (runtime.current_reactions or 0) < 1 then
+        notify(player, definition.name ..
+            " is WAITING, but has NO REACTION — the armed packet will not resolve.",
+            {1.00, 0.45, 0.35})
+    else
+        notify(player, definition.name ..
+            " is WAITING. 1 AP spent; firing it will also cost 1 Reaction.",
+            {0.72, 0.52, 1.00})
+    end
 end
 
 local function setAuraRadiusFromText(text, playerColor)
@@ -1909,52 +1986,22 @@ end
 function cusUiClick(player, value, id)
     local rightClick = isRightClick(value)
 
-    -- v6 BUGFIX: "cus-heart-" is ten characters, so the old sub(id, 1, 9)
-    -- compared "cus-heart" against "cus-heart-" and never matched. Every heart
-    -- click was silently dropped.
     if id ~= nil and string.sub(id, 1, 10) == "cus-heart-" then
         changeWounds(rightClick and 1 or -1, player)
     elseif id == "cus-wounds" then
         changeWounds(rightClick and 1 or -1, player)
+    elseif id ~= nil and string.sub(id, 1, 11) == "cus-rx-pip-" then
+        changeReactions(rightClick and 1 or -1, player)
     elseif id ~= nil and string.sub(id, 1, 11) == "cus-ap-pip-" then
         changeAP(rightClick and 1 or -1, player)
+    elseif id == "cus-act-attack" then
+        contextAttack(playerColorOfClick(player))
+    elseif id == "cus-act-wait" then
+        toggleWait(player)
     elseif id == "cus-ap-pips" or id == "cus-ap" or id == "cus-ap-spend" then
         changeAP(rightClick and 1 or -1, player)
     elseif id == "cus-ap-restore" then
         changeAP(rightClick and -1 or 1, player)
-    -- v6: Reaction pool
-    elseif id ~= nil and string.sub(id, 1, 14) == "cus-react-pip-" then
-        changeReactions(rightClick and 1 or -1, player)
-    elseif id == "cus-react-pips" then
-        changeReactions(rightClick and 1 or -1, player)
-    -- v6: Tier-1 action row
-    -- v6.1: toggle. Opening starts tracking; closing clears the path so you are
-    -- not left with an orphaned ruler drawn on the table.
-    elseif id == "cus-act-move" then
-        if runtime.move_panel_open then
-            clearMovementPath(false)
-        else
-            runtime.move_panel_open = true
-            if not runtime.move_active then startMovementPath(player) end
-        end
-        refreshAll()
-    elseif id == "cus-act-attack" then
-        -- Inlined rather than calling contextAttack(), which is declared later
-        -- in the file and would still be nil at this point.
-        local attackColor = type(player) == "string" and player or (player and player.color)
-        local ok, started = pcall(function()
-            return Global.call("CUS_BeginAttack", {
-                player_color = attackColor,
-                attacker_guid = self.getGUID(),
-            })
-        end)
-        if not ok or started ~= true then
-            notify(player, "CUS Attack Controller is not installed in Global.lua.", {1.00, 0.35, 0.35})
-        end
-    elseif id == "cus-act-wait" then
-        armWait(player)
-    elseif id == "cus-act-round" then
-        newRound(player)
     elseif id == "cus-new-round" then
         newRound(player)
     elseif id == "cus-full-reset" then
@@ -1964,7 +2011,13 @@ function cusUiClick(player, value, id)
     elseif id == "cus-turn-state" then
         changeTurnState(rightClick and -1 or 1, player)
     elseif id == "cus-move-toggle" then
-        runtime.move_panel_open = not runtime.move_panel_open
+        -- MOVE opens the ruler AND starts tracking in one press. Opening a
+        -- ruler you then have to press START on is two clicks for one intent.
+        if runtime.move_panel_open then
+            clearMovementPath(false)          -- false = close the panel too
+        else
+            startMovementPath(player)         -- sets move_panel_open = true
+        end
         refreshAll()
     elseif id == "cus-move-start" then
         startMovementPath(player)
@@ -1978,9 +2031,9 @@ function cusUiClick(player, value, id)
     elseif id == "cus-move-finish" then
         finishMovementPath(player)
         refreshAll()
-    -- v6.1: the × in the ruler panel now actually CLOSES it. It used to pass
-    -- keepPanel = true, which wiped the path and left the panel stuck open.
     elseif id == "cus-move-clear" then
+        -- false = also CLOSE the panel. Passing true wiped the path and left
+        -- the panel stuck open with no way out.
         clearMovementPath(false)
         refreshAll()
     elseif id == "cus-armour" then
@@ -2028,16 +2081,6 @@ function cusUiClick(player, value, id)
     elseif id == "cus-highlight-toggle" then
         runtime.model_highlight = not runtime.model_highlight
         refreshAll()
-    -- v6.1 Unit Library
-    elseif id == "cus-lib-close" then
-        runtime.library_open = false
-        refreshAll()
-    elseif id == "cus-lib-reload" then
-        CUS_LibraryReload(player)
-    elseif id ~= nil and string.sub(id, 1, 13) == "cus-lib-unit-" then
-        CUS_LibraryPick(tonumber(string.sub(id, 14)), player)
-    elseif id ~= nil and string.sub(id, 1, 12) == "cus-lib-fac-" then
-        CUS_LibraryFaction(tonumber(string.sub(id, 13)), player)
     else
         local preset = id:match("^cus%-color%-(.+)$")
         if preset ~= nil and COLOR_PRESETS[preset] ~= nil then
@@ -2148,335 +2191,43 @@ local function contextCycleUISize(playerColor)
 end
 
 
--- ---------------------------------------------------------------------------
--- v6.1 UNIT LIBRARY  —  pulls straight from the repo over HTTPS
---
--- Source of truth is github.com/whbreifcase-arch/cus-kernel-rebuild, so a
--- balance change to a JSON file is live on the next pick with nothing to
--- re-import. Units reference packets and traits BY ID (Law 1 — defined once,
--- referenced everywhere), so this resolves those IDs against the packet and
--- trait files before handing a complete definition to the tracker.
--- ---------------------------------------------------------------------------
-
-local LIBRARY_BASE = "https://raw.githubusercontent.com/whbreifcase-arch/cus-kernel-rebuild/main/factions/data/"
-
-local LIBRARY_FILES = {
-    {label = "Generic",     file = "library_generic.json"},
-    {label = "Templars",    file = "faction_templar.json"},
-    {label = "Mordor",      file = "faction_mordor.json"},
-    {label = "Militia",     file = "faction_militia.json"},
-    {label = "Goblins",     file = "faction_goblin.json"},
-    {label = "Lizardfolk",  file = "faction_lizardfolk.json"},
-    {label = "Ponies",      file = "faction_pony.json"},
-    {label = "Dragon",      file = "faction_dragon.json"},
-    {label = "Bestiary",    file = "faction_bestiary.json"},
-}
-
--- Packets live in several files; they are merged into one id -> packet map.
-local PACKET_FILES = {
-    "packets_generic.json",
-    "packets.json",
-    "packets_family.json",
-    "packets_bestiary.json",
-}
-
-local library = {
-    packets = nil,      -- id -> packet object
-    traits = nil,       -- id -> trait object
-    units = {},         -- the currently listed faction's units
-    factionLabel = "",
-    factionIndex = 1,
-    status = "",
-    busy = false,
-}
-
--- refreshAll is already in scope here, so the panel just rebuilds with the HUD.
-
-local function librarySetStatus(text, player)
-    library.status = tostring(text or "")
-    refreshAll()
-    if player ~= nil and text ~= nil and text ~= "" then notify(player, "CUS Library: " .. text) end
-end
-
-local function libraryGet(file, onDecoded, onFailed)
-    local url = LIBRARY_BASE .. file
-    WebRequest.get(url, function(request)
-        if request.is_error or request.response_code ~= 200 then
-            if onFailed ~= nil then
-                onFailed(tostring(request.error or ("HTTP " .. tostring(request.response_code))))
-            end
-            return
-        end
-        local ok, decoded = pcall(JSON.decode, request.text)
-        if not ok or type(decoded) ~= "table" then
-            if onFailed ~= nil then onFailed(file .. " is not valid JSON.") end
-            return
-        end
-        onDecoded(decoded)
-    end)
-end
-
--- Merge every packets array we can find in a decoded file into the id map.
-local function libraryAbsorbPackets(decoded)
-    if type(decoded) ~= "table" then return end
-    if type(decoded.packets) == "table" then
-        for _, packet in ipairs(decoded.packets) do
-            if type(packet) == "table" and packet.packet_id ~= nil then
-                library.packets[tostring(packet.packet_id)] = packet
-            end
-        end
-    end
-    -- Faction files may carry their own packets inline on the unit list's file.
-    if type(decoded.units) == "table" then
-        for _, unit in ipairs(decoded.units) do
-            if type(unit) == "table" and type(unit.packets) == "table" then
-                for _, packet in ipairs(unit.packets) do
-                    if type(packet) == "table" and packet.packet_id ~= nil then
-                        library.packets[tostring(packet.packet_id)] = packet
-                    end
-                end
-            end
-        end
-    end
-end
-
-local function libraryEnsureDefinitions(done, player)
-    if library.packets ~= nil and library.traits ~= nil then
-        done()
-        return
-    end
-
-    library.packets = library.packets or {}
-    library.traits = library.traits or {}
-
-    local remaining = #PACKET_FILES + 1
-    local failed = false
-
-    local function step()
-        remaining = remaining - 1
-        if remaining <= 0 and not failed then done() end
-    end
-
-    libraryGet("traits.json", function(decoded)
-        if type(decoded.traits) == "table" then
-            for _, trait in ipairs(decoded.traits) do
-                if type(trait) == "table" and trait.trait_id ~= nil then
-                    library.traits[tostring(trait.trait_id)] = trait
-                end
-            end
-        end
-        step()
-    end, function(err)
-        failed = true
-        library.busy = false
-        librarySetStatus("traits.json failed — " .. err, player)
-    end)
-
-    for _, file in ipairs(PACKET_FILES) do
-        libraryGet(file, function(decoded)
-            libraryAbsorbPackets(decoded)
-            step()
-        end, function(err)
-            -- A missing packet file is survivable; the units that need it will
-            -- simply come through with fewer packets.
-            step()
-        end)
-    end
-end
-
-local function libraryLoadFaction(index, player)
-    local entry = LIBRARY_FILES[index]
-    if entry == nil then return end
-
-    library.factionIndex = index
-    library.busy = true
-    librarySetStatus("loading " .. entry.label .. "…")
-
-    libraryEnsureDefinitions(function()
-        libraryGet(entry.file, function(decoded)
-            local units = {}
-            if type(decoded.units) == "table" then
-                for _, unit in ipairs(decoded.units) do
-                    if type(unit) == "table" and unit.name ~= nil then
-                        table.insert(units, unit)
-                    end
-                end
-            end
-            libraryAbsorbPackets(decoded)
-            library.units = units
-            library.factionLabel = tostring(decoded.faction or entry.label)
-            library.busy = false
-            librarySetStatus(#units .. " profiles — pick one")
-        end, function(err)
-            library.busy = false
-            librarySetStatus(entry.file .. " failed — " .. err, player)
-        end)
-    end, player)
-end
-
--- Turn a library unit (which references packets/traits by ID) into a complete
--- definition the tracker can normalize.
-local function libraryBuildDefinition(unit)
-    local built = copyTable(unit)
-
-    local resolvedPackets = {}
-    if type(unit.packets) == "table" then
-        for _, reference in ipairs(unit.packets) do
-            if type(reference) == "table" then
-                table.insert(resolvedPackets, copyTable(reference))
-            else
-                local found = library.packets[tostring(reference)]
-                if found ~= nil then
-                    table.insert(resolvedPackets, copyTable(found))
-                else
-                    table.insert(resolvedPackets, {packet_id = tostring(reference), name = tostring(reference)})
-                end
-            end
-        end
-    end
-    built.packets = resolvedPackets
-
-    local resolvedTraits = {}
-    if type(unit.traits) == "table" then
-        for _, reference in ipairs(unit.traits) do
-            if type(reference) == "table" then
-                table.insert(resolvedTraits, copyTable(reference))
-            else
-                local found = library.traits[tostring(reference)]
-                if found ~= nil then
-                    table.insert(resolvedTraits, copyTable(found))
-                else
-                    table.insert(resolvedTraits, {trait_id = tostring(reference), name = tostring(reference)})
-                end
-            end
-        end
-    end
-    built.traits = resolvedTraits
-
-    return built
-end
-
-local function libraryPick(index, player)
-    local unit = library.units[index]
-    if unit == nil then return end
-
-    local built = libraryBuildDefinition(unit)
-    local ok, encoded = pcall(JSON.encode, built)
-    if not ok or type(encoded) ~= "string" then
-        notify(player, "CUS Library: could not encode " .. tostring(unit.name), {1.00, 0.35, 0.35})
-        return
-    end
-
-    runtime.definition_json = encoded
-    self.memo = encoded
-    if self.setGMNotes then pcall(function() self.setGMNotes("") end) end
-
-    -- A different figure entirely, so its pools start full.
-    runtime.loaded_definition_id = nil
-    runtime.current_wounds = nil
-    runtime.current_ap = nil
-    runtime.current_reactions = nil
-
-    loadDefinition(player, false)
-    runtime.library_open = false
-    refreshAll()
-    notify(player, "Stamped: " .. tostring(unit.name) .. " (" .. library.factionLabel .. ")", {0.40, 0.90, 0.55})
-end
-
-buildLibraryPanelXml = function(position, panelScale, accent)
-    if runtime.library_open ~= true then return "" end
-
-    local tabs = {}
-    for index, entry in ipairs(LIBRARY_FILES) do
-        local on = index == library.factionIndex
-        local hex = on and accent or "2A3442"
-        tabs[#tabs + 1] = [[<Button id="cus-lib-fac-]] .. index .. [[" onClick="cusUiClick" text="]] .. xmlEscape(entry.label)
-            .. [[" width="74" height="20" fontSize="9" colors="#]] .. hex .. [[AA|#]] .. hex .. [[EE|#]] .. hex .. [[77|#]] .. hex .. [[AA" />]]
-    end
-
-    local rows = {}
-    for index, unit in ipairs(library.units) do
-        local stats = type(unit.stats) == "table" and unit.stats or {}
-        local meta = table.concat({
-            tostring(unit.role or "—"),
-            tostring(unit.tool or "—"),
-            "W" .. tostring(stats.max_wounds or "?"),
-            tostring(stats.armour or "—"),
-        }, " · ")
-        rows[#rows + 1] = [[<Button id="cus-lib-unit-]] .. index .. [[" onClick="cusUiClick" text="]]
-            .. xmlEscape(tostring(unit.name) .. "   —   " .. meta)
-            .. [[" width="330" height="22" fontSize="11" alignment="MiddleLeft" colors="#1B2430FF|#2C3B4EFF|#141C26FF|#1B2430FF" />]]
-    end
-    if #rows == 0 then
-        rows[1] = [[<Text text="]] .. xmlEscape(library.busy and "Loading…" or "No profiles loaded.") .. [[" width="330" height="22" fontSize="11" color="#9AA6B2" />]]
-    end
-
-    local listHeight = math.max(66, math.min(#rows * 24, 260))
-    return [[
-<Panel position="]] .. position .. [[" width="360" height="]] .. (listHeight + 92) .. [[" rotation="0 0 ]] .. tostring(runtime.ui_rotation) .. [[" scale="]] .. panelScale .. [[" offsetXY="0 -200" color="#11151CF2" outline="#]] .. accent .. [[" outlineSize="2 2">
-    <VerticalLayout spacing="4" padding="6 6 6 6" childAlignment="UpperCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="348" height="]] .. (listHeight + 80) .. [[">
-        <HorizontalLayout spacing="3" padding="0 0 0 0" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="344" height="22">
-            <Text text="UNIT LIBRARY" width="180" height="20" fontSize="12" color="#F2F4F8" alignment="MiddleLeft" />
-            <Button id="cus-lib-reload" onClick="cusUiClick" text="RELOAD" width="60" height="20" fontSize="9" />
-            <Button id="cus-lib-close" onClick="cusUiClick" text="✕" width="26" height="20" fontSize="12" colors="#EF5B5B99|#EF5B5BCC|#EF5B5B77|#EF5B5B99" />
-        </HorizontalLayout>
-        <HorizontalLayout spacing="2" padding="0 0 0 0" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="344" height="22">]]
-            .. table.concat(tabs, "") .. [[</HorizontalLayout>
-        <Text text="]] .. xmlEscape(library.status) .. [[" width="344" height="16" fontSize="10" color="#9AA6B2" alignment="MiddleLeft" />
-        <VerticalScrollView width="344" height="]] .. listHeight .. [[" color="#0C1118C0">
-            <VerticalLayout spacing="2" padding="2 2 2 2" childAlignment="UpperCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="336" height="]] .. (#rows * 24 + 6) .. [[">]]
-                .. table.concat(rows, "") .. [[</VerticalLayout>
-        </VerticalScrollView>
-    </VerticalLayout>
-</Panel>]]
-end
-
-local function contextLibrary(playerColor)
-    runtime.library_open = not runtime.library_open
-    if runtime.library_open and #library.units == 0 then
-        libraryLoadFaction(library.factionIndex, playerColor)
-    else
-        refreshAll()
-    end
-end
-
--- cusUiClick is defined earlier in the file than this block, so the library
--- entry points are exposed as globals for it to reach.
-function CUS_LibraryPick(index, player)
-    if index ~= nil then libraryPick(index, player) end
-end
-
-function CUS_LibraryFaction(index, player)
-    if index ~= nil then libraryLoadFaction(index, player) end
-end
-
-function CUS_LibraryReload(player)
-    library.packets = nil
-    library.traits = nil
-    library.units = {}
-    libraryLoadFaction(library.factionIndex, player)
-end
-
-function CUS_LibraryOpen(params)
-    runtime.library_open = true
-    if #library.units == 0 then
-        libraryLoadFaction(library.factionIndex, params and params.player_color or nil)
-    else
-        refreshAll()
-    end
-end
-
-
+-- ACT: choose one of this figure's packets, then a target. Global owns the
+-- flow because it is the only script that can see both miniatures.
 local function contextAttack(playerColor)
     local ok, started = pcall(function()
-        return Global.call("CUS_BeginAttack", {
+        return Global.call("CUS_BeginAction", {
             player_color = playerColor,
             attacker_guid = self.getGUID(),
         })
     end)
 
+    -- Fall back to the retired entry point so an older Global still answers.
     if not ok or started ~= true then
-        notify(playerColor, "CUS Attack Controller is not installed in Global.lua.", {1.00, 0.35, 0.35})
+        ok, started = pcall(function()
+            return Global.call("CUS_BeginAttack", {
+                player_color = playerColor,
+                attacker_guid = self.getGUID(),
+            })
+        end)
+    end
+
+    if not ok or started ~= true then
+        notify(playerColor, "CUS Action Controller is not installed in Global.lua.", {1.00, 0.35, 0.35})
+    end
+end
+
+-- Open the Unit Library in Global, scoped to THIS miniature. Whatever unit the
+-- player picks is stamped straight onto it — no card, no linking step.
+local function contextLibrary(playerColor)
+    local ok, opened = pcall(function()
+        return Global.call("CUS_OpenLibrary", {
+            player_color   = playerColor,
+            miniature_guid = self.getGUID(),
+        })
+    end)
+
+    if not ok or opened ~= true then
+        notify(playerColor, "CUS Unit Library is not installed in Global.lua.", {1.00, 0.35, 0.35})
     end
 end
 
@@ -2485,8 +2236,8 @@ local function setupContextMenu()
 
     -- Keep this deliberately short. Everything else lives in the two compact
     -- object-attached panels so TTS's own context menu stays usable.
-    self.addContextMenuItem("CUS: Unit Library", contextLibrary)
     self.addContextMenuItem("CUS: Attack", contextAttack)
+    self.addContextMenuItem("CUS: Unit Library", contextLibrary)
     self.addContextMenuItem("CUS: Controls", contextOverlayControls)
     self.addContextMenuItem("CUS: Movement", contextMovementControls)
     self.addContextMenuItem("CUS: New Round", contextNewRound)
@@ -2501,6 +2252,49 @@ function CUS_GetDefinitionJSON()
     return JSON.encode(definition)
 end
 function CUS_GetRuntime() return copyTable(runtime) end
+
+-- Stamp a whole unit definition onto this miniature from outside — the Unit
+-- Library in Global calls this. Takes JSON, never a Lua table: a table handed
+-- across scripts stays owned by the caller's sandbox and TTS refuses to let
+-- this object keep it ("resources owned by different scripts").
+--
+-- This replaces the card-and-link flow entirely. The miniature IS the unit.
+function CUS_SetDefinitionJSON(params)
+    local raw = nil
+    if type(params) == "table" then
+        raw = params.json or params.definition_json or params.definition
+    elseif type(params) == "string" then
+        raw = params
+    end
+    if type(raw) ~= "string" or trim(raw) == "" then return false end
+
+    local text = extractJsonObject(raw) or stripCodeFence(raw)
+    if text == "" then return false end
+
+    local ok, decoded = pcall(JSON.decode, text)
+    if not ok or type(decoded) ~= "table" then return false end
+
+    -- A new unit is a new figure: start it at full wounds and AP, unspent.
+    runtime.definition_json = text
+    runtime.loaded_definition_id = nil          -- forces a full stat sync
+    runtime.schema_adapter_version = nil
+    self.memo = text
+    if self.setGMNotes then pcall(function() self.setGMNotes("") end) end
+
+    loadDefinition(params and params.player_color or nil, false)
+
+    runtime.current_wounds = definition.wounds
+    runtime.current_ap = definition.ap
+    runtime.nerve_state = "Steady"
+    runtime.turn_state = "Unactivated"
+    synchronizeTurnFlags()
+    clearMovementPath(false)
+
+    refreshAll()
+    notify(params and params.player_color or nil,
+        "Stamped " .. tostring(definition.name) .. " onto this miniature.", {0.40, 0.90, 0.55})
+    return true
+end
 function CUS_NewRound(params)
     local player = params and params.player_color or nil
     newRound(player)

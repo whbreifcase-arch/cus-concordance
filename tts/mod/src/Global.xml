@@ -1,0 +1,348 @@
+<!-- Global.xml — all player-local CUS panels + the radial wheel.
+     Panels start hidden (active="false") and are shown/targeted per player from
+     Lua via UI.show / UI.setAttribute(id,"visibility",color). Button onClick
+     names resolve to GLOBAL functions defined in Global.lua. -->
+
+<Defaults>
+  <Text color="#e8f0ff" fontSize="16" alignment="MiddleLeft"/>
+  <Button color="#2a3550" textColor="#e8f0ff" fontSize="16"
+          colors="#2a3550|#3a4a72|#1c2438|#556"/>
+  <Panel color="rgba(12,16,26,0.92)" outline="#0a0d14" outlineSize="2 2"/>
+  <VerticalLayout spacing="4" padding="8 8 8 8"/>
+  <HorizontalLayout spacing="4" padding="0 0 0 0"/>
+</Defaults>
+
+<!-- ============================ RADIAL WHEEL =========================== -->
+<Panel id="cus_wheel" active="false" width="520" height="360"
+       rectAlignment="MiddleCenter" color="rgba(10,14,22,0.94)">
+  <VerticalLayout>
+    <Text id="cus_wheel_title" fontSize="20" alignment="MiddleCenter" color="#8fd0ff">Unit</Text>
+    <HorizontalLayout preferredHeight="220" spacing="8">
+      <!-- LEFT: the THREE canonical root verbs + center (A.III, SIGNED).
+           MOVE changes Position now · ACTION resolves a PACKET now ·
+           WAIT arms a PACKET for later. The flavour — Strike, Cast, Brace,
+           Overwatch — lives in the submenu, never as a fourth root. -->
+      <VerticalLayout preferredWidth="200" spacing="6">
+        <Button class="wheelRoot" text="MOVE"   onClick="wheelBranchMove"/>
+        <Button class="wheelRoot" text="ACTION" onClick="wheelBranchAction"/>
+        <Button class="wheelRoot" text="WAIT"   onClick="wheelBranchWait"/>
+        <Text class="wheelHint" fontSize="11">1 AP each · one attack per activation</Text>
+        <Button text="◉ Card / Back" color="#1c2438" onClick="wheelCenter"/>
+      </VerticalLayout>
+      <!-- RIGHT: submenu column. Pre-declared slots, driven by setAttribute —
+           never setXmlTable, which would replace the whole UI. -->
+      <VerticalScrollView preferredWidth="300" color="rgba(0,0,0,0.25)">
+        <VerticalLayout spacing="2" padding="3 3 3 3">
+          <Button id="whsub1"  active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub2"  active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub3"  active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub4"  active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub5"  active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub6"  active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub7"  active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub8"  active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub9"  active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub10" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub11" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub12" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub13" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub14" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub15" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub16" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub17" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub18" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub19" active="false" preferredHeight="24" fontSize="13"/>
+          <Button id="whsub20" active="false" preferredHeight="24" fontSize="13"/>
+        </VerticalLayout>
+      </VerticalScrollView>
+    </HorizontalLayout>
+    <!-- outer utility ring (NOT canonical actions) -->
+    <HorizontalLayout preferredHeight="34" spacing="4">
+      <Button text="Activate" onClick="wheelUtilActivate"/>
+      <Button text="State"    onClick="wheelUtilState"/>
+      <Button text="Command"  onClick="wheelUtilCommand"/>
+      <Button text="Undo"     onClick="wheelUtilUndo"/>
+      <Button text="Cancel"   color="#4a2530" onClick="wheelClose"/>
+    </HorizontalLayout>
+  </VerticalLayout>
+</Panel>
+
+<!-- ============================ CARD VIEWER =========================== -->
+<Panel id="cus_cardviewer" active="false" width="420" height="580"
+       rectAlignment="MiddleRight" offsetXY="-20 0" color="rgba(8,10,16,0.96)">
+  <VerticalLayout>
+    <HorizontalLayout preferredHeight="30">
+      <Text id="cus_card_title" fontSize="18" color="#8fd0ff">Card</Text>
+      <Button id="cus_card_pin" preferredWidth="80" text="Pin" onClick="cardPin"/>
+      <Button preferredWidth="40" text="✕" color="#4a2530" onClick="cardClose"/>
+    </HorizontalLayout>
+    <Image id="cus_card_img" preferredHeight="520" image=""/>
+  </VerticalLayout>
+</Panel>
+
+<!-- ============================ ATTACK PANEL ========================== -->
+<Panel id="cus_attack" active="false" width="560" height="620"
+       rectAlignment="MiddleLeft" offsetXY="20 0">
+  <VerticalLayout>
+    <Text fontSize="20" color="#ff9a5a">ATTACK RESOLVER</Text>
+    <HorizontalLayout preferredHeight="26">
+      <Text id="ap_atk_name" color="#ffb37a">Attacker</Text>
+      <Text>→</Text>
+      <Text id="ap_def_name" color="#ff8a8a">Defender</Text>
+    </HorizontalLayout>
+    <Text id="ap_packet">packet</Text>
+    <HorizontalLayout preferredHeight="24">
+      <Text id="ap_def_armour">Armour</Text>
+      <Text id="ap_def_wounds">Wounds</Text>
+      <Text id="ap_def_counter">Counter</Text>
+    </HorizontalLayout>
+    <Text id="ap_facing" color="#9ad0ff">Facing</Text>
+
+    <Text fontSize="14" color="#8899bb">— Modifier ledger (source → consequence) —</Text>
+    <VerticalScrollView preferredHeight="150" color="rgba(0,0,0,0.25)">
+      <VerticalLayout spacing="2" padding="3 3 3 3">
+        <Button id="ledg_r1"  active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r2"  active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r3"  active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r4"  active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r5"  active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r6"  active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r7"  active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r8"  active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r9"  active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r10" active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r11" active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r12" active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r13" active="false" preferredHeight="20" fontSize="12"/>
+        <Button id="ledg_r14" active="false" preferredHeight="20" fontSize="12"/>
+      </VerticalLayout>
+    </VerticalScrollView>
+
+    <Text fontSize="14" color="#8899bb">— Judgments you confirm —</Text>
+    <HorizontalLayout preferredHeight="30" spacing="4">
+      <Button text="Cover"      onClick="apToggleCover"/>
+      <Button text="High Ground" onClick="apToggleHigh"/>
+      <Button text="LoS Clear"  onClick="apToggleLoS"/>
+      <Button id="ap_mob" text="Mob Rule: off" onClick="apToggleMob"/>
+    </HorizontalLayout>
+
+    <Text id="ap_final" fontSize="18" color="#ffe08a">FINAL</Text>
+
+    <HorizontalLayout preferredHeight="32" spacing="4">
+      <Button text="Roll Automatically" onClick="apRoll"/>
+      <Button text="Enter Dice" onClick="apEnterDice"/>
+      <Button text="Enter Successes" onClick="apEnterSuccesses"/>
+    </HorizontalLayout>
+
+    <VerticalLayout id="ap_result" active="false" spacing="2" color="rgba(0,0,0,0.25)" padding="6 6 6 6">
+      <Text id="ap_dice"    color="#cfe8ff">Dice</Text>
+      <Text id="ap_tiers"   color="#cfe8ff">Tiers</Text>
+      <Text id="ap_effects" color="#ffd27a">Effects</Text>
+      <Text id="ap_saves"   color="#9ad0ff">Saves</Text>
+      <Text id="ap_pending" fontSize="17" color="#ff8a8a">Pending</Text>
+    </VerticalLayout>
+
+    <HorizontalLayout preferredHeight="34" spacing="4">
+      <Button text="APPLY" color="#25502a" onClick="apApply"/>
+      <Button text="Resolve Counter" onClick="apCounter"/>
+      <Button text="Cancel" color="#4a2530" onClick="apCancel"/>
+    </HorizontalLayout>
+  </VerticalLayout>
+</Panel>
+
+<!-- Manual dice / successes entry -->
+<Panel id="cus_manual" active="false" width="320" height="150" rectAlignment="MiddleCenter">
+  <VerticalLayout>
+    <Text id="man_prompt" color="#ffe08a">Enter values</Text>
+    <InputField id="man_input" placeholder="e.g. 5 3 6 2 or a success count" onValueChanged="manInputChanged"/>
+    <HorizontalLayout preferredHeight="32">
+      <Button text="OK" color="#25502a" onClick="manOK"/>
+      <Button text="Cancel" color="#4a2530" onClick="manCancel"/>
+    </HorizontalLayout>
+  </VerticalLayout>
+</Panel>
+
+<!-- ============================ MOVEMENT HUD ========================== -->
+<Panel id="cus_move" active="false" width="360" height="150"
+       rectAlignment="LowerCenter" offsetXY="0 24">
+  <VerticalLayout>
+    <Text fontSize="18" color="#8fd0ff">MOVE</Text>
+    <Text id="mp_dist">Used 0" · Remaining 0"</Text>
+    <HorizontalLayout preferredHeight="32" spacing="4">
+      <Button text="+Story (1AP)" onClick="mpStory"/>
+      <Button text="Commit" color="#25502a" onClick="mpCommit"/>
+      <Button text="Undo" onClick="mpUndo"/>
+      <Button text="Cancel" color="#4a2530" onClick="mpCancel"/>
+    </HorizontalLayout>
+  </VerticalLayout>
+</Panel>
+
+<!-- ============================ NERVE PANEL ========================== -->
+<Panel id="cus_nerve" active="false" width="420" height="260" rectAlignment="MiddleCenter">
+  <VerticalLayout>
+    <Text id="np_name" fontSize="18" color="#8fd0ff">Nerve</Text>
+    <Text id="np_elig" color="#cfe8ff">eligibility</Text>
+    <Text id="np_value">value</Text>
+    <!-- id was "np_rout", which collided with the Rout BUTTON below; a
+         duplicate id makes UI.setAttribute hit the wrong element. -->
+    <Text id="np_rout_text" color="#ffd27a">rout</Text>
+    <HorizontalLayout preferredHeight="32" spacing="4">
+      <Button id="np_pass" text="Pass" onClick="npPass"/>
+      <Button id="np_fail" text="Fail" onClick="npFail"/>
+      <Button id="np_shaken" text="Shaken" onClick="npShaken"/>
+      <Button text="Rally" onClick="npRally"/>
+      <Button id="np_rout" text="Rout" color="#4a2530" onClick="npRout"/>
+    </HorizontalLayout>
+    <Button text="Close" onClick="npClose"/>
+  </VerticalLayout>
+</Panel>
+
+<!-- ============================ FORMATION PANEL ====================== -->
+<Panel id="cus_form" active="false" width="420" height="280" rectAlignment="MiddleCenter">
+  <VerticalLayout>
+    <Text id="fp_leader" fontSize="18" color="#8fd0ff">Leader</Text>
+    <Text id="fp_formation" color="#cfe8ff">formation</Text>
+    <Text id="fp_count">participants</Text>
+    <HorizontalLayout preferredHeight="30" spacing="3">
+      <Button text="Wedge" onClick="fpFormWedge"/>
+      <Button text="Column" onClick="fpFormColumn"/>
+      <Button text="Shield Wall" onClick="fpFormShield"/>
+      <Button text="Line" onClick="fpFormLine"/>
+    </HorizontalLayout>
+    <Button text="Add Selected Minis" onClick="fpAddSel"/>
+    <HorizontalLayout preferredHeight="32" spacing="4">
+      <Button text="Advance" color="#25502a" onClick="fpAdvance"/>
+      <Button text="Reform (1AP)" onClick="fpReform"/>
+      <Button text="Close" color="#4a2530" onClick="fpClose"/>
+    </HorizontalLayout>
+  </VerticalLayout>
+</Panel>
+
+<!-- ============================ CONDITIONS =========================== -->
+<Panel id="cus_cond" active="false" width="380" height="300" rectAlignment="MiddleCenter">
+  <VerticalLayout>
+    <Text id="cond_name" fontSize="18" color="#8fd0ff">Conditions</Text>
+    <VerticalScrollView preferredHeight="130" color="rgba(0,0,0,0.25)">
+      <VerticalLayout spacing="2" padding="3 3 3 3">
+        <Button id="cond_r1"  active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r2"  active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r3"  active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r4"  active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r5"  active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r6"  active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r7"  active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r8"  active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r9"  active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r10" active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r11" active="false" preferredHeight="22" fontSize="12"/>
+        <Button id="cond_r12" active="false" preferredHeight="22" fontSize="12"/>
+      </VerticalLayout>
+    </VerticalScrollView>
+    <HorizontalLayout preferredHeight="30" spacing="3">
+      <InputField id="cond_input" placeholder="condition id (e.g. Burning)" onValueChanged="condInputChanged"/>
+      <Button text="Add" onClick="condAdd"/>
+    </HorizontalLayout>
+    <Button text="Close" onClick="condClose"/>
+  </VerticalLayout>
+</Panel>
+
+<!-- ============================ ROUND / LOG ========================== -->
+<Panel id="cus_round" active="false" width="300" height="230" rectAlignment="UpperRight" offsetXY="-12 -12">
+  <VerticalLayout>
+    <Text id="rm_round" fontSize="18" color="#8fd0ff">Round 1</Text>
+    <Button text="New Round" color="#25502a" onClick="rmNewRound"/>
+    <Button text="Toggle Log" onClick="rmToggleLog"/>
+    <Button text="Undo Last" onClick="rmUndo"/>
+    <Button text="Unit Library" color="#25384f" onClick="rmLibrary"/>
+    <Button text="Spawn Blank Card" onClick="rmBlankCard"/>
+    <Button text="Spawn Test Fixture" onClick="rmFixture"/>
+    <Button text="Audit Links" onClick="rmAudit"/>
+    <Button text="Debug: Dump JSON" onClick="rmDump"/>
+  </VerticalLayout>
+</Panel>
+
+<!-- ============================ UNIT LIBRARY ========================= -->
+<!-- A small popup, two steps: pick a faction, then tap a unit. One list is
+     reused for both steps. The 20 rows are PRE-DECLARED and inactive; Lua
+     shows/hides them with UI.setAttribute. They are never rebuilt with
+     setXmlTable, which would replace the entire UI (see core/UIList.lua). -->
+<Panel id="cus_lib" active="false" width="330" height="450" rectAlignment="MiddleCenter" color="rgba(12,16,26,0.97)">
+  <VerticalLayout padding="10 10 8 8" spacing="4">
+    <Text id="lib_title" fontSize="16" color="#8fd0ff" preferredHeight="22">Unit Library</Text>
+    <Text id="lib_hint" fontSize="11" color="#8899bb" preferredHeight="26">Pick a faction.</Text>
+    <VerticalScrollView preferredHeight="330" color="rgba(0,0,0,0.25)">
+      <VerticalLayout spacing="2" padding="4 4 4 4">
+        <Button id="lib_r1"  active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r2"  active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r3"  active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r4"  active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r5"  active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r6"  active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r7"  active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r8"  active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r9"  active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r10" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r11" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r12" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r13" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r14" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r15" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r16" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r17" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r18" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r19" active="false" preferredHeight="26" fontSize="13"/>
+        <Button id="lib_r20" active="false" preferredHeight="26" fontSize="13"/>
+      </VerticalLayout>
+    </VerticalScrollView>
+    <HorizontalLayout preferredHeight="28" spacing="4">
+      <Button id="lib_back" active="false" text="&lt; Factions" color="#2a3550" onClick="libBack"/>
+      <Button text="Close" color="#4a2530" onClick="libClose"/>
+    </HorizontalLayout>
+  </VerticalLayout>
+</Panel>
+
+<!-- ======================== CARD LAYOUT EDITOR ====================== -->
+<Panel id="cus_layout" active="false" width="440" height="430" rectAlignment="MiddleRight" offsetXY="-16 0">
+  <VerticalLayout>
+    <Text fontSize="18" color="#8fd0ff">Card Layout Editor</Text>
+    <HorizontalLayout preferredHeight="30" spacing="4">
+      <Button text="◀ Zone" onClick="clZonePrev"/>
+      <Text id="cl_zone" alignment="MiddleCenter">Zone: name</Text>
+      <Button text="Zone ▶" onClick="clZoneNext"/>
+    </HorizontalLayout>
+    <Text id="cl_info" fontSize="12" color="#cfe8ff">x y w h size</Text>
+    <Text fontSize="12" color="#8899bb">Move (position)</Text>
+    <HorizontalLayout preferredHeight="30" spacing="4">
+      <Button text="X −" onClick="clXminus"/><Button text="X +" onClick="clXplus"/>
+      <Button text="Y −" onClick="clYminus"/><Button text="Y +" onClick="clYplus"/>
+    </HorizontalLayout>
+    <Text fontSize="12" color="#8899bb">Size (box + font)</Text>
+    <HorizontalLayout preferredHeight="30" spacing="4">
+      <Button text="W −" onClick="clWminus"/><Button text="W +" onClick="clWplus"/>
+      <Button text="H −" onClick="clHminus"/><Button text="H +" onClick="clHplus"/>
+      <Button text="font −" onClick="clFminus"/><Button text="font +" onClick="clFplus"/>
+    </HorizontalLayout>
+    <HorizontalLayout preferredHeight="30" spacing="4">
+      <Button text="Align" onClick="clAlign"/>
+      <Button text="Show/Hide" onClick="clShow"/>
+      <Button text="Apply to all cards" onClick="clApplyAll"/>
+    </HorizontalLayout>
+    <HorizontalLayout preferredHeight="30" spacing="4">
+      <Button text="Export JSON → console" onClick="clExport"/>
+    </HorizontalLayout>
+    <InputField id="cl_import" placeholder="paste layout JSON here to import" onValueChanged="clImportChanged"/>
+    <HorizontalLayout preferredHeight="30" spacing="4">
+      <Button text="Import pasted JSON" onClick="clImport"/>
+      <Button text="Close" color="#4a2530" onClick="clClose"/>
+    </HorizontalLayout>
+  </VerticalLayout>
+</Panel>
+
+<Panel id="cus_logpanel" active="false" width="520" height="300" rectAlignment="LowerRight" offsetXY="-12 12">
+  <VerticalLayout>
+    <Text fontSize="16" color="#8fd0ff">Action Log</Text>
+    <VerticalScrollView preferredHeight="240" color="rgba(0,0,0,0.3)">
+      <Text id="log_text" fontSize="13" alignment="UpperLeft"> </Text>
+    </VerticalScrollView>
+  </VerticalLayout>
+</Panel>

@@ -1,0 +1,25 @@
+{
+  "_comment": "Shared CUS card layout. Coordinates are NORMALIZED (0..1) fractions of the card rectangle (origin = top-left, y grows downward). 'size' is font height as a fraction of card height. This one file drives BOTH the HTML Card Forge drag-editor and the in-TTS live card face, so a zone moved in one appears in the other. 'label' is an optional static prefix drawn before the value. Binding keys match Card Forge: name/role/tool/dice/hit/wounds/armour/speed/ap/nerve/rank/weapon/tiers/note/base/temper.",
+  "card": { "aspect_w": 5, "aspect_h": 7, "bg": "#141821", "fg": "#e8f0ff", "accent": "#8fd0ff" },
+  "zones": {
+    "name":   { "x": 0.06, "y": 0.035, "w": 0.88, "h": 0.10, "size": 0.070, "align": "left",   "label": "",        "show": true },
+    "role":   { "x": 0.06, "y": 0.140, "w": 0.44, "h": 0.045, "size": 0.034, "align": "left",   "label": "",        "show": true },
+    "tool":   { "x": 0.06, "y": 0.185, "w": 0.44, "h": 0.040, "size": 0.030, "align": "left",   "label": "",        "show": true },
+    "base":   { "x": 0.50, "y": 0.140, "w": 0.44, "h": 0.045, "size": 0.032, "align": "right",  "label": "",        "show": true },
+    "temper": { "x": 0.50, "y": 0.185, "w": 0.44, "h": 0.040, "size": 0.030, "align": "right",  "label": "",        "show": true },
+
+    "dice":   { "x": 0.06, "y": 0.600, "w": 0.21, "h": 0.070, "size": 0.045, "align": "center", "label": "DICE ",   "show": true },
+    "hit":    { "x": 0.29, "y": 0.600, "w": 0.19, "h": 0.070, "size": 0.045, "align": "center", "label": "HIT ",    "show": true },
+    "wounds": { "x": 0.50, "y": 0.600, "w": 0.19, "h": 0.070, "size": 0.045, "align": "center", "label": "W ",      "show": true },
+    "armour": { "x": 0.71, "y": 0.600, "w": 0.23, "h": 0.070, "size": 0.045, "align": "center", "label": "ARM ",    "show": true },
+
+    "speed":  { "x": 0.06, "y": 0.680, "w": 0.21, "h": 0.060, "size": 0.038, "align": "center", "label": "SPD ",    "show": true },
+    "ap":     { "x": 0.29, "y": 0.680, "w": 0.19, "h": 0.060, "size": 0.038, "align": "center", "label": "AP ",     "show": true },
+    "nerve":  { "x": 0.50, "y": 0.680, "w": 0.19, "h": 0.060, "size": 0.038, "align": "center", "label": "NRV ",    "show": true },
+    "rank":   { "x": 0.71, "y": 0.680, "w": 0.23, "h": 0.060, "size": 0.038, "align": "center", "label": "RANK ",   "show": true },
+
+    "weapon": { "x": 0.06, "y": 0.770, "w": 0.88, "h": 0.050, "size": 0.040, "align": "left",   "label": "",        "show": true },
+    "tiers":  { "x": 0.06, "y": 0.825, "w": 0.88, "h": 0.060, "size": 0.032, "align": "left",   "label": "",        "show": true },
+    "note":   { "x": 0.06, "y": 0.895, "w": 0.88, "h": 0.085, "size": 0.028, "align": "left",   "label": "",        "show": true }
+  }
+}

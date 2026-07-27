@@ -1,115 +1,97 @@
 # CUS — Tabletop Simulator
 
-The playable implementation. Two scripts, both drop-in.
+Two implementations live here. **`kit/` is the live one.** `mod/` is the older,
+larger build, kept for its data and its build pipeline.
+
+```
+tts/
+  kit/    ← THE ONE THAT RUNS. Per-miniature tracker + a Global that stamps
+            units onto minis from an 81-unit library. No cards, no linking.
+  mod/    ← the full mod: src/ + build/ + a 700-line Global.xml. Superseded,
+            not deleted — it owns the bundler and the save-file generator.
+  SPEC.md ← v0.6 canon change-spec for whoever edits either build
+```
+
+---
+
+## kit/ — the live build
 
 | File | Goes in |
 |---|---|
-| [CUS_Miniature_Tracker.lua](CUS_Miniature_Tracker.lua) | each miniature's **Object Lua** |
-| [Global.lua](Global.lua) | the mod's **Global Lua** (the Attack Controller) |
+| `Global_CUS_full.lua` | the mod's **Global** slot (Lua). Includes the embedded unit library. |
+| `Miniature_Tracker.lua` | **each miniature's Object script** |
+| — | **the UI (XML) slot stays EMPTY** |
 
-Paste, press **Save & Play**. No JSON to import — the tracker pulls units from
-this repo (see below).
+**There is no XML.** Both scripts build their panels as strings and push them
+with `UI.setXml()` at runtime. That is the single biggest reason this build is
+healthier than `mod/`: one source of truth, and no way for the Lua and the XML
+to drift out of lockstep — which is exactly what blanked the mod's UI.
 
----
+### The flow
+Right-click a miniature → **CUS: Unit Library** → pick a faction → tap a unit →
+it is stamped onto that mini. No card, no linking step.
 
-## The HUD
+### Regenerating the library
+`build_library.ps1` walks `../../factions/data/`, resolves every `packet_id` and
+`trait_id` into full objects, and emits `unit_library_v06.json` + `.lua`. The
+faction files store references; the tracker wants whole objects, because a
+miniature carries its entire definition and never looks anything up.
 
-```
-   [yellow]  [blue]    [heart]   [triangle]
-   REACTION    AP       WOUNDS   ACTIVATION
-     ●         ●         ♥ 2         △
-     ●         ●
-     ○         ●
-                MOVE  ATK  WAIT  ↻
-```
+Run it after editing any faction, then re-paste Global.
 
-- **Yellow column — REACTION.** Spent on *someone else's* activation: Counter,
-  Shield Intercept, Reach strike, a firing Overwatch. `1` per figure, `2` for a
-  Circle (B · 12). Empty column, and the figure cannot respond at all.
-- **Blue column — AP / Agency.** Spent on your *own* activation. The two pools
-  never exchange (A · IV), which is why they are two columns and not one bar.
-- **Heart** — one heart with the Wounds remaining written on it. `☠` at zero.
-- **Triangle** — `△` unactivated · `▲` waiting (a WAIT is armed) · `▽` activated.
-
-Left-click spends, right-click restores, on every readout.
-
-### The action row
-```text
-MOVE   opens the ruler and starts tracking · click again to close
-ATK    fires the Attack Controller, then click your target
-WAIT   1 AP to arm — and it warns you it still costs a Reaction to fire
-↻      ACTIVATION refresh: AP + Reaction restored, WAIT expired, path cleared
-```
-
-`↻` is an **activation** refresh, not a round-wide one. A figure refreshes at the
-start of *its own* activation (B · 12) — which is exactly why a figure that
-emptied its pool late last round walks into this one still empty.
+> ⚠ **Always pass `-Encoding UTF8`.** PowerShell 5.1 falls back to the ANSI
+> codepage on BOM-less files, reads a UTF-8 middle dot (`C2 B7`) as two
+> characters, and writes it back double-encoded — permanently. That bug baked
+> 143 corrupted characters into the mod's generated library.
 
 ---
 
-## The Unit Library
+## mod/ — superseded, retained
 
-Right-click → **CUS: Unit Library**. Nine tabs, pulled live over HTTPS from:
+The full mod: `src/` (35 Lua files + `Global.xml`), `build/` (bundler, library
+assembler, save-file generator), `docs/`, `tests/`.
 
-```
-raw.githubusercontent.com/whbreifcase-arch/cus-kernel-rebuild/main/factions/data/
-```
+**Why it is not the live build:** it needs cards, linking, and a static
+`Global.xml` kept in lockstep with 4,200 lines of Lua. `kit/` needs a miniature
+and nothing else.
 
-Generic · Templars · Mordor · Militia · Goblins · Lizardfolk · Ponies · Dragon ·
-Bestiary. Click a profile and the figure is stamped.
+**Why it is still here:**
+- `build/make_save.ps1` bakes Lua + XML into a loadable TTS save (slot 20), so
+  there is no pasting at all. That trick is worth keeping.
+- `build/bundle.ps1` and `build/assemble_library.ps1` are working build steps.
+- Its last commit fixed three real bugs, documented below.
 
-Units reference packets and traits **by ID** (`"packets": ["gen_1h"]`) because a
-Definition is written once and referenced everywhere (Law 1). The tracker fetches
-`packets*.json` and `traits.json`, merges them into one lookup, and resolves those
-IDs into full objects before loading. Packets and traits are cached; **RELOAD**
-drops the cache and re-fetches.
-
-**A balance change committed to `factions/data/` is live on the next pick.**
-Nothing to re-export, nothing to re-import.
-
----
-
-## The Attack Controller
-
-Right-click → **CUS: Attack**, then click the target. It reads the geometry and
-tells you what it means:
-
-- **`BASE CONTACT — this packet is not_in_contact`** — Reach carries the
-  constraint by definition, ranged carries it by default (B · 5). Swing Fists.
-  A packet may opt out with `"not_in_contact": false` — that's a wrist crossbow,
-  and it is a priced advantage.
-- **`OUT OF REACH`**, with the real gap between bases.
-- In contact: *expect a Counter (1 Reaction).* Out of contact: *no engagement,
-  no Counter* — ranged never engages (B · 8).
-
-After a melee-in-contact roll it prints the Counter rules, including **both
-lethal → BOTH DIE**, and reminds you Grades are **discrete** — resolve only the
-line you reached (A · VI).
-
-**It automates nothing.** It never spends AP or Reaction, never rolls Armour,
-never applies an effect. It removes friction; it does not enforce.
+### The three bugs its last commit fixed
+1. **`UI.setXmlTable(rows, "element_id")` was replacing the entire global UI.**
+   TTS's signature is `setXmlTable(xmlTable, assetTable)` — the second argument
+   is the custom asset table, **not** an element to scope into. Five call sites
+   did this; opening any of them blanked every panel. TTS has no supported
+   "replace the children of X" call, so lists now use pre-declared slots driven
+   by `UI.setAttribute`.
+2. **The mojibake was the build scripts, not the paste.** See the encoding
+   warning above.
+3. **Buttons with no `color` attribute render white** — which is why a
+   stretched white button looked like a blank sheet.
 
 ---
 
-## Movement
+## SPEC.md
 
-The ruler reports the **3″ sprint→charge threshold** (B · 3):
+The v0.6 canon change-spec: what to rename, what to delete, what to add, and
+four real bugs, each with the rule citation behind it. Written to be applied to
+*any* build rather than as code.
 
-```text
-MOVE  7.4" / 8.0"   run-up 2.1"/3"     ← not yet a charge
-MOVE  7.4" / 8.0"   CHARGE 3.6"        ← earned it
-```
-
-It measures the **final leg only**, because a committed waypoint means the figure
-turned and the run-up has to be straight. Contact and interruption stay the
-players' call — the ruler reports geometry, it does not adjudicate.
+The headline item is **REACTION** — a Kernel Resource in its own right (A·IV),
+spent on someone else's activation, never paid out of AP, and the cap on every
+triggered PACKET in the game. Neither TTS build represents it yet.
 
 ---
 
-## Not implemented yet
+## Known gaps in both builds
 
-- **Form Up** (B · 11) — the Sergeant's group MOVE. Needs multi-object selection
-  and shape handling. The biggest missing mechanic.
-- **The Nerve test** — 3 dice vs Nerve (B · 10). Rolled by hand for now.
-- **Harm / the Aftermath** (H · 7–8) — between-battle, so it belongs in the
-  companion app rather than the table.
+- **Attacks still resolve on v0.5 Tiers**, not discrete Grades (A·VI, Model 2).
+- **Charge has not split into Sprint + Impact** (B·3), and neither build reports
+  the 3″ sprint→charge threshold.
+- **Form Up** (B·11) — the Sergeant's group MOVE. Needs multi-object selection.
+  The biggest missing mechanic.
+- **Reaction** — see SPEC.md.
