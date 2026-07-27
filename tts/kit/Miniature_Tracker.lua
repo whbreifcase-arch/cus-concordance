@@ -827,6 +827,8 @@ local function initializeRuntime()
     -- so an old save simply keeps the original arrangement.
     if type(runtime.layout) ~= "table" then runtime.layout = {} end
     runtime.layout_edit = runtime.layout_edit == true
+    runtime.verb_menu_open = runtime.verb_menu_open == true
+    runtime.packet_menu_open = runtime.packet_menu_open == true
     runtime.layout_piece = runtime.layout_piece or "rx"
     runtime.layout_step_i = clamp(math.floor(asNumber(runtime.layout_step_i, 2)), 1, 3)
 
@@ -1307,7 +1309,16 @@ local function buildNerveBadge()
 end
 
 -- The whole core loop, permanently on the token instead of behind a right-click.
+-- The three verbs are HIDDEN until you activate the figure. Tapping an
+-- unactivated triangle opens them; picking one closes them again. That makes
+-- the triangle mean "this figure is going now", and it puts the Kernel's three
+-- verbs (A.III) in front of the player at the exact moment they choose one,
+-- instead of parking them permanently on the model.
+--
+-- Force-shown while the layout editor is open, so the row can still be placed.
 local function buildActionRow()
+    if not (runtime.verb_menu_open or runtime.layout_edit) then return "" end
+
     -- preferredWidth/Height are required here too: this row lives inside a
     -- layout group, and a child with only width/height collapses to zero.
     local function b(id, text, tip, w)
@@ -1339,6 +1350,58 @@ local function buildActionRow()
              "WAIT - spend 1 AP to arm a packet. It still costs 1 Reaction when it fires.", 30) ..
         b("cus-new-round",   "↻",    "Refresh AP + Reaction, clear the armed WAIT", 26) ..
         [[</HorizontalLayout>]]
+end
+
+-- The packet selector. Opened by ACT, and deliberately PLAYER-FACING: it lists
+-- what this figure can actually do, in its own words, with the roll and the
+-- cost on the line. For a seven-year-old this is the menu of things you are
+-- allowed to try; for everyone else it is the honest cost of trying them.
+local function buildPacketMenu(position, panelScale, accent)
+    if runtime.packet_menu_open ~= true then return "" end
+
+    local packets = type(definition.packets) == "table" and definition.packets or {}
+    local rows = {}
+
+    for i, p in ipairs(packets) do
+        local cost = {}
+        if asNumber(p.cost_ap, 0) > 0 then cost[#cost+1] = asNumber(p.cost_ap, 0) .. " AP" end
+        if asNumber(p.cost_mp, 0) > 0 then cost[#cost+1] = asNumber(p.cost_mp, 0) .. " MP" end
+        local meta = packetRollText(p) .. "  ·  " .. packetRangeText(p) ..
+            (#cost > 0 and ("  ·  " .. table.concat(cost, " + ")) or "")
+
+        -- Grey the line out when the pools cannot pay for it. Still clickable —
+        -- the tracker reports, it does not police.
+        local affordable = (asNumber(p.cost_ap, 0) <= runtime.current_ap)
+            and (asNumber(p.cost_mp, 0) <= (runtime.current_mp or 0))
+        local fg = affordable and "#DCE6FF" or "#7A8494"
+
+        rows[#rows+1] = '<Button id="cus-pk-' .. i .. '" onClick="cusUiClick" text="' ..
+            xmlEscape(tostring(p.name) .. "        " .. meta) ..
+            '" width="300" height="24" preferredWidth="300" preferredHeight="24" fontSize="11"' ..
+            ' alignment="MiddleLeft" colors="#1B2430FF|#2C3B4EFF|#141C26FF|#1B2430FF" textColor="' ..
+            fg .. '" tooltip="' .. xmlEscape(tostring(p.name) .. "\n" ..
+            (p.grades_text or "") .. "\n\nPicking this spends its cost and starts targeting.") .. '" />'
+    end
+
+    if #rows == 0 then
+        rows[1] = '<Text text="No packets on this figure. Stamp a unit from the library." ' ..
+            'width="300" height="24" preferredWidth="300" preferredHeight="24" fontSize="11" color="#9AA6B2" />'
+    end
+
+    local h = math.min(#rows * 26 + 56, 300)
+    return [[
+<Panel position="]] .. position .. [[" width="320" height="]] .. h ..
+    [[" rotation="0 0 ]] .. tostring(runtime.ui_rotation) .. [[" scale="]] .. panelScale ..
+    [[" offsetXY="0 -150" color="#11151CF2" outline="#]] .. accent .. [[" outlineSize="2 2">
+  <VerticalLayout spacing="3" padding="6 6 6 6" childAlignment="UpperCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="310" height="]] .. (h - 10) .. [[">
+    <HorizontalLayout spacing="4" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="304" height="22" preferredWidth="304" preferredHeight="22">
+      <Text text="ACTION — pick a packet" width="230" height="20" preferredWidth="230" preferredHeight="20" fontSize="12" color="#F2F4F8" alignment="MiddleLeft" />
+      <Button id="cus-pk-close" onClick="cusUiClick" text="CLOSE" width="66" height="20" preferredWidth="66" preferredHeight="20" fontSize="10" colors="#]]
+        .. HEX.red .. [[99|#]] .. HEX.red .. [[CC|#]] .. HEX.red .. [[77|#]] .. HEX.red .. [[99" />
+    </HorizontalLayout>
+    ]] .. table.concat(rows, "") .. [[
+  </VerticalLayout>
+</Panel>]]
 end
 
 local function buildAPPipsXml()
@@ -2106,6 +2169,7 @@ local function buildUIXml()
         .. piece("nerve",  nerveBadge, 84, 56)
         .. piece("action", actionRow, 170, 30)
         .. moveXml .. configXml
+        .. buildPacketMenu(position, panelScale, accent)
         .. buildLayoutEditor(position, panelScale, accent)
     return xml
 end
@@ -2241,6 +2305,60 @@ end
 -- 1 Reaction when it actually fires. Arming is not permission — a figure with
 -- an empty Reaction pool may arm a packet that will never resolve, and the
 -- tracker says so rather than letting the player discover it mid-fight.
+-- Picked from the ACT menu. Spends the packet's declared cost, then hands off
+-- to the Attack Controller for targeting with that packet already selected.
+--
+-- Cost is CHARGED but not ENFORCED: if the pools cannot pay, it says so and
+-- stops rather than going negative. The tracker reports the economy; it does
+-- not referee it. Grades, Counters and Armour all stay in the players' hands.
+local function choosePacket(index, player)
+    local packets = type(definition.packets) == "table" and definition.packets or {}
+    local p = packets[index]
+    if p == nil then return end
+
+    local apCost = math.max(0, math.floor(asNumber(p.cost_ap, 0)))
+    local mpCost = math.max(0, math.floor(asNumber(p.cost_mp, 0)))
+
+    if apCost > (runtime.current_ap or 0) then
+        notify(player, definition.name .. " cannot afford " .. tostring(p.name) ..
+            " — needs " .. apCost .. " AP, has " .. (runtime.current_ap or 0) .. ".",
+            {1.00, 0.45, 0.35})
+        return
+    end
+    if mpCost > (runtime.current_mp or 0) then
+        notify(player, definition.name .. " cannot afford " .. tostring(p.name) ..
+            " — needs " .. mpCost .. " MP, has " .. (runtime.current_mp or 0) ..
+            ". MP does not refresh until the next battle.", {1.00, 0.45, 0.35})
+        return
+    end
+
+    runtime.current_ap = (runtime.current_ap or 0) - apCost
+    runtime.current_mp = (runtime.current_mp or 0) - mpCost
+    runtime.packet_menu_open = false
+    runtime.verb_menu_open = false
+    refreshAll()
+
+    local spent = {}
+    if apCost > 0 then spent[#spent+1] = apCost .. " AP" end
+    if mpCost > 0 then spent[#spent+1] = mpCost .. " MP" end
+    notify(player, definition.name .. " → " .. tostring(p.name) ..
+        (#spent > 0 and ("  (" .. table.concat(spent, " + ") .. ")") or "") ..
+        ".  Now click a target.", {0.95, 0.80, 0.35})
+
+    -- Hand the chosen packet to Global so its panel opens on the right line.
+    local ok, started = pcall(function()
+        return Global.call("CUS_BeginAttack", {
+            player_color  = playerColorOfClick(player),
+            attacker_guid = self.getGUID(),
+            packet_index  = index,
+        })
+    end)
+    if not ok or started ~= true then
+        notify(player, "Attack Controller not installed in Global — resolve " ..
+            tostring(p.name) .. " by hand.", {1.00, 0.55, 0.35})
+    end
+end
+
 local function toggleWait(player)
     -- Already waiting? Cancel the state. AP is NOT refunded — it was spent.
     if runtime.turn_state == "Waiting" then
@@ -2352,10 +2470,20 @@ function cusUiClick(player, value, id)
     elseif id == "cus-ly-close" then
         runtime.layout_edit = false
         refreshAll()
+    -- ACT closes the verb menu and opens the packet selector.
     elseif id == "cus-act-attack" then
-        contextAttack(playerColorOfClick(player))
+        runtime.verb_menu_open = false
+        runtime.packet_menu_open = true
+        refreshAll()
+    -- WAIT closes the verb menu and arms. One press, one decision.
     elseif id == "cus-act-wait" then
-        toggleWait(player)
+        runtime.verb_menu_open = false
+        toggleWait(player)          -- spends 1 AP, sets Waiting, refreshes
+    elseif id == "cus-pk-close" then
+        runtime.packet_menu_open = false
+        refreshAll()
+    elseif id ~= nil and string.sub(id, 1, 7) == "cus-pk-" then
+        choosePacket(tonumber(string.sub(id, 8)), player)
     elseif id == "cus-ap-pips" or id == "cus-ap" or id == "cus-ap-spend" then
         changeAP(rightClick and 1 or -1, player)
     elseif id == "cus-ap-restore" then
@@ -2366,11 +2494,23 @@ function cusUiClick(player, value, id)
         resetRuntime(player)
     elseif id == "cus-nerve" then
         changeNerve(rightClick and -1 or 1, player)
+    -- THE TRIANGLE IS THE ACTIVATE BUTTON.
+    -- Left-click an UNACTIVATED figure and its three verbs appear. Left-click
+    -- in any other state, or right-click in any state, still cycles the state
+    -- by hand — because sometimes you just need to fix a marker.
     elseif id == "cus-turn-state" then
-        changeTurnState(rightClick and -1 or 1, player)
+        if (not rightClick) and runtime.turn_state == "Unactivated" then
+            runtime.verb_menu_open = not runtime.verb_menu_open
+            runtime.packet_menu_open = false
+            refreshAll()
+        else
+            runtime.verb_menu_open = false
+            changeTurnState(rightClick and -1 or 1, player)
+        end
     elseif id == "cus-move-toggle" then
         -- MOVE opens the ruler AND starts tracking in one press. Opening a
         -- ruler you then have to press START on is two clicks for one intent.
+        runtime.verb_menu_open = false
         if runtime.move_panel_open then
             clearMovementPath(false)          -- false = close the panel too
         else

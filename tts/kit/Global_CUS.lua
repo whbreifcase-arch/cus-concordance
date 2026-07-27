@@ -461,7 +461,7 @@ local function clearSession(playerColor)
     renderUI()
 end
 
-local function beginTargeting(playerColor, attacker)
+local function beginTargeting(playerColor, attacker, packetId)
     local definition = getDefinition(attacker)
     if definition == nil then
         tell(playerColor, "That miniature has no readable CUS definition.", {1.00, 0.35, 0.35})
@@ -473,15 +473,31 @@ local function beginTargeting(playerColor, attacker)
         return false
     end
 
+    -- The tracker's ACT menu may have already chosen the packet. Match by
+    -- packet_id, NOT by index: rollingPackets() filters out anything with no
+    -- dice, so the tracker's position in the full list does not survive here.
+    local chosen, phase = 1, "picking"
+    if packetId ~= nil then
+        for i, p in ipairs(packets) do
+            if tostring(p.packet_id) == tostring(packetId) then
+                chosen, phase = i, "targeting"      -- skip the picker entirely
+                break
+            end
+        end
+        if phase == "targeting" then
+            tell(playerColor, "Click the target for " .. tostring(packets[chosen].name) .. ".",
+                {0.35, 0.85, 1.00})
+        end
+    end
+
     clearSession(playerColor)
     sessions[playerColor] = {
-        -- Start at the PACKET picker, not at targeting.
-        phase = "picking",
+        phase = phase,
         attacker_guid = attacker.getGUID(),
         attacker_name = tostring(definition.name or attacker.getName()),
         attacker_def = definition,          -- kept for the base-radius lookup (§6.1)
         packets = packets,
-        packet_index = 1,
+        packet_index = chosen,
         modifier = 0,
         result = nil,
     }
@@ -512,7 +528,7 @@ function CUS_BeginAttack(params)
     local playerColor = params.player_color
     local attacker = getObjectFromGUID(params.attacker_guid or "")
     if playerColor == nil or attacker == nil then return false end
-    return beginTargeting(playerColor, attacker)
+    return beginTargeting(playerColor, attacker, params.packet_id)
 end
 
 -- The tracker's ACT button. Same entry point; the name matches the verb (A.III)
