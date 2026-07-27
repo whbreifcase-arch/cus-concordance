@@ -35,6 +35,10 @@ companion app.**
 > 🚧 **H and I contain no rules.** They declare what each domain will own and what
 > it must answer. Where they conflict with A–G, A–G wins.
 
+**Playable:** [tts/](tts/) — the Tabletop Simulator implementation. Two Lua
+scripts; the miniature tracker pulls its units live from `factions/data/` over
+HTTPS, so a balance change here is live in game on the next pick.
+
 **Supporting:** [CHARGE_FINDINGS.md](CHARGE_FINDINGS.md) — what ~1.3M simulated
 charges taught us (capstone, closed 2026-07-25) · [SCENARIO_PROMPT.md](SCENARIO_PROMPT.md)
 — reusable prompt to make any AI a CUS scenario designer · `play/` — the live tools
