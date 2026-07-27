@@ -1150,16 +1150,31 @@ end
 -- A vertical column of pips, filled BOTTOM-UP so the top pip is the last one
 -- spent. Reaction and AP get separate columns on purpose: the two pools never
 -- exchange (A.IV), and one shared bar would imply a conversion that does not exist.
+-- Orientation per pool. AP reads left-to-right like a spend bar; Reaction and
+-- MP stay vertical so the three are distinguishable at a glance even before
+-- you register the colour. Flip any of these and the widget follows.
+local PIP_HORIZONTAL = {
+    ["cus-ap-pip-"] = true,
+    ["cus-rx-pip-"] = false,
+    ["cus-mp-pip-"] = false,
+}
+
 local function buildPipColumn(idPrefix, current, maximum, filledHex, label, artFull, artSpent)
     maximum = math.max(0, math.floor(tonumber(maximum) or 0))
     current = clamp(math.floor(tonumber(current) or 0), 0, maximum)
     if maximum <= 0 then return "", 0 end
 
+    local horiz = PIP_HORIZONTAL[idPrefix] == true
+
     -- Orb art when it is available, glyph pips when it is not.
     if artFull ~= nil and maximum <= 6 and assetEnabled(artFull) and assetEnabled(artSpent) then
         local rows, tip = {}, xmlEscape(label .. "\nLeft: spend 1\nRight: restore 1")
         for i = 1, maximum do
-            local filled = i > (maximum - current)   -- fills bottom-up
+            -- Vertical fills bottom-up (the top orb is the last one spent);
+            -- horizontal fills left-to-right, which is how a bar is read.
+            local filled
+            if horiz then filled = i <= current
+            else filled = i > (maximum - current) end
             rows[#rows+1] = '<Panel width="22" height="22" preferredWidth="22" preferredHeight="22">' ..
                 '<Image image="' .. (filled and artFull or artSpent) ..
                 '" width="22" height="22" preferredWidth="22" preferredHeight="22" preserveAspect="true" raycastTarget="false" />' ..
@@ -1167,6 +1182,15 @@ local function buildPipColumn(idPrefix, current, maximum, filledHex, label, artF
                 ' preferredWidth="22" preferredHeight="22" colors="#00000000|#FFFFFF20|#FFFFFF10|#00000000"' ..
                 ' tooltip="' .. tip .. '" /></Panel>'
         end
+
+        if horiz then
+            local ww = tostring(maximum * 23 + 2)
+            return '<HorizontalLayout spacing="1" childAlignment="MiddleCenter" childForceExpandWidth="false"' ..
+                ' childForceExpandHeight="false" width="' .. ww .. '" height="26"' ..
+                ' preferredWidth="' .. ww .. '" preferredHeight="26">' ..
+                table.concat(rows) .. '</HorizontalLayout>', tonumber(ww)
+        end
+
         local hh = tostring(maximum * 23 + 2)
         return '<VerticalLayout spacing="1" childAlignment="LowerCenter" childForceExpandWidth="false"' ..
             ' childForceExpandHeight="false" width="26" height="' .. hh ..
@@ -1216,10 +1240,22 @@ end
 --
 -- At the 1-2 Wound standard most figures only ever show green -> red -> hollow;
 -- gold appears on the 3+ Wound brutes, which is exactly who should look tougher.
+-- GREEN at full · RED on the last wound · BROKEN at zero · gold only in between.
+--
+-- Order matters, and it was wrong. The "last wound is red" test ran BEFORE the
+-- "full is green" test, so a 1-Wound figure — untouched, at full health —
+-- rendered red, because 1 satisfies both. Full health always wins now.
+--
+--   1 Wound   1=green            0=broken
+--   2 Wounds  2=green  1=red     0=broken        <- no gold, as intended
+--   3 Wounds  3=green  2=gold  1=red  0=broken
+--
+-- Gold therefore only exists on 3+ Wound figures, which is exactly who should
+-- have a visible middle to lose.
 local function woundArt(current, maximum)
     if current <= 0 then return "heart_empty" end
-    if current <= 1 then return "heart_critical" end
-    if current >= maximum then return "heart_full" end
+    if current >= maximum then return "heart_full" end      -- full is ALWAYS green
+    if current <= 1 then return "heart_critical" end        -- the last one is red
     return "heart_hurt"
 end
 
@@ -1288,6 +1324,10 @@ end
 local NERVE_BANNER_W, NERVE_BANNER_H = 78, 52
 
 local function buildNerveBadge()
+    -- The verb menu sits over the nerve banner, so the banner stands down while
+    -- the buttons are up. It is a status readout; they are a decision.
+    if runtime.verb_menu_open then return "", 0 end
+
     local t = nerveTokenData()
     local tip = xmlEscape(t.tooltip)
 
@@ -2156,22 +2196,31 @@ local function buildUIXml()
             '" height="' .. h .. '">' .. body .. '</VerticalLayout></Panel>'
     end
 
-    local xml = [[
+    local defaults = [[
 <Defaults>
     <Button fontSize="14" textColor="#F2F4F8" colors="#00000000|#FFFFFF12|#FFFFFF08|#00000000" />
     <Text color="#F2F4F8" alignment="MiddleCenter" />
 </Defaults>]]
+
+    -- MOVE FOCUS. While the ruler is up, everything else stands down — the
+    -- readouts are not decisions you can act on mid-move, and the pips sit
+    -- exactly where you are trying to see the path. The layout editor overrides
+    -- this, or the pieces could never be positioned while it is open.
+    if runtime.move_panel_open and not runtime.layout_edit then
+        return defaults .. moveXml
+    end
+
+    return defaults
         .. piece("rx",     rxXml,      30, colHeight)
-        .. piece("ap",     apCol,      30, colHeight)
+        .. piece("ap",     apCol,     170, colHeight)   -- wider: AP is horizontal now
         .. piece("mp",     mpCol,      30, colHeight)
         .. piece("wound",  woundXml,   46, 40)
         .. piece("activ",  activXml,   40, 40)
         .. piece("nerve",  nerveBadge, 84, 56)
         .. piece("action", actionRow, 170, 30)
-        .. moveXml .. configXml
+        .. configXml
         .. buildPacketMenu(position, panelScale, accent)
         .. buildLayoutEditor(position, panelScale, accent)
-    return xml
 end
 
 local function refreshAll()
