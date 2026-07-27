@@ -5,6 +5,7 @@ larger build, kept for its data and its build pipeline.
 
 ```
 tts/
+  icons/  ← shared PNG assets. The tracker hard-codes this path in ICON_BASE.
   kit/    ← THE ONE THAT RUNS. Per-miniature tracker + a Global that stamps
             units onto minis from an 81-unit library. No cards, no linking.
   mod/    ← the full mod: src/ + build/ + a 700-line Global.xml. Superseded,
