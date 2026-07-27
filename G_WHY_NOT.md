@@ -269,6 +269,58 @@ discount. One coordinated blow, paid for with the tempo to answer what comes bac
 Empty your side early against someone still holding theirs and you get pushed off the
 table.
 
+### rank-is-not-control
+**Tempting.** "Circles hold" and "Circles never test Nerve" are the same law
+wearing two coats — heroes are special, so heroes are protected. Write them once
+and be done.
+
+**Why not.** They rest on **different predicates**, and the word *Circle* was
+quietly carrying both:
+
+```text
+RANK     Circle / Square — a Definition axis. 2 Reactions. Exceptional.
+CONTROL  played by a person  /  run by the chair.
+```
+
+On the day both laws were drafted, every Circle on the table was also a player's
+figure, so the two sets were identical and the ambiguity cost nothing. The moment
+an enemy champion exists they come apart, and the rules give two different answers
+depending on which meaning you happened to read.
+
+**Instead.** Every sacred-figure law names its basis:
+
+```text
+circles-hold       → CONTROL.  A PLAYED figure can never be Moved.
+                               An NPC Circle can. Enemy champions are persuadable.
+never-tests-Nerve  → RANK.     Circles are exceptional. Holds for enemies too.
+```
+
+**The general lesson is the drafting one:** never let one term carry two
+predicates. It reads fine for exactly as long as the two sets coincide, and then
+it fails silently — mid-session, with the answer depending on who is reading.
+
+### a-break-trigger-is-a-hook
+**Tempting.** Enemy champions need a morale rule, so give them a special Nerve
+test — a harder one, or one that only fires below half Wounds.
+
+**Why not.** A champion who breaks because the dice said so is **arbitrary**.
+Nobody at the table learns anything, nobody can plan around it, and the most
+memorable figure in the scenario is decided by a number nobody chose.
+
+**Instead.** A Circle breaks by a **prewritten trigger** — a Written Trigger
+(A·XIV) authored onto that figure in advance, firing on its own condition.
+**No trigger written means he fights to the end**, which is the right default.
+
+A champion who breaks **when his brother falls** is a story, and players can work
+out what breaks a man and go do it. Enemy Circles stop being damage sponges and
+become puzzles.
+
+**And notice what the object is.** A written condition, authored ahead of time,
+firing unprompted with nobody's thumb on it — that is *exactly* a campaign hook.
+An enemy's break condition and a scenario trigger are the same thing wearing
+different hats, which means **one authoring format covers both**, and a hook
+pipeline is already a break-trigger pipeline.
+
 ### counter-is-not-an-attack
 **Tempting.** A Counter is an attack, so it should draw a Counter of its own.
 

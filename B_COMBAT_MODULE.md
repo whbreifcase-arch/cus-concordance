@@ -534,6 +534,41 @@ Steady → Shaken → Broken
 > the leader is the recovery valve. `→ G·morale-is-not-attrition`
 
 - **Squares test Nerve; Circles do not** — and Circles never break. `[Definition: shape]`
+
+> **This law rests on RANK, not control — SIGNED (William, 2026-07-26).** Circles
+> do not test because they are **exceptional**: heroes and champions, whoever is
+> running them. **Enemy Circles do not test either.** They are not exempt because
+> a player would object to being told his hero fled; they are exempt because that
+> is what a champion *is*.
+>
+> *(Contrast Story's sacred-figure law, which rests on **control** — a played
+> figure can never be Moved, but an NPC Circle can. Same word, two different
+> bases, both now named. `→ G·rank-is-not-control`)*
+
+## When an enemy champion breaks — SIGNED (William, 2026-07-26)
+A Circle never breaks **by dice**. It breaks by **a prewritten trigger** — a
+Written Trigger (A · XIV) authored onto that figure in advance, firing on its own
+condition with nobody's thumb on it.
+
+```text
+NO TRIGGER WRITTEN  →  he fights to the end.
+```
+
+That is the safe default and it is correct for most enemies. Write one for the
+champions.
+
+> **Why this is better than a die roll.** A champion who breaks because the dice
+> said so is arbitrary. A champion who breaks **when his brother falls** is a
+> story — and players can work out what breaks a man and go do it. Enemy Circles
+> stop being damage sponges and become puzzles.
+>
+> Note what the trigger *is*: a written condition, authored ahead of time, firing
+> unprompted. **That is the same object as a campaign hook.** One authoring
+> format covers both. `→ G·a-break-trigger-is-a-hook`
+>
+> Make it Temperament-shaped. A **Protective** break is not fleeing — he quits
+> the fight to put himself between you and the small ones, and you take the room
+> to find him standing over children with empty hands.
 - A failed test steps a Square **down** the track (Steady → Shaken → Broken) `[State]`.
 - **Broken = it Routs**, behaving by its **Temperament** (table below).
 - **Rally** steps a figure back **up** the track (toward Steady).

@@ -160,17 +160,37 @@ orders, not Asks.
 
 ---
 
-# 6 · Circles hold `[Definition]` — ⚠ PROPOSED
+# 6 · Player figures hold `[Definition]` — SIGNED (William, 2026-07-26)
 
-The mirror of "Circles never test Nerve" (B·10):
+> **Amended from "Circles hold."** The original law said *Circle* when it meant
+> *a figure a player is running*. On the day it was drafted those were the same
+> set, so nobody noticed. They are not the same set now.
+>
+> **One word was carrying two predicates. They are now named separately:**
+>
+> ```text
+> RANK     Circle / Square — a Definition axis. 2 Reactions. Exceptional.
+> CONTROL  played by a person  /  run by the chair.
+> ```
+>
+> Every sacred-figure law must say which one it turns on. `→ G·rank-is-not-control`
 
 ```text
-A Circle can be YIELDED.   A Circle can never be MOVED.
+A PLAYED figure can be YIELDED.   A PLAYED figure can never be MOVED.
+An NPC Circle CAN be Moved. An enemy champion is persuadable.
 ```
 
-Social force against a Champion binds **the world, never the will**: the crowd
-believed it, the insult is public, the offer stands, the scene was lost and its
-stakes with it. The player alone decides what their Champion *believes*.
+The law rests on **CONTROL**, not Rank. It exists to protect **player
+sovereignty**, and no rule ever decides what a player's figure believes or
+chooses — Law 9 in the parlour.
+
+Social force against a played figure binds **the world, never the will**: the
+crowd believed it, the insult is public, the offer stands, the scene was lost and
+its stakes with it. The player alone decides what their Champion *believes*.
+
+**And the enemy champion across the table is fair game.** Talking a rival warlord
+down is a legal, difficult, campaign-shaping thing to attempt — which is exactly
+what the module is for.
 
 - **Consequences, yes. Conversion, never.** A Yielded Circle really did lose. The
   staked thing is gone; the player narrates what conceding looks like, but the
