@@ -818,6 +818,13 @@ local function initializeRuntime()
     end
     runtime.ui_config_open = runtime.ui_config_open == true
 
+    -- Per-piece layout. Absent keys fall back to LAYOUT_DEFAULTS at read time,
+    -- so an old save simply keeps the original arrangement.
+    if type(runtime.layout) ~= "table" then runtime.layout = {} end
+    runtime.layout_edit = runtime.layout_edit == true
+    runtime.layout_piece = runtime.layout_piece or "rx"
+    runtime.layout_step_i = clamp(math.floor(asNumber(runtime.layout_step_i, 2)), 1, 3)
+
     -- v3.1 layout migration: keep the permanent display clean and above the
     -- base. Expanded tools remain available through the right-click menu.
     if runtime.overlay_layout_version ~= 31 then
@@ -1819,6 +1826,144 @@ local function buildDescription()
     return table.concat(lines, "\n")
 end
 
+-- ---------------------------------------------------------------------------
+-- LAYOUT — every HUD piece is independently placeable, and editable in game.
+-- ---------------------------------------------------------------------------
+
+local HUD_PIECES = {
+    {key = "rx",     label = "REACTION"},
+    {key = "ap",     label = "AP"},
+    {key = "mp",     label = "MP"},
+    {key = "wound",  label = "WOUNDS"},
+    {key = "activ",  label = "ACTIVATE"},
+    {key = "nerve",  label = "NERVE"},
+    {key = "action", label = "BUTTONS"},
+}
+
+-- x/y are offsets from the HUD origin, s is a scale multiplier, r is degrees.
+-- These reproduce the previous fixed row, so an unedited figure is unchanged.
+local LAYOUT_DEFAULTS = {
+    rx     = {x = -66, y =   6, s = 1.0, r = 0},
+    ap     = {x = -34, y =   6, s = 1.0, r = 0},
+    mp     = {x =  -2, y =   6, s = 1.0, r = 0},
+    wound  = {x =  34, y =   6, s = 1.0, r = 0},
+    activ  = {x =  76, y =  20, s = 1.0, r = 0},
+    nerve  = {x =  76, y = -18, s = 1.0, r = 0},
+    action = {x =   0, y = -34, s = 1.0, r = 0},
+}
+
+local LAYOUT_STEPS = {1, 5, 20}
+
+local function layoutOf(key)
+    local d = LAYOUT_DEFAULTS[key] or {x = 0, y = 0, s = 1, r = 0}
+    local t = (type(runtime.layout) == "table" and type(runtime.layout[key]) == "table")
+        and runtime.layout[key] or {}
+    return {
+        x = asNumber(t.x, d.x), y = asNumber(t.y, d.y),
+        s = clamp(asNumber(t.s, d.s), 0.25, 4.0),
+        r = asNumber(t.r, d.r),
+    }
+end
+
+local function layoutSet(key, field, value)
+    if type(runtime.layout) ~= "table" then runtime.layout = {} end
+    if type(runtime.layout[key]) ~= "table" then runtime.layout[key] = layoutOf(key) end
+    runtime.layout[key][field] = value
+end
+
+local function layoutNudge(key, field, delta)
+    local cur = layoutOf(key)
+    local v = cur[field] + delta
+    if field == "s" then v = clamp(v, 0.25, 4.0) end
+    if field == "r" then v = v % 360 end
+    layoutSet(key, field, v)
+end
+
+local function layoutResetPiece(key)
+    if type(runtime.layout) == "table" then runtime.layout[key] = nil end
+end
+
+local function layoutExportJSON()
+    local out = {}
+    for _, p in ipairs(HUD_PIECES) do out[p.key] = layoutOf(p.key) end
+    local ok, s = pcall(JSON.encode, out)
+    return ok and s or "{}"
+end
+
+-- Push this figure's layout onto every other CUS miniature on the table.
+-- Tuning seven pieces by hand on a dozen models would be misery; tune one,
+-- then stamp it across the warband.
+local function layoutApplyToAll(player)
+    local json = layoutExportJSON()
+    local n = 0
+    for _, obj in ipairs(getAllObjects()) do
+        if obj ~= self then
+            local ok, isCUS = pcall(function() return obj.hasTag("CUS_MINIATURE") end)
+            if ok and isCUS then
+                local sent = pcall(function() obj.call("CUS_SetLayout", {json = json}) end)
+                if sent then n = n + 1 end
+            end
+        end
+    end
+    notify(player, "Layout copied to " .. n .. " other CUS miniature" .. (n == 1 and "" or "s") .. ".",
+        {0.40, 0.90, 0.55})
+end
+
+local function buildLayoutEditor(position, panelScale, accent)
+    if runtime.layout_edit ~= true then return "" end
+
+    local key = runtime.layout_piece or "rx"
+    local step = LAYOUT_STEPS[clamp(asNumber(runtime.layout_step_i, 2), 1, #LAYOUT_STEPS)]
+    local t = layoutOf(key)
+
+    local tabs = {}
+    for _, p in ipairs(HUD_PIECES) do
+        local on = (p.key == key)
+        local hex = on and accent or "2A3442"
+        tabs[#tabs+1] = '<Button id="cus-ly-sel-' .. p.key .. '" onClick="cusUiClick" text="' .. p.label ..
+            '" width="60" height="20" preferredWidth="60" preferredHeight="20" fontSize="8" colors="#' ..
+            hex .. 'AA|#' .. hex .. 'EE|#' .. hex .. '77|#' .. hex .. 'AA" />'
+    end
+
+    local function nb(id, label, w)
+        w = w or 30
+        return '<Button id="' .. id .. '" onClick="cusUiClick" text="' .. label .. '" width="' .. w ..
+            '" height="22" preferredWidth="' .. w .. '" preferredHeight="22" fontSize="11" />'
+    end
+    local function readout(txt)
+        return '<Text text="' .. xmlEscape(txt) .. '" width="58" height="22" preferredWidth="58"' ..
+            ' preferredHeight="22" fontSize="11" color="#F2F4F8" />'
+    end
+    local function row(label, minusId, plusId, value)
+        return '<HorizontalLayout spacing="3" childAlignment="MiddleCenter" childForceExpandWidth="false"' ..
+            ' childForceExpandHeight="false" width="248" height="24" preferredWidth="248" preferredHeight="24">' ..
+            '<Text text="' .. label .. '" width="26" height="22" preferredWidth="26" preferredHeight="22" fontSize="11" />' ..
+            nb(minusId, "−") .. readout(value) .. nb(plusId, "+") .. '</HorizontalLayout>'
+    end
+
+    return [[
+<Panel position="]] .. position .. [[" width="264" height="212" rotation="0 0 ]] .. tostring(runtime.ui_rotation) ..
+    [[" scale="]] .. panelScale .. [[" offsetXY="0 190" color="#11151CF2" outline="#]] .. accent .. [[" outlineSize="2 2">
+  <VerticalLayout spacing="3" padding="5 5 5 5" childAlignment="UpperCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="254" height="202">
+    <Text text="LAYOUT — ]] .. xmlEscape(key:upper()) .. [[" width="248" height="18" preferredWidth="248" preferredHeight="18" fontSize="12" color="#F2F4F8" />
+    <HorizontalLayout spacing="2" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="248" height="22" preferredWidth="248" preferredHeight="22">]]
+    .. table.concat(tabs, "") .. [[</HorizontalLayout>
+    ]] .. row("X", "cus-ly-x-", "cus-ly-x+", string.format("%.0f", t.x))
+       .. row("Y", "cus-ly-y-", "cus-ly-y+", string.format("%.0f", t.y))
+       .. row("S", "cus-ly-s-", "cus-ly-s+", string.format("%d%%", math.floor(t.s * 100 + 0.5)))
+       .. row("R", "cus-ly-r-", "cus-ly-r+", string.format("%.0f°", t.r)) .. [[
+    <HorizontalLayout spacing="3" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="248" height="24" preferredWidth="248" preferredHeight="24">
+      ]] .. nb("cus-ly-step", "STEP " .. step, 60)
+         .. nb("cus-ly-reset", "RESET", 56)
+         .. nb("cus-ly-resetall", "RESET ALL", 68)
+         .. nb("cus-ly-close", "DONE", 48) .. [[
+    </HorizontalLayout>
+    <Button id="cus-ly-all" onClick="cusUiClick" text="COPY LAYOUT TO ALL MINIS" width="248" height="22" preferredWidth="248" preferredHeight="22" fontSize="10" colors="#]]
+      .. HEX.green .. [[66|#]] .. HEX.green .. [[AA|#]] .. HEX.green .. [[44|#]] .. HEX.green .. [[66" />
+  </VerticalLayout>
+</Panel>]]
+end
+
 local function buildUIXml()
     if runtime.ui_hidden then return "" end
 
@@ -1913,22 +2058,49 @@ local function buildUIXml()
     local colHeight = math.max(40, tallest * 23 + 2)
     local panelHeight = colHeight + 34   -- + the 28px action row and its spacing
 
+    -- ---- every piece is its own panel -----------------------------------
+    -- A Unity layout group OWNS the placement of its children, so a piece
+    -- nested inside one can never be moved independently. Each HUD element is
+    -- therefore a TOP-LEVEL panel carrying its own position, rotation and
+    -- scale, which is what makes the in-game layout editor possible at all —
+    -- and it also ends the preferredWidth/preferredHeight fights, because
+    -- nothing is negotiating with a parent any more.
+    --
+    -- The defaults below reproduce the old row exactly, so a figure that has
+    -- never been edited looks identical to before.
+    local function piece(key, body, w, h)
+        if body == nil or body == "" then return "" end
+        local t = layoutOf(key)
+        local px = (runtime.ui_x + t.x) * sx
+        local py = (runtime.ui_y + t.y) * sy
+        local pz = runtime.ui_z * sz
+        local ps = uiScale * t.s
+        local sel = (runtime.layout_edit and runtime.layout_piece == key)
+            and (' color="#00000000" outline="#' .. HEX.cyan .. '" outlineSize="2 2"')
+            or  ' color="#00000000"'
+        return '<Panel position="' .. string.format("%.1f %.1f %.1f", px, py, pz) ..
+            '" rotation="0 0 ' .. tostring(runtime.ui_rotation + t.r) ..
+            '" scale="' .. string.format("%.4f %.4f %.4f", sx * ps, sy * ps, sz * ps) ..
+            '" width="' .. w .. '" height="' .. h .. '"' .. sel .. '>' ..
+            '<VerticalLayout spacing="0" padding="0 0 0 0" childAlignment="MiddleCenter"' ..
+            ' childForceExpandWidth="false" childForceExpandHeight="false" width="' .. w ..
+            '" height="' .. h .. '">' .. body .. '</VerticalLayout></Panel>'
+    end
+
     local xml = [[
 <Defaults>
     <Button fontSize="14" textColor="#F2F4F8" colors="#00000000|#FFFFFF12|#FFFFFF08|#00000000" />
     <Text color="#F2F4F8" alignment="MiddleCenter" />
-</Defaults>
-<Panel position="]] .. position .. [[" width="164" height="]] .. panelHeight .. [[" rotation="0 0 ]] .. tostring(runtime.ui_rotation) .. [[" scale="]] .. panelScale .. [[" color="#00000000">
-    <VerticalLayout spacing="2" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="164" height="]] .. panelHeight .. [[">
-        <HorizontalLayout spacing="6" childAlignment="LowerCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="164" height="]] .. colHeight .. [[" preferredWidth="164" preferredHeight="]] .. colHeight .. [[">
-            ]] .. rxXml .. apCol .. mpCol .. woundXml .. [[
-            <VerticalLayout spacing="1" childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" width="36" height="]] .. colHeight .. [[" preferredWidth="36" preferredHeight="]] .. colHeight .. [[">
-                ]] .. activXml .. nerveBadge .. [[
-            </VerticalLayout>
-        </HorizontalLayout>
-        ]] .. actionRow .. [[
-    </VerticalLayout>
-</Panel>]] .. moveXml .. configXml
+</Defaults>]]
+        .. piece("rx",     rxXml,      30, colHeight)
+        .. piece("ap",     apCol,      30, colHeight)
+        .. piece("mp",     mpCol,      30, colHeight)
+        .. piece("wound",  woundXml,   46, 40)
+        .. piece("activ",  activXml,   40, 40)
+        .. piece("nerve",  nerveBadge, 84, 56)
+        .. piece("action", actionRow, 170, 30)
+        .. moveXml .. configXml
+        .. buildLayoutEditor(position, panelScale, accent)
     return xml
 end
 
@@ -2144,6 +2316,35 @@ function cusUiClick(player, value, id)
         changeAP(rightClick and 1 or -1, player)
     elseif id ~= nil and string.sub(id, 1, 11) == "cus-mp-pip-" then
         changeMP(rightClick and 1 or -1, player)
+
+    -- ---- layout editor ----
+    elseif id ~= nil and string.sub(id, 1, 11) == "cus-ly-sel-" then
+        runtime.layout_piece = string.sub(id, 12)
+        refreshAll()
+    elseif id == "cus-ly-step" then
+        runtime.layout_step_i = (runtime.layout_step_i % 3) + 1
+        refreshAll()
+    elseif id ~= nil and string.sub(id, 1, 7) == "cus-ly-" and
+           (string.sub(id, -1) == "+" or string.sub(id, -1) == "-") then
+        local field = string.sub(id, 8, 8)                 -- x | y | s | r
+        local sign  = (string.sub(id, -1) == "+") and 1 or -1
+        local step  = LAYOUT_STEPS[clamp(asNumber(runtime.layout_step_i, 2), 1, 3)]
+        if field == "s" then step = step * 0.02 end        -- scale nudges in 2% units
+        if field == "r" then step = step * 1 end
+        layoutNudge(runtime.layout_piece or "rx", field, sign * step)
+        refreshAll()
+    elseif id == "cus-ly-reset" then
+        layoutResetPiece(runtime.layout_piece or "rx")
+        refreshAll()
+    elseif id == "cus-ly-resetall" then
+        runtime.layout = {}
+        refreshAll()
+        notify(player, "Layout reset to defaults.")
+    elseif id == "cus-ly-all" then
+        layoutApplyToAll(player)
+    elseif id == "cus-ly-close" then
+        runtime.layout_edit = false
+        refreshAll()
     elseif id == "cus-act-attack" then
         contextAttack(playerColorOfClick(player))
     elseif id == "cus-act-wait" then
@@ -2299,6 +2500,16 @@ local function contextOverlayControls(playerColor)
     runtime.ui_config_open = not runtime.ui_config_open
     refreshAll()
 end
+-- Per-piece layout editor. The selected piece gets a cyan outline so you can
+-- see which thing you are about to move.
+local function contextLayoutEditor(playerColor)
+    runtime.layout_edit = not runtime.layout_edit
+    refreshAll()
+    if runtime.layout_edit then
+        notify(playerColor, "Layout editor on — pick a piece, then nudge X / Y / Scale / Rotation.",
+            {0.35, 0.85, 1.00})
+    end
+end
 local function contextMovementControls(playerColor)
     runtime.move_panel_open = not runtime.move_panel_open
     refreshAll()
@@ -2388,12 +2599,28 @@ local function setupContextMenu()
     -- object-attached panels so TTS's own context menu stays usable.
     self.addContextMenuItem("CUS: Attack", contextAttack)
     self.addContextMenuItem("CUS: Unit Library", contextLibrary)
+    self.addContextMenuItem("CUS: Layout Editor", contextLayoutEditor)
     self.addContextMenuItem("CUS: Controls", contextOverlayControls)
     self.addContextMenuItem("CUS: Movement", contextMovementControls)
     self.addContextMenuItem("CUS: New Round", contextNewRound)
     self.addContextMenuItem("CUS: Unit JSON", contextEditJson)
     self.addContextMenuItem("CUS: Hide / Show HUD", contextToggleUI)
 end
+
+-- Receive a layout pushed from another miniature's editor (COPY TO ALL MINIS).
+-- JSON, not a table: a table returned across the object boundary stays owned by
+-- the sending script's sandbox and TTS refuses to let this one keep it.
+function CUS_SetLayout(params)
+    local raw = type(params) == "table" and params.json or params
+    if type(raw) ~= "string" then return false end
+    local ok, decoded = pcall(JSON.decode, raw)
+    if not ok or type(decoded) ~= "table" then return false end
+    runtime.layout = decoded
+    refreshAll()
+    return true
+end
+
+function CUS_GetLayoutJSON() return layoutExportJSON() end
 
 function CUS_GetDefinition() return copyTable(definition) end
 function CUS_GetDefinitionJSON()
