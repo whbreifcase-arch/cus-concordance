@@ -1028,16 +1028,34 @@ local function armorDisplay()
     return a
 end
 
+-- The armour spectrum (B.7): None — Light 6+ — Medium 5+ — Heavy 4+.
+-- HEAVY IS THE LOW NUMBER. 4+ saves on four faces of the die and 6+ on one, so
+-- the better the armour the smaller the number. Getting this inverted is the
+-- easy mistake, and it inverts the whole defensive economy.
+--
+-- Armour rolls ONE SAVE DIE PER INCOMING WOUND, and it protects the standing
+-- only: a Knocked Out figure that is hit is killed and rolls nothing.
 local function armorStateData()
     local raw = lower(definition.armour or "—")
     if raw == "4+" or raw == "heavy" then
-        return {state = "heavy", label = "4+", tooltip = "Heavy Armour (4+)", asset = "armour_heavy", fg = "AFC8E6", glyph = "⬢"}
+        return {state = "heavy", label = "4+", tooltip = "HEAVY ARMOUR — save 4+\nOne save die per incoming Wound.\nNo save once Knocked Out (B.7).", asset = "armour_heavy", fg = "AFC8E6", glyph = "⬢"}
     elseif raw == "5+" or raw == "medium" then
-        return {state = "medium", label = "5+", tooltip = "Medium Armour (5+)", asset = "armour_medium", fg = "7FB6E8", glyph = "⬟"}
+        return {state = "medium", label = "5+", tooltip = "MEDIUM ARMOUR — save 5+\nOne save die per incoming Wound.\nNo save once Knocked Out (B.7).", asset = "armour_medium", fg = "7FB6E8", glyph = "⬟"}
     elseif raw == "6+" or raw == "light" then
-        return {state = "light", label = "6+", tooltip = "Light Armour (6+)", asset = "armour_light", fg = "A97A4A", glyph = "⬟"}
+        return {state = "light", label = "6+", tooltip = "LIGHT ARMOUR — save 6+\nOne save die per incoming Wound.\nNo save once Knocked Out (B.7).", asset = "armour_light", fg = "A97A4A", glyph = "⬟"}
     end
-    return nil
+
+    -- Unarmoured reads as ABSENCE — no badge at all, so the HUD stays quiet for
+    -- the figures that have nothing to show.
+    local text = trim(definition.armour or "")
+    if text == "" or text == "—" or text == "-" then return nil end
+
+    -- Anything else is off the spectrum (a 3+ relic, a 7+ house rule). Show it
+    -- rather than silently hiding a stat the card is carrying. Fail gracefully.
+    return {state = "other", label = text, asset = "",
+            tooltip = "ARMOUR — save " .. text ..
+                      "\nOff the standard spectrum (Light 6+ / Medium 5+ / Heavy 4+).",
+            fg = "C9D4E4", glyph = "⬟"}
 end
 
 local function activationTokenData()
@@ -1085,7 +1103,9 @@ local function buildArmourXml(armor)
     if armor == nil then return "", 0 end
     local width, height = 38, 30
     if assetEnabled(armor.asset) then
-        return [[<Panel width="38" height="30">
+        -- The tooltip goes on the art branch too. Hovering must answer "what is
+        -- this and what does it do" whether or not the PNGs resolved.
+        return [[<Panel width="38" height="30" tooltip="]] .. xmlEscape(armor.tooltip) .. [[">
             <Image image="]] .. armor.asset .. [[" width="34" height="30" preserveAspect="true" />
             <Text text="]] .. xmlEscape(armor.label) .. [[" width="22" height="14" fontSize="10" color="#F2F4F8" alignment="MiddleCenter" offsetXY="0 -1" />
         </Panel>]], width
@@ -1951,6 +1971,7 @@ local HUD_PIECES = {
     {key = "ap",     label = "AP"},
     {key = "mp",     label = "MP"},
     {key = "wound",  label = "WOUNDS"},
+    {key = "armour", label = "ARMOUR"},
     {key = "activ",  label = "ACTIVATE"},
     {key = "nerve",  label = "NERVE"},
     {key = "action", label = "BUTTONS"},
@@ -1962,6 +1983,11 @@ local LAYOUT_DEFAULTS = {
     ap     = {x = -34, y =   6, s = 1.0, r = 0},
     mp     = {x =  -2, y =   6, s = 1.0, r = 0},
     wound  = {x =  34, y =   6, s = 1.0, r = 0},
+    -- Armour sits directly ABOVE the heart: the save is what the Wound has to
+    -- get through first, so it reads top-down in the order it resolves. Placed
+    -- on its own line rather than squeezed into the row, because the row is
+    -- already full — nudge it wherever you like with the layout editor.
+    armour = {x =  34, y =  46, s = 1.0, r = 0},
     activ  = {x =  76, y =  20, s = 1.0, r = 0},
     nerve  = {x =  76, y = -18, s = 1.0, r = 0},
     action = {x =   0, y = -34, s = 1.0, r = 0},
@@ -2149,7 +2175,9 @@ local function buildUIXml()
     end
 
     -- ---- spec §7 layout -------------------------------------------------
-    --      [blue]        [heart]   [triangle]
+    --                    [shield]
+    --                      4+           <- ARMOUR, above the heart: the save is
+    --      [blue]        [heart]   [triangle]  what a Wound goes through first
     --    AP ● ● ○        WOUNDS    ACTIVATION
     --                     ♥ 2          △
     --             MOVE  ATK  WAIT  ↻
@@ -2163,6 +2191,9 @@ local function buildUIXml()
     local mpCol   = buildPipColumn("cus-mp-pip-", runtime.current_mp, definition.mp, HEX.red,
         "MP — specials\nPER BATTLE: it does not refresh on activation", "mp_full", "mp_spent")
     local woundXml  = buildWoundBadge()
+    -- Armour returns "" for an unarmoured figure, and piece() drops an empty
+    -- body, so the badge simply does not exist rather than showing a dash.
+    local armourXml = buildArmourXml(armorStateData())
     local activXml  = buildActivationBadge()
     local nerveBadge = buildNerveBadge()
     local actionRow = buildActionRow()
@@ -2220,6 +2251,7 @@ local function buildUIXml()
         .. piece("ap",     apCol,     170, colHeight)   -- wider: AP is horizontal now
         .. piece("mp",     mpCol,      30, colHeight)
         .. piece("wound",  woundXml,   46, 40)
+        .. piece("armour", armourXml,  38, 34)
         .. piece("activ",  activXml,   40, 40)
         .. piece("nerve",  nerveBadge, 84, 56)
         .. piece("action", actionRow, 170, 30)
