@@ -16,6 +16,11 @@
 > **Authority.** M is the lowest layer — pure content. Where it conflicts with A/B/K/L,
 > they win. Numbers here are **archetypes, not tuned prices**; the pricer
 > (`factions/sim`) sets the points.
+>
+> **Resource skins.** Weapons here author against the kernel Resources (A·IV): ballistic
+> guns **spend Charge** and energy weapons **gain Strain**. This setting *skins* them —
+> Charge shows as **ammo / magazines**, Strain as **reactor heat**. Where the text below
+> says "ammo" or "heat," it means those skins over Charge/Strain, never a separate system.
 
 ---
 
@@ -98,7 +103,8 @@ Balance levers, in order: **SCENARIO** (map/objective/initiative) → points × 
   **Fire-and-Fade** (jetpack): shoot, then reposition — but moving makes their own next
   shot Quick-tier (the shot ladder taxes the kiter, so it is a real choice).
 - **Guns:** precise (low success number) · long range · **overcharge** to punch Marines ·
-  energy = **heat**, not ammo (they pace fire, never run dry).
+  energy weapons **gain Strain** (this setting skins it *reactor heat*) rather than
+  spending Charge — they pace fire, never run dry.
 - **Roster:** Fire Warrior (pulse, Evasion) · Stealth Suit (Evasion++, infiltrate) ·
   Battlesuit (Large, jetpack, heavy energy, overcharge) · Drone (Small, **Utility**
   spotter — cuts scatter / boosts accuracy).

@@ -291,6 +291,39 @@ change to the fantasy world.
 
 ---
 
+## Amendments — sixth batch, signed 2026-07-28 (William)
+
+**Ammo and Heat were never mechanics.** Taken the same day, after the fifth batch shipped
+them as named systems: they are two behaviour **kinds** of the existing Resource
+primitive, and the kernel should carry the kinds while settings name the skins. v0.6
+stays **closed**; this refines the fifth batch, it does not reopen anything.
+
+| ID | Ruling | In |
+|---|---|---|
+| resource-dynamics | **A spendable Resource is classified by how it replenishes** (Law 10) — three kinds with neutral kernel nouns and canonical colours: **Agency** (renewing 🟢, = AP), **Charge** (finite 🟡), **Strain** (accumulating 🔴). Packets are **authored in the nouns** (`spend 1 Charge`, `gain 1 Strain`) and **skinned at Presentation** per setting. Scopes **costs** only — Health and Morale stay State (Law 1) | A·IV, C |
+| ammo-is-a-skin | **"Ammo" is the sci-fi Presentation skin of Charge**, not a mechanic. A ballistic weapon `spends Charge`; the card shows a magazine; reload = restore Charge = card-down (J·3). Reframes the fifth-batch `ammo-and-reload` row | K·6, C |
+| heat-is-a-skin | **"Heat" is the sci-fi Presentation skin of Strain**, not a mechanic. An energy weapon `gains Strain`; at the cap the authored consequence fires (overheat/gets-hot). Reframes the fifth-batch `heat` row | K·7, C |
+| colour-plus-shape | **The three kinds are shown by colour AND shape**, never hue alone — the poka-yoke rule from the Component Layer (J·5), so the vocabulary survives colour-blindness and bad light | A·IV, J |
+
+### Reframed from the fifth batch
+```text
+ammo-and-reload  → skin of Charge (resource-dynamics). Reload = restore Charge.
+heat             → skin of Strain (resource-dynamics).
+misfire          → a risk twist on a Charge weapon (unchanged behaviour).
+overcharge       → spend extra Charge OR gain Strain (unchanged behaviour).
+```
+The fifth-batch rows stay in the record; these say what they *are* now.
+
+### Why it was taken
+William: *"Neutral nouns and kernel language. When the packets are written they get
+converted one last time — spend two Charges, and the flavor reads 2 Ammo."* That is the
+Definition→Presentation split (A·IX) applied to costs. Naming the engine after a setting
+("Ammo") was the fifth batch's one impurity; this removes it. The abstraction was already
+load-bearing — the finite kind predated firearms (spell charges), which is the Law-13
+sign it sits at the right layer. `→ G·a-resource-kind-is-not-a-mechanic`
+
+---
+
 ### circle-scope — SIGNED (William, 2026-07-25)
 B·1 previously headed "One Circle per army" and then said "A Banner fields exactly
 one Circle." An Army holds many Banners, so both could not be true.

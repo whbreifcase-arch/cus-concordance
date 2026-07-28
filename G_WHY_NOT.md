@@ -767,7 +767,26 @@ bad rifle.
 **Instead.** **Blast is indirect** — target a point in range, no LoS, and let **scatter**
 (K·5) be the price of firing blind. Direct LoS stays on bullets, where it belongs.
 
+### a-resource-kind-is-not-a-mechanic
+**Tempting.** Guns need an "Ammo" system and energy weapons need a "Heat" system — two
+new mechanics, each owned by the combat rules.
+
+**Why not.** "Ammo" and "Heat" aren't mechanics, they're **settings**. Freeze either
+word into the engine and you've built a sci-fi term into a setting-agnostic rule — the
+exact mistake the whole engine/content split (K vs M) exists to prevent. And they aren't
+even two ideas: they're two **replenishment kinds** of the one Resource primitive the
+kernel already has — finite (depletes, must be restored) and accumulating (rises, must
+be vented). The tell: the finite kind was already needed for spell charges *before*
+firearms existed, so a magazine reused it rather than inventing anything (Law 13).
+
+**Instead.** The kernel carries three Resource **kinds** with neutral nouns —
+**Agency** (renewing 🟢), **Charge** (finite 🟡), **Strain** (accumulating 🔴). A packet
+is authored in the noun (`spend 2 Charge`, `gain 1 Strain`); the setting does one final
+Presentation conversion so the card reads *"2 Ammo"* or *"reactor +1"*. Ammo, Heat,
+arrows, mana, corruption are all skins. The engine only knows the kind. (A·IV)
+
 ### ammo-earns-its-tracker
+*(A sub-case of the above: the finite kind, `Charge`, earns its tracker.)*
 **Tempting.** Ammo counting is fiddly bookkeeping, and the Component Law says play-time
 components are expensive — so drop it and let reload be a flat every-few-turns thing.
 

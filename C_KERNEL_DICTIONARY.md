@@ -52,6 +52,31 @@ Any limited quantity spent to produce change: `Agency · Health · Morale ·
 Information · Influence · Supply · Time`. **Owner:** Kernel; each module
 implements the resources it needs. `→ G·position-is-not-a-resource`
 
+### Resource kind — 🟢🟡🔴 (SIGNED, William 2026-07-28)
+A **behavioural classification** of a spendable Resource by how it replenishes
+(Law 10), colour-coded for the UI and **paired with a shape** (Document J poka-yoke):
+```text
+🟢 renewing      refreshes each activation/turn        noun: Agency
+🟡 finite        depletes; an action/event restores    noun: Charge
+🔴 accumulating  rises with use; vent it or it punishes noun: Strain
+```
+Packets are **authored in the nouns** and **skinned at Presentation** per setting.
+Scopes **costs a packet spends/gains** only — Health and Morale are State, not a
+colour. **Owner:** Kernel (A · IV). `→ G·a-resource-kind-is-not-a-mechanic`
+
+### Charge — the finite Resource 🟡
+A limited supply that **depletes when spent and must be restored** by an action or
+event. The kernel noun a packet authors against; settings skin it as **ammo,
+arrows, mana charges, grenades, medkits, batteries**. Restoring it is *reload / rest
+/ resupply*. **Consumed by:** packets that `spend Charge`. **Owner:** Kernel (A · IV).
+
+### Strain — the accumulating Resource 🔴
+A quantity that **rises with use toward a threshold that vents or punishes.** The
+kernel noun; settings skin it as **heat, corruption, stress, reactor overload,
+fatigue**. It falls only when *vented / cooled / rested*; at the cap it inflicts its
+authored consequence (a lock, a Wound, a mutation). **Created by:** packets that
+`gain Strain`. **Owner:** Kernel (A · IV).
+
 ---
 
 ## The three verbs
@@ -435,22 +460,24 @@ Grade-1 gunfire against **breakable** troops: feeds the existing Nerve/morale tr
 (B · 10) — volume of fire breaks men. Not a new system; the same shock the Nerve
 roll handles. **Owner:** Combat / K · 3, B · 10.
 
-### Ammo
-A **Resource**: a ballistic weapon's magazine, a few shooting-activations; when dry,
-**reload = the card going down** (J · 3). Muzzle-loaders are single-shot. The
-squad-wide synchronized reload is the designed terror. **Consumed by:** shooting.
-**Owner:** Combat / K · 6. `→ G·ammo-earns-its-tracker`
+### Ammo — a SKIN of Charge 🟡
+Not a mechanic: the **sci-fi Presentation skin of Charge** (the finite Resource). A
+ballistic weapon `spends Charge` per shot; the card shows it as a magazine, and
+**reload = restore Charge = the card going down** (J · 3). The squad-wide synchronized
+reload is the designed terror. **Owner of the skin:** setting; **of the Resource:**
+Kernel (Charge). `→ G·a-resource-kind-is-not-a-mechanic`
 
 ### Misfire
-Blackpowder's limiter: a risk roll that, on the bad result, **locks the weapon**
-(card-down to clear). The powder-era twin of **Heat**. **Writes:** State. **Owner:**
-Combat / K · 6. `→ G·misfire-is-heat`
+Blackpowder's twist on a Charge weapon: a **risk roll** that, on the bad result,
+**locks the weapon** (card-down to clear). The powder-era counterpart of the Heat
+skin. **Writes:** State. **Owner:** Combat / K · 6.
 
-### Heat
-An energy weapon's limiter: pushing the weapon adds heat, it vents when idle, and the
-cap = **OVERHEAT** (weapon locks; plasma "gets hot" = a Wound to the bearer). The
-discipline pressure opposite to Ammo's logistics pressure. **Writes:** State (and a
-Wound on gets-hot). **Owner:** Combat / K · 7. `→ G·misfire-is-heat`
+### Heat — a SKIN of Strain 🔴
+Not a mechanic: the **energy-weapon Presentation skin of Strain** (the accumulating
+Resource). Pushing the weapon `gains Strain`; it vents when idle; at the cap it
+inflicts its consequence — **OVERHEAT** (the weapon locks; plasma "gets hot" = a
+Wound to the bearer). **Owner of the skin:** setting; **of the Resource:** Kernel
+(Strain). `→ G·a-resource-kind-is-not-a-mechanic`
 
 ### Overcharge
 A lever: spend the weapon's limiter (extra ammo-step / extra heat / higher misfire)

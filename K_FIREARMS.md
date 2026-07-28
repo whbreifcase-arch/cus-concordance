@@ -20,7 +20,7 @@
 
 ```text
 A gun is a Ranged PACKET (B·5). Everything below is that packet's fields, the
-Procedures that read them, and the two limiters (ammo/heat) that pace the trigger.
+Procedures that read them, and the two Resource kinds (Charge/Strain) that pace it.
 ```
 
 ---
@@ -32,7 +32,7 @@ No new verb, no shooting phase. A firearm is a **Ranged PACKET** resolved by ACT
 
 ```text
 GUN PACKET = { range · dice · success · grades · effects · provokes:false ·
-               not_in_contact · ammo|heat · tags }
+               not_in_contact · cost:{spend Charge | gain Strain} · tags }
 ```
 
 - **`not_in_contact` by default** (B·8, the signed `ranged-in-melee` ruling): a gun
@@ -126,8 +126,8 @@ per hop; provokes:false.
   the first target eats full dice (climbs to *cripple*), each −1-die hop reaches a
   *lower* grade, so the far end of the burst is **suppressed/winged**, not killed. One
   number tells the whole story of a burst.
-- **Spray burns extra ammo/heat** (§6, §7) — the horde-sweeper empties you faster,
-  which is what keeps it honest.
+- **Spray costs extra** (§6, §7) — each hop spends more Charge (or builds more Strain),
+  so the horde-sweeper empties you faster, which is what keeps it honest.
 
 ---
 
@@ -174,73 +174,75 @@ step, so even a perfect shot keeps a little pucker.
 
 ---
 
-# 6 · The magazine & the muzzle-loader — Ammo & Reload  `[Resource · State]` — SIGNED (William, 2026-07-28)
+# 6 · Charge — the finite Resource (skinned Ammo)  `[Resource: Charge]` — SIGNED (William, 2026-07-28)
 
-Ballistic weapons run dry. Ammo is the limiter that makes a firing line a **logistics
-problem** — and the terror it exists to create is **the whole squad reloading at once.**
+A ballistic weapon `spends Charge` per shot — the **finite** Resource kind (A·IV, 🟡).
+The engine only knows *Charge*; the sci-fi card **skins it "Ammo,"** a fantasy card
+"Arrows." Charge is the limiter that makes a firing line a **logistics problem** — and
+the terror it exists to create is **the whole squad running dry at once.**
 
-## Sci-fi — the magazine  `[Resource]`
 ```text
-A magazine = a few shooting-activations (rifle ~3 · LMG ~2/brutal · pistol ~4).
-DRY → RELOAD = one activation you do NOT shoot = the CARD GOES DOWN.
+A magazine = a Charge pool of a few shots (rifle ~3 · LMG ~2/brutal · pistol ~4).
+CHARGE EMPTY → RESTORE (reload) = one activation you do NOT shoot = the CARD GOES DOWN.
 ```
-Reload is the **card-down** already in the hand-management system (J·3): a gun that
-reloads is a figure that spent its activation and is offline until it comes back up.
+Reload is the **card-down** already in the hand-management system (J·3): a gun restoring
+Charge is a figure that spent its activation, offline until it comes back up.
 
-**The synchronized-reload failure — the point of the whole system.** A squad that all
-loads and fires every turn empties on the **same round** → the whole line reloads
-together → it gets overrun. Ammo is **deterministic** precisely so this is a real,
-*avoidable* catastrophe. The skill is **staggering** reloads: top up early behind
-cover, offset the dry-turns, keep one gun in reserve. `→ G·ammo-earns-its-tracker`
+**The synchronized-empty failure — the point of the whole system.** A squad that all
+fires every turn empties on the **same round** → the whole line reloads together → it
+gets overrun. Charge is **deterministic** precisely so this is a real, *avoidable*
+catastrophe. The skill is **staggering** the restores: top up early behind cover, offset
+the dry-turns, keep one gun in reserve. `→ G·a-resource-kind-is-not-a-mechanic`
 
-## Blackpowder — the muzzle-loader  `[State]`
-A muzzle-loader has **no magazine**: it is **single-shot**. Fire it, and it is **empty**
-until you spend an activation to reload (the same card-down). "One shot, then draw
-steel" is a `reloading` **Written Trigger** on the packet (A·XIV) — fire, and the gun
-is spent until you re-activate.
+## Blackpowder — the muzzle-loader
+A muzzle-loader is a **Charge pool of one**: single-shot. Fire it and it is empty until
+you spend an activation to restore it (the same card-down). "One shot, then draw steel"
+is a `reloading` **Written Trigger** on the packet (A·XIV).
 
-## Misfire — the blackpowder limiter  `[State]`
-Blackpowder fouls and fails. A weapon tagged `misfire` rolls the risk on firing; on the
-bad result the shot **does not go off and the weapon fouls** — it is offline (card-down
-to clear), exactly the shape of an overheat (§7). Misfire is the powder-era **twin of
-heat**: same rule, different skin. `→ G·misfire-is-heat`
+## Misfire
+Blackpowder fouls: a weapon tagged `misfire` rolls a risk on firing, and on the bad
+result the shot **fails and the weapon locks** (card-down to clear) — the powder-era
+counterpart of an overheat (§7). A twist on a Charge weapon, not a new resource.
 
 ---
 
-# 7 · Heat — the energy-weapon limiter  `[State]` — SIGNED (William, 2026-07-28)
+# 7 · Strain — the accumulating Resource (skinned Heat)  `[Resource: Strain]` — SIGNED (William, 2026-07-28)
 
-Energy weapons (plasma, las, the sci-fi setting's exotics) never run **dry** — they run
-**hot**. Heat is the discipline limiter, the opposite pressure to ammo.
+An energy weapon never runs **dry** — it `gains Strain`, the **accumulating** Resource
+kind (A·IV, 🔴). The engine knows *Strain*; the sci-fi card **skins it "Heat,"** a
+fantasy card "arcane instability." Strain is the discipline limiter, the opposite
+pressure to Charge.
 
 ```text
-Normal fire is free. PUSHING the weapon (Overcharge §8, rapid fire, Spray) adds HEAT.
-Heat VENTS 1 each turn you do NOT push.
-Hit the heat cap → OVERHEAT:
-   • the weapon LOCKS (a cool-down, reload-shaped: card-down to clear), and
+Normal fire is free. PUSHING the weapon (Overcharge §8, rapid fire, Spray) → gain Strain.
+Strain VENTS 1 each turn you do NOT push.
+Hit the Strain cap → the authored consequence fires (skin: OVERHEAT):
+   • the weapon LOCKS (a cool-down, card-down to clear), and
    • for the volatile ones (plasma) it "GETS HOT" — a Wound to the BEARER (armour
      saves). A scar hook into Persistence (Doc H): your own gun can maim you.
 ```
 
-**The interlock.** Ammo pressures you on **logistics** (dry = helpless); heat pressures
-you on **discipline** (greedy = jam / burn). A mixed fireteam **self-staggers**: the
-plasma gunner covers the lane while the riflemen reload; the riflemen cover while he
-vents. The squad rhythm *emerges* from two opposite limiters, unscripted.
+**The interlock.** Charge pressures you on **logistics** (empty = helpless); Strain
+pressures you on **discipline** (greedy = lock / burn). A mixed fireteam **self-staggers**:
+the plasma gunner covers the lane while the riflemen restore Charge; the riflemen cover
+while he vents Strain. The squad rhythm *emerges* from two opposite Resource kinds,
+unscripted.
 
 ---
 
-# 8 · Overcharge — spend the limiter for a bigger shot  `[Resource · State]` — SIGNED (William, 2026-07-28)
+# 8 · Overcharge — spend the Resource for a bigger shot  `[Resource]` — SIGNED (William, 2026-07-28)
 
-A universal lever tying the limiters to the grade ladder. On firing you may **Overcharge**:
+A universal lever tying the Resource kinds to the grade ladder. On firing you may **Overcharge**:
 
 ```text
 OVERCHARGE → +1 die  OR  ignore-Armour on this shot,  and in exchange:
-   ammo weapon → burn an EXTRA magazine-step (dry sooner)
-   heat weapon → take EXTRA heat (closer to overheat / gets-hot)
+   Charge weapon → spend an EXTRA Charge (dry sooner)
+   Strain weapon → gain EXTRA Strain (closer to the cap / gets-hot)
    muzzle-loader → raise the misfire risk (an overcharged powder load)
 ```
 
 Overcharge is how you punch a big one through armour *now* and pay for it a turn later —
-the risk/reward that makes ammo and heat **decisions**, not just bookkeeping. Authored
+the risk/reward that makes Charge and Strain **decisions**, not just bookkeeping. Authored
 weapons may cap or forbid it.
 
 ---
@@ -282,17 +284,19 @@ The rules above never change. The **content** does. Every mechanic has a blackpo
 face and a sci-fi face:
 
 ```text
-MECHANIC       SCI-FI (autogun era)          FANTASY (blackpowder era)
-single shot    —                             musket / arquebus (fire → reload = card-down)
-reload risk    HEAT (energy overheats)       MISFIRE / fouling (same rule, §6)
-magazine       AMMO (mag = N activations)    — (muzzle-loaders are single-shot)
-spray/chain    autogun · HMG                 BLUNDERBUSS / scattergun (short spread)
-blast+scatter  frag · mortar · shell         POWDER BOMB · grenado · hand-mortar · bombard
-volley         suppressing fire              "GIVE FIRE!" — a rank volley (Form Up, B·11)
-ignore-Armour  bolter                        the musket that punched plate off the field
-point-blank    pistol in the scrum           flintlock pistol (drop not_in_contact, priced)
-overcharge     overcharged plasma cell       double-shotted / heavy powder load
+KERNEL NOUN       SCI-FI skin (autogun era)     FANTASY skin (blackpowder era)
+Charge 🟡         AMMO / magazine               arrows · powder & shot (single-shot)
+Strain 🔴         HEAT / reactor overload       arcane instability · fouling / MISFIRE
+── procedures (same math either era) ──
+spray/chain       autogun · HMG                 BLUNDERBUSS / scattergun (short spread)
+blast+scatter     frag · mortar · shell         POWDER BOMB · grenado · hand-mortar · bombard
+volley            suppressing fire              "GIVE FIRE!" — a rank volley (Form Up, B·11)
+ignore-Armour     bolter                        the musket that punched plate off the field
+point-blank       pistol in the scrum           flintlock (drop not_in_contact, priced)
+overcharge        overcharged plasma cell       double-shotted / heavy powder load
 ```
+The engine authors in the noun (`spend 2 Charge`, `gain 1 Strain`); the setting does the
+one final conversion for the card ("2 Ammo", "reactor at 3").
 
 ## Worked example packets
 ```text
@@ -304,12 +308,12 @@ flintlock_pistol   : range 6  · 2d · 4+ · grades[1:Suppress · 2:1W] · singl
 blunderbuss        : range 6  · 3d · 4+ · SPRAY · single-shot · misfire
 powder_bomb        : range 6(thrown) · BLAST 2/1/0 · SCATTER · single-use
 
-# Sci-fi (separate setting, Document M)
+# Sci-fi (separate setting, Document M) — authored in nouns; card skins Charge="Ammo", Strain="Heat"
 autogun            : range 24 · 3d · 4+ · grades[1:Suppress · 2:1W · 3:2W] · SPRAY ·
-                     AMMO 3 · overcharge
-heavy_bolter       : range 30 · 4d · 4+ · ignore-Armour · SPRAY · AMMO 2 · overcharge
-plasma_gun         : range 24 · 3d · 4+ · ignore-Armour · HEAT · gets-hot · overcharge
-frag_grenade       : range 8(thrown) · BLAST 2/1/0 · SCATTER · AMMO 2 (carried)
+                     Charge 3 · overcharge
+heavy_bolter       : range 30 · 4d · 4+ · ignore-Armour · SPRAY · Charge 2 · overcharge
+plasma_gun         : range 24 · 3d · 4+ · ignore-Armour · gain Strain · gets-hot · overcharge
+frag_grenade       : range 8(thrown) · BLAST 2/1/0 · SCATTER · Charge 2 (carried)
 ```
 These are illustrative shapes, not tuned prices — the pricer (`factions/sim`) sets the
 numbers.
@@ -320,10 +324,10 @@ numbers.
 
 ```text
 It OWNS       the ranged Procedures B delegates: the gun ladder, Pin, Spray, Blast,
-             Scatter, Ammo/Reload, Misfire, Heat, Overcharge, Evasion. It owns no
-             primitive and invents no verb.
+             Scatter, Charge/reload, Misfire, Strain, Overcharge, Evasion. It owns no
+             primitive and invents no verb — Charge and Strain are Kernel Resources (A·IV).
 It READS/WRITES  Position (range · lanes · blast · spray hops · scatter), State (Pin ·
-             reloading · overheat · misfire · wounds), Resource (ammo · heat · AP).
+             reloading · misfire · wounds), Resource (Charge · Strain · Agency).
 It CITES     A·III (verbs) · A·VI (grades) · A·VII (Tool/Hybrid) · B·5 (PACKET) ·
              B·6 (Cleave) · B·8 (not_in_contact/facing) · B·9/9b (Counter/Overwatch) ·
              B·10 (Nerve) · B·11 (Form Up) · J (Component Layer, the trackers).

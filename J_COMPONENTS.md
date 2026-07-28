@@ -133,6 +133,20 @@ Everything an opponent must read on *your* turn is hardware on the model
   *rolls no Armour if hit again* (B·7, `finish-the-downed`). The physical state and
   the rule are the same fact. `→ G·the-model-is-the-marker`
 
+## Resource costs — colour AND shape (the accepted tracker) — SIGNED (William, 2026-07-28)
+The three Resource kinds (A·IV) are the one accepted play-time tracker (small dial/clip,
+card-side, William signed off at this fidelity). They read by **colour paired with
+shape**, never hue alone — the same poka-yoke that keeps the base wells un-confusable
+(§5): a colour-blind player or a badly-lit table must still tell them apart.
+
+```text
+🟢 Agency   green · a PIP     renews each activation (mostly in-head; AP = 3)
+🟡 Charge   yellow · a BAR    finite; a small track that empties (skin: ammo / arrows)
+🔴 Strain   red · a WEDGE     accumulates toward a cap (skin: heat / corruption)
+```
+The public read stays the **card-down** (this gun is offline — reloading or locked); the
+exact count is the owner's, glanced off the card. `→ G·the-model-is-the-marker`
+
 ---
 
 # 5 · Base construction  `[Presentation → the measuring instrument]`

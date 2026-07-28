@@ -197,6 +197,24 @@ matchups-asymmetric  → PvP is asymmetric, balanced by SCENARIO not stat symmet
                        50/50 mode is a MIRROR (same faction, different Chapter)
 ```
 
+## Amendments — 2026-07-28 · sixth batch (William)
+
+**Ammo and Heat were never mechanics — they're skins.** The fifth batch's one impurity,
+removed by lifting the abstraction to the kernel:
+
+```text
+resource-dynamics → a spendable Resource is classified by how it replenishes (Law 10):
+                    🟢 Agency (renewing = AP) · 🟡 Charge (finite) · 🔴 Strain (accumulating).
+                    Packets author in the NOUN (spend 1 Charge / gain 1 Strain); the
+                    setting skins it at display (Charge → "Ammo"/"Arrows"; Strain →
+                    "Heat"/"corruption"). Scopes COSTS only — Health/Morale stay State
+ammo-is-a-skin    → "Ammo" is the sci-fi skin of Charge; reload = restore Charge = card-down
+heat-is-a-skin    → "Heat" is the sci-fi skin of Strain; overheat = its cap consequence
+colour-plus-shape → the three kinds show by colour AND shape (poka-yoke, J·5), never hue alone
+```
+The tell the abstraction is right: the finite kind was already needed for spell charges
+before firearms — a magazine reused it rather than inventing an "ammo engine" (Law 13).
+
 **CUS v0.6 is closed** — every decision is signed and **no open questions remain.**
 See [Document E · Decision Register](E_OPEN_DECISIONS.md). The next change is an
 amendment, not an open question.

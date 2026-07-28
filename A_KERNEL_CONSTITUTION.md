@@ -212,6 +212,35 @@ Combat spends **Agency**; politics spends **Influence**; travel spends **Time +
 Supply**. Same Kernel idea, made concrete per module.
 `→ G·position-is-not-a-resource`
 
+## The three Resource kinds — SIGNED (William, 2026-07-28)
+A spendable Resource is classified by **how it replenishes** — a behavioural
+classification (Law 10), read by humans and the UI, not a new primitive. There are
+three, and the Kernel names each with a **neutral noun** and a **canonical colour**:
+
+```text
+KIND          COLOUR   BEHAVIOUR                              KERNEL NOUN
+renewing      🟢 green  refreshes every activation / turn      Agency   (AP — already ours)
+finite        🟡 yellow depletes; an action or event restores  Charge
+accumulating  🔴 red    rises with use; vent it or it punishes  Strain
+```
+
+- **Packets are authored in the kernel nouns** — `spend 1 Charge`, `gain 1 Strain`,
+  `spend 1 Agency` — never in setting words. A weapon that "reloads" *spends Charge*;
+  one that "overheats" *builds Strain*.
+- **The setting performs one final conversion at Presentation** (Ch. IX): the same
+  `spend 2 Charge` renders as *"2 Ammo"* in a sci-fi skin, *"2 Arrows"* or *"2 Mana"*
+  in a fantasy one. The engine only ever knows Charge and Strain. **Ammo and Heat are
+  skins, not mechanics.** `→ G·a-resource-kind-is-not-a-mechanic`
+- **Colour is the player's language**, and by the poka-yoke rule (Component Layer,
+  Document J) it is **paired with a distinct shape**, never carried by hue alone.
+- **Scope: costs only.** The three kinds classify quantities a packet *spends or
+  gains*. **Health (Wounds) and Morale are State, not a colour** — what is currently
+  true, not a cost — and stay owned by their existing procedures (Law 1).
+
+The classification is deliberately genre-blind: the finite kind was already needed for
+spell charges before firearms existed, which is why a gun's magazine reused it instead
+of inventing an "ammo" system (Law 13 — the abstraction predates the feature).
+
 ---
 
 # V · PACKET — the universal referenced definition — SIGNED
