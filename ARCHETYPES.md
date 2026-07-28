@@ -1,157 +1,276 @@
 # CUS — THE ARCHETYPE REFERENCE
-### v0.6 · the frame spine · Presentation-layer content, not constitution · 2026-07-28
+### v0.6 · the layered frame model · Presentation-layer content, not constitution · 2026-07-28 (rev 2)
 
-> **What this is.** Every **Frame** — the base stat-line an agent is built on. An
-> **Archetype** is not a costume, it is a **function**: `Archetype = Role × Tool ×
-> signature` (A·VIII). So this isn't an infinite list — it's the Role × Tool grid plus
-> the recognizable *signature knob* each cell leans on. **Factions are these frames with
-> named knobs turned** — clear, never hidden (Law 15: a specialty is a named field, not a
-> buried buff).
+> **What this is.** How an agent is built, in **layers that don't mix.** The first draft
+> of this doc put chassis, frames, signatures, overlays and temperaments on one shelf and
+> called them all "archetypes" — a clean-sounding list that quietly violated its own
+> abstraction boundary. Rev 2 gives every layer exactly one job, so it reads like the
+> Kernel instead of a troop roster. *(Rev 1 → this file's git history; the register of the
+> dead keeps its name.)*
 >
-> **This is content, not law.** Archetypes live at the Presentation layer (A·VIII, A·IX);
-> where they meet a rule, A–N win. **All numbers here are un-tuned baselines** — the
-> pricer (`factions/sim`) sets the finals; these just say what *kind* of thing each frame
-> is.
->
-> **The frame is the mini's *configuration*, not its state.** Move · Armour · Wounds ·
-> Nerve · Tool · Role · signature — what the unit *is.* Runtime state lives on the model
-> (flags) and the campaign in the app (J).
+> **Content, not law.** Everything here is Presentation (A·VIII/IX); where it meets a rule,
+> A–N win. **All numbers are un-tuned baselines** — the pricer sets finals.
 
-**Legend.** Armour / Nerve tiers: `— None · Lt Light 6+ · Md Medium 5+ · Hv Heavy 4+ ·
-imm immune (fearless / Circle)`. Move in inches (default 6). W = Wounds. AP = 3 for all.
+```text
+STATE          current Wounds · AP · Nerve · flags · Position          runtime (model + app)
+UNIT PROFILE   the fully-resolved unit a card prints
+   = CHASSIS + FRAME + SIGNATURE + TEMPERAMENT + OVERLAYS + FACTION KNOBS
+      CHASSIS       the body — base shape/size · Move · Armour · Wounds · Creature Type
+      FRAME         the job  — Role × Tool (one of nine)
+      SIGNATURE     the identity — one recognizable decision loop
+      TEMPERAMENT   fallback psychology — the signed five (A·VII), chosen independently
+      OVERLAYS      modifiers, NOT archetypes — Mounted · Emplaced · Massive · Circle · Command · Heroic
+      FACTION KNOBS explicit adds / overrides — named, never hidden (Law 15)
+```
+
+An **Archetype** is just **Frame + Signature.** Everything else is a different layer.
 
 ---
 
-# 1 · RANGED — Pressure & Anchor shooters
+# 1 · The nine FRAMES — Role × Tool
+
+Role = **Pressure · Anchor · Utility** (A·VII — *Pressure applies Force, Anchor prevents
+it, Utility changes it*). Tool = **Melee · Ranged · Hybrid**. That is the whole space —
+nine cells, and every recognizable archetype lives *beneath* one of them. Names are
+placeholders; the structure is the point.
 
 ```text
-FRAME          ROLE      TEMP       MOVE ARM  W  NERVE  SIGNATURE (the knob)
-Rifleman       Pressure  Resolute    6   Lt   1  Lt     Charge — balanced range/dice; the gunline floor
-Marksman       Pressure  Cowardly    6   Lt   1  Md     precision — low success#, long range, ignore-Armour
-Heavy Gunner   Anchor    Resolute    5   Md   2  Md     Spray + high Charge — volume; holds a lane
-Grenadier      Pressure  Aggressive  6   Lt   1  Lt     Blast — indirect template + scatter; clears clusters
-Piercer        Pressure  Resolute    5   Lt   1  Lt     ignore-Armour + single-Charge (slow) — kills the tank
-Artillery      Anchor    Resolute    4   —    2  Md     indirect Blast, long, no-LoS — static; a Large base
+             MELEE        RANGED         HYBRID
+PRESSURE     Assault      Shooter        Raider
+ANCHOR       Guard        Gunner         Sentinel
+UTILITY      Warden       Controller     Operator
 ```
 
-# 2 · MELEE — Pressure
-
-```text
-FRAME          ROLE      TEMP        MOVE ARM  W  NERVE  SIGNATURE
-Warrior        Pressure  Aggressive   6   Md   2  Lt     Mob — weight of numbers; the melee floor
-Berserker      Pressure  Ravenous     7   Lt   2  imm    'Ere-we-go — wounded → angrier (Written Trigger); fearless
-Assassin       Pressure  Cowardly     8   Lt   1  Md     Fast + backstab (provokes:false) + armour that survives the lane
-Cavalry        Pressure  Aggressive   9   Md   2  Md     Impact + the plow (§4) — mounted, elongated base, one class larger
-```
-
-# 3 · MELEE — Anchor
-
-```text
-FRAME          ROLE      TEMP        MOVE ARM  W  NERVE  SIGNATURE
-Spearman       Anchor    Resolute     6   Md   1  Md     Reach 2" + Brace — holds ground, breaks a charge
-Bulwark        Anchor    Resolute     5   Hv   2  Hv     Heavy + unpierceable — the wall AP can't crack
-```
-
-# 4 · HYBRID — gun & blade
-
-```text
-FRAME          ROLE      TEMP        MOVE ARM  W  NERVE  SIGNATURE
-Skirmisher     Pressure  Cowardly     7   Lt   1  Lt     two packets + Fire-and-Fade — shoot, then reposition
-Trench-fighter Pressure  Aggressive   6   Md   2  Md     point-blank pistol (drops not_in_contact) + blade
-```
-
-# 5 · UTILITY — casters, faith, support
-
-```text
-FRAME          ROLE      TEMP        MOVE ARM  W  NERVE  SIGNATURE
-Wizard         Utility   Resolute     6   —    1  Md     CHARGE — prepared slots: control, bolts, buffs (disciplined)
-Sorcerer       Utility   Aggressive   6   Lt   1  Lt     STRAIN — innate: builds → pops → wild surge (overcharge = gamble)
-Druid          Utility   Protective   6   Lt   2  Md     summon (`raise`) + shapeshift + area heal — nature's Utility
-Priest         Anchor    Protective   6   Md   2  Hv     Rally + heal + Morale support — the recovery valve
-Medic          Utility   Protective   6   Lt   2  Md     Care / stabilize — the Persistence hook (keeps veterans alive)
-Warlock        Utility   Cowardly     6   —    1  Lt     curse / hex / Suppress — deals Morale and debuff at range
-```
-
-# 6 · COMMAND & the exceptional
-
-```text
-FRAME          ROLE      TEMP        MOVE ARM  W  NERVE  SIGNATURE
-Leader         Utility   Resolute     6   Md   2  imm    Rally + Orders + command aura; a CIRCLE — breaks by story, not dice
-Champion       Pressure  Resolute     6   Hv   3  imm    a CIRCLE that fights — signature weapon, answers every angle
-Monster        Pressure  Ravenous     6   Md   3+ imm    size — the plow + high Wounds; a Large base; a Type interaction
-```
+- **Pressure** frames *make* the opposition react · **Anchor** frames *deny* space and
+  passage · **Utility** frames *change the conditions* of the fight.
+- The frame owns **Role, Tool, and basic packet expectations** — nothing physical, no
+  personality, no gear.
 
 ---
 
-# 7 · The isomorphic map — one function, three settings
+# 2 · SIGNATURES — the decision loops
 
-The proof that an archetype is a **function, not a costume**: the frame above never
-changes. Only the skin does. Read across a row — same job, three worlds.
+A signature is **one recognizable repeated decision** a player makes with that unit. It
+may bundle two tightly-coupled rules (`Reach + Brace`) *only if they form one loop.* The
+signature is what makes a Marksman feel unlike a Grenadier though both are Shooters.
 
-| Function (frame) | 🐉 Fantasy | 🚀 Sci-fi | 🎖 Modern |
+```text
+MELEE loops        Mob · Fury · Backstab · Impact · Counter (duel) · Reach-Brace · Interpose
+RANGED loops       Precision · Spray · Blast · Pierce · Indirect · Fire-and-Fade · Suppress
+RESOURCE loops     Charge (channel) · Strain (overcharge)
+SUPPORT loops      Rally · Care · Heal · Raise · Transform · Orders · Deploy · Protect
+```
+
+Signatures are **skin-agnostic** — the whole reason the isomorphic map (§7) works. "Blast"
+is Blast whether it's a grenade, a fireball, or a mortar.
+
+---
+
+# 3 · ARCHETYPES = Frame + Signature
+
+The recognizable troop-types, rebuilt *underneath* the nine cells — **no baked chassis, no
+baked temperament.** That is what lets a *resolute* dwarven berserker and a *ravenous* ork
+berserker both exist, and a Bulwark be plate-clad **or** a spectral guardian.
+
+```text
+PRESSURE × MELEE — Assault
+   Warrior      = Assault + Mob            weight of numbers, the melee floor
+   Berserker    = Assault + Fury           wounded → angrier (Written Trigger)
+   Duelist      = Assault + Counter        turn every entry into a punish
+
+PRESSURE × RANGED — Shooter
+   Rifleman     = Shooter + Charge         disciplined ordinary output — no specialist exception
+   Marksman     = Shooter + Precision      low success#, long, ignore-Armour — kills elites
+   Grenadier    = Shooter + Blast          area, indirect, scatter
+   Piercer      = Shooter + Pierce         ignore-Armour, slow — kills the tank
+
+PRESSURE × HYBRID — Raider
+   Skirmisher   = Raider + Fire-and-Fade   shoot, then reposition
+   Breacher     = Raider + Point-Blank     pistol in the scrum (drops not_in_contact) + blade
+   Assassin     = Raider + Backstab        reach the target, strike where it can't answer
+
+ANCHOR × MELEE — Guard    (function: DENY PASSAGE / PROTECT SPACE — armour is chassis, not here)
+   Spearman     = Guard + Reach-Brace      holds ground, breaks a charge
+   Bulwark      = Guard + Interpose        redirects hits onto itself; the wall — plate OR agile OR spectral
+
+ANCHOR × RANGED — Gunner
+   Heavy Gunner = Gunner + Spray           volume; locks a lane
+   Piercing Gun = Gunner + Pierce          the anti-armour emplacement
+
+ANCHOR × HYBRID — Sentinel    (the cell the first draft missed — holds lane AND contact)
+   Watchman     = Sentinel + Overwatch     the armed WAIT that punishes movement
+   Phalanx      = Sentinel + Brace-and-Fire hold the front, fire from it
+   Warder       = Sentinel + Intercept     answers both the shot and the charge
+
+UTILITY × MELEE — Warden
+   Priest       = Warden + Rally           restores Nerve / clears Morale conditions
+   Medic        = Warden + Care            prevents death — the campaign-asset keeper (Doc H)
+   Bodyguard    = Warden + Protect         stands between a charge and its target
+
+UTILITY × RANGED — Controller
+   Channeler    = Controller + Charge      prepared, disciplined power (fantasy: Wizard)
+   Overcharger  = Controller + Strain      innate power that builds → pops → surges (fantasy: Sorcerer)
+   Disruptor    = Controller + Suppress    deals Morale / debuff at range (fantasy: Hexer)
+
+UTILITY × HYBRID — Operator
+   Summoner     = Operator + Raise         puts new bodies on the board
+   Commander    = Operator + Orders        composes Rally + Form Up + Mission
+   Shifter      = Operator + Transform     changes its own (or an ally's) configuration
+   Engineer     = Operator + Deploy        drops emplacements, cover, hazards
+```
+
+> **The Rally / Care / Heal split is explicit** (they were one blur before): **Rally**
+> restores Nerve/Morale · **Care** prevents death and preserves the campaign asset (H) ·
+> **Heal** restores Wounds *this battle.* A frame has one *primary* signature; a faction
+> can bolt the others on as knobs.
+>
+> **"Druid" was three loops stapled together** by convention. Split: **Summoner** (Raise),
+> **Shifter** (Transform), **Restorer** (Heal/area). A faction Archdruid holds all three as
+> *named knobs* — but "Druid" is not a foundational function.
+
+---
+
+# 4 · CHASSIS — the body
+
+The physical layer. Owns **base shape · size · Move · Armour · Wounds · Creature Type** —
+and *nothing else.* A few classes (baselines, un-tuned):
+
+```text
+CHASSIS        SHAPE   SIZE    MOVE  ARM  W   CREATURE   note
+Light Infantry Square  Small    6    Lt   1  Man        cheap line / skirmish body
+Line Infantry  Square  Medium   6    Md   2  Man        the standard soldier
+Heavy Infantry Square  Medium   5    Hv   2  Man        plate; slow
+Beast          Square  Medium   8    Lt   2  Beast      fast, no ranged
+Large          Square  Large    6    Md   3  varies     plows one class larger (B·1/§4)
+Emplacement    Square  Large    0    —    2  Construct  static; crew-served
+```
+
+**AP is `3` for every figure — signed and universal** (A·IV · J·6 · "one pool" B·12).
+It is *not* a per-chassis value. *(A Square-2 / Circle-3 split was floated in review; it
+contradicts the signed AP=3 one-pool, so it is **parked as a possible E amendment**, not
+adopted here.)* **Nerve** (psychic armour) is likewise a chassis/knob value, independent of
+physical Armour — which is what lets a barefoot fanatic run Heavy Nerve and a plated knight
+run Light.
+
+---
+
+# 5 · OVERLAYS — modifiers, not archetypes
+
+The thing the first draft got most wrong: **Cavalry, Artillery, Leader, Champion and
+Monster are not peer archetypes.** They are *overlays* laid over any Frame + Signature +
+Chassis. This is what un-strangles the faction system.
+
+```text
+OVERLAY     does                                          examples
+Mounted     elongated base · +Move · plows a class larger  Cavalry = any Pressure archetype + Mounted
+Emplaced    Move 0 · crew-served · long/indirect            Artillery = Gunner + Indirect + Emplaced
+Massive     Large base · +Wounds · plows                    Monster = any archetype + Massive
+Circle      faceless · Morale-immune · breaks by trigger    (the exceptional — hero/champion)
+Command     Rally / Orders aura                             Leader = any archetype + Circle + Command
+Heroic      signature weapon · answers every angle          Champion = any archetype + Circle + Heroic
+```
+
+So a **Leader** can be `Assault+Mob` (a warlord), `Gunner+Spray` (a gunline commander), or
+`Controller+Charge` (a wizard-general). A **Monster** can be `Assault+Fury` (a troll),
+`Gunner+Indirect` (a living artillery-beast), or `Guard+Interpose` (a giant guardian).
+Nothing pre-decides that every Leader is Utility or every Monster is Pressure. `→ overlays,
+not shelves`
+
+---
+
+# 6 · TEMPERAMENT vs DOCTRINE
+
+**Temperament comes out of the frame.** It is the **signed five** (A·VII) — *Cowardly ·
+Resolute · Aggressive · Protective · Ravenous* — the fallback psychology when no authored
+instruction resolves behaviour. It is **chosen independently**, never welded to an
+archetype. A Marksman is not "a Cowardly"; a *Resolute* Marksman who keeps his distance is
+perfectly coherent.
+
+The first draft leaked *tactical doctrine* into Temperament (Marksman/Assassin/Skirmisher
+all "Cowardly" — really meaning "prefers distance, flanks, disengages"). Those are not
+cowardice. The clean fix, **⚠ PROPOSED (not signed — a real Digest/E question):** a
+separate **DOCTRINE / posture** axis, orthogonal to Temperament:
+
+```text
+TEMPERAMENT (psychology, signed)   Cowardly · Resolute · Aggressive · Protective · Ravenous
+DOCTRINE    (posture, PROPOSED)    Advance · Hold · Evade · Protect · Hunt
+```
+
+A *Resolute* Marksman on an *Evade* doctrine, or a *Cowardly* Bulwark forced to *Hold* by
+Orders, both become expressible — and "Cowardly" stops secretly meaning "shoots from
+range." If it earns its keep in play, it's a signed amendment; until then it's a proposal.
+
+---
+
+# 7 · The isomorphic map — from the FUNCTION, not the costume
+
+The stronger proof (and the fix for the first draft's forced rows like "Druid → CBRN"):
+start from the **neutral signature**, then map *that mechanic* across settings. Same loop,
+three worlds.
+
+| Function (signature) | 🐉 Fantasy | 🚀 Sci-fi | 🎖 Modern |
 |---|---|---|---|
-| **Rifleman** | Archer · Bowman | Trooper · Bolter-line | Rifleman · line infantry |
-| **Marksman** | Hunter · Longbowman | Sniper · long-las | Sniper · DMR |
-| **Heavy Gunner** | Handgunner · volley-crew | Heavy Bolter | Machine-gunner · LMG |
-| **Grenadier** | Bombardier · Alchemist | Missile-launcher | Grenadier · under-barrel |
-| **Piercer** | Arbalist · heavy crossbow | Lascannon · melta | AT-rifle · .50 cal |
-| **Artillery** | Bombard · trebuchet | Basilisk · earthshaker | Mortar team · howitzer |
-| **Warrior** | Warrior · man-at-arms | Assault trooper · Ork Boy | Shock-trooper · assault |
-| **Berserker** | Berserker · barbarian | Khorne · Ork Nob | (rage-doctrine breacher) |
-| **Assassin** | Assassin · rogue | Callidus · stealth-suit | Spec-ops · knife-work |
-| **Cavalry** | Knight-mounted · lancer | Bike · jetbike | Technical · APC |
-| **Spearman** | Spearman · pikeman | shield-drone line | Bayonet line · riot line |
-| **Bulwark** | Knight · shield-wall | Terminator | Breacher · riot-shield |
-| **Skirmisher** | Scout · outrider | kill-team trooper | Dragoon · recon |
-| **Trench-fighter** | Landsknecht · pistolier | Marine Tactical | Trench-raider |
-| **Wizard** | Wizard · magus | Sanctioned Psyker | Forward observer (finite fire missions) |
-| **Sorcerer** | Sorcerer · warlock | Rogue Psyker | Overclocked / experimental-weapon operator |
-| **Druid** | Druid · shaman | Bio-mancer · hive-mind | CBRN · combat engineer |
-| **Priest** | Cleric · warpriest | Chaplain | Chaplain · morale officer |
-| **Medic** | Healer · chirurgeon | Apothecary | Combat medic |
-| **Warlock** | Warlock · hexer | rogue psyker (malefic) | EW · jammer · psy-ops |
-| **Leader** | Captain · lord | Sergeant · Captain | Squad leader · officer |
-| **Champion** | Hero · knight-errant | Captain · Chapter Master | (named operator / ace) |
-| **Monster** | Troll · dragon · ogre | Dreadnought · Carnifex | Tank · mech · walker |
+| **Charge** (channel) | Wizard | sanctioned psyker | forward observer (finite fire missions) |
+| **Strain** (overcharge) | Sorcerer | unstable psyker | experimental / overclocked-weapon operator |
+| **Suppress** (disrupt) | Hexer · witch | malefic psyker | EW · jammer · psy-ops |
+| **Raise** | necromancer · shaman | drone-controller · biomancer | engineer deploying assets |
+| **Transform** | shapeshifter | adaptive suit · morph | powered-exo mode |
+| **Blast / Indirect** | bombard · alchemist | orbital · artillery | mortar · howitzer |
+| **Pierce** | arbalist | lascannon · melta | AT-rifle · .50 |
+| **Spray** | volley-crew · handgunner | heavy bolter | machine-gunner · LMG |
+| **Backstab** | assassin · rogue | callidus · stealth-suit | spec-ops · knife-work |
+| **Impact** (mounted) | lancer · knight | bike · jetbike | technical · APC |
+| **Reach-Brace** | spearman · pikeman | shield-drone line | bayonet · riot line |
+| **Fire-and-Fade** | scout · outrider | kill-team trooper | dragoon · recon |
+| **Care** | chirurgeon | apothecary | combat medic |
+| **Rally** | warpriest | chaplain | morale officer |
 
-The two most telling rows: **Wizard vs Sorcerer** is `Charge vs Strain` — prepared slots
-vs innate surge — the *exact same axis* as ballistic vs energy weapons (ammo vs heat),
-one floor up into the arcane. And the **caster maps cleanly onto modern warfare** as the
-*forward observer* / *EW operator*: "Utility that alters Force at range through a
-resource" is a function every setting has, whether it calls it a spell or a fire mission.
+The two telling rows: **Charge vs Strain** is the *exact* axis as ballistic-vs-energy
+weapons (ammo vs heat), one floor up into the arcane; and the caster maps to modern war as
+the **forward observer / EW operator** — "Utility that alters Force at range through a
+resource" is a function every setting has, whether it's a spell or a fire mission.
 
 ---
 
-# 8 · Factions = a frame + named knobs (clear, never hidden)
+# 8 · A UNIT PROFILE — fully resolved, with sources
 
-A faction unit is a frame with a **printed list** of turned knobs — you read exactly how
-far each is turned, nothing buried:
+A card shows the *whole truth,* and every field is tagged with the layer it came from — so
+you can see exactly which knob a faction turned and where:
 
 ```text
-Marine Tactical  =  Trench-fighter  +  { Heavy armour · 2 Wounds · They-Know-No-Fear
-                                         (Stun/Morale-immune) · bolter: Spray + ignore-Armour }
-Ork Boy          =  Warrior         +  { 3 Wounds (no shrug) · Mob++ · dakka (Spray, high success#) }
-Tau Fire Warrior =  Marksman        +  { Evasion (unpierceable) · Fast/jetpack · pulse: Strain, not Charge }
-Guardsman        =  Rifleman        +  { Light · 1 Wound · Cowardly · cheap · Orders-eligible }
-Tempest Wizard   =  Wizard          +  { Charge 3 · a control school · frail (None armour) }
-Chaos Sorcerer   =  Sorcerer        +  { Strain · overcharge-happy · a mutation Written Trigger }
+MARINE TACTICAL
+   Frame        Pressure × Hybrid — Raider        [Frame]
+   Signature    Point-Blank                        [Signature]
+   Chassis      Heavy Infantry (Sq/Med · Mv5 · Hv · 2W · Man · AP3)   [Chassis]
+   Temperament  Resolute                           [Temperament]
+   Nerve        Heavy (immune to Stun & Morale)    [Faction: They-Know-No-Fear]
+   bolter       Spray + ignore-Armour              [Faction]
+
+ORK BOY
+   Frame        Pressure × Melee — Assault         [Frame]
+   Signature    Mob                                [Signature]
+   Chassis      Line Infantry, but 3 Wounds        [Chassis + Faction override: W 2→3]
+   Temperament  Aggressive                         [Temperament]
+   slugga       Spray, high success# (spray-and-pray)   [Faction]
 ```
 
-Every knob is a named field (Law 15). Anyone can look at the card and see the whole
-truth of the unit — which is the entire *no-one-memorizes-anything* promise, carried all
-the way up to army-building.
+**Deltas are visible as overrides** (Ork W `2→3`), and additions carry their source. That
+is "no one memorizes anything" carried to the card: read the tags, you know the whole unit.
 
 ---
 
 # 9 · What this reference owes the Kernel
 
 ```text
-It OWNS       nothing but frames — Presentation content (A·VIII/IX). No primitive, no rule.
-It USES       Role/Tool/Temperament (A·VII) · the base classes (B·1) · the K signatures
-              (Charge/Strain/Spray/Blast/Evasion) · Circles & break-triggers (B·10).
-It FEEDS      the faction rosters (M, factions/data) — each unit is a frame + knobs.
-It MUST NOT   hide a knob. A specialty is a named field, or it does not exist.
+It OWNS       nothing but layered Presentation content (A·VIII/IX). No primitive, no rule.
+It USES       Role/Tool (A·VII, as PRESSURE/Anchor/Utility) · the signed 5 Temperaments
+              (A·VII) · AP=3 universal (A·IV) · base classes (B·1) · Circles (B·10) · the
+              K signatures (Charge/Strain/Spray/Blast/Suppress) · Care (H).
+It FEEDS      the faction rosters (M · factions/data) — each unit is Chassis + Frame +
+              Signature + Temperament + Overlays + Knobs, fully resolved.
+It MUST NOT   mix layers, bake temperament into a frame, or hide a knob.
 ```
 
-Twenty-odd functions, three settings, one stat-spine. Build the frame once; the fantasy,
-the far-future, and the trench all just turn its knobs.
+Nine frames, a bag of signatures, a handful of chassis and overlays, five temperaments —
+and every troop-type in every setting is a **resolved combination** of them, never a new
+shelf. That is the difference between a clever list and the Kernel.
