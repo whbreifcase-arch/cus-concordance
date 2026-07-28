@@ -47,11 +47,13 @@ an 81-unit library generated out of `factions/data/`. No cards, no linking, and
 no XML slot at all. `tts/mod/` is the older full mod, kept for its build
 pipeline.
 
-**Supporting:** [CHARGE_FINDINGS.md](CHARGE_FINDINGS.md) — what ~1.3M simulated
-charges taught us (capstone, closed 2026-07-25) · [SCENARIO_PROMPT.md](SCENARIO_PROMPT.md)
-— reusable prompt to make any AI a CUS scenario designer · `play/` — the live tools
-(CHARGE_LAB, BANNER, BATTLE_3D, How To Play) · `factions/` — the v0.6-native faction
-build and its sim.
+**Supporting:** [ARCHETYPES.md](ARCHETYPES.md) — the frame spine: every base stat-line
+(`Archetype = Role × Tool × signature`) + the Fantasy/Sci-fi/Modern isomorphic map;
+factions are these frames with named knobs turned · [CHARGE_FINDINGS.md](CHARGE_FINDINGS.md)
+— what ~1.3M simulated charges taught us (capstone, closed 2026-07-25) ·
+[SCENARIO_PROMPT.md](SCENARIO_PROMPT.md) — reusable prompt to make any AI a CUS scenario
+designer · `play/` — the live tools (CHARGE_LAB, BANNER, BATTLE_3D, How To Play) ·
+`factions/` — the v0.6-native faction build and its sim.
 
 ## Owner rulings signed — 2026-07-24 (William)
 
