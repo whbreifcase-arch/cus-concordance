@@ -322,6 +322,19 @@ and subtracts what survives — so a 2-Wound figure drops to a clean Grade that 
 3-Wound figure walks away from. That is the whole interaction; there is no track
 to step down.
 
+### `unpierceable` — the save AP can't bypass — SIGNED (William, 2026-07-28)
+Normally **`ignore Armour`** deletes the save. A save carrying the **`unpierceable`**
+tag is immune to that — armour-piercing simply does not apply, and the figure rolls its
+save anyway (against blast, `ignore Armour`, everything). It is a tag on the save (Law
+15), not a second save and not a new step. Two skins:
+```text
+EVASION   an agile figure's unpierceable save — flavour: dodge, jink (the sneaky boys)
+BULWARK   a heavy figure's unpierceable save — flavour: a shield/plate AP can't crack
+```
+This is the counter to the armour-piercing meta: you cannot out-gun an `unpierceable`
+figure, you have to **corner** it — deny the geometry, which is Position capping the
+fight again (A · II). `→ G·unpierceable-is-a-tag`
+
 ## Finishing the downed — SIGNED (William, 2026-07-25)
 **A Knocked Out figure that is hit is killed. It rolls no Armour.**
 
@@ -636,33 +649,43 @@ once. *That is not a problem to solve — that is the game.*
 
 # 10 · Nerve, morale & break  `[State / Temperament]`
 
-**Morale track — SIGNED (William, 2026-07-24): three states** (like everything else,
-in threes).
+**Morale is the MIND channel — SIGNED (William, 2026-07-28).** Reworked from a *test*
+into *damage*. Morale is one of the three channels of harm (A · II): an attack deals
+**Morale** the way it deals **Wounds**, and the figure's **Nerve** save resists it
+exactly as **Armour** resists Wounds. The track, in threes:
 ```text
 Steady → Shaken → Broken
 ```
-> **Breaking them beats killing them — SIGNED (William, 2026-07-25).** The morale
-> track is deliberately a **ratchet**: Nerve only tests on a *shock*, so a Shaken
-> figure in a quiet corner does not drift back to Steady on its own, and a Routing
-> figure runs *away* from the shocks that might test it. Only **Rally** — a leader's
-> ACTION — reliably walks a figure back up.
->
-> That is the design, not a gap. Pressure is cheaper than attrition; a broken enemy
-> costs you nothing further and a dead one cost you every wound you had to land.
-> It also makes killing the leader a *strategy* rather than a stat-check, because
-> the leader is the recovery valve. `→ G·morale-is-not-attrition`
+**Nerve is psychic armour** — the same tiered save as Armour (§7), applied to the Mind:
+```text
+MIND:  deal Morale → Nerve save (None / Light 6+ / Med 5+ / Heavy 4+) →
+       each UNSAVED point steps the track down one state (Steady → Shaken → Broken)
+```
+Roll one Nerve save per incoming Morale point. **There is no 3-dice test any more** —
+Morale is damage, Nerve is the save, the track is the wound track. `→ G·morale-is-a-channel`
 
-- **Squares test Nerve; Circles do not** — and Circles never break. `[Definition: shape]`
+**Where Morale comes from:**
+- a grade-line **`N Morale`** effect on a PACKET — suppressing fire, a Terror weapon, a
+  scream. (K's Suppress is simply `1 Morale`.)
+- **the fallen** — a friendly figure **slain, Knocked Out, or Broken within 3″** is an
+  **area Morale source** that deals Morale to nearby breakable figures. This contagion is
+  what makes Mind a *channel* and not just targeted damage: fear spreads, and a packed
+  line cascades. **Resolved in ONE sweep at the END of the strike** (batched) — never
+  interleaved mid-resolution, so a casualty-heavy turn checks once, not per death.
+  `→ G·fear-is-contagion`
 
-> **This law rests on RANK, not control — SIGNED (William, 2026-07-26).** Circles
-> do not test because they are **exceptional**: heroes and champions, whoever is
-> running them. **Enemy Circles do not test either.** They are not exempt because
-> a player would object to being told his hero fled; they are exempt because that
-> is what a champion *is*.
+**Who is immune. Circles never take Morale** — a champion does not break by damage (see
+below); and **Spirit** and **Construct** are **fearless** — no Nerve, immune to Morale.
+*A mindless swarm walks through suppressing fire; you cannot frighten what has no Mind.*
+
+> **This immunity rests on RANK, not control — SIGNED (William, 2026-07-26).** Circles
+> are immune because they are **exceptional** — heroes and champions, whoever runs them.
+> **Enemy Circles are immune too.** Not a courtesy to players; a statement of what a
+> champion *is*.
 >
-> *(Contrast Story's sacred-figure law, which rests on **control** — a played
-> figure can never be Moved, but an NPC Circle can. Same word, two different
-> bases, both now named. `→ G·rank-is-not-control`)*
+> *(Contrast Story's sacred-figure law, which rests on **control** — a played figure can
+> never be Moved, but an NPC Circle can. Same word, two bases, both named.
+> `→ G·rank-is-not-control`)*
 
 ## When an enemy champion breaks — SIGNED (William, 2026-07-26)
 A Circle never breaks **by dice**. It breaks by **a prewritten trigger** — a
@@ -688,10 +711,12 @@ champions.
 > Make it Temperament-shaped. A **Protective** break is not fleeing — he quits
 > the fight to put himself between you and the small ones, and you take the room
 > to find him standing over children with empty hands.
-- A failed test steps a Square **down** the track (Steady → Shaken → Broken) `[State]`.
-- **Broken = it Routs**, behaving by its **Temperament** (table below).
-- **Rally** steps a figure back **up** the track (toward Steady).
-- **Creature Type** may alter the branch.
+**Broken → the figure Routs** by its **Temperament** (table below).
+
+**Recovery is a ratchet.** The track does **not** drift back on its own — a Shaken figure
+in a quiet corner stays Shaken. Only **Rally** (a leader's ACTION) walks a figure back
+**up** one state, which is Morale *healing*. That is why killing the leader is a strategy:
+he is the recovery valve, and a leaderless line only sinks.
 
 **Temperament behaviour — SIGNED (William delegated → designed, 2026-07-24).** What a
 figure does when **leaderless** (its AI fallback) and when it goes **Broken (Routs)**:
@@ -704,27 +729,11 @@ figure does when **leaderless** (its AI fallback) and when it goes **Broken (Rou
 | **Protective** | guards / stays close to the nearest ally | retreats to the nearest ally |
 | **Ravenous** | attacks the nearest figure, any side | turns **Wild** — attacks the nearest figure, friend or foe |
 
-**The Nerve test — SIGNED (William delegated → designed, 2026-07-24).**
-
-*Who tests.* Only **Squares** of Creature Type **Man** or **Beast.** Circles never
-test (heroes hold); **Spirit** and **Construct** never test (fearless).
-
-*Triggers — a shock.* A Square tests Nerve the moment it suffers a shock:
-- it **loses a Wound to a hostile ACTION and is still standing**
-  (`wounds_remaining > 0`, §7), **or**
-- a **friendly figure within 3″** is slain, Knocked Out, or goes **Broken.**
-
-One test per shock. A PACKET may also force a test through a **Terror Effect.**
-
-*The roll — in threes.* Roll **3 dice**; each die **≥ the figure's Nerve** value is a
-success. Read the successes against the morale track:
-- **0 successes** → step **down** one state (Steady → Shaken → Broken);
-- **1–2 successes** → **hold** (no change);
-- **3 successes** → step **up** one state (rally through it: Shaken → Steady).
-
-**Broken → the figure Routs** by its Temperament (table above). **Rally** (a leader's
-ACTION) also steps a figure **up** one state. The test reads like every other roll in CUS
-— a small pool, a success number, count successes — so nothing new is learned.
+**The whole Mind channel reads like the Body channel** — deal damage, roll the tiered
+save, step a three-state track — so nothing new is learned. Where the old **3-dice Nerve
+test** went, and why *"morale is not attrition"* was struck: [Document D](D_MIGRATION_MAP.md)
+and Document E (seventh batch). Grinding a line's Morale down is now a legitimate line of
+play, not a gamed exploit — if a player finds the grind, that *is* the intent.
 
 ---
 
@@ -874,6 +883,30 @@ Inside a clash, resolution runs in movement increments rather than whole moves �
 see **[Document F · Continuous Clash Resolution](F_CLASH_RESOLUTION.md)**. The
 pools above are unchanged by it; the clash is a cadence, not an exception to the
 economy.
+
+## STUN — knock down the activation flag — SIGNED (William, 2026-07-28)
+Every "temporarily stop the agent" effect — **suppression, stun, pin, root, immobilize,
+petrify** — is one mechanic, and it rides the **activation flag** already on the base
+(J): it knocks the figure **one step down** the stoplight.
+
+```text
+STUN steps the flag down one:
+   READY (green)    → WAITING (yellow)   loses its proactive turn; can still react
+   WAITING (yellow) → SPENT (gone)       loses its reaction too; nothing until next round
+   SPENT            → stays spent        (can't go lower)
+Recovers on its next activation (the flag refreshes). ~1 round.
+```
+
+- **No new marker, no new State** — a Stun is just a write to the flag that already
+  encodes ready/waiting/spent (Law 15: it rides an existing field). Delivered as a
+  grade-line **`Stun`** effect on a PACKET.
+- **It works on the fearless.** A stun is a concussion, not a fear — a Spirit or Construct
+  (immune to Morale, §10) is stunned fine. This is how guns stop a mindless horde without
+  a bespoke Pin state. **Stun (the action economy) is a different organ from Morale (the
+  Mind channel):** one denies the turn, the other breaks the will.
+- **root · immobilize · petrify** are the same Stun with an authored **duration** (e.g.
+  petrify = does not recover on the next activation until freed). A field, not a new rule.
+`→ G·stun-rides-the-flag`
 
 ---
 

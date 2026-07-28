@@ -60,48 +60,46 @@ effects** — you might be shooting to *pin*, to *wound*, or to *cripple* — an
 decide how high you climb (B·6, Model-2 discrete grades). The canonical firearm ladder:
 
 ```text
-GRADE 1 → SUPPRESS / PIN      no wound — the target is STOPPED, not killed
+GRADE 1 → STUN / SUPPRESS     no wound — the agent is STOPPED (Stun) or shaken (Morale)
 GRADE 2 → WOUND               1 Wound (armour saves)
-GRADE 3 → CRIPPLE / KILL      2 Wounds · or a lasting −Move Cripple · or ignore-Armour
+GRADE 3 → CRIPPLE / KILL      2 Wounds · a lasting −Move Cripple · or ignore-Armour
 ```
 
-- **Suppress/Pin is the load-bearing low rung** — the thing a gun does that a sword
-  cannot (§3). It is how a small elite survives an endless enemy: you cannot out-kill
-  a faucet, so you **pin** it and hold ground.
-- Weapons **author their own ladders** (a sniper's ≠ a scattergun's); Suppress is the
-  common floor. Grades stay **discrete** — Grade *N* resolves only its own line
-  (A·VI). `→ G·grade-is-not-a-tier`
-- **More dice = higher grade reached.** This is why the two geometry rules below
-  (blast bands, spray falloff) *feel* right: they add or subtract **dice**, which
-  moves the whole shot up or down the ladder — center-of-blast **cripples**, the rim
-  only **rattles**.
+- **The low rung is the thing a gun does that a sword cannot (§3)** — it stops or shakes
+  the target without killing it, which is how a small elite survives an endless enemy:
+  you cannot out-kill a faucet, so you **hold it** and buy time.
+- Weapons **author their own ladders** (a sniper's ≠ a scattergun's). Grades stay
+  **discrete** — Grade *N* resolves only its own line (A·VI). `→ G·grade-is-not-a-tier`
+- **More dice = higher grade reached.** That is why the blast bands (§5) *feel* right —
+  they set the dice by distance, so center-of-blast **cripples** and the rim only
+  **rattles**, straight off this ladder.
 
 ---
 
-# 3 · Pin & Suppress — two reads of Grade 1  `[State · Temperament]`
+# 3 · The low rung — Stun & Suppress  `[State · Mind]` — SIGNED (William, 2026-07-28)
 
-Grade 1 stops the target. *How* it stops depends on whether the target can feel fear.
+Grade 1 doesn't wound — it *stops* or *shakes*. Two effects, two organs, and a weapon
+authors which it deals (or both):
 
-## PIN — physical, works on the fearless  `[State]` — SIGNED (William, 2026-07-28)
-A **Pinned** figure loses 1 AP / cannot advance toward the shooter on its next
-activation — the weight of fire physically stops the rush. Pin works on **fearless**
-targets (Spirit · Construct · the Ravenous) that no morale rule touches. It is the
-crowd-control lever: pin the lane, hold the line.
+## STUN — the action economy  `[State: the flag]`
+A grade-line **`Stun`** knocks the target **one step down the activation flag** (B·12):
+ready → waiting, waiting → spent, recovers next activation. No new marker — it rides the
+stoplight already on the base (J). **It works on the fearless** — a stun is a concussion,
+not a fear, so it stops a mindless horde where Morale can't. This is what killed the old
+"Pin" state: suppression *is* Stun, and it needs no bespoke hardware. `→ G·stun-rides-the-flag`
 
-**Group-level for hordes — SIGNED.** A Pin applied to a spawn-blob/unit pins the
-**whole unit at once**, marked by **one shared token**, never per-model. A horde is
-many cheap models; a token per body is exactly the pile-up the Component Law forbids
-(J · Principle 3). You suppress a *mob*, not individuals. `→ G·pin-is-per-mob`
-
-## SUPPRESS — morale, breaks men  `[State via B·10]`
-Against **breakable** troops (Man · Beast Squares), Grade 1 **also feeds the existing
-Nerve/morale track** (Steady → Shaken → Broken, B·10) — volume of fire *breaks* men.
-No new morale system: gunfire is simply another shock the Nerve roll already handles.
+## SUPPRESS — the Mind channel  `[Morale via B·10]`
+A grade-line **`1 Morale`** deals damage on the **Mind channel** (B·10): the target's
+**Nerve** save resists it, and each unsaved point steps Steady → Shaken → Broken. Volume
+of fire *breaks* men. Fearless targets (Spirit · Construct · Circles) are **immune** —
+you cannot frighten what has no Mind.
 
 ```text
-FEARLESS target  → PIN   (physical State; the horde control lever)
-BREAKABLE target → PIN + a Nerve shock (B·10); sustained fire can Break them
+Want to STOP anything (incl. the fearless horde)  →  deal STUN     (the flag)
+Want to BREAK men                                  →  deal 1 MORALE (the Mind channel, B·10)
 ```
+*(The old "Pin as its own State" is struck — Stun covers the physical stop, Morale covers
+the fear, and neither needs a new marker. See Document E, seventh batch.)*
 
 ---
 
@@ -111,66 +109,71 @@ A rapid or spreading weapon (autogun, HMG, blunderbuss) **walks a burst through 
 cluster.** It is the **ranged twin of Cleave** (the melee multi-hit, B·6).
 
 ```text
-Fire the shot; then make a FOLLOW-UP shot at the NEAREST UNHIT ENEMY within 3" of the
-LAST target hit, at −1 die. Repeat: each hop −1 die, until dice < 1 or no target in
+Fire the shot; then SPEND 1 CHARGE to hop to the NEAREST UNHIT ENEMY within 3" of the
+last target and shoot it (a full roll). Repeat until Charge runs out or no target in
 range. Enemies only (never friendlies); never re-hits a figure; needs line-of-sight
 per hop; provokes:false.
 ```
 
-- **Walk the blob.** The chain hops target-to-target across a packed mob, petering out
-  as the dice run down. It **self-terminates** and is **geometry-gated** — it only
-  chains through a *cluster*. Hordes bunch → the gun mows them; spread-out elites → the
-  chain dies at hop one. Position caps it, which is the Kernel's ethos: depth from
-  Position, not a flat modifier (A·II). `→ G·spray-is-ranged-cleave`
-- **Dice do triple duty.** Base dice = accuracy **and** chain length **and** severity:
-  the first target eats full dice (climbs to *cripple*), each −1-die hop reaches a
-  *lower* grade, so the far end of the burst is **suppressed/winged**, not killed. One
-  number tells the whole story of a burst.
-- **Spray costs extra** (§6, §7) — each hop spends more Charge (or builds more Strain),
-  so the horde-sweeper empties you faster, which is what keeps it honest.
+- **Walk the blob.** The chain hops target-to-target across a packed mob until the
+  magazine is dry. It **self-terminates** — a 3-Charge autogun sprays up to 3 bodies,
+  then reloads — and it is **geometry-gated**: it only chains through a *cluster*. Hordes
+  bunch → the gun mows them; spread-out elites → the chain dies at hop one. Position caps
+  it, which is the Kernel's ethos (A·II). `→ G·spray-is-ranged-cleave`
+- **Ammo is the limiter, not a die penalty.** Each hop is a *full* roll (no falloff) and
+  costs **1 Charge** (§6). That ties the horde-sweeper straight to the reload economy —
+  spray empties you in one burst, and each target's own grade roll already makes some
+  suppressed and some killed, so no "−1 die walk" is needed.
 
 ---
 
 # 5 · Blast & Scatter — indirect area fire  `[Position]` — SIGNED (William, 2026-07-28)
 
-The one genuinely new **PACKET effect type**: a `blast` drops a **template** on a
-target point, and distance from center writes bonus dice. Grenades, powder bombs,
-mortars, shells.
-
-## The template — concentric bands
+The one genuinely new **PACKET effect type** — and it is a **delivery method, not an
+effect.** A `blast` drops a **template** on a point and resolves against everyone under
+it; *what* it delivers is your existing grade-line vocabulary, so the whole grenade
+family is one mechanic:
 ```text
-BLAST bands, measured from where it lands:
-  inner  1" band → +2 dice   (hottest — ground zero)
-  middle 2" band → +1 die
-  outer  3" band → +0 (base dice)
-Each figure under the template is its OWN attack roll (base + band dice) → its own
-Grade → armour saves as normal (or ignore-Armour if authored). provokes:false.
+frag     → Wounds      gas / screamer → Morale     flashbang → Stun
+krak     → ignore-Armour                concussion → Knockdown
 ```
-Center-of-blast climbs to **cripple/kill**; the rim only reaches **suppress/knockdown**.
-The template shreds the middle and rattles the edge, straight out of the grade ladder
-(§2). Band dice are tunable per weapon.
+Every knob is a **named packet field** (Law 15) — frag, mortar, powder-bomb and gas are
+all *data*, not separate rules.
 
-## Indirect — NO line-of-sight — SIGNED
-**Blast is indirect fire.** You target a **point within range**; you do **not** need
-to see it. That is the whole point of a thrown or arcing weapon — a grenade goes *over*
-the wall, a mortar *over* the ruin. Direct line-of-sight stays on **bullets** (§1);
-area weapons waive it. `→ G·a-grenade-is-indirect`
-
-## Scatter — did it land where you aimed?
-Because it is indirect, the shot **drifts** before the template is laid. Scatter reuses
-the **shot ladder** (B·9b) so aim still matters:
-
+## The parameters
 ```text
-Roll SCATTER: N one-inch steps, each in a rolled direction (a d6 as a 6-point clock).
-The last step is the landing point.
-  aimed / set (Precise, held ground) → 1 step   (min 1 — always some drift)
-  normal move to the shot            → 2 steps   ("twice is normal")
-  rushed / snap / max-range barrage  → up to 6 steps
+los    : bool   need line of sight to the point?   bullet true · grenade FALSE
+path   : bool   need a clear trajectory?           arcs OVER cover, blocked by solid/ceiling
+                → "throw over a wall, not through one" = los:false · path:true
+bands  : per-ring WIDTH in inches for the 3 / 2 / 1-dice rings.
+                default [1,1,1] = a 1"/2"/3" template · [0,1,1] = no lethal core (a wide
+                weak cloud) · [2,2,2] = a fat artillery footprint
+dice   : 3 / 2 / 1 by ring   → each figure under the template rolls its ring's dice as
+                its OWN attack (→ its own Grade → armour saves as normal). center reaches
+                Grade 3 (cripple/kill), the rim only Grade 1 (a graze). provokes:false.
 ```
-A set gun-line mortar scatters little; a snap-lobbed grenade or a long barrage scatters
-far. **Friendly fire is ON** — a scattered template that lands on your own men hits
-them too. That is a feature, not a bug: indirect fire is dangerous to call. Minimum 1
-step, so even a perfect shot keeps a little pucker.
+Center shreds, edge rattles — straight off the grade ladder (§2), no bonus math.
+
+## Indirect + friendly fire — SIGNED
+Blast is **indirect** (`los:false`): you lob to a point, you don't have to *see* it —
+that's the whole point of an arcing weapon. **Friendly fire is ON**: a template that
+lands on your own men hits them too. Both are locked; blind fire is dangerous to call.
+`→ G·a-grenade-is-indirect`
+
+## Scatter — did it land where you aimed?  `[the arrow-dice]`
+Because it's blind, the shot **drifts** before the template is laid — a **random walk**
+you resolve with **arrow-dice** (d6s marked with directions):
+```text
+1. Shot tier (Quick / Normal / Precise — from the shot ladder, B·9b, set by prior
+   movement) gives a BASELINE drift:   Quick 3 · Normal 2 · Precise 1 step
+2. Roll the weapon's accuracy pool (~3–4 dice) vs its success number.
+   EACH MISS adds one more drift step.
+3. Total = baseline + misses. Move the template that many 1" steps, each a freshly
+   rolled arrow direction → random walk (clusters near the point, occasionally wild).
+```
+A set-up crew that rolls well barely moves; a rushed crew rolling badly walks the shell
+into its own line. **Aim is not a new mechanic — it IS the Quick/Normal/Precise shot
+ladder** (B·9b), and `accuracy` is just a packet field. `→ G·scatter-is-a-random-walk`
 
 ---
 
@@ -182,7 +185,9 @@ The engine only knows *Charge*; the sci-fi card **skins it "Ammo,"** a fantasy c
 the terror it exists to create is **the whole squad running dry at once.**
 
 ```text
-A magazine = a Charge pool of a few shots (rifle ~3 · LMG ~2/brutal · pistol ~4).
+CHARGE is a 0–3 pool (rifle 3 · LMG 2/brutal · pistol 3–4). Each SHOT spends 1; a SPRAY
+spends 1 per target (§4); an OVERCHARGE spends 1 more for +dice/ignore-Armour (§8). So a
+3-Charge weapon = up to 3 targets before it runs dry — "how much you bring at once."
 CHARGE EMPTY → RESTORE (reload) = one activation you do NOT shoot = the CARD GOES DOWN.
 ```
 Reload is the **card-down** already in the hand-management system (J·3): a gun restoring
@@ -214,12 +219,13 @@ fantasy card "arcane instability." Strain is the discipline limiter, the opposit
 pressure to Charge.
 
 ```text
-Normal fire is free. PUSHING the weapon (Overcharge §8, rapid fire, Spray) → gain Strain.
-Strain VENTS 1 each turn you do NOT push.
-Hit the Strain cap → the authored consequence fires (skin: OVERHEAT):
-   • the weapon LOCKS (a cool-down, card-down to clear), and
-   • for the volatile ones (plasma) it "GETS HOT" — a Wound to the BEARER (armour
-     saves). A scar hook into Persistence (Doc H): your own gun can maim you.
+STRAIN is a 0–3 pool. A shot adds 1, 2, or 3 (normal fire little; a pushed / overcharged
+/ sprayed shot a lot). STRAIN VENTS 1 each turn you do NOT push.
+Hit 3 → it POPS. Roll VENT vs BLOW-UP (skin: OVERHEAT):
+   • VENT (violent but safe): the weapon locks a beat (card-down); Strain resets to 0.
+   • BLOW-UP ("gets hot"): a Wound to the BEARER (armour saves) — a Persistence/Doc H
+     scar hook: your own gun can maim you.
+An OVERCHARGE (§8) always pushes to the pop and forces the roll — the plasma gamble.
 ```
 
 **The interlock.** Charge pressures you on **logistics** (empty = helpless); Strain
@@ -247,22 +253,22 @@ weapons may cap or forbid it.
 
 ---
 
-# 9 · Evasion — the dodge save  `[State]` — SIGNED (William, 2026-07-28)
+# 9 · Evasion — an `unpierceable` save  `[State]` — SIGNED (William, 2026-07-28)
 
-Some figures are simply **hard to hit** (the sharpshooter faction's signature, M). This
-is the one genuinely new **resolution step** the ranged game adds.
+Some figures are simply **hard to kill at range** (the sharpshooter faction's signature,
+M). This is **not a new save** — it is the existing armour save carrying the
+**`unpierceable`** tag (B·7): a save that **`ignore Armour` cannot bypass.** Against a
+bolter, a blast, anything armour-piercing, the figure rolls its save anyway.
 
 ```text
-A figure with EVASION rolls a DODGE save die (e.g. 5+ · 6+; a Stealth variant is better).
-The dodge works even against ignore-Armour and BLAST — it is the only defense that
-beats armour-piercing.
+EVASION  = an unpierceable save flavoured DODGE  (the agile / sneaky boys)
+BULWARK  = an unpierceable save flavoured SHIELD (the heavy tanks AP can't crack)
 ```
 
-- **Roll the BETTER of dodge or armour, never both** — the dodge is a *primary* save,
-  not a stacked second one, or a dodging figure in cover becomes unkillable.
-- Evasion makes its owner the **"you can't out-gun me, you have to corner me"** archetype
-  — the counter to the `ignore-Armour` meta. Cornering (denying the escape geometry) is
-  the answer, which is Position doing the capping again. `→ G·evasion-is-a-dodge`
+One save, one tag (Law 15), two skins — the classic invuln-save pattern, no new
+resolution step. It is the counter to the `ignore-Armour` meta: you cannot **out-gun** an
+`unpierceable` figure, you have to **corner** it — deny the geometry, which is Position
+doing the capping again (A·II). `→ G·unpierceable-is-a-tag`
 
 ---
 
@@ -323,11 +329,11 @@ numbers.
 # 12 · What this extension owes the Kernel
 
 ```text
-It OWNS       the ranged Procedures B delegates: the gun ladder, Pin, Spray, Blast,
-             Scatter, Charge/reload, Misfire, Strain, Overcharge, Evasion. It owns no
-             primitive and invents no verb — Charge and Strain are Kernel Resources (A·IV).
-It READS/WRITES  Position (range · lanes · blast · spray hops · scatter), State (Pin ·
-             reloading · misfire · wounds), Resource (Charge · Strain · Agency).
+It OWNS       the ranged Procedures B delegates: the gun ladder, Stun, Suppress (Morale),
+             Spray, Blast, Scatter, Charge/reload, Misfire, Strain, Overcharge, Evasion/
+             Bulwark. It owns no primitive and no verb — Charge/Strain are Kernel Resources.
+It READS/WRITES  Position (range · lanes · blast · spray hops · scatter), State (flag/Stun ·
+             reloading · misfire · wounds · Morale), Resource (Charge · Strain · Agency).
 It CITES     A·III (verbs) · A·VI (grades) · A·VII (Tool/Hybrid) · B·5 (PACKET) ·
              B·6 (Cleave) · B·8 (not_in_contact/facing) · B·9/9b (Counter/Overwatch) ·
              B·10 (Nerve) · B·11 (Form Up) · J (Component Layer, the trackers).

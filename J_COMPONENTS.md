@@ -119,12 +119,19 @@ Everything an opponent must read on *your* turn is hardware on the model
 
 | State | Encoding | Reads |
 |---|---|---|
-| **Activation** | Tall flag on bendable wire, magnetic base. **Present = unactivated · gone = spent · gone + card at the model = waiting.** | B·12 |
-| **Nerve** | Small swappable flags. **Steady gets NO flag** — encode the exception, not the default (Principle 5). A flag appears only for Shaken / Broken. | B·10 |
+| **Activation — one flag, a STOPLIGHT** | Tall flag on bendable wire, magnetic base. **GREEN up = ready · YELLOW up = waiting** (an armed WAIT / Overwatch — or Stunned down to waiting) **· gone = spent.** Lay the card **down** on activation. | B·12 |
+| **Nerve** | Small swappable flags, **palette kept OFF green/yellow** (poka-yoke — the two flag families must not misread). **Steady gets NO flag** (Principle 5); a flag appears only for Shaken / Broken. | B·10 |
 | **Health** | **Model orientation.** Upright = fine · on its side = **Knocked Out** · removed = **Dead.** | B·7 |
 | **Armour** | **WYSIWYG from the sculpt.** Tunic/leather reads light, chain reads medium, plate reads heavy. No token. | B·7 |
 | **AP** | **In your head.** Universal 3 (reference sheet), spent in a burst while your hand is on the model. | B·12 |
 
+- **One flag, one owner — SIGNED (William, 2026-07-28).** The activation fact lives in a
+  **single stoplight flag**, not a flag *and* a card-position. Earlier drafts encoded it
+  twice (flag present + card-down-for-waiting), and a desync (card down, flag standing) was
+  the likeliest table error in the system — two owners for one fact, a Law-1 break at the
+  physical layer. Collapsed: green/yellow/gone says everything, the card just goes down.
+  Bonus — **yellow announces commitment** (the facedown card still hides *what* is armed),
+  so bluff survives while ambiguity dies. `→ G·one-flag-one-owner`
 - **Activation and Nerve are the only added hardware**, and Nerve only when a figure
   has left Steady. Health and Armour are read off the model itself — orientation and
   sculpt — so they cost **nothing** to display. That is Principle 3 (subtractive)

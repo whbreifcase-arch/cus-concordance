@@ -429,6 +429,31 @@ rolls no Armour** (SIGNED William 2026-07-25) — armour protects the standing o
 A downed body still occupies its base and participates in the Push cascade.
 `→ G·wounds-are-not-a-track` **Owner:** Combat.
 
+### Channels — Body · Mind · Soul (SIGNED, William 2026-07-28)
+The **three channels of harm** (A · II): each is a State track with its own save and its
+own three-state terminal. **BODY** (Wounds · Armour save · upright/KO/Dead) · **MIND**
+(Morale · Nerve save · Steady/Shaken/Broken) · **SOUL** (reserved — see below).
+Independent: a figure strong in one may be glass in another. **Owner:** Kernel.
+`→ G·morale-is-a-channel`
+
+### Morale
+Damage on the **Mind channel** — the twin of a Wound. Dealt as a grade-line `N Morale`
+effect (or by the fallen, an area source); resisted by **Nerve**; each unsaved point
+steps Steady → Shaken → Broken. Broken → Rout by Temperament. **Rally** heals it (steps
+up); the track does not drift back on its own. **Owner:** Combat (B · 10).
+
+### Nerve
+**Psychic armour** — the Mind's save, the same tiered save as Armour
+(None / Light 6+ / Med 5+ / Heavy 4+), rolled per incoming Morale point. Independent of a
+figure's physical Armour. Circles and the fearless (Spirit · Construct) have none and are
+immune to Morale. **Owner:** Combat (B · 10). `→ G·morale-is-a-channel`
+
+### Soul — ⚠ RESERVED
+The third channel: **a formal, undefined Kernel primitive, permanently blank.** Never
+named in a rule, called, triggered, read, or state-changed — witnessed only where Body
+and Mind interact, never written. **Do not define or invoke it, ever.** **Owner:** Kernel
+(A · II). *(A blank kept forever on purpose; cf. Force.)*
+
 ---
 
 ## Firearms & ranged warfare (Document K)
@@ -449,16 +474,19 @@ The drift a Blast suffers before landing: N one-inch steps in rolled directions,
 N set by the **shot ladder** (aim), minimum 1. Friendly fire is on. **Owner:**
 Combat / K · 5.
 
-### Pin
-A physical **State** from Grade-1 gunfire: the target loses 1 AP / cannot advance
-toward the shooter next activation. Works on the **fearless**. Applied **per mob**
-(one shared token), never per model. **Writes:** State. **Owner:** Combat / K · 3.
-`→ G·pin-is-per-mob`
+### Stun
+The universal *temporarily-stop-the-agent* effect — **suppression · pin · root ·
+immobilize · petrify** — as a grade-line effect that knocks the target **one step down
+the activation flag** (ready→waiting, waiting→spent), recovering next activation. Rides
+the flag, no new marker (J); **works on the fearless** (a concussion, not a fear). The old
+"Pin" state is struck. root/immobilize/petrify = authored durations. **Writes:** State (the
+flag). **Owner:** Combat / B · 12, K · 3. `→ G·stun-rides-the-flag`
 
 ### Suppress
-Grade-1 gunfire against **breakable** troops: feeds the existing Nerve/morale track
-(B · 10) — volume of fire breaks men. Not a new system; the same shock the Nerve
-roll handles. **Owner:** Combat / K · 3, B · 10.
+Grade-1 gunfire dealing **`1 Morale`** on the **Mind channel** (B · 10): the target's
+**Nerve** save resists it and each unsaved point steps Steady → Shaken → Broken. Fearless
+targets (Spirit · Construct · Circles) are immune. Not a new system — Morale is a channel.
+**Owner:** Combat / K · 3, B · 10. `→ G·morale-is-a-channel`
 
 ### Ammo — a SKIN of Charge 🟡
 Not a mechanic: the **sci-fi Presentation skin of Charge** (the finite Resource). A
@@ -483,10 +511,12 @@ Wound to the bearer). **Owner of the skin:** setting; **of the Resource:** Kerne
 A lever: spend the weapon's limiter (extra ammo-step / extra heat / higher misfire)
 for **+1 die or ignore-Armour** on this shot. **Owner:** Combat / K · 8.
 
-### Evasion
-A **dodge save** die that works even against ignore-Armour and Blast — the counter to
-armour-piercing. Roll the **better** of dodge or armour, never both. **Owner:**
-Combat / K · 9, M · 3 (Tau). `→ G·evasion-is-a-dodge`
+### Evasion · Bulwark — `unpierceable`
+**Not a new save:** the existing armour save carrying the **`unpierceable`** tag, which
+`ignore Armour` cannot bypass — so the figure rolls its save even against armour-piercing
+and Blast. **Evasion** (dodge skin) and **Bulwark** (shield skin) are two flavours of the
+one tag (Law 15). The counter is to *corner* them, not out-gun them. **Owner:** Combat /
+B · 7, K · 9, M · 3 (Tau). `→ G·unpierceable-is-a-tag`
 
 ---
 

@@ -98,8 +98,9 @@ Balance levers, in order: **SCENARIO** (map/objective/initiative) → points × 
 
 - **Chassis:** Light armour + **Evasion** (K·9) · Fast (7–8" / jetpack) · Cowardly ·
   long precise guns. **Fold in melee** (weak Fists, never want contact).
-- **Signature — *Evasion* (the dodge save, K·9):** hard to hit — a dodge that beats even
-  `ignore-Armour` and blast, so you cannot out-gun them, you must **corner** them. Plus
+- **Signature — *Evasion* (an `unpierceable` save, K·9 / B·7):** their save that
+  `ignore-Armour` and blast cannot bypass, so you cannot out-gun them, you must **corner**
+  them. Plus
   **Fire-and-Fade** (jetpack): shoot, then reposition — but moving makes their own next
   shot Quick-tier (the shot ladder taxes the kiter, so it is a real choice).
 - **Guns:** precise (low success number) · long range · **overcharge** to punch Marines ·

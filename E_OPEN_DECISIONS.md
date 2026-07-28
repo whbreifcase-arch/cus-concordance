@@ -324,6 +324,42 @@ sign it sits at the right layer. `→ G·a-resource-kind-is-not-a-mechanic`
 
 ---
 
+## Amendments — seventh batch, signed 2026-07-28 (William)
+
+**The channel rework + the gunplay audit.** Auditing the firearms revealed that almost
+every "new" gun mechanic dissolves into existing grammar once Morale becomes a *channel* —
+and that revealed the Body/Mind/Soul triad and a new architectural law. The biggest
+structural batch. v0.6 stays **closed**.
+
+| ID | Ruling | In |
+|---|---|---|
+| morale-is-a-channel | **Morale is the Mind channel, reworked from a test into damage.** An attack deals `N Morale`; **Nerve** is a psychic-armour *save* (None/L6+/M5+/H4+); each unsaved point steps Steady→Shaken→Broken. No 3-dice test. Rally heals; Circles + fearless immune | A·II, B·10, C |
+| nerve-is-a-save | **Nerve is psychic armour** — the same tiered save as Armour, applied to the Mind. A figure's Body-toughness and Mind-toughness are independent | A·II, B·10 |
+| fear-is-contagion | **The fallen are an area Morale source** (a friendly slain/KO/Broken within 3″ deals Morale to nearby breakable figures), **batched in one sweep at end of strike.** This contagion is what makes Mind a channel; it scales up (a hive's recycle economy = its Nerve) | B·10, L |
+| ~~morale-is-not-attrition~~ | **STRUCK.** The anti-attrition guardrail is deleted on purpose — grinding a line's Morale down is now legitimate play; if a player finds the grind, that *is* the intent | G (deleted) |
+| body-mind-soul | **Three channels of harm: BODY · MIND · SOUL**, each a State track with a save and a three-state terminal. Body/Mind are symmetric and live; **SOUL is reserved** | A·II, C, H |
+| soul-reserved | **SOUL — a formal, undefined Kernel primitive, permanently blank.** Never named, called, triggered, read, or state-changed. *Do not define or alter it under any circumstances, ever.* Witnessed only where Body and Mind interact (cf. Force). **Tripwire (this line):** the blank is *intentional and signed* — never "fix" it | A·II |
+| exception-is-a-named-field | **NEW architectural law (A·XV·15): an exception may only exist as a named, owned field, never as prose.** Test: can it be a field? yes → the container (`provokes`, `los`, a trait, a G-slug); no → it's a missing layer (Principle 8) | A·XV, G |
+| stun | **Stun = the universal "temporarily stop the agent"** (suppression/pin/root/immobilize/petrify): knock the figure one step down the activation flag (ready→waiting→spent), recovers next activation. Rides the flag, no new marker, **works on the fearless.** Retires the "Pin" state | B·12, K·3, J |
+| ~~pin-state~~ | **STRUCK.** Pin as its own State is gone — Stun covers the physical stop, Morale the fear, neither needs a bespoke marker | K·3 (was `pin-is-per-mob`) |
+| unpierceable | **Evasion/Bulwark are not a new save** — a save carrying the **`unpierceable`** tag (`ignore Armour` can't bypass it). Evasion (dodge) + Bulwark (shield) are two skins of the one tag | B·7, K·9, M |
+| ~~evasion-dodge-save~~ | **REFRAMED** to `unpierceable` (above) — one tag, not a "roll better of two saves" | K·9 |
+| spray-is-ammo | **Spray drops the −1-die falloff** — each hop is a full roll costing **1 Charge**; a 3-Charge weapon sprays up to 3 targets, tying the horde-sweeper to the reload economy | K·4 |
+| charge-strain-0-3 | **Charge and Strain are 0–3 tracks.** Charge spent down (each shot 1; reload = card-down). **Strain builds up and POPS at 3** → roll VENT vs BLOW-UP (gets-hot = a Wound to the bearer); overcharge always pops | K·6, K·7 |
+| blast-parameterized | **Blast is a fully-authored delivery method** (Law 15): `los` · `path` (over cover, not through solid) · `bands` (per-ring width, default [1,1,1], zero-inner allowed) · `dice` 3/2/1 by ring · `accuracy` scatter. Delivers any grade-line effect (frag=Wound, flashbang=Stun, gas=Morale). Indirect, friendly-fire ON | K·5, A·XIV |
+| scatter-random-walk | **Scatter = random walk + misses-become-drift.** Shot tier (Quick/Normal/Precise, the shot ladder) sets a baseline (3/2/1 steps); each missed accuracy die adds a step; arrow-dice, one direction per step. Aim = the shot ladder, not a new mechanic | K·5 |
+| one-flag-one-owner | **One stoplight flag** carries activation: green ready · yellow waiting · gone spent; card goes down. Kills the card/flag double-encoding (a Law-1 break at the physical layer) and its desync error class. Nerve palette kept off green/yellow | J, B·12 |
+| los-path-params | **Targeting legality is packet fields** — `los` (line of sight) and `path` (a clear trajectory), general to all packets, not just blast | A·V, A·XIV |
+
+### On the gunplay audit
+The whole point: with Morale a channel and Stun on the flag, the *only* genuinely-new
+mechanic in the entire gun kit is **Blast** — and even that is pure packet-data. Suppress,
+Stun, Spray, Overcharge, Ammo, Heat, Evasion and Overwatch all dissolved into existing
+kernel grammar. That is the exception-container law (A·XV·15) working: you don't fight
+exceptions, you give them named fields.
+
+---
+
 ### circle-scope — SIGNED (William, 2026-07-25)
 B·1 previously headed "One Circle per army" and then said "A Banner fields exactly
 one Circle." An Army holds many Banners, so both could not be true.

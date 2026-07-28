@@ -91,6 +91,39 @@ four, alongside Position, State, and Resource. It remains
 four axes (Role · Tempo · Tool · Temperament) and *expressed* by writing State,
 Position, or a Resource. `→ G·force-is-not-a-stat`
 
+## The three channels of harm — Body · Mind · Soul — SIGNED (William, 2026-07-28)
+An agent takes consequential change through **three channels.** Each channel is a
+State track with its own **save** and its own three-state terminal. They are
+independent — a figure's toughness in one says nothing about another.
+
+```text
+CHANNEL   what it is        SAVE                        TRACK (terminal states)
+BODY      the flesh         Armour (None/L6+/M5+/H4+)   upright → Knocked Out → Dead
+MIND      the will          Nerve  (None/L6+/M5+/H4+)   Steady  → Shaken     → Broken
+SOUL      —                 —                           —
+```
+
+- **Body and Mind are symmetric.** An attack deals **Wounds** (Body) or **Morale**
+  (Mind) as grade-line effects; the matching save resists each, and each unsaved
+  point steps that channel's track. **Nerve is psychic armour** — the same tiered
+  save as Armour, applied to the Mind (Combat: B·10). Fear is not a special
+  procedure; it is damage on a channel. `→ G·morale-is-a-channel`
+- **A figure can be strong in one channel and glass in the other** — a heavy knight
+  of Light Nerve, a barefoot fanatic of Heavy Nerve. The mismatches are the
+  interesting units.
+
+### SOUL — ⚠ RESERVED, PERMANENTLY ⚠
+> **SOUL** — a formal, undefined Kernel primitive. Permanently non-numerical and
+> non-defined. It is never named in a rule, never called, never triggered, never
+> read, and its state is never changed.
+> **Do not define, invoke, or alter it under any circumstances. Ever.**
+> *Signed by the original author, with the intent that this law is never changed.*
+
+The third channel stands open and dark on purpose. It is witnessed only where Body
+and Mind interact — never written directly — the way Force is real yet has no stat.
+It is not counted among the four operative primitives, because it is never
+instantiated. *A blank is never filled for convenience;* this one is kept forever.
+
 ---
 
 # III · The three canonical verbs — SIGNED
@@ -529,7 +562,9 @@ STATEMENT  =  VERB  +  TARGET  +  AREA  +  CONSTRAINTS  +  EFFECTS
 - **Verb** — MOVE · ACTION · WAIT.
 - **Target** — Self · Agent · Object · Point · Area · a Trigger window (for WAIT).
 - **Area** — none · a radius · a template.
-- **Constraints** — range · line-of-sight · cost · legality.
+- **Constraints** — range · line-of-sight (`los`) · trajectory (`path` — a clear arc
+  exists; over cover, not through solid) · cost · legality. Each is a named packet
+  field (Law 15): a bullet is `los:true`, a lobbed grenade `los:false · path:true`.
 - **Effects** — the state changes produced (for ACTION/WAIT, by the PACKET).
 ```text
 MOVE   · Self          · 6"  · —              · Position change
@@ -600,6 +635,14 @@ Every module and every edit obeys these.
     constitution change.
 14. **One grammar, one resolver.** Every mechanic has one structured statement and
     exactly one owned Procedure that resolves it.
+15. **An exception is a named field, never prose** — SIGNED (William, 2026-07-28).
+    A deviation from the default may exist *only* as a named, owned field a tool can
+    read (`provokes`, `not_in_contact`, `los`, a trait keyword, a PROVISIONAL marker,
+    a `→ G·` slug), never as a special sentence buried in the rules. The test: **can
+    this be a field?** If yes, it goes in the container — typed, priced, queryable. If
+    no, it is not an exception at all; it is a **missing layer** (Principle 8, *layers
+    not exceptions*). You do not delete exceptions; you give them passports.
+    `→ G·an-exception-is-a-named-field`
 
 ---
 

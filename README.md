@@ -215,6 +215,40 @@ colour-plus-shape → the three kinds show by colour AND shape (poka-yoke, J·5)
 The tell the abstraction is right: the finite kind was already needed for spell charges
 before firearms — a magazine reused it rather than inventing an "ammo engine" (Law 13).
 
+## Amendments — 2026-07-28 · seventh batch (William)
+
+**The channel rework + the gunplay audit** — the biggest structural batch. Auditing the
+firearms showed almost every "new" gun mechanic dissolves once Morale becomes a *channel*,
+which surfaced the Body/Mind/Soul triad and a new architectural law:
+
+```text
+morale-is-a-channel → Morale is the MIND channel: an attack deals `N Morale`, NERVE is a
+                      psychic-armour save (None/L6+/M5+/H4+), each unsaved point steps
+                      Steady→Shaken→Broken. No 3-dice test. Rally heals; fearless immune.
+                      `morale-is-not-attrition` is STRUCK (grinding morale is now fair play)
+fear-is-contagion   → the fallen are an area Morale source (batched end-of-strike) — the
+                      contagion that makes Mind a channel, and scales up to a hive
+body-mind-soul      → three channels of harm: BODY · MIND · SOUL. Body/Mind live & symmetric
+soul-reserved       → SOUL is a formal, undefined, permanently-blank Kernel primitive —
+                      never called, triggered, or changed. Do not fill it in, ever
+exception-law (A·XV·15) → an exception may only exist as a NAMED FIELD, never as prose.
+                      Can it be a field? yes → the container; no → it's a missing layer
+stun                → suppression/pin/root = STUN: knock the figure one step down the
+                      activation flag (ready→waiting→spent). Rides the flag, works on the
+                      fearless, retires the "Pin" state
+unpierceable        → Evasion/Bulwark aren't a new save — a `unpierceable` TAG on the save
+                      (ignore-Armour can't bypass it). Two skins of one tag
+spray / charge-strain → spray = 1 Charge per target (falloff dropped). Charge & Strain are
+                      0–3 tracks; Strain POPS at 3 → vent vs blow-up (gets-hot)
+blast               → a fully-authored delivery method: los · path · bands · dice 3/2/1 ·
+                      arrow-dice scatter (random walk + misses-drift). Any grade-line
+                      effect (frag=Wound, flashbang=Stun, gas=Morale)
+one-flag-one-owner  → one stoplight flag (green ready · yellow waiting · gone spent) —
+                      kills the card/flag double-encoding
+```
+The audit's punchline: the **only** genuinely-new mechanic in the whole gun kit is
+**Blast**, and even it is pure packet-data. That is the exception law working.
+
 **CUS v0.6 is closed** — every decision is signed and **no open questions remain.**
 See [Document E · Decision Register](E_OPEN_DECISIONS.md). The next change is an
 amendment, not an open question.

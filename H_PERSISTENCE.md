@@ -144,6 +144,14 @@ BODY harm comes from **damage**. MIND harm comes from **what happened**, which i
 not the same thing and is not measured in Wounds. A figure can walk off the field
 untouched and ruined.
 
+> **Both axes are now live *combat* channels too — SIGNED (William, 2026-07-28).** The
+> seventh batch made Morale a **channel** with its own damage and its own **Nerve** save
+> (A · II, B · 10), so BODY and MIND take harm *during* the fight, not only in aftermath.
+> Persistence is unchanged: it still owns the lifecycle that turns a battle's Wounds and
+> Morale into lasting Injuries and Scars. The third channel, **SOUL**, is **reserved and
+> permanently blank** (A · II) — Persistence never reads or writes it; it is witnessed
+> only where Body and Mind interact (the dying swing, the Protective break, Rally).
+
 ---
 
 ## 7.3 · The Aftermath — how harm is rolled

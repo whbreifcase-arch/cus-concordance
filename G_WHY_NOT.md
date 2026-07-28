@@ -228,21 +228,6 @@ The floor is never zero; it is just very low.
 mana-out becomes a state with a path through it rather than a dead end. You talk
 with your fists.
 
-### morale-is-not-attrition
-**Tempting.** The morale track only tests on shock and only Rally reliably walks a
-figure back up, so a Shaken unit can never recover on its own. That's a missing
-recovery rule.
-
-**Why not.** It's a ratchet on purpose. If units drifted back to Steady on their
-own, breaking an enemy would be a temporary inconvenience and the only reliable way
-to remove a figure would be to kill it — which is attrition, which is the game CUS
-is deliberately not.
-
-**Instead.** **Pressure beats attrition.** A broken enemy costs you nothing further;
-a dead one cost you every wound you had to land. The leader is the recovery valve,
-which is what makes decapitation a *strategy* rather than a stat-check — and gives
-the Protective temperament something real to protect.
-
 ### there-is-no-redemption-rule
 **Tempting.** `hollow` (H · 7.7b) is a one-way door with no written exit. That
 looks like an oversight — so write a Redemption procedure: a cost, a number of
@@ -735,15 +720,45 @@ The board already knows which one is legal.
 `not_in_contact` turns the gun off the instant a base touches yours — the **geometry**
 does the switch, no rule fires. Sword-and-gun is the native case, not a special one.
 
-### pin-is-per-mob
-**Tempting.** Suppression is per-figure, so each pinned model carries a pin token.
+### stun-rides-the-flag
+**Tempting.** Suppression / stun / pin / root need a new "stopped" State — a token on
+each affected model saying it can't act.
 
-**Why not.** A horde is forty cheap models. A token per pinned body is the exact
-table-clutter the Component Law forbids (J · subtractive beats additive), and it is at
-its worst when the board is most crowded.
+**Why not.** That token is a new component on the busiest models in the game (a
+suppressed horde), and "temporarily can't act" is a fact the board *already* encodes —
+the activation flag runs ready → waiting → spent (J).
 
-**Instead.** Pin the **mob**, not the man — one shared token on the whole suppressed
-unit. You suppress a *formation*, which is also how suppression reads in life.
+**Instead.** A **Stun writes the flag** — knock it one step down (ready→waiting,
+waiting→spent), recovers next activation. No new marker. It works on the fearless because
+it's a concussion, not a fear — which is what lets it stop a mindless horde where Morale
+can't, and it retires the bespoke "Pin" state entirely. root/immobilize/petrify are the
+same Stun with an authored duration. `→ G·an-exception-is-a-named-field`
+
+### unpierceable-is-a-tag
+**Tempting.** "Hard to hit" (Evasion) is a new dodge save — roll it *in addition* to
+armour, and let it beat armour-piercing.
+
+**Why not.** A second save is a second roll and a second stat, and "roll the better of
+two" is fiddly. And the property you actually want is narrow: *this defence ignores
+`ignore Armour`.*
+
+**Instead.** It's **one tag on the existing save** — `unpierceable`: armour-piercing
+simply doesn't apply, the figure rolls its normal save anyway. Evasion (dodge) and
+Bulwark (shield) are two skins of that one tag — the classic invuln-save, no new step.
+The counter is to **corner** them, not out-gun them: Position again. `→ G·an-exception-is-a-named-field`
+
+### scatter-is-a-random-walk
+**Tempting.** A grenade that misses should just deviate a fixed distance, or roll a
+single "does it land?" check.
+
+**Why not.** A flat deviation feels arbitrary, and a binary land/miss throws away the
+lovely gradient between a set-up crew and a panicked one.
+
+**Instead.** **A random walk with arrow-dice.** The shot tier (Quick/Normal/Precise —
+the shot ladder you already have) sets a baseline of steps, each missed accuracy die adds
+one more, and every step rolls its own direction. A good crew barely drifts; a rushed
+crew rolling badly walks the shell into its own line — a bell curve, not a coin flip, and
+aim is not a new mechanic, it's the shot ladder.
 
 ### spray-is-ranged-cleave
 **Tempting.** An assault rifle mowing a horde needs a new "auto-fire" rule with its own
@@ -810,19 +825,58 @@ weapon** until you clear it. Building two systems doubles the rules for one idea
 fouled musket and an overheated plasma coil both go offline the same way (a card-down
 cool-down). Ammo/magazine is the third limiter; a weapon carries whichever its era gives it.
 
-### evasion-is-a-dodge
-**Tempting.** "Hard to hit" should just be always-on cover — raise the shooter's success
-number and move on.
+### morale-is-a-channel
+**Tempting.** Fear is its own thing — give it a bespoke procedure: a shock trigger, a
+3-dice test, a special track that behaves unlike anything else in the game.
 
-**Why not.** Cover is beaten by volume and does nothing against the armour-piercing that
-defines the gun meta. If Evasion were only cover, the sharpshooter faction would still
-melt to a big enough ignore-Armour gun, and its whole identity ("you can't out-gun me")
-would be a lie.
+**Why not.** A whole second resolution grammar for fear is a rule you learn twice, and it
+hid a symmetry: taking damage to the *will* is the same shape as taking it to the *flesh*
+— you deal it, a save resists it, a track steps.
 
-**Instead.** Evasion is a **dodge save** that works even vs ignore-Armour and blast — the
-one defense bigger guns can't solve. The answer is to **corner** them (deny the escape
-geometry), which is Position capping the fight again. Roll the better of dodge-or-armour,
-never both.
+**Instead.** **Morale is a channel** (A · II), the twin of Body. An attack deals Morale as
+a grade-line effect; **Nerve is psychic armour** — the same tiered save as Armour — and
+each unsaved point steps Steady → Shaken → Broken. No test, no new grammar. Circles and
+the fearless are simply immune (no Mind to wound). Suppress becomes literally `1 Morale`.
+
+### fear-is-contagion
+**Tempting.** If Morale is just damage now, only the figure you shot is afraid — so drop
+the old "ally falls nearby" shock, it was part of the test.
+
+**Why not.** That shock is the *contagion*, and contagion is the whole reason Mind is a
+**channel** and not a private stat. Delete it and fear stops spreading, a broken line
+never cascades, and the thing years of play depends on quietly dies.
+
+**Instead.** **The fallen are an area Morale source** — a friendly slain/KO/Broken within
+3″ deals Morale to nearby breakable figures, **batched in one sweep at the end of the
+strike** so it never spams checks into the middle of resolution. Same organ scales up: a
+hive's recycle economy is its Nerve, and riddling chaff is Fear at nest scale (Document L).
+
+### an-exception-is-a-named-field
+**Tempting.** An exception is a special case, so it belongs where you first notice it — a
+sentence in the rules that says "except when…".
+
+**Why not.** Prose exceptions can't be queried, priced, or found; they breed, and a razor
+that only ever *cuts* them just makes them grow back. You cannot have no exceptions — but
+you can refuse to let them live as loose sentences.
+
+**Instead.** **Every exception is a named, owned field** (Law 15) — `provokes`,
+`not_in_contact`, `los`, `unpierceable`, a trait keyword, a PROVISIONAL marker, a `→ G·`
+slug. Typed, priced, queryable, contained. The test: *can this be a field?* If yes, it
+goes in the container. If no, it isn't an exception — it's a **missing layer** (Principle
+8). You don't delete exceptions; you issue them passports.
+
+### one-flag-one-owner
+**Tempting.** Activation state is rich — ready, waiting, spent — so encode it richly: a
+flag on the base *and* the card's position (down = spent, at the model = waiting).
+
+**Why not.** That's the same fact with two owners (Law 1, at the physical layer), and the
+two can **desync** — card down, flag still standing — which is the single likeliest table
+error in the whole system, worst exactly during a Form Up when eight of them move at once.
+
+**Instead.** **One stoplight flag** carries it all: green ready · yellow waiting · gone
+spent; the card just goes down. The desync error class doesn't get adjudicated, it stops
+existing — two writes per activation become one. Bonus: yellow announces commitment while
+the facedown card still hides *what* is armed, so bluff survives and ambiguity dies.
 
 ### the-loop-is-the-kernel
 **Tempting.** A campaign needs its own rules — a metagame layer bolted on top of the
