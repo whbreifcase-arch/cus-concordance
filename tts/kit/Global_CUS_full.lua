@@ -278,9 +278,9 @@ local function sessionResultText(session)
     -- creates engagement and draws a Counter. Ranged never does (B.8).
     if session.melee_in_contact then
         text = text .. "\n\nCOUNTER: the target strikes back — one melee PACKET,"
-            .. "\ncosting it 1 Reaction. Denied only on the unfaced flank or"
-            .. "\nrear of a Square already engaged elsewhere; a Circle is"
-            .. "\nfaceless and ALWAYS Counters."
+            .. "\nand it costs nothing. Denied on the unfaced flank or rear of"
+            .. "\na Square already engaged elsewhere, or if your packet says"
+            .. "\nprovokes:false; a Circle is faceless and ALWAYS Counters."
             .. "\nIf both the attack and the Counter are lethal, BOTH DIE."
     end
     return text
@@ -355,7 +355,7 @@ local function buildSessionPanel(playerColor, session)
 
         <Panel width="398" height="]] .. (session.melee_in_contact and 54 or 1) .. [[" color="]] .. (session.melee_in_contact and "#4A2A1EF0" or "#00000000") .. [[" padding="9 9 6 6">
             <Text text="]] .. xmlEscape(session.melee_in_contact and
-                ("THIS DRAWS A COUNTER\nMelee in base contact — the target strikes back for 1 Reaction.\nIf both blows are lethal, BOTH DIE.") or "") .. [[" width="380" height="]] .. (session.melee_in_contact and 44 or 1) .. [[" fontSize="12" fontStyle="Bold" color="]] .. COLORS.red .. [[" alignment="UpperLeft" />
+                ("THIS DRAWS A COUNTER\nMelee in base contact — the target strikes back, and it is free.\nIf both blows are lethal, BOTH DIE.") or "") .. [[" width="380" height="]] .. (session.melee_in_contact and 44 or 1) .. [[" fontSize="12" fontStyle="Bold" color="]] .. COLORS.red .. [[" alignment="UpperLeft" />
         </Panel>
 
         <Text text="PACKET" width="398" height="18" fontSize="11" fontStyle="Bold" color="]] .. COLORS.muted .. [[" alignment="MiddleLeft" />

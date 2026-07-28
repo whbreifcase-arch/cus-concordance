@@ -1,5 +1,5 @@
 # CUS — THE KERNEL CONSTITUTION
-### v0.6 · the universal grammar · rebuilt 2026-07-23
+### v0.6 · the universal grammar · rebuilt 2026-07-23 · **Reaction struck 2026-07-27**
 
 > **What this is.** The bones. The universal architecture every module obeys —
 > and nothing else. It holds the substrates, the three verbs, the four axes, the
@@ -133,25 +133,29 @@ PACKET resolves; it does not spawn a second reaction system outside the PACKET
 grammar. WAIT stays its own verb because **deferred timing** is its defining
 property, not the packet it references.
 
-### WAIT and the Written Trigger — SIGNED (William, 2026-07-25)
+### WAIT and the Written Trigger — SIGNED (William, 2026-07-25 · amended 2026-07-27)
 Two things resolve on someone else's activation, and the Kernel keeps them apart:
 
 ```text
-WAIT             the player spends 1 AP NOW to arm a chosen PACKET
+WAIT             the player spends 1 AP NOW to arm a PACKET of his choosing
 Written Trigger  a PACKET carries its own trigger clause and fires when the
-                 condition occurs — no AP, no arming
+                 condition occurs — no AP, no arming, no cost
                  ↓
-both spend REACTION (Ch. IV) to resolve
+neither is budgeted. What limits them is Position, authoring, and death.
 ```
 
 A **Counter** is a Written Trigger: the weapon or condition PACKET carries the
 clause that permits it (Document B · 9).
 
 **Overwatch is the instructive case.** You pay **1 AP to arm a better PACKET**
-than your written triggers would give you, and when it fires you **still spend
-the Reaction.** The AP buys the upgrade; the Reaction buys the right to act out
-of turn. A WAIT with an empty pool does not resolve — arming is not permission.
+than your written triggers would give you. That is the whole transaction: the AP
+buys **quality**, not permission — an armed WAIT resolves when its trigger fires.
 `→ G·wait-is-not-a-written-trigger`
+
+**A trigger fires once per occurrence of the condition it names**, and a movement
+is **one occurrence** — a figure crossing a threatened band is one event however
+finely the module slices the movement to resolve it. That, and not a pool, is what
+stops a clause being milked. `→ G·a-pool-is-not-a-position`
 
 ## The distinction
 ```text
@@ -164,7 +168,7 @@ the packet-resolving verb.
 
 ---
 
-# IV · Agency, Reaction & Resources
+# IV · Agency & Resources
 
 **AP is Agency** — the limited capacity an entity has to act during its **own
 activation**. Unless a module says otherwise:
@@ -174,32 +178,38 @@ activation**. Unless a module says otherwise:
 Named abilities and flavour verbs never create new universal actions; they
 translate to one of the three invariants (Law 11).
 
-## Reaction — the second spend — SIGNED (William, 2026-07-25)
-**Reaction is the limited capacity an entity has to act during *someone else's*
-activation.** It is a Resource in its own right, budgeted and spent exactly like
-Agency, and it is **never paid out of AP** — the two pools are separate.
+**Agency is the only pool a figure spends to act.** There is no second pool for
+someone else's activation. `→ G·a-pool-is-not-a-position`
+
+## Answering on someone else's activation — SIGNED (William, 2026-07-27)
+**Out-of-turn response is not a Resource.** A triggered PACKET — a Counter, an
+intercept, an opportunity strike, an armed WAIT — **costs nothing to resolve.**
+Three things limit it, and none of them is a number:
 
 ```text
-Agency (AP)  →  what you do on your turn
-Reaction     →  what you do on their turn
+POSITION   the geometry has to permit it — contact, facing, range, presence
+AUTHORING  the clause has to exist, and the striking PACKET has to provoke it
+DEATH      a corpse answers once, on the way down, and never again
 ```
 
-A triggered PACKET — a Counter, an intercept, an opportunity strike, an armed
-Overwatch — **costs one Reaction to resolve.** When the pool is empty the figure
-can no longer respond, however many triggers fire. **The pool is the cap.**
-`→ G·reaction-is-not-agency`
+**Position is the cap.** A module that wants a figure to stop answering denies it
+the geometry, not the budget — get behind him, stay out of contact, or kill him.
+This is Ch. II load-bearing: *depth comes first from Position, not from stacks of
+numerical modifiers.* A response pool was a second, numerical answer to a question
+Position had already settled. It is struck (Document E · `reaction-struck`).
 
-The **module sets the budget.** Combat's is `1 per figure · 2 for a Circle`
-(Document B · 12); another module may set a different number or none at all.
+> **Earlier drafts carried a `Reaction` Resource** — `1 per figure · 2 for a
+> Circle`, one spent per trigger. Struck 2026-07-27. Where it went:
+> [Document D](D_MIGRATION_MAP.md).
 
 ## Resources
-Agency and Reaction are two of the Kernel's exchangeable **Resources** — limited
-quantities spent to produce change. Each module implements the ones it needs:
+Agency is the Kernel's first exchangeable **Resource** — a limited quantity spent
+to produce change. Each module implements the ones it needs:
 ```text
-Agency · Reaction · Health · Morale · Information · Influence · Supply · Time
+Agency · Health · Morale · Information · Influence · Supply · Time
 ```
-Combat spends **Agency + Reaction**; politics spends **Influence**; travel spends
-**Time + Supply**. Same Kernel idea, made concrete per module.
+Combat spends **Agency**; politics spends **Influence**; travel spends **Time +
+Supply**. Same Kernel idea, made concrete per module.
 `→ G·position-is-not-a-resource`
 
 ---
@@ -393,8 +403,8 @@ DEFINITION  →  PROCEDURE  →  INSTANCE  →  PRESENTATION
   Impact, Nerve, Rout, formation movement, social resolution, travel. A module
   owns its procedures.
 - **Instance** — what is true **right now**: current Position, remaining Wounds,
-  conditions, an armed WAIT, reaction spent, active Mission, current supplies,
-  relationships. **Runtime state lives only here.**
+  conditions, an armed WAIT, triggers already fired this occurrence, active Mission,
+  current supplies, relationships. **Runtime state lives only here.**
 - **Presentation** — what the player sees: flavour verbs, symbols, cards, models,
   markers. It **translates** the Kernel; it never forks a parallel mechanic.
 ```text
@@ -518,8 +528,9 @@ RESOLUTION = INVOCATION + TARGET + AREA + CONSTRAINTS + RESOLVER + EFFECTS
 ```
 
 - **MOVE · ACTION · WAIT** — chosen by a player, paid in **Agency**.
-- **WRITTEN_TRIGGER** — a clause inside a PACKET fires on its condition; paid in
-  **Reaction** (Ch. IV).
+- **WRITTEN_TRIGGER** — a clause inside a PACKET fires on its condition. **Paid by
+  nobody** (Ch. IV): it costs no Resource, it fires **once per occurrence** of the
+  condition it names, and it is gated by Position and by authoring.
 - **OWNED_PROCEDURE** — a module's own procedure invokes a PACKET as part of
   resolving something else: Impact, Nerve, a fall, aftermath. Paid by whatever that
   procedure says, often nothing.
@@ -589,7 +600,7 @@ A new module (Combat, Politics, Caravan, War, Trade, …):
 1. **cites** this Constitution and the Dictionary; it does not restate structure;
 2. **translates** MOVE · ACTION · WAIT into its domain language (Ch. XIII);
 3. **owns** its Procedures, its controlled **Tool** vocabulary, its Resource
-   budgets (e.g. the Reaction allowance, Ch. IV), and its **Temperament
+   budgets (e.g. the AP allowance, Ch. IV), and its **Temperament
    procedures** — but **not** the Temperament vocabulary: the five words are
    Kernel law (Ch. VII) and a module may not add, rename, or drop one;
 4. **stores facts, computes judgments** (Law 10);
@@ -626,14 +637,32 @@ SIGNED  nerve-trigger        · shock (wounded / ally falls within 3″) → rol
 **Amendments — signed 2026-07-25 (William).** v0.6 stays closed; these are
 recorded amendments, not reopened questions:
 ```text
-SIGNED  reaction-resource    · Reaction is a Kernel Resource, separate from AP (Ch. IV)
+STRUCK  reaction-resource    · struck 2026-07-27 — see below
+STRUCK  reaction-budget      · struck 2026-07-27 — see below
 SIGNED  counter-authoring    · a Counter is a written trigger inside a PACKET, not a WAIT
-SIGNED  reaction-budget      · combat: 1 per figure · 2 for a Circle (B·12)
 SIGNED  modules              · TWO peer modules: COMBAT · STORY (Ch. XIX). Persistence
                                is Kernel architecture, not a module — reserved (2026-07-26)
-SIGNED  brace-vs-overwatch   · Brace grants bonuses/step-ups, never a Reaction;
-                               Overwatch = 1 AP to arm a better PACKET, still spends Reaction
+SIGNED  brace-vs-overwatch   · Brace and Overwatch are the two WAITs — Brace buys bonuses
+                               and step-ups, Overwatch buys a better armed PACKET (revised)
 SIGNED  sprint-to-charge     · a 3″ uninterrupted sprint into contact is the charge threshold (B·3)
+```
+
+**Amendment — signed 2026-07-27 (William). The Reaction economy is struck:**
+```text
+SIGNED  reaction-struck      · Reaction is no longer a Resource. No pool, no budget,
+                               no per-trigger cost, anywhere (Ch. IV, Ch. XIV)
+SIGNED  counter-is-free      · a Counter costs nothing. Limits: contact · facing ·
+                               authoring · death (B·9)
+SIGNED  provokes             · the STRIKING packet decides whether it draws a Counter —
+                               `provokes`, true by default for melee resolved in contact
+SIGNED  trigger-once-per-    · a Written Trigger fires once per occurrence of its
+        occurrence             condition; a movement is one occurrence (Ch. III, F)
+SIGNED  wait-buys-quality    · WAIT is the only AP-priced out-of-turn capability, and it
+                               buys quality, not permission. "Arming is not permission"
+                               is struck — with no pool to be empty, arming IS permission
+SIGNED  facing-is-the-cap    · what replaces the pool is the front arc: an engaged Square
+                               answers its face and concedes its flanks; a Circle, being
+                               faceless, answers everyone (B·8, B·9)
 ```
 
 ---

@@ -45,7 +45,6 @@ local DEFAULTS = {
     armour = "—",
     speed = "—",
     ap = 2,
-    reactions = 1,
     -- MUST be here. A miniature with no unit stamped on it falls back to
     -- DEFAULTS alone, and a missing key here becomes a nil that reaches
     -- math.floor() in initializeRuntime and kills onLoad before the context
@@ -158,8 +157,9 @@ local ICON_ASSETS = {
     -- Resource orbs. Spent does not merely DIM — it cracks and smokes. Same
     -- grammar as the activation triangle burning out and the nerve banner
     -- shattering: in this HUD, spending something visibly costs it.
+    -- (rp_full / rp_spent, the yellow Reaction orbs, were dropped 2026-07-27
+    --  with the Resource itself. The art is still in the pack, unreferenced.)
     ap_full  = ICON_BASE .. "ap_full.png",    ap_spent = ICON_BASE .. "ap_spent.png",   -- green
-    rp_full  = ICON_BASE .. "rp_full.png",    rp_spent = ICON_BASE .. "rp_spent.png",   -- yellow
     mp_full  = ICON_BASE .. "mp_full.png",    mp_spent = ICON_BASE .. "mp_spent.png",   -- red
 
     -- Wounds is a NUMBER, not a track (B · 7) — so this is ONE heart whose
@@ -676,8 +676,8 @@ local function normalizeDefinition(decoded)
         creature = first(root.creature_type, root.creature, root.type, DEFAULTS.creature),
         archetype = first(root.archetype, root.class, DEFAULTS.archetype),
         signature = first(root.signature, ""),
-        -- counter_uses deleted: the counter_x economy is retired (B·9).
-        -- Reaction is the only cap now.
+        -- counter_uses deleted: the counter_x economy is retired (B·9), and
+        -- nothing replaced it. A Counter is free; FACING is the cap (B·8).
         points = first(root.points, DEFAULTS.points),
 
         wounds = asNumber(first(stats.max_wounds, stats.wounds, root.max_wounds, root.wounds), DEFAULTS.wounds),
@@ -691,14 +691,15 @@ local function normalizeDefinition(decoded)
         nerve = first(stats.nerve, root.nerve, root.rank, stats.rank, DEFAULTS.nerve),
         rank = first(root.tier, root.rank, stats.rank, DEFAULTS.rank),
 
-        -- REACTION (A.IV). No library JSON carries this yet, so the shape
-        -- default is what will actually fire: a Champion answers twice (B.12).
-        reactions = asNumber(first(stats.reactions, root.reactions),
-                             (first(baseObject.shape, baseObject.type) == "Circle") and 2 or 1),
+        -- REACTION was read here (A.IV, 1 per figure / 2 per Circle). The
+        -- Resource was STRUCK 2026-07-27: answering on someone else's
+        -- activation is free, and what caps it is facing, which lives on the
+        -- table and not in the HUD. A `reactions` key in library JSON is
+        -- deliberately ignored.
 
         -- MP — the special-ability budget. Defaults to ZERO, because most
         -- figures have no specials and an all-empty pip row is wasted HUD.
-        -- Unlike AP and Reaction this is a PER-BATTLE pool: see newRound().
+        -- Unlike AP this is a PER-BATTLE pool: see newRound().
         mp = asNumber(first(stats.mp, stats.max_mp, root.mp, root.max_mp), 0),
         armour = normalizeArmour(first(stats.armour, stats.armor, display.armour, display.armor, DEFAULTS.armour)),
 
@@ -790,12 +791,12 @@ local function initializeRuntime()
     runtime.current_ap = asNumber(runtime.current_ap, definition.ap)
     runtime.nerve_state = first(runtime.nerve_state, "Steady")
 
-    -- REACTION is its own Kernel Resource (A.IV): what a figure may spend
-    -- during SOMEONE ELSE'S activation. It is never paid out of AP and the two
-    -- pools never exchange. Every triggered PACKET — a Counter, a Shield
-    -- intercept, a Reach strike, a firing Overwatch — costs 1 Reaction. When
-    -- the pool is empty the figure cannot respond at all. That is the only cap.
-    runtime.current_reactions = asNumber(runtime.current_reactions, definition.reactions)
+    -- REACTION: STRUCK 2026-07-27 (A.IV, E.reaction-struck). A Counter, a
+    -- shield intercept, a reach strike and an armed Overwatch are all FREE.
+    -- What limits them is Position (contact and facing), authoring (`provokes`)
+    -- and death — none of which is a pool this script can hold. Any saved
+    -- current_reactions on an old figure is dropped harmlessly below.
+    runtime.current_reactions = nil
 
     if runtime.turn_state ~= "Unactivated" and runtime.turn_state ~= "Waiting" and runtime.turn_state ~= "Activated" then
         if runtime.activated == true then
@@ -829,7 +830,11 @@ local function initializeRuntime()
     runtime.layout_edit = runtime.layout_edit == true
     runtime.verb_menu_open = runtime.verb_menu_open == true
     runtime.packet_menu_open = runtime.packet_menu_open == true
-    runtime.layout_piece = runtime.layout_piece or "rx"
+    -- "rx" was the default selection until the Reaction column was removed;
+    -- migrate any figure still pointing at the piece that no longer exists.
+    if runtime.layout_piece == nil or runtime.layout_piece == "rx" then
+        runtime.layout_piece = "ap"
+    end
     runtime.layout_step_i = clamp(math.floor(asNumber(runtime.layout_step_i, 2)), 1, 3)
 
     -- v3.1 layout migration: keep the permanent display clean and above the
@@ -867,8 +872,6 @@ local function initializeRuntime()
     runtime.current_wounds = clamp(math.floor(runtime.current_wounds), 0, definition.wounds)
     runtime.current_ap = clamp(math.floor(runtime.current_ap), 0, definition.ap)
 
-    runtime.current_reactions = clamp(math.floor(asNumber(runtime.current_reactions, definition.reactions)),
-                                      0, definition.reactions)
     local maxMP = math.max(0, math.floor(asNumber(definition.mp, 0)))
     runtime.current_mp = clamp(math.floor(asNumber(runtime.current_mp, maxMP)), 0, maxMP)
 
@@ -1147,15 +1150,17 @@ end
 -- clickable element is a plain <Button>, never a Panel wrapping a Text.
 -- ---------------------------------------------------------------------------
 
--- A vertical column of pips, filled BOTTOM-UP so the top pip is the last one
--- spent. Reaction and AP get separate columns on purpose: the two pools never
--- exchange (A.IV), and one shared bar would imply a conversion that does not exist.
--- Orientation per pool. AP reads left-to-right like a spend bar; Reaction and
--- MP stay vertical so the three are distinguishable at a glance even before
--- you register the colour. Flip any of these and the widget follows.
+-- A column of pips, filled BOTTOM-UP (vertical) or LEFT-TO-RIGHT (horizontal)
+-- so the last pip in reading order is the last one spent. Get that backwards and
+-- the widget looks broken even with the count correct.
+--
+-- Orientation per pool. AP reads left-to-right like a spend bar; MP stays
+-- vertical so the two are distinguishable at a glance even before you register
+-- the colour. Flip either and the widget follows.
+--
+-- The RX (Reaction) row was removed 2026-07-27 — the Resource is struck (A.IV).
 local PIP_HORIZONTAL = {
     ["cus-ap-pip-"] = true,
-    ["cus-rx-pip-"] = false,
     ["cus-mp-pip-"] = false,
 }
 
@@ -1387,8 +1392,8 @@ local function buildActionRow()
         icon("cus-act-attack", "action_act", "ACT",
              "ACT - choose one of your packets, then a target", 30) ..
         icon("cus-act-wait", "action_wait", "WAIT",
-             "WAIT - spend 1 AP to arm a packet. It still costs 1 Reaction when it fires.", 30) ..
-        b("cus-new-round",   "↻",    "Refresh AP + Reaction, clear the armed WAIT", 26) ..
+             "WAIT - spend 1 AP to arm a packet. Arming is permission: it fires when its trigger does.", 30) ..
+        b("cus-new-round",   "↻",    "My activation begins: refresh AP, clear the armed WAIT", 26) ..
         [[</HorizontalLayout>]]
 end
 
@@ -1939,8 +1944,10 @@ end
 -- LAYOUT — every HUD piece is independently placeable, and editable in game.
 -- ---------------------------------------------------------------------------
 
+-- "rx" (REACTION) was removed 2026-07-27 — the Resource is struck (A.IV). An
+-- old saved layout may still carry an rx entry; layoutOf() simply never asks
+-- for it, so it is inert rather than an error.
 local HUD_PIECES = {
-    {key = "rx",     label = "REACTION"},
     {key = "ap",     label = "AP"},
     {key = "mp",     label = "MP"},
     {key = "wound",  label = "WOUNDS"},
@@ -1952,7 +1959,6 @@ local HUD_PIECES = {
 -- x/y are offsets from the HUD origin, s is a scale multiplier, r is degrees.
 -- These reproduce the previous fixed row, so an unedited figure is unchanged.
 local LAYOUT_DEFAULTS = {
-    rx     = {x = -66, y =   6, s = 1.0, r = 0},
     ap     = {x = -34, y =   6, s = 1.0, r = 0},
     mp     = {x =  -2, y =   6, s = 1.0, r = 0},
     wound  = {x =  34, y =   6, s = 1.0, r = 0},
@@ -2021,7 +2027,7 @@ end
 local function buildLayoutEditor(position, panelScale, accent)
     if runtime.layout_edit ~= true then return "" end
 
-    local key = runtime.layout_piece or "rx"
+    local key = runtime.layout_piece or "ap"
     local step = LAYOUT_STEPS[clamp(asNumber(runtime.layout_step_i, 2), 1, #LAYOUT_STEPS)]
     local t = layoutOf(key)
 
@@ -2143,14 +2149,14 @@ local function buildUIXml()
     end
 
     -- ---- spec §7 layout -------------------------------------------------
-    --    [gold]   [blue]    [heart]   [triangle]
-    --   REACTION    AP      WOUNDS    ACTIVATION
-    --      ●        ●        ♥ 2          △
-    --      ●        ●                     ⏻
-    --      ○        ●
+    --      [blue]        [heart]   [triangle]
+    --    AP ● ● ○        WOUNDS    ACTIVATION
+    --                     ♥ 2          △
     --             MOVE  ATK  WAIT  ↻
-    local rxXml   = buildPipColumn("cus-rx-pip-", runtime.current_reactions, definition.reactions,
-        HEX.gold, "REACTION\nSpent on someone else's activation", "rp_full", "rp_spent")
+    --
+    -- The gold REACTION column stood left of AP until 2026-07-27. The Resource
+    -- is struck (A.IV): answering is free and facing is the cap, which is a fact
+    -- about the table, not a pool a HUD can show.
     local apCol   = buildPipColumn("cus-ap-pip-", runtime.current_ap, definition.ap,
         HEX.green, "AP — Agency\nSpent on your own activation", "ap_full", "ap_spent")
     -- MP returns "" at 0, so most figures show no third column at all.
@@ -2163,7 +2169,7 @@ local function buildUIXml()
 
     -- Panel height follows the TALLER column, so a 2 AP figure does not
     -- reserve room for six pips.
-    local tallest = math.max(math.min(definition.reactions or 1, 6), math.min(definition.ap or 2, 6), math.min(definition.mp or 0, 6), 2)
+    local tallest = math.max(math.min(definition.ap or 2, 6), math.min(definition.mp or 0, 6), 2)
     local colHeight = math.max(40, tallest * 23 + 2)
     local panelHeight = colHeight + 34   -- + the 28px action row and its spacing
 
@@ -2211,7 +2217,6 @@ local function buildUIXml()
     end
 
     return defaults
-        .. piece("rx",     rxXml,      30, colHeight)
         .. piece("ap",     apCol,     170, colHeight)   -- wider: AP is horizontal now
         .. piece("mp",     mpCol,      30, colHeight)
         .. piece("wound",  woundXml,   46, 40)
@@ -2251,23 +2256,10 @@ local function changeAP(amount, player)
     notify(player, definition.name .. " has " .. runtime.current_ap .. "/" .. definition.ap .. " AP.")
 end
 
--- REACTION is spent on SOMEONE ELSE'S turn (A.IV). Hitting zero is the single
--- most-forgotten state in the game, so say it loudly rather than quietly
--- letting a player Counter with a pool they no longer have.
-local function changeReactions(amount, player)
-    local before = runtime.current_reactions
-    runtime.current_reactions = clamp(runtime.current_reactions + amount, 0, definition.reactions)
-    refreshAll()
-
-    if runtime.current_reactions <= 0 and before > 0 then
-        notify(player, definition.name ..
-            " has NO REACTION left — it cannot Counter, intercept, or fire an armed WAIT.",
-            {1.00, 0.45, 0.35})
-    else
-        notify(player, definition.name .. " has " .. runtime.current_reactions ..
-            "/" .. definition.reactions .. " Reaction.")
-    end
-end
+-- changeReactions() lived here. Deleted 2026-07-27 with the Resource (A.IV):
+-- a Counter, an intercept and an armed Overwatch are free, so there is no
+-- number to spend and no zero to warn about. What denies an answer is contact,
+-- facing and `provokes` — all read off the table.
 
 local function changeMP(amount, player)
     local maxMP = math.max(0, asNumber(definition.mp, 0))
@@ -2298,28 +2290,26 @@ local function changeTurnState(direction, player)
     notify(player, definition.name .. " is " .. runtime.turn_state .. ".")
 end
 
--- Per B.12 a figure refreshes AP + Reaction and expires its armed WAIT at the
--- start of ITS OWN activation, not at the top of the round. So this button is
--- "my activation begins", pressed by the figure's own player — it deliberately
--- does not refill anybody else. A figure that emptied its Reaction pool late
--- last round walks into this one still empty until it activates. That is the
--- point: hit the tired ones.
+-- Per B.12 a figure refreshes AP and expires its armed WAIT at the start of ITS
+-- OWN activation, not at the top of the round. So this button is "my activation
+-- begins", pressed by the figure's own player — it deliberately does not refresh
+-- anybody else. The expiry is the half that still bites: go early and you spend
+-- the rest of the round holding nothing but what your weapon already says.
 local function newRound(player)
     clearMovementPath(true)
     runtime.current_ap = definition.ap
-    runtime.current_reactions = definition.reactions
     runtime.armed_packet = nil
     runtime.turn_state = "Unactivated"
     synchronizeTurnFlags()
     refreshAll()
 
-    -- MP is DELIBERATELY not refreshed here. AP and Reaction are per-activation
-    -- budgets; MP is a PER-BATTLE one, which is the whole reason it is a
-    -- different resource and not a second AP. A champion holding 3 MP has to
-    -- decide WHEN in the entire battle the big thing happens. Restoring it is
-    -- FULL RESET's job (between games).
-    local msg = definition.name .. " refreshed: " .. definition.ap .. " AP, " ..
-        definition.reactions .. " Reaction."
+    -- MP is DELIBERATELY not refreshed here. AP is a per-activation budget; MP
+    -- is a PER-BATTLE one, which is the whole reason it is a different resource
+    -- and not a second AP. A champion holding 3 MP has to decide WHEN in the
+    -- entire battle the big thing happens. Restoring it is FULL RESET's job
+    -- (between games).
+    local msg = definition.name .. " refreshed: " .. definition.ap ..
+        " AP, armed WAIT cleared."
     if asNumber(definition.mp, 0) > 0 then
         msg = msg .. "  MP unchanged (" .. runtime.current_mp .. "/" .. definition.mp .. ") — it is per battle."
     end
@@ -2330,7 +2320,6 @@ local function resetRuntime(player)
     clearMovementPath(true)
     runtime.current_wounds = definition.wounds
     runtime.current_ap = definition.ap
-    runtime.current_reactions = definition.reactions
     runtime.current_mp = math.max(0, asNumber(definition.mp, 0))   -- between battles, the specials come back
     runtime.armed_packet = nil
     runtime.nerve_state = "Steady"
@@ -2350,10 +2339,10 @@ local function playerColorOfClick(playerOrColor)
     return nil
 end
 
--- WAIT (A.III): spend 1 AP NOW to arm a chosen PACKET, and it STILL costs
--- 1 Reaction when it actually fires. Arming is not permission — a figure with
--- an empty Reaction pool may arm a packet that will never resolve, and the
--- tracker says so rather than letting the player discover it mid-fight.
+-- WAIT (A.III): spend 1 AP NOW to arm a chosen PACKET, and it fires when its
+-- trigger does. ARMING IS PERMISSION (amended 2026-07-27) — the AP buys a better
+-- answer than your weapon's written trigger would give, and there is no second
+-- pool for it to fail against.
 -- Picked from the ACT menu. Spends the packet's declared cost, then hands off
 -- to the Attack Controller for targeting with that packet already selected.
 --
@@ -2430,15 +2419,9 @@ local function toggleWait(player)
     synchronizeTurnFlags()
     refreshAll()
 
-    if (runtime.current_reactions or 0) < 1 then
-        notify(player, definition.name ..
-            " is WAITING, but has NO REACTION — the armed packet will not resolve.",
-            {1.00, 0.45, 0.35})
-    else
-        notify(player, definition.name ..
-            " is WAITING. 1 AP spent; firing it will also cost 1 Reaction.",
-            {0.72, 0.52, 1.00})
-    end
+    notify(player, definition.name ..
+        " is WAITING. 1 AP spent — that is the whole price. It fires when its trigger does.",
+        {0.72, 0.52, 1.00})
 end
 
 local function setAuraRadiusFromText(text, playerColor)
@@ -2484,8 +2467,6 @@ function cusUiClick(player, value, id)
         changeWounds(rightClick and 1 or -1, player)
     elseif id == "cus-wounds" then
         changeWounds(rightClick and 1 or -1, player)
-    elseif id ~= nil and string.sub(id, 1, 11) == "cus-rx-pip-" then
-        changeReactions(rightClick and 1 or -1, player)
     elseif id ~= nil and string.sub(id, 1, 11) == "cus-ap-pip-" then
         changeAP(rightClick and 1 or -1, player)
     elseif id ~= nil and string.sub(id, 1, 11) == "cus-mp-pip-" then
@@ -2505,10 +2486,10 @@ function cusUiClick(player, value, id)
         local step  = LAYOUT_STEPS[clamp(asNumber(runtime.layout_step_i, 2), 1, 3)]
         if field == "s" then step = step * 0.02 end        -- scale nudges in 2% units
         if field == "r" then step = step * 1 end
-        layoutNudge(runtime.layout_piece or "rx", field, sign * step)
+        layoutNudge(runtime.layout_piece or "ap", field, sign * step)
         refreshAll()
     elseif id == "cus-ly-reset" then
-        layoutResetPiece(runtime.layout_piece or "rx")
+        layoutResetPiece(runtime.layout_piece or "ap")
         refreshAll()
     elseif id == "cus-ly-resetall" then
         runtime.layout = {}

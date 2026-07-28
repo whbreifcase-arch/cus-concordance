@@ -20,7 +20,7 @@ Module, D = Migration Map).
 | 1.2 | Turn state `"Readied"` | `"Waiting"` | `READY` is a **retired verb** — it became `WAIT` (D·1). |
 | 1.3 | `definition.rank` | `definition.nerve` | `rank` was the old name for the Nerve stat. |
 | 1.4 | `definition.tiers` | `definition.grades` | Ladder / Tiers / Rungs → **Success Grade** (A·VI). |
-| 1.5 | `counter_uses` field | **delete entirely** | The `counter_x` economy is retired. Reaction is the only cap now (§2). |
+| 1.5 | `counter_uses` field | **delete entirely** | The `counter_x` economy is retired, and nothing replaced it — a Counter is free and **facing** is the cap (B·8, §2). |
 | 1.6 | `TOOL_COLORS.utility` | `TOOL_COLORS.hybrid` | Combat's Tool set is **Melee · Ranged · Hybrid** (B·1). *Utility* is a **Role**, not a Tool. |
 
 ### 1.7 Migration, so saved figures don't reset
@@ -66,51 +66,34 @@ Circle:  Small 25mm   Medium 32mm   Large 40mm
 
 ---
 
-# 2 · REACTION — the big missing mechanic
+# 2 · REACTION — ⚰ STRUCK 2026-07-27, DO NOT BUILD
 
-**This is the most important item in the document.** The script has no
-representation of Reaction at all, and in v0.6 it is the cap on *every* response
-in the game.
+**This section used to be the most important item in the document.** It specified a
+`reactions` definition field, a `current_reactions` runtime pool, a yellow RP column
+in the HUD, and a warning at zero.
 
-### What it is (A·IV)
-Reaction is a **Kernel Resource in its own right** — what a figure may spend
-during **someone else's** activation. It is **never paid out of AP** and the two
-pools never exchange.
+**Build none of it.** The Reaction Resource was struck from the Kernel on 2026-07-27
+(A·IV, B·12, E · `reaction-struck`). The tracker's RP column has been removed.
+
+### What the tracker should represent instead
+Nothing new — that is the point. Answering on someone else's activation is **free**,
+and what limits it is not a number the tracker could hold:
 
 ```
-AP        what you do on YOUR turn
-REACTION  what you can still answer with on THEIRS
+POSITION   contact, facing, 1" for an intercept   — read off the table, not the HUD
+AUTHORING  `provokes` on the striking packet      — a Definition, on the card
+DEATH      wounds_remaining                        — already tracked
 ```
 
-**Every triggered PACKET costs 1 Reaction** — a Counter, a Shield Intercept, a
-Reach strike, a firing Overwatch. When the pool is empty the figure **cannot
-respond at all**, however many triggers fire. That is the cap; there is no
-per-effect limiter anywhere.
+- **No `reactions` field.** If a library JSON ever carries one, ignore it.
+- **No pool, no column, no warning at zero.** There is no zero.
+- **A trigger fires once per occurrence** of its condition (A·III) — a bookkeeping
+  rule for the players at the table, not state for the script to hold.
 
-### Implementation
-1. **Definition field `reactions`.** Read `stats.reactions` if present.
-   Otherwise default by base shape (B·12):
-   ```
-   Circle  → 2      (the Champion answers twice)
-   Square  → 1
-   ```
-   Library JSON has no `reactions` field yet, so the default is what will fire.
-2. **Runtime field `current_reactions`**, clamped to `[0, definition.reactions]`
-   in `initializeRuntime()` exactly like AP.
-3. **Restore it** in *both* the new-round handler and the full-reset handler.
-   The existing round handler restores AP and misses this.
-4. **Spend / restore** on click, left and right, same as AP.
-5. **Broadcast a warning at zero.** "X has no Reaction left — it cannot Counter,
-   intercept, or fire an armed WAIT." This is the single most-forgotten state in
-   the game and it must be loud.
-
-### 2.1 Refresh is on ACTIVATION, not on the round
-Per B·12 a figure refreshes AP + Reaction and expires its armed WAIT at the
-start of **its own** activation. So a figure that emptied its pool late last
-round walks into this one **still empty**.
-
-That is deliberate — *hit the tired ones* — and the tracker should not quietly
-refill everyone at round start.
+### 2.1 Refresh is still on ACTIVATION, not on the round
+Per B·12 a figure refreshes **AP** and expires its armed WAIT at the start of **its
+own** activation. The tracker must not quietly refill everyone at round start — that
+part of the old spec was right and still is.
 
 ---
 
@@ -119,15 +102,15 @@ refill everyone at round start.
 Right now `Readied`/`Waiting` is a label with no cost. Make it real (A·III):
 
 ```
-WAIT = spend 1 AP now to arm a chosen PACKET
-     + it STILL costs 1 Reaction when it fires
+WAIT = spend 1 AP now to arm a chosen PACKET — and it fires
 ```
 
 - Refuse if AP is 0.
-- If armed while **Reaction is 0**, allow it but **warn**: it will not resolve.
-  *Arming is not permission.*
+- **Arming is permission** (amended 2026-07-27). The AP is the whole price; there is
+  no second pool for it to fail against and **no warning to print.**
 - Clicking WAIT while already Waiting should cancel the state (AP is not
   refunded).
+- The armed WAIT **expires** when that figure next activates.
 
 ---
 
@@ -227,9 +210,10 @@ Also flag out-of-reach with the actual gap.
 Only a **melee ACTION resolved in base contact** creates engagement and draws a
 Counter. **Ranged never does** (B·8). After such a roll, print:
 
-- Target Counters — one melee PACKET back, costs it **1 Reaction**.
-- Denied only on the **unfaced flank/rear of a Square already engaged
-  elsewhere**. Circles are faceless and **always** Counter.
+- Target Counters — one melee PACKET back, and it **costs nothing** (2026-07-27).
+- Denied on the **unfaced flank/rear of a Square already engaged elsewhere**, or if
+  the striking packet carries **`provokes: false`**. Circles are faceless and
+  **always** Counter. Facing is the cap now — say so in the print.
 - **If both the ACTION and the Counter are lethal, BOTH DIE.** No tiebreak.
 
 ### 6.4 Grades are discrete
@@ -244,21 +228,19 @@ belongs at friction-removal, not enforcement.
 
 # 7 · HUD layout
 
+*(The RP column was removed 2026-07-27 with the Reaction Resource — §2.)*
+
 ```
-   [yellow]  [blue]    [heart]   [triangle]
-   REACTION    AP       WOUNDS   ACTIVATION
-     ●         ●         ♥ 2         △
-     ●         ●
-     ○         ●
+   [blue]          [heart]   [triangle]
+   AP ● ● ○        WOUNDS   ACTIVATION
+                    ♥ 2         △
                 MOVE  ATK  WAIT  ↻
 ```
 
-- **Reaction** — vertical column of full circles, **yellow/gold**.
-- **AP** — vertical column of full circles, **blue**.
-- Filled = still available, hollow = spent. Fill **bottom-up**, so the top
-  circle is the last one spent.
-- **Two separate columns, not one bar** — the pools never exchange (A·IV), and a
-  shared bar implies a conversion that does not exist.
+- **AP** — a **horizontal** row of circles, **blue**, reading left-to-right like a
+  spend bar. Filled = still available, hollow = spent; horizontal fills
+  left-to-right, vertical fills bottom-up. Getting the fill direction backwards
+  looks broken even when the count is right.
 - **Wounds** — **one** heart with the number on it, not a row of hearts. Wounds
   is 1–2 standard (B·7), so a row is noise. `☠` at zero.
 - **Activation** — one triangle: `△` unactivated · `▲` waiting · `▽` activated.
@@ -312,7 +294,7 @@ Cache packets and traits after the first fetch; offer a **RELOAD** that clears
 the cache.
 
 ### 8.3 On pick
-Clear `current_wounds`, `current_ap`, `current_reactions` and the loaded
+Clear `current_wounds`, `current_ap` and the loaded
 definition id **before** loading, so a different figure starts with full pools
 rather than inheriting the previous one's damage.
 

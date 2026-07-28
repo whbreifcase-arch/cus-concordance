@@ -1,5 +1,5 @@
 # CUS — THE KERNEL DICTIONARY
-### v0.6 · one canonical definition per term · 2026-07-23
+### v0.6 · one canonical definition per term · 2026-07-23 · **Reaction retired 2026-07-27**
 
 > The Rosetta Stone. Every module checks its words here. If a word isn't in this
 > Dictionary, either add an alias to an existing entry or the word is inventing a
@@ -39,19 +39,17 @@ The limited capacity an entity has to act during **its own** activation; carried
 WAIT.** **Owner:** Kernel. **Consumed by:** the three verbs. One of the exchangeable
 Resources. `→ G·agency-is-not-autonomy`
 
-### Reaction
-The limited capacity an entity has to act during **someone else's** activation
-(SIGNED, William 2026-07-25). A second Resource, budgeted and spent exactly like
-Agency and **never paid out of AP**. **Every triggered PACKET costs 1 Reaction** —
-Counter, shield intercept, reach strike, or a firing Overwatch. When the pool is
-empty the figure cannot respond, however many triggers fire: Reaction *is* the cap,
-which is why the Kernel needs no `counter_x` limiter. **Owner:** Kernel; the module
-sets the budget. **Combat's budget:** `1 per figure · 2 for a Circle`, refreshed at
-the start of the figure's own activation (B · 12).
+### Reaction — ⚰ RETIRED 2026-07-27
+Formerly *"the limited capacity an entity has to act during someone else's
+activation"* — a second Resource, `1 per figure · 2 for a Circle`, one spent per
+triggered PACKET. **Struck** (Document E · `reaction-struck`): out-of-turn response
+is not budgeted. What limits it is **Position, authoring and death** (A · IV), and
+what caps a figure's answers is its **front arc** (B · 8). Forwarding address:
+[Document D](D_MIGRATION_MAP.md). `→ G·a-pool-is-not-a-position`
 
 ### Resource
-Any limited quantity spent to produce change: `Agency · Reaction · Health ·
-Morale · Information · Influence · Supply · Time`. **Owner:** Kernel; each module
+Any limited quantity spent to produce change: `Agency · Health · Morale ·
+Information · Influence · Supply · Time`. **Owner:** Kernel; each module
 implements the resources it needs. `→ G·position-is-not-a-resource`
 
 ---
@@ -72,7 +70,8 @@ verbs, the engine has five invocations (SIGNED William 2026-07-25, A · XIV).
 MOVE | ACTION | WAIT | WRITTEN_TRIGGER | OWNED_PROCEDURE
 ```
 The first three are chosen by a player and paid in **Agency**; `WRITTEN_TRIGGER` is
-paid in **Reaction**; `OWNED_PROCEDURE` (Impact, Nerve, a fall, aftermath) is paid
+**paid by nobody** — free, gated by Position and authoring, firing once per
+occurrence (2026-07-27); `OWNED_PROCEDURE` (Impact, Nerve, a fall, aftermath) is paid
 by whatever the procedure says. **Owner:** Kernel.
 `→ G·three-verbs-is-not-three-invocations`
 
@@ -84,21 +83,33 @@ Strike · Attack · Use · Cast · Heal · Repair · Persuade · Accuse · Inter
 
 ### WAIT
 The verb that **arms a PACKET against a trigger**, deferring its resolution.
-**Owner:** Kernel. **Consumes:** Agency to arm it, then **Reaction to resolve it.**
+**Owner:** Kernel. **Consumes:** Agency to arm it — and nothing to resolve it.
 **Creates:** a primed `trigger → resolution`. **Aliases:** Brace · Overwatch ·
-Prepare Response · Wait.
+Prepare Response · Wait. **The only AP-priced out-of-turn capability**, and it buys
+**quality, not permission** (SIGNED, 2026-07-27): arming *is* permission.
 
-> **WAIT vs. Written Trigger.** A WAIT is armed by a player who spent AP; a
-> **Written Trigger** is a clause inside a PACKET that fires on its own condition,
-> no AP and no arming. **Both spend Reaction** (A · III, SIGNED William
-> 2026-07-25). An armed WAIT on a figure with no Reaction left does not resolve.
-> `→ G·wait-is-not-a-written-trigger`
+> **WAIT vs. Written Trigger.** A WAIT is armed by a player who spent AP on a packet
+> of his choosing; a **Written Trigger** is a clause inside a PACKET that fires on
+> its own condition, no AP and no arming. **Neither is budgeted.** The difference is
+> the AP and the choice, not a shared cost. `→ G·wait-is-not-a-written-trigger`
 
 ### Written Trigger
-A trigger clause authored **into a PACKET** — `{ "trigger": { "on": …, "cost":
-"1 Reaction" } }` — that fires when its condition occurs, without AP and without
-being armed. **Owner:** the PACKET that carries it. **Consumes:** Reaction. If a
-figure's weapons and conditions carry no such clause, it simply does not respond.
+A trigger clause authored **into a PACKET** — `{ "trigger": { "on": … } }` — that
+fires when its condition occurs, without AP, without being armed, and **without
+cost**. **Owner:** the PACKET that carries it. **Consumes:** nothing. **Fires once
+per occurrence** of the condition it names — and *a movement is one occurrence*,
+however finely a procedure slices it (2026-07-27). If a figure's weapons and
+conditions carry no such clause, it simply does not respond.
+`→ G·a-pool-is-not-a-position`
+
+### provokes
+A **packet field**: whether resolving this PACKET lets the target Counter (SIGNED,
+William 2026-07-27). **Default `true` for a melee packet resolved in base contact,
+`false` for everything else** — so ranged, Reach, Impacts and heals never provoke
+without anyone writing it down. A melee packet authored `provokes: false` (a
+backstab, an assassination) is claiming a real, priced advantage. The mirror of
+`trigger`: `trigger` is what this packet throws when its holder is struck;
+`provokes` is what it exposes its wielder to. **Owner:** Combat (B · 5, B · 9).
 
 ---
 
@@ -267,7 +278,8 @@ grammar statement, resolved by the PACKET.
 
 ### State
 What is true of an Instance right now and can change: `wounds_remaining`,
-Reaction remaining, conditions, morale, an armed WAIT, activation flags.
+conditions, morale, an armed WAIT, triggers already fired this occurrence,
+activation flags.
 **Written by** Effects and Procedures; **stored** in the Instance.
 
 ---
@@ -303,10 +315,11 @@ bases along its trajectory: `Push → Indent → Crush`. **Writes:** Position.
 ### Counter
 One melee PACKET returned by a figure struck **in melee base contact.** A
 **Written Trigger** carried by the weapon or condition — **not a WAIT**, since no
-AP was spent arming it (SIGNED, William 2026-07-25). **Consumes:** 1 Reaction.
-**Universal in practice** — every figure carries **Fists**, so every figure always
-has a legal Counter; the only thing that stops one is an empty Reaction pool. No
-artificial cap: a figure Counters every attacker and even as it dies. A Counter does
+AP was spent arming it (SIGNED, William 2026-07-25). **Consumes:** nothing
+(2026-07-27). **Universal** — every figure carries **Fists**, so every figure always
+has a legal Counter. Its four limits are **contact · facing · authoring
+(`provokes`) · death**; there is no pool and no cap. A figure Counters every enemy
+that strikes the face it is presenting, and Counters even as it dies. A Counter does
 not itself draw a Counter. Ranged never draws one. If both the ACTION and the
 Counter are lethal, **both figures die.** **Owner:** Combat (B · 9).
 
@@ -329,7 +342,9 @@ packet. **Owner:** Combat (B · 5, B · 8).
 A **trait and/or packet property**: strikes out to a stated **X″** but carries
 `not_in_contact` — so it works on a figure moving past and is illegal once bases
 touch. A Reach strike from outside contact **creates no engagement and draws no
-Counter**, and costs **1 Reaction** when it fires on someone else's activation.
+Counter**, and costs **nothing** when it fires on someone else's activation — but
+fires **once per occurrence**, and a figure crossing the band is one occurrence
+however many increments the crossing takes (2026-07-27).
 **Owner:** Combat (B · 8). `→ G·reach-is-not-a-role`
 
 ### Form Up
@@ -337,31 +352,32 @@ The **Sergeant's group-MOVE procedure** (SIGNED William 2026-07-25). The Sergean
 names unactivated friendlies **within 4″**, places them in a shape, and every
 participant spends **1 AP** and is **marked activated**; they then MOVE as one body,
 declaring all strikes and Shoves **before contact**. The 1 AP covers the MOVE, the
-attacks and the Shoves — **but never the Reaction pool**, which stays intact.
+attacks and the Shoves; a formed-up figure still answers its written triggers, which
+cost nothing and were never part of the activation.
 A figure may only strike what **its own base moves into** (Reach excepted).
 **Circles cannot call or join one.** **Owner:** Combat (B · 11).
 `→ G·form-up-is-not-free`
 
 ### Shield Intercept
-A Written Trigger on the **Shield** trait: spend **1 Reaction** to consume an
-ACTION packet aimed at a friendly within 1″ and take the hit on your own Armour.
+A Written Trigger on the **Shield** trait: consume an ACTION packet aimed at a
+friendly within 1″ and take the hit on your own Armour. **Costs nothing.**
 Declared before the packet resolves; works regardless of facing; eats melee and
-ranged alike; draws no Counter. **Uncapped by design** — the limits are that he
-spent his Reaction and that he can die eating it (SIGNED, William 2026-07-25).
-**Owner:** Combat (B · 9b).
+ranged alike; draws no Counter. **Uncapped by design — the cap is that he can die
+eating it** (SIGNED, William 2026-07-25 · restated 2026-07-27, the Reaction clause
+struck). ⚠ The item to watch in play. **Owner:** Combat (B · 9b).
 
 ### Brace
 A **WAIT**, Square only: 1 AP, ends the activation, lasts until the next one.
 Locks facing; **+1 die** into the front arc and **−1 die** for enemies attacking
-it; concedes flank and rear entirely. **Grants no Reaction** (SIGNED, William
-2026-07-25) — it buys hard bonuses and step-ups, never extra availability. Broken
-by a Shove. Circles cannot Brace. **Owner:** Combat (B · 9b).
+it; concedes flank and rear entirely. **Buys quality, not availability** — hard
+bonuses and step-ups. Broken by a Shove. Circles cannot Brace.
+**Owner:** Combat (B · 9b).
 
 ### Overwatch
 A **WAIT**: spend **1 AP** to arm a chosen PACKET against a declared trigger —
-buying a *better* response than your Written Triggers would give. **Still spends
-1 Reaction when it fires** (SIGNED, William 2026-07-25); with an empty pool it does
-not resolve. **Owner:** Combat (B · 9b).
+buying a *better* response than your Written Triggers would give. **The AP is the
+whole price; when the trigger fires, it resolves** (SIGNED, William 2026-07-25 ·
+amended 2026-07-27 — *arming is permission*). **Owner:** Combat (B · 9b).
 
 ### Shove
 The weapon displacement **Effect** (renamed from "Push"): move the target directly

@@ -82,9 +82,11 @@ The v0.6 canon change-spec: what to rename, what to delete, what to add, and
 four real bugs, each with the rule citation behind it. Written to be applied to
 *any* build rather than as code.
 
-The headline item is **REACTION** — a Kernel Resource in its own right (A·IV),
-spent on someone else's activation, never paid out of AP, and the cap on every
-triggered PACKET in the game. Neither TTS build represents it yet.
+Its headline item **used to be REACTION**. That Resource was struck from the Kernel
+on 2026-07-27 (A·IV, E · `reaction-struck`), so SPEC §2 is now a **do-not-build**
+notice and the tracker's RP column has been removed. Answering on someone else's
+activation is free; what caps it is **facing** (B·8), which is on the table rather
+than in the HUD.
 
 ---
 
@@ -95,4 +97,4 @@ triggered PACKET in the game. Neither TTS build represents it yet.
   the 3″ sprint→charge threshold.
 - **Form Up** (B·11) — the Sergeant's group MOVE. Needs multi-object selection.
   The biggest missing mechanic.
-- **Reaction** — see SPEC.md.
+- ~~**Reaction**~~ — no longer a gap. The mechanic is struck (SPEC §2).

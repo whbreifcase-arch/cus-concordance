@@ -14,7 +14,7 @@
 > **visibly** and put the choice in the Register.
 >
 > **Citation rule.** Every mechanic names the Kernel primitive it reads or
-> writes: `[Position]`, `[PACKET→Grade]`, `[Reaction]`, `[State]`. If it can't
+> writes: `[Position]`, `[PACKET→Grade]`, `[Agency]`, `[State]`. If it can't
 > cite one, it doesn't belong here (Law 14).
 >
 > **Translation.** Story renames two of the three verbs:
@@ -169,7 +169,7 @@ orders, not Asks.
 > **One word was carrying two predicates. They are now named separately:**
 >
 > ```text
-> RANK     Circle / Square — a Definition axis. 2 Reactions. Exceptional.
+> RANK     Circle / Square — a Definition axis. Faceless, unbreakable. Exceptional.
 > CONTROL  played by a person  /  run by the chair.
 > ```
 >
@@ -262,14 +262,15 @@ bought, never lost.
 
 ```json
 "plain_words": { "dice": 1, "success": 5, "grades": { "1": "1 Composure" },
-                 "constraints": ["in_presence"],
-                 "trigger": { "on": "addressed_in_presence", "cost": "1 Reaction" } }
+                 "constraints": ["in_presence"], "provokes": true,
+                 "trigger": { "on": "addressed_in_presence" } }
 ```
 
 **The floor is never zero.** The tongue-tied brute can still say *no*, still jeer,
 still beg. And because every figure always holds a packet with the retort trigger,
-"address a figure to its face and it answers" holds without exception — the only
-gate is Reaction. (`→ G·support-units-are-not-defenceless` carries whole.)
+"address a figure to its face and it answers" holds without exception — and it costs
+nothing, exactly as in Combat. (`→ G·support-units-are-not-defenceless` carries
+whole.)
 
 ## The miss is an utterance — Grade 0 — ⚠ PROPOSED
 A combat miss is physics: nothing happened. A social miss happened **out loud** —
@@ -294,34 +295,54 @@ FAIR OFFER — Presence · Dice 3 · Success 4+
             the terms are taken sincerely
 ```
 
-## The Retort `[PACKET→Reaction]` — ⚠ PROPOSED
-Combat's Counter (B·9), translated whole. Address a figure **in presence** and it
-**Retorts** — one social packet back — for **1 Reaction**:
+## The Retort `[PACKET→Written Trigger]` — ⚠ PROPOSED
+Combat's Counter (B·9), translated whole — including the 2026-07-27 amendment.
+Address a figure **in presence** and it **Retorts** — one social packet back — and
+it **costs nothing**:
 
 - A free target always gets its answer: the first voice on an open figure eats the
   comeback.
 - **A Retort draws no Retort.**
 - **Word never draws a Retort** — no presence, no trigger.
-- **The pool is the cap.** Out of Reaction, out of answers, however many voices
-  press — the badgered witness with nothing left to spend on wit.
+- **An Ask authored `provokes: false` draws no Retort** — the aside, the remark made
+  past someone rather than to them, the question asked of the room. Mirrors B·5.
 - **Simultaneous break — both break.** If your Address breaks the target and its
   Retort breaks you, both go. The dying line lands (B·9, unchanged).
 
+### What caps it is attention — the mirror of facing — ⚠ PROPOSED
+Combat's Square answers **the face** and concedes its flanks (B·8). Story's figure
+answers **the voice it is engaged with**:
+
+> **A figure Retorts the exchange it is in.** A second voice pressing while it is
+> answering the first is speaking at its shoulder — **no Retort.** That is the
+> conversational flank, and everyone has been on both ends of it: talk over a man
+> while he is answering someone else and he cannot answer you too.
+>
+> A **Circle** answers everyone, from any side. The champion is never talked over.
+
+This is where the badgered witness went. He no longer runs out of *wit* — he runs out
+of **attention**, and a crowd working him from three sides is doing something real to
+him rather than draining a number. Combat's amendment translated without loss, which
+is the test Story exists to pass.
+
 ## Answer For — the intercept — ⚠ PROPOSED
-The shield intercept (B·9b), unarmoured: **spend 1 Reaction to consume a social
-packet aimed at a friendly in your presence — the question lands on you instead.**
+The shield intercept (B·9b), unarmoured: **consume a social packet aimed at a
+friendly in your presence — the question lands on you instead**, at no cost.
 *"I'll answer that."* The advocate, the older sister, the sergeant stepping in
 front of the recruit. The interceptor's own Composure eats the Grade; no Retort —
 it wasn't the one addressed. **No trait required.** *(⚠ If play shows it too
 strong, gate it behind an `advocate` trait — the shield precedent.)*
 
-## The budget
+## The budget — there isn't one
 ```text
-Square  →  1 Reaction         Circle  →  2 Reactions
+Agency (AP)  →  what you say on your turn
+answering    →  free, gated by PRESENCE and ATTENTION
 ```
-Mirrors Combat (B·12); same refresh, on the figure's own activation. **A scene may
-run at none** — pure narration spends no pools (A·IV: the module sets the budget,
-"or none at all").
+Mirrors Combat (B·12) after the 2026-07-27 amendment: **there is no second pool.**
+A figure answers what is put to its face, as often as it is put there, and stops
+answering when the room stops facing it. *(This section previously read
+`Square → 1 Reaction · Circle → 2 Reactions`. Struck with the Resource,
+E · `reaction-struck`.)*
 
 ---
 
@@ -338,7 +359,7 @@ men — all of it is social packets firing Combat's own machinery.
 ## Escalation — steel mid-parley — ⚠ PROPOSED
 **The scene never restarts.** Drawing a blade is a MOVE or an ACTION taken by a
 figure with Agency to spend, on the same table, in the same round, from the same
-pools. Alternation continues, Reaction pools ride, Composure stays where it stands
+pools. Alternation continues, AP rides, Composure stays where it stands
 and waits for the next scene. The conversation and the fight were never two games.
 
 *(The reverse door is already open: earshot exists on a battlefield, so mid-combat
@@ -405,12 +426,12 @@ Strike, Address, or nothing.** One activation model at every formality level.
 ```text
 START OF SCENE   every participant is ELIGIBLE. Declare the going-around order
                  (seat order, or the party pressing the first Ask leads).
-ON ACTIVATION    refresh AP and Reaction; spend on MOVE / Address / Prepare;
-                 mark ACTIVATED.
+ON ACTIVATION    refresh AP; expire the armed Prepare; spend on
+                 MOVE / Address / Prepare; mark ACTIVATED.
 THE ROUND ENDS   when no figure is eligible.
 ```
 
-Retorts are **Reactions** and never move the floor: an interjection is not a turn.
+Retorts are **triggers** and never move the floor: an interjection is not a turn.
 
 At two sides this **is** Combat's alternation (B·12) — which is why it needed no
 invention. A council or a market has no sides, so the only addition is a stated
@@ -477,7 +498,7 @@ caravan-save       → campaign state persists somewhere real
 # 16 · What this module owes the Kernel
 
 Every section writes **Position**, resolves a **PACKET** into a **Grade**, spends
-**Agency** or **Reaction**, changes **State**, or reads a Definition axis. **No
+**Agency**, changes **State**, or reads a Definition axis. **No
 fifth primitive was required** — the audience is Position, Composure is a number
 under State, oaths and loyalties are State on relationships, Standing is a spoken
 Position fact, Information is the Resource A·IV already names. Morale is not
@@ -506,9 +527,12 @@ hierarchy-is-position→ rank confers no Composure; a king's difficulty is his h
 standing             → a Position fact, not a meter
 plain-words          → the universal packet; the floor is never zero
 the-miss             → social packets author Grade 0 — you said it out loud
-retort               → 1 Reaction · no Retort on a Retort · both can break
-answer-for           → intercept for a friendly in presence · no trait required
-reaction-budget      → 1 per figure · 2 per Circle · a scene may run at none
+retort               → free · no Retort on a Retort · both can break · `provokes`
+retort-attention     → a figure answers the exchange it is IN; a second voice at its
+                       shoulder gets no Retort. The mirror of facing (B·8)
+answer-for           → intercept for a friendly in presence · free · no trait required
+no-budget            → there is no second pool; answering is gated by presence and
+                       attention (mirrors the 2026-07-27 strike of Reaction)
 temperament-social   → the five under-pressure / at-break behaviours (§11)
 nerve-bridge         → battlefield social invokes Combat's Nerve; no fork, ever
 escalation           → steel mid-parley continues the same round and pools

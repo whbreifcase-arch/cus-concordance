@@ -33,8 +33,8 @@
 | Attack Packet | **PACKET** |
 | Ability Packet | **PACKET** |
 | Weapon Packet | **PACKET** |
-| Reactive Packet — *prepared* (the player armed it) | **PACKET armed by WAIT.** 1 AP to arm, 1 Reaction to fire (Overwatch, Brace) |
-| Reactive Packet — *innate* (it just fires) | **PACKET with a Written Trigger clause.** No AP, 1 Reaction to fire (Counter, Shield Intercept, Reach strike) |
+| Reactive Packet — *prepared* (the player armed it) | **PACKET armed by WAIT.** 1 AP to arm, and it fires (Overwatch, Brace) |
+| Reactive Packet — *innate* (it just fires) | **PACKET with a Written Trigger clause.** No AP, no cost, once per occurrence (Counter, Shield Intercept, Reach strike) |
 | Passive Packet | **Not a PACKET.** A **Trait** — referenced passive Definition (SIGNED) |
 | Typed IDs `ATK_07 · ABIL_04 · REACT_02 · PASSIVE_09` | **Neutral IDs** (`spear_thrust`) + a separate `packet_index` sidecar for classification (SIGNED) |
 | "Reactive Packet" as a packet **type** | **Retired.** There is no reactive *kind* of PACKET — there is an ordinary PACKET that is either armed (WAIT) or carries a Written Trigger (SIGNED 2026-07-25, A · III) |
@@ -100,8 +100,10 @@
 | Bases: shape=type, size=class, elongated=mounted | **Kept** (B · 1). Size classes SIGNED = **Small / Medium / Large** (no Monstrous, no Cavalry-as-class); mounted = elongated geometry; "monstrous" = a Large + `unstoppable` trait |
 | Push / Indent / Crush geometry | **Kept** (B · 4), now driven by Sprint→Impact |
 | Wounds `Fine→Hurt→KO→Dead` | **Retired as a track** (SIGNED 2026-07-25, B · 7). **Wounds is a number** — 1–2 standard, a tunable knob. *Fine* and *Hurt* are deleted (they were prose for the number). **Knocked Out** and **Dead** survive as the two real States, entered at `wounds_remaining = 0` |
-| Reactions / `counter_x` economies | **Retired.** **Reaction** is a Kernel Resource (SIGNED 2026-07-25, A · IV): 1 per figure, 2 per Circle. Every triggered PACKET costs 1. No per-effect limiters |
-| Counter as a READY/WAIT | **Retired.** A Counter is a **Written Trigger** inside the weapon/condition PACKET — no AP, costs 1 Reaction (SIGNED 2026-07-25, B · 9) |
+| Reactions / `counter_x` economies | **Retired.** Out-of-turn response is not budgeted at all (SIGNED 2026-07-27, A · IV). No per-effect limiters and no pool either |
+| **Reaction** (the Resource, 2026-07-25 → 2026-07-27) | **Struck.** It was `1 per figure · 2 for a Circle`, one spent per triggered PACKET. Gone: triggers are **free** and gated by **Position, authoring and death**. Its cap job passed to the **front arc** (B · 8) — a Square answers what it faces, a faceless Circle answers everyone. Its authoring job passed to **`provokes`** (B · 5). Its anti-milking job passed to **once per occurrence** (A · III) |
+| Counter as a READY/WAIT | **Retired.** A Counter is a **Written Trigger** inside the weapon/condition PACKET — no AP, no cost (SIGNED 2026-07-25, amended 2026-07-27, B · 9) |
+| "Arming is not permission" | **Struck 2026-07-27.** It only meant anything while a WAIT could fire into an empty pool. With no pool, **arming is permission** — the AP buys the better packet and the better packet fires (B · 9b) |
 | Charge (as a distance/action) | **Sprint + the 3″ threshold** (SIGNED 2026-07-25, B · 3): 3″ uninterrupted run-up into contact *is* the charge. Threshold, not a budget |
 | Reach as a measured band / dead zone | **`not_in_contact` packet constraint** (SIGNED 2026-07-25, B · 8): strikes to X″, illegal while bases touch. In contact the figure swings **Fists** |
 | "Shoot into melee freely" | **Ranged carries `not_in_contact` BY DEFAULT** (SIGNED 2026-07-25, B · 5). Exceptions (wrist crossbow, hand flamer, point-blank spell) are **authored**, and are a priced advantage |
@@ -124,7 +126,7 @@ migration debt to reconcile against A–C when the open rulings land.
 | Artifact | Uses (old) | Migration when signed |
 |---|---|---|
 | `CUS_TTS_MOD/` (TTS playtest) | four verbs, five Roles, typed packet IDs (`ATK_*`), "Tiers" | remap radial wheel to MOVE·ACTION·WAIT; Roles→P/A/U; packet IDs→neutral; "Tiers"→"Grade"; Charge→Sprint/Impact |
-| `unit_library.json` (73 units) | `role` (5-way), `base.class` Small/Normal/Cavalry/Large/Monstrous, `attack_packet_ids:["ATK_*"]`, `tiers` | roles → Pressure/Anchor/Utility (+archetype); **classes → `base.size_class` Small/Medium/Large**, Cavalry→`base.mounted:true`, Monstrous→Large + `unstoppable` trait; `tool` → Melee/Ranged/Hybrid; neutral packet IDs; `tiers` → discrete `grades`; add `traits:[]` (**never** containing Large/Mounted); add numeric `wounds` (1–2 standard) and drop any Fine/Hurt state field; add `reactions` (1, or 2 for a Circle) |
+| `unit_library.json` (73 units) | `role` (5-way), `base.class` Small/Normal/Cavalry/Large/Monstrous, `attack_packet_ids:["ATK_*"]`, `tiers` | roles → Pressure/Anchor/Utility (+archetype); **classes → `base.size_class` Small/Medium/Large**, Cavalry→`base.mounted:true`, Monstrous→Large + `unstoppable` trait; `tool` → Melee/Ranged/Hybrid; neutral packet IDs; `tiers` → discrete `grades`; add `traits:[]` (**never** containing Large/Mounted); add numeric `wounds` (1–2 standard) and drop any Fine/Hurt state field; **do not add a `reactions` field** — struck 2026-07-27 |
 | `card_forge_v3.html` bindings | `{role}`, `{tiers}`, `{tool}` | `{tiers}` → `{grades}`; `{tool}` values → Melee/Ranged/Hybrid; add a `{traits}` binding |
 | `CUS_CODEX.md` v0.5 | everything above | becomes a retired **migration input**; not edited in place — superseded by this folder |
 

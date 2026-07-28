@@ -1,5 +1,5 @@
 # CUS — DECISION REGISTER
-### v0.6 · CLOSED · 2026-07-24 · amended 2026-07-25
+### v0.6 · CLOSED · 2026-07-24 · amended 2026-07-25 · **2026-07-27**
 
 > Every open decision is now **signed** (William, 2026-07-24) and folded into A/B/C.
 > **CUS v0.6 is closed** — there are no unresolved constitutional questions. This
@@ -74,11 +74,11 @@ v0.6 stays **closed**; these are amendments, not reopened questions.
 
 | ID | Ruling | In |
 |---|---|---|
-| reaction-resource | **Reaction is a Kernel Resource**, separate from and never paid out of AP. Every triggered PACKET costs 1 | A·IV, C |
-| reaction-budget | **1 per figure · 2 for a Circle**, refreshed at the start of the figure's own activation | B·12 |
+| ~~reaction-resource~~ | ~~**Reaction is a Kernel Resource**, separate from and never paid out of AP. Every triggered PACKET costs 1~~ **STRUCK 2026-07-27** → `reaction-struck` | — |
+| ~~reaction-budget~~ | ~~**1 per figure · 2 for a Circle**, refreshed at the start of the figure's own activation~~ **STRUCK 2026-07-27** → `reaction-struck` | — |
 | counter-authoring | A Counter is a **Written Trigger inside a PACKET** — authored on the weapon/condition, not armed by WAIT, costs no AP | B·9, A·III |
-| shield-cap | Shield intercept has **no artificial cap** — the limits are that he spent his Reaction and that he can die eating the hit | B·9b |
-| brace-vs-overwatch | **Brace grants no Reaction** (hard bonuses and step-ups only). **Overwatch** = 1 AP to arm a better PACKET, and **still spends the Reaction** when it fires | B·9b |
+| shield-cap | Shield intercept has **no artificial cap** — the limit is that he can die eating the hit *(revised 2026-07-27: the Reaction clause is struck)* | B·9b |
+| brace-vs-overwatch | **Brace and Overwatch are the two WAITs.** Brace buys hard bonuses and step-ups; **Overwatch** = 1 AP to arm a better PACKET *(revised 2026-07-27: neither touches a Reaction pool, and arming is now permission)* | B·9b |
 | sprint-to-charge | The **3″** is the **sprint→charge transition threshold** — a threshold, not a distance budget. Only physical contact interrupts | B·3, F |
 | wounds | **Wounds is a number, not a track** — 1–2 standard, a tunable knob. *Fine* and *Hurt* are **deleted**; **Knocked Out** and **Dead** survive as the two real States at `wounds_remaining = 0` | B·7, C |
 | circle-scope | **One Circle per Banner** (its Champion). An Army holds one Circle *per Banner*, not one in total | B·1 |
@@ -101,13 +101,13 @@ which is why an outside reviewer graded a doc set that trailed the rulings. See
 
 | ID | Ruling | In |
 |---|---|---|
-| fists-standard | **Fists are standard equipment** on every figure — weak melee packet, never printed, carries the Counter trigger. Makes the Counter universal with one condition (Reaction) | B·5, B·9, C |
+| fists-standard | **Fists are standard equipment** on every figure — weak melee packet, never printed, carries the Counter trigger. Makes the Counter universal, with no condition but Position | B·5, B·9, C |
 | reach-constraint | Reach is a **`not_in_contact` packet constraint**, not a measured dead zone. Strikes to X″, illegal while bases touch — in contact you swing Fists | B·8, C |
 | ranged-in-melee | **Ranged carries `not_in_contact` by default.** Exceptions (wrist crossbow, hand flamer, point-blank spell) are authored and are a priced advantage | B·5 |
 | simultaneous-death | If the ACTION and the Counter are both lethal, **both figures die.** No initiative tiebreak | B·9 |
 | finish-the-downed | **A Knocked Out figure that is hit is killed and rolls no Armour.** Armour protects the standing only | B·7, C |
 | morale-ratchet | **Breaking beats killing** — the one-way morale track is deliberate. Rally (a leader's ACTION) is the recovery valve, which makes decapitation a strategy | B·10, G |
-| form-up | **Form Up** — a **Sergeant-only** group MOVE. Names unactivated friendlies within **4″**, shapes them, each pays **1 AP** and is **marked activated**; they MOVE as one body and declare strikes/Shoves **before contact**. The AP covers MOVE + attacks + Shoves but **never Reaction**. You hit only what your own base moves into (Reach excepted). Circles cannot call or join | B·11, C |
+| form-up | **Form Up** — a **Sergeant-only** group MOVE. Names unactivated friendlies within **4″**, shapes them, each pays **1 AP** and is **marked activated**; they MOVE as one body and declare strikes/Shoves **before contact**. The AP covers MOVE + attacks + Shoves; a formed-up figure still answers its written triggers. You hit only what your own base moves into (Reach excepted). Circles cannot call or join | B·11, C |
 | form-up-pace | **A formation moves at the shortest Move among its members**, keeping shape as closely as practical. A body travels at the pace of its slowest man — so who you bring is a cost, and leaving someone out is a live decision | B·11 |
 | move-stays-move | **The *Advance* alias is retired.** Combat does not rename MOVE. *Sprint · Leap · Withdraw* name kinds of MOVE | B·2, C, D |
 | invocation-layer | **Verb ≠ invocation.** Player keeps three verbs; the grammar gains `WRITTEN_TRIGGER` and `OWNED_PROCEDURE` so Counter, Impact and Intercept reach the resolver honestly | A·XIV, C |
@@ -127,7 +127,7 @@ which is why an outside reviewer graded a doc set that trailed the rulings. See
 | aftermath-rolls | **BODY = a Care check; MIND = a Nerve check.** Both use the existing **three-dice, count-successes** shape (B·10) so nothing new is learned. Care 6+ / 5+ surgeon / 4+ surgeon+facilities; 0 successes = died of wounds | H·7.3 |
 | harm-tables | **Written 2026-07-25.** 6 locations × d6 = **36 BODY injuries** · **8 MIND injuries** keyed to triggers · **25 BODY scars + 10 MIND scars**. Every scar takes something and gives something | H·7.4–7.7 |
 | hollow-hardened | **`hollow` gets its own section (H·7.7b) and teeth.** It **deepens** (Nerve worsens again every period ended with no friendly within 3″, without limit), it **cannot mend** (no ACTION that repairs anything between people — no Rally, no tending, no amends), and it **lashes out** (a Written Trigger: Wounded, or any figure downed within 3″ → he strikes the nearest figure, friend or foe, and does not choose it) | H·7.7b |
-| rank-vs-control | **One word was carrying two predicates.** *Circle* meant both "exceptional Definition axis" and "the figure a player is running" — identical sets on the day both laws were drafted, and not identical since. Now split: **RANK** (Circle/Square, 2 Reactions, exceptional) and **CONTROL** (played by a person / run by the chair). Every sacred-figure law names its basis | I·6, B·10, G |
+| rank-vs-control | **One word was carrying two predicates.** *Circle* meant both "exceptional Definition axis" and "the figure a player is running" — identical sets on the day both laws were drafted, and not identical since. Now split: **RANK** (Circle/Square — faceless, unbreakable, exceptional) and **CONTROL** (played by a person / run by the chair). Every sacred-figure law names its basis | I·6, B·10, G |
 | circles-hold-is-control | **A PLAYED figure can be Yielded, never Moved. An NPC Circle CAN be Moved.** The law protects player sovereignty (Law 9 in the parlour), not hero-ness — so talking an enemy champion down is legal, hard, and campaign-shaping | I·6 |
 | nerve-exemption-is-rank | **Circles never test Nerve because they are exceptional, and that holds for ENEMY Circles too.** Not a courtesy to players — a statement about what a champion is | B·10 |
 | break-triggers | **A Circle never breaks by dice. It breaks by a prewritten trigger** — a Written Trigger authored on that figure in advance. **No trigger written = he fights to the end.** A break condition and a campaign hook are the same object, so one authoring format covers both | B·10, G |
@@ -137,6 +137,44 @@ which is why an outside reviewer graded a doc set that trailed the rulings. See
 | care-is-finite | **TEND capacity: 1 / 2 with a field surgeon / 4 with surgeon + facilities.** Recovery only ticks in a period the figure was tended; go untended for as many periods as the injury's recovery cost and it converts to its Neglected outcome. *You have four wounded and two hands* — choosing who waits **is** the between-battle game | H·8.3 |
 | hollow-cause-withheld | **The state is fully specified; the trigger is not published.** How a figure becomes hollow appears nowhere in A–I and is held privately by the owner. The neglect column of the MIND table routes to ordinary scars instead. Players are told *that* a figure is hollow, never *how* | H·7.6, H·7.7b |
 | no-redemption-rule | **No redemption procedure is written, on purpose.** A procedure becomes a checklist, and the most important thing one person can do for another becomes a line item on the way to a stat correction. No *Redemption* heading, no table entry | G·there-is-no-redemption-rule |
+
+---
+
+## Amendments — third batch, signed 2026-07-27 (William)
+
+**The Reaction economy is struck.** Taken after play. v0.6 stays **closed**; this is
+an amendment, not a reopened question.
+
+| ID | Ruling | In |
+|---|---|---|
+| reaction-struck | **Reaction is no longer a Kernel Resource.** The pool, the budget, and the per-trigger cost are deleted everywhere. Out-of-turn response is gated by **Position, authoring, and death** — never by a number | A·IV, A·XIV, B·9, B·12, C, D |
+| counter-is-free | **A Counter costs nothing.** It is a Written Trigger on the defender's packet and it fires. Its four limits: **contact** (no contact, no Counter) · **facing** (an engaged Square answers only its front) · **authoring** (`provokes: false`) · **death**. A Counter still does not draw a Counter | B·9, C |
+| provokes | **The striking packet decides whether it draws a Counter.** New packet field `provokes` — **true by default for a melee packet resolved in base contact**, false for everything else. A backstab, an assassination, a coup de grâce authors `provokes: false` instead of being special-cased in prose | B·5, B·9, C |
+| trigger-once-per-occurrence | **A Written Trigger fires once per occurrence of the condition it names — and a movement is one occurrence.** A figure crossing a spearman's reach band is one event however many increments (F) it takes to cross. This is the anti-milking rule the pool used to supply | A·XIV, B·8, C, F |
+| wait-buys-quality | **WAIT is the only AP-priced out-of-turn capability, and it buys quality, not permission.** Brace and Overwatch are the two WAITs. *"Arming is not permission"* is **struck** — with no pool to be empty, arming **is** permission | A·III, B·9b, C, G |
+| facing-is-the-cap | **What replaces the pool is the front arc.** An engaged Square faces one enemy and answers what comes at that face; everyone reaching its flank or rear gets in free. A **Circle**, faceless, answers every attacker from every angle — which is what the two-Reaction Champion was clumsily saying | B·8, B·9, G |
+
+### Why it was struck
+Not because it was burdensome — because **Position had already answered the question
+it was answering.** B·8/B·9 deny a Counter on an engaged Square's unfaced flank or
+rear: that is the anti-overwhelm rule, and it is geometric. Reaction was a second,
+numerical answer to a settled question — two owners for one job (Law 1) — and it ran
+against A·II, which says depth comes first from Position and **not** from stacks of
+numerical modifiers.
+
+**What is knowingly lost.** Chaff sequencing: spending an enemy's Counters with
+bodies before landing the real blow. With no pool there is nothing to spend. The
+counterplay moves to **envelopment** — get around the shield wall rather than drain
+it — which is the same answer the Kernel keeps giving. Accepted deliberately.
+
+**What is knowingly risked.** Shield intercept and the reach opportunity strike are
+now capped only by attrition and by `trigger-once-per-occurrence`. Both sit under the
+⚠ PROVISIONAL flag on B·9b. **Playing decides.**
+
+*(Note: the 3,000-game balance run that produced the current faction numbers was
+measured on **uncapped** Counters. This amendment returns the rules to the state the
+sim validated; adding Reaction is what departed from it. **No prices or costs are
+repointed by this amendment.**)*
 
 ### On Form Up and the tempo trade
 The consequence was raised before signing and accepted deliberately: forming up

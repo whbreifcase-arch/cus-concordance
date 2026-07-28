@@ -13,10 +13,18 @@ faceless, shields intercepting for an adjacent ally. The sim's job
 was **conformance**: make sure all of the existing rules were honored together and
 show how they interact at speed.
 
+> ⚠ **Superseded in part, 2026-07-27 — the Reaction economy is struck**
+> (E · `reaction-struck`). This document is a **record of a sim run**, so its list
+> above is left as it was: `1 reaction/figure` *is* what the sim enforced on the day.
+> It is no longer a CUS rule. Answering is now free, and what caps it is the front
+> arc (B · 8). Everything else in these findings stands — and note that the shield
+> and counter behaviour it measured under a 1-per-figure pool is exactly the
+> behaviour flagged for re-testing in B · 9b.
+
 > **Written into canon 2026-07-25.** Two of those rules were live in the sim but had
 > never been written down in A–E. They are now: the **Reaction resource**
-> (1 per figure · 2 per Circle) is A · IV + B · 12, and the **3″ sprint→charge
-> threshold** is B · 3 + F. One item on the original list — the **3″ push cap** — is
+> (1 per figure · 2 per Circle) is A · IV + B · 12 *(struck 2026-07-27, above)*, and
+> the **3″ sprint→charge threshold** is B · 3 + F. One item on the original list — the **3″ push cap** — is
 > a **sandbox tuning parameter**, not a CUS rule, and has been struck from this list;
 > the plow runs under B · 4 geometry until Move is spent or the mover jams. The "findings" below are consequences of the
 existing kernel, not additions. (Only nuance applied: shield interception used

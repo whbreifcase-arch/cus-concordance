@@ -1,5 +1,5 @@
 # CUS — THE COMBAT MODULE
-### v0.6 · the reference implementation · rebuilt 2026-07-23
+### v0.6 · the reference implementation · rebuilt 2026-07-23 · **Reaction struck 2026-07-27**
 
 > **What this is.** The Kernel (Document A) doing real work: physical conflict.
 > Combat is the *reference* implementation — it exercises the most primitives.
@@ -174,8 +174,14 @@ fourth size class.*
 # 5 · PACKET resolution in combat  `[resolves PACKET → Grade]`
 
 A combat PACKET may define: `dice · success_number · range/reach · area · cost ·
-grades · effects`. It is **referenced, never copied** onto each weapon; the
-ordering below is written **once, here**, not on every card.
+grades · effects · provokes · trigger`. It is **referenced, never copied** onto each
+weapon; the ordering below is written **once, here**, not on every card.
+
+Two of those fields point in opposite directions, and it is worth naming them apart:
+```text
+trigger    what this packet does when its HOLDER is struck   (the Counter it throws)
+provokes   whether resolving this packet lets the TARGET Counter
+```
 
 Typical flow:
 ```text
@@ -204,7 +210,8 @@ Counter trigger like any other weapon.
 
 ```json
 "fists": { "dice": 1, "success": 5, "grades": { "1": "1 Wound" },
-           "trigger": { "on": "struck_in_melee_contact", "cost": "1 Reaction" } }
+           "provokes": true,
+           "trigger": { "on": "struck_in_melee_contact" } }
 ```
 
 The point is that **the floor is never zero.** A caster out of mana, a spearman with
@@ -213,8 +220,26 @@ statues. They are in the fight, badly.
 
 > **This is what makes the Counter universal.** Because every figure always holds a
 > packet with a counter trigger, "strike a figure in contact and it Counters" is
-> true without exception. The only thing that stops a Counter is an empty **Reaction**
-> pool (§9, §12). `→ G·support-units-are-not-defenceless`
+> true without exception. Nothing *costs* him the answer; what denies it is where
+> you are standing (§9). `→ G·support-units-are-not-defenceless`
+
+## `provokes` — the striking packet decides — SIGNED (William, 2026-07-27)
+Whether a strike draws a Counter is a property of **the packet doing the striking**,
+declared once in the packet rather than argued case by case in prose:
+
+```json
+"backstab":     { "provokes": false }     // he never saw it
+"spear_thrust": { "provokes": false }     // not_in_contact — nothing to answer from
+"longsword":    { "provokes": true }      // the default, printed for clarity
+```
+
+**Default: `true` for a melee packet resolved in base contact, `false` for everything
+else.** A ranged shot, a reach strike, an Impact, a heal — none of them provoke,
+because none of them is a man in contact hitting you. `provokes: false` on a melee
+packet is a **real, priced advantage** and must be authored deliberately.
+
+*(This is why the assassin needs no assassin rule: he carries a packet that does not
+provoke, and the Counter section below stays four lines long.)*
 
 ## `not_in_contact` — the standing constraint — SIGNED (William, 2026-07-25)
 A packet may declare that it **cannot be resolved while bases are touching.** It is
@@ -326,6 +351,19 @@ already engaged with another enemy** faces *that* foe, so a new attacker reachin
 its **flank or rear** strikes an arc it isn't facing (a Flank/Backstab) and draws
 no Counter. A **Circle**, being faceless, always Counters regardless of angle.
 
+> **Facing is what caps the Counter — SIGNED (William, 2026-07-27).** This paragraph
+> is now load-bearing. A Square answers **the face**: whatever comes at its front
+> arc gets answered, every time, and everything that reaches its flank or rear gets
+> in free. Surround a spearman with four men and he does not run out of swings — he
+> runs out of **directions.** Three of those four are behind his shoulder.
+>
+> A **Circle** answers everybody from every angle. That is what the Champion's old
+> second Reaction was clumsily trying to say, and it says it better as geometry:
+> *a hero has no back.*
+>
+> So the answer to a shield wall is not to drain it. It is to **get around it.**
+> `→ G·a-pool-is-not-a-position`
+
 Leaving an engagement costs a **Disengage — 1 AP.**
 
 ## Reach — the `not_in_contact` constraint — SIGNED (William, 2026-07-25)
@@ -342,9 +380,13 @@ bases are touching.** That is the whole rule: not a measured dead-zone band, but
 - **Bases touching** → that packet is illegal. The spearman is holding a weapon he
   cannot use at this distance, so he swings **Fists** (§5) like anyone else.
 - A Reach strike from outside contact **is not engagement** and draws **no Counter**
-  (§9) — the reach striker is not glued to anything.
-- It **costs 1 Reaction** (§12) when it fires on someone else's activation, like
-  every other triggered PACKET.
+  (§9) — the reach striker is not glued to anything. It carries `provokes: false`
+  for the same reason (§5).
+- When it fires on someone else's activation it **costs nothing** — but it fires
+  **once per occurrence**, and *a movement is one occurrence*: a figure crossing the
+  spearman's band is **one** poke, whether the clash resolves that crossing in one
+  move or six half-inch increments (Document F). You cannot slice a run into
+  free strikes. — SIGNED (William, 2026-07-27)
 
 > **This is why depth wins.** A rank-2 spearman is touching nobody, so his spear is
 > always legal; a front-rank spearman in contact is punching. Spear lines need a
@@ -355,24 +397,23 @@ bases are touching.** That is the whole rule: not a measured dead-zone band, but
 
 ---
 
-# 9 · Counter — a written trigger  `[PACKET → Reaction]` — SIGNED (William, 2026-07-24 · amended 2026-07-25)
+# 9 · Counter — a written trigger  `[PACKET → Written Trigger]` — SIGNED (William, 2026-07-24 · amended 2026-07-25 · **2026-07-27**)
 
 Strike a figure in melee contact and it **Counters** — one melee PACKET back —
 **and turns to face you; you are now engaged.** A **free (unengaged) target always
 gets its swing** and is pulled into engagement with its attacker: the first
 attacker on an open figure eats the Counter.
 
-**This is universal, and it has exactly one condition: Reaction.** Because every
-figure carries **Fists** (§5) and Fists carry the counter trigger, no figure is ever
-without a legal Counter. Read every "it Counters" below as *"it Counters if it has
-Reaction left."* Nothing else gates it.
+**This is universal and it costs nothing.** Because every figure carries **Fists**
+(§5) and Fists carry the counter trigger, no figure is ever without a legal Counter.
+There is no pool, no budget, and no per-round allowance.
 
 ## A Counter is authored, not armed — SIGNED (William, 2026-07-25)
 A Counter is a **Written Trigger** — a trigger clause carried inside a PACKET. The
 weapon, or the condition, holds the wording that permits a counter-attack:
 ```json
 "spear_thrust": {
-  "trigger": { "on": "struck_in_melee_contact", "cost": "1 Reaction" }
+  "trigger": { "on": "struck_in_melee_contact" }
 }
 ```
 The Counter is a property of **what you are holding** — not a universal reflex
@@ -380,20 +421,37 @@ bolted onto the figure. In practice every figure always has one, because **Fists
 are standard (§5); what varies is how badly it hurts. A caster who Counters with
 fists and a knight who Counters with a longsword are running the same rule.
 
-This is why the Kernel needs no `counter_x` economy (Document A · III, IV).
+This is why the Kernel needs no `counter_x` economy (Document A · III, IV) — and,
+since 2026-07-27, no Reaction economy either.
 
-## It costs a Reaction — SIGNED (William, 2026-07-25)
-**Every Counter spends one Reaction** (§12). That, and death, are the only limits:
-- **No artificial cap.** A figure Counters every enemy that strikes it, and
-  **Counters even as it dies** — the dying swing lands.
-- **The cap is the pool.** Out of Reaction, out of Counters, however many enemies
-  step up. A shieldman who has already intercepted has nothing left to swing with.
+## The four limits — SIGNED (William, 2026-07-27)
+A Counter is free. What stops one is never a number:
+
+```text
+CONTACT    no melee base contact → no Counter.  Ranged and Reach are out (§8).
+FACING     an engaged Square answers its FRONT arc and concedes flank and rear.
+           A Circle is faceless and answers everyone.                     (§8)
+AUTHORING  the striking packet carries `provokes: false` → no Counter.     (§5)
+DEATH      a dying figure gets its swing, and then it is over.
+```
+
+- **No artificial cap.** A figure Counters every enemy that strikes a face it is
+  actually presenting, and **Counters even as it dies** — the dying swing lands.
 - **A Counter does not itself draw a Counter (SIGNED, William 2026-07-24).**
   `→ G·counter-is-not-an-attack`
+- **One Counter per strike.** Each incoming strike is one occurrence of the trigger
+  and draws one answer — not one per attacker, not one per round.
 
-Worked example — you strike a figure, engage, it spends its Reaction to Counter
-and kills you; your body is shoved off; that figure is now free, **but has no
-Reaction left this round** and will not Counter the next attacker who steps up.
+Worked example — you strike a figure head-on, engage, it Counters and kills you;
+your body is shoved off; that figure is now free and facing your corpse. **The next
+man who steps up gets answered too, if he steps up in front.** Come at the shoulder
+instead and he never sees you: same figure, same round, different geometry.
+
+> **What this costs you, honestly.** You can no longer *spend* a shield wall down
+> with chaff before landing the real blow — there is nothing to spend. The answer
+> to a wall is now **envelopment**: deny the front, take the flank, and the Counter
+> was never in the equation. That trade was made deliberately (Document E ·
+> `reaction-struck`).
 
 **Ranged never draws a Counter** (§8): no contact, no engagement, no trigger.
 
@@ -402,9 +460,8 @@ If your ACTION kills the target and its Counter kills you, **both figures die.**
 There is no initiative tiebreak, no "attacker resolves first," no survivor.
 
 The dying swing lands because it was already thrown. Trading your life to take
-someone with you is a legal, sometimes correct play — and a fresh enemy is more
-dangerous to kill than a spent one, because a spent one has no Reaction to swing
-with.
+someone with you is a legal, sometimes correct play — and there is no such thing as
+a "spent" enemy any more. **Everyone facing you can answer.** Pick your angle.
 
 The other ways to deny a Counter are positional:
 - **Free target** → **Counters**, turns to face, becomes engaged with you. *(No, you
@@ -414,6 +471,8 @@ The other ways to deny a Counter are positional:
   the free side-shot. **Circles are faceless** → a Circle **always** Counters, from
   any angle.
 - **Reach without contact** → **no Counter** (the reach striker is not glued).
+- **A packet authored `provokes: false`** → **no Counter** (§5). The one non-positional
+  denial, and it must be written on the packet and paid for in what the packet costs.
 
 ---
 
@@ -435,28 +494,34 @@ A "shield wall" is therefore **emergent geometry**: Squares standing
 shoulder-to-shoulder, facing the same way, are a wall because of where they stand.
 There is no Shield Wall skill. `→ G·brace-is-not-an-ability`
 
-## Shield — a trait, and an *intercept* reaction  `[Trait → Reaction]`
+## Shield — a trait, and an *intercept*  `[Trait → Written Trigger]`
 A **shield** is gear (a Trait). Beyond the obvious (it comes with armour), it carries a
-written trigger: **spend 1 Reaction to consume an ACTION packet aimed at a friendly
-within 1″ — take the hit yourself instead.** *"No, I'll take that one over here."*
-- **Costs one Reaction** (§12), the same pool a Counter spends.
+written trigger: **consume an ACTION packet aimed at a friendly within 1″ — take the
+hit yourself instead.** *"No, I'll take that one over here."*
+- **Costs nothing** — like every Written Trigger since 2026-07-27 (§9).
 - You must **declare it in the moment, before the packet resolves.** Miss the window,
   miss the save — it is an act of attention, not an automatic shield.
 - The **interceptor's own Armour** rolls against it; unsaved Wounds land on **him.**
 - **No Counter** — he was not the one attacked, and he isn't in contact.
-- **No artificial cap — SIGNED (William, 2026-07-25).** Nothing limits interception
-  except the two things that already limit it: **he spent his Reaction**, and **he can
-  die eating the hit.** A shieldman with Reaction left may take a hit for his line;
-  once spent, he is a body like any other, and a good shot or a big Grade drops him
-  and the wall opens. Do not add a per-round intercept limiter on top — that is what
-  the Reaction pool *is*.
+- **The cap is that he dies — SIGNED (William, 2026-07-25 · restated 2026-07-27).**
+  Nothing limits interception except the two things that were always the real limits:
+  **he must be within 1″ of the target**, and **every intercept is a live hit on his
+  own body.** A shieldman may hold his line as long as he can stand it; a good shot
+  or a big Grade drops him and the wall opens. Do not add a per-round limiter on
+  top — attrition *is* the limiter, and it is the honest one.
+
+  > ⚠ **This is the item to watch in play.** It was the Reaction pool that quietly
+  > held intercepting to roughly once per figure per clash. With the pool gone, a
+  > Heavy-armoured shieldman standing over a caster can eat several packets before
+  > he falls. That is the intended reading and it is under the §9b provisional flag.
+  > If it plays out badly, the fix is **1″ and facing**, not a new pool.
 - **A universal reaction, not a defender-only one.** A shield escorting a charging
   figure protects it exactly as a shield in a standing line protects its neighbour
   (Document F).
 - Works **regardless of facing** (even while Braced) — reaching the shield sideways to
   cover a mate is the one thing that still functions to your flank.
-- Intercepts **melee and ranged alike** (a shield eats arrows). Since it costs the
-  Reaction and every intercept is a real hit on the shieldman, it is self-limiting.
+- Intercepts **melee and ranged alike** (a shield eats arrows). Every intercept is a
+  real hit on the shieldman, which is the whole of its self-limiting.
   *(⚠ If ranged feels gutted in play, restrict to melee.)*
 
 ## Brace — a fixed-facing stance  `[WAIT — Square only]`
@@ -471,26 +536,30 @@ that **locks your facing** and turns you into a wall in **one direction**:
 - **Circles cannot Brace** — a faceless base has no facing to fix (falls out of B.1).
 - **Shove breaks Brace** (below): levered out of position, the stance ends.
 
-> **Brace grants no Reaction — SIGNED (William, 2026-07-25).** Bracing does **not**
-> refill, add to, or substitute for the Reaction pool. What it buys is **hard
-> bonuses and step-ups** — the dice swing above, and any step-up an effect writes
-> onto the stance. A braced figure that has spent its Reaction still cannot Counter.
-> Brace makes you *better*, not *more available*.
+> **What Brace buys is quality — SIGNED (William, 2026-07-25 · restated 2026-07-27).**
+> **Hard bonuses and step-ups**: the dice swing above, and any step-up an effect
+> writes onto the stance. It does not make a figure *more available* to answer —
+> nothing does, because availability is no longer rationed. Brace makes you
+> **better at the front you chose**, and worse everywhere else.
 
-## Overwatch — pay AP for a better trigger  `[WAIT]` — SIGNED (William, 2026-07-25)
+## Overwatch — pay AP for a better trigger  `[WAIT]` — SIGNED (William, 2026-07-25 · amended 2026-07-27)
 Overwatch is the clean Kernel case of WAIT (Document A · III): **spend 1 AP to arm a
 chosen PACKET against a declared trigger.** It exists because your written triggers
 (§9) may not be the response you want — Overwatch buys you a *better* PACKET than the
 situation would otherwise hand you.
 
-**It still spends the Reaction when it fires.** The AP bought the upgrade; the
-Reaction buys the right to act on someone else's activation. An armed Overwatch on a
-figure with an empty pool **does not resolve** — arming is not permission.
+**Arming is permission.** The AP is the whole price; when the trigger fires, the
+packet resolves. *(The old rider — "it still spends the Reaction, and an armed WAIT
+with an empty pool does not resolve" — is **struck**. There is no pool to be empty.)*
 
 ```text
-Overwatch:  1 AP now (arm the better PACKET)  +  1 Reaction later (fire it)
-Counter:    0 AP     (written into the weapon) +  1 Reaction later (fire it)
+Overwatch:  1 AP  →  arm a PACKET of your choosing, and it fires
+Counter:    0 AP  →  whatever the weapon already says, and it fires
 ```
+
+**The two WAITs are the whole of paid out-of-turn capability.** Brace buys a better
+front; Overwatch buys a better answer. Everything else that resolves on someone
+else's activation is a Written Trigger, and Written Triggers are free.
 
 ## Shove — the weapon displacement effect (renamed from "Push")  `[Position]`
 The Grade effect once called **Push** is now **SHOVE**, so "push" is free for ordinary
@@ -646,10 +715,11 @@ FORM UP  — the Sergeant's procedure
 ```
 
 ### What the 1 AP buys
-**Everything except reacting.** One point covers that figure's MOVE, its attacks,
-and its Shoves for the whole formation action. It does **not** touch the Reaction
-pool — a formed-up figure still Counters, still intercepts with a shield, still
-fires an armed Overwatch (§12). Reaction is never prepaid and never surrendered.
+**The whole formation action.** One point covers that figure's MOVE, its attacks,
+and its Shoves. It does not touch what the figure can *answer* with — a formed-up
+figure still Counters and still intercepts with a shield, because triggers are free
+and were never part of the activation (§9). What joining costs is the activation
+itself, and that is the entire trade.
 
 ### Joining spends your activation
 A figure that joins is **done for the round.** It does not activate again.
@@ -688,7 +758,7 @@ to carry, and it makes leaving someone out of the formation a live decision.
 
 ---
 
-# 12 · The round — alternation & the two pools  `[Agency / Reaction]`
+# 12 · The round — alternation & the one pool  `[Agency]`
 
 Combat's activation model:
 ```text
@@ -699,24 +769,24 @@ a time. Wild/uncontrolled figures resolve afterward per the owning procedure.
 Alternation is **attention management** — a camera that directs focus to the
 hottest fight. `→ G·alternation-is-not-initiative`
 
-## The Reaction budget — SIGNED (William, 2026-07-25)
-Reaction is combat's second Resource (Document A · IV) — what a figure may spend
-during **someone else's** activation. It is budgeted like AP:
+## One pool — SIGNED (William, 2026-07-27)
+**Combat spends AP and nothing else.** There is no second Resource for someone
+else's activation:
 
-```text
-Square (every figure)  →  1 Reaction
-Circle (Champion/hero) →  2 Reactions
-```
+- **Every trigger is free.** Counters (§9), shield intercepts (§9b), reach strikes
+  (§8) and an armed Overwatch (§9b) cost no Resource to resolve. They are gated by
+  **Position, authoring and death** (Document A · IV), not by a budget.
+- **A trigger fires once per occurrence of its condition**, and a movement is one
+  occurrence however finely the clash slices it (§8, Document F).
+- **AP refreshes at the start of the figure's own activation.**
+- **An armed WAIT expires** when the figure next activates, at the same moment —
+  which is the real reason activation order still carries weight.
 
-- **One pool, all triggers.** Counters (§9), shield intercepts (§9b), reach
-  strikes (§8), and armed Overwatch (§9b) all draw from the same pool. There is no
-  separate allowance per effect type.
-- **Never paid from AP, never converted.** The pools do not exchange.
-- **Refresh:** a figure's Reaction pool refills at the **start of its own
-  activation**, alongside its AP. Spend it before your next activation and you are
-  defenceless out of turn until then — which is exactly the resource the whole
-  pre-contact game is fought over (Document F, *Preparation Matters*).
-- **An armed WAIT expires** when the figure next activates, at the same moment.
+> **Earlier drafts budgeted a `Reaction` pool** — `1 per figure · 2 for a Circle`,
+> one spent per trigger. **Struck 2026-07-27** (Document E · `reaction-struck`).
+> What used to cap a figure's answers is now its **front arc** (§8): it answers
+> what it faces and concedes what it doesn't. A Circle, being faceless, answers
+> everyone — which is what its two Reactions were approximating.
 
 ## Round procedure — SIGNED (William, 2026-07-25)
 ```text
@@ -728,14 +798,14 @@ START OF ROUND
 
 THE ROUND
   4. Sides alternate single figure activations.
-  5. On activation: refresh that figure's AP and Reaction;
-     expire its armed WAIT; mark it ACTIVATED.
+  5. On activation: refresh that figure's AP; expire its armed WAIT;
+     mark it ACTIVATED.
   6. It spends AP on MOVE / ACTION / WAIT.
      — or a Sergeant calls FORM UP (§11), which activates every
        joiner at once. Those figures are spent for the round and
        the alternation continues from the other side.
-  7. Triggers fired during anyone else's activation spend Reaction
-     as they occur, whether or not the reactor has activated yet.
+  7. Triggers fired during anyone else's activation resolve as they
+     occur, free, whether or not the reactor has activated yet.
   8. If one side runs out of eligible figures, the other resolves
      its remainder one at a time.
 
@@ -744,10 +814,11 @@ END OF ROUND
      Wild/uncontrolled figures resolve last, per the owning procedure.
 ```
 
-> **Refresh is on activation, not on the round.** A figure that emptied its
-> Reaction pool late last round walks into this one still empty, and stays empty
-> until its own activation comes around. **Hit the tired ones.** That is not a
-> quirk — it is the whole reason activation order carries weight.
+> **Refresh is on activation, not on the round.** A figure that has already
+> activated has spent its AP and its armed WAIT expired the moment it went, so it
+> holds nothing but its written triggers until its turn comes round again. **Hit
+> the ones who have already gone** — not because they cannot answer, but because
+> they cannot answer with anything *better* than what their weapon already says.
 > `→ G·alternation-is-not-initiative`
 Inside a clash, resolution runs in movement increments rather than whole moves —
 see **[Document F · Continuous Clash Resolution](F_CLASH_RESOLUTION.md)**. The

@@ -12,9 +12,9 @@ It is an **emergent state** created when opposing groups commit to pushing into 
 another while continuing to operate under the game's normal activation economy.
 
 Nothing about the core mechanics changes during a clash. Models continue spending
-activations, reactions, readiness, and other resources exactly as they normally would.
-The clash is simply a **structured way to resolve many simultaneous interactions**
-without overwhelming the players.
+activations and resources exactly as they normally would, and answer with the same
+free triggers they always had. The clash is simply a **structured way to resolve many
+simultaneous interactions** without overwhelming the players.
 
 The intent is to model the **collision of two forces**, not a discrete "charge action."
 Everything that happens during the clash is simply the normal game occurring under a
@@ -22,12 +22,22 @@ more structured resolution cadence.
 
 ## Preparation Matters
 
-Because readiness and activations exist before contact, the battle is often decided
-**before the lines actually meet**.
+Because position, facing and activations all exist before contact, the battle is often
+decided **before the lines actually meet**.
 
-A player who exhausts every shield bearer before the clash may find those shields
-unable to intercept attacks or protect the line. Likewise, players who preserve
-readiness and reactions enter the engagement with greater tactical flexibility.
+> **Amended 2026-07-27 — the Reaction pool is struck (E · `reaction-struck`).** This
+> section used to say that a player who exhausted his shield bearers' Reactions before
+> the clash would find those shields unable to intercept. There is no pool to exhaust
+> now. What survives is the stronger half of the same claim, and it is all positional:
+>
+> - a shield bearer who is **out of position** protects nobody — the 1″ is the rule;
+> - a figure who has **already activated** holds no armed WAIT and cannot Brace into
+>   the contact when it comes;
+> - a line that arrives **facing the wrong way** concedes its flanks to everything
+>   that reaches them, and facing is now what caps a Counter (B · 8).
+>
+> Preparation was never really about the pool. It was about arriving with your line
+> pointed at the enemy and your feet under you.
 
 The collision is therefore the **culmination of earlier decisions**, not the beginning
 of a separate combat phase.
@@ -72,6 +82,16 @@ Nothing is artificially delayed. Interactions occur the **moment they become pos
 - Counterattacks.
 - Any other triggered effect.
 
+> **Increments do not multiply triggers — SIGNED (William, 2026-07-27).** A Written
+> Trigger fires **once per occurrence of the condition it names**, and *a movement is
+> one occurrence.* A model crossing a spearman's reach band is **one** opportunity
+> strike whether that crossing takes one increment or six. The increments are a
+> reading aid (below); slicing a run finer must never buy anybody extra swings.
+>
+> This is the rule that replaced the Reaction pool as the brake, and inside a clash
+> it is the load-bearing one. When in doubt, ask *"is this the same event, resolved
+> more slowly?"* — if yes, it has already fired.
+
 ## Earning the Charge-Push (the 3″)
 
 **The 3″ is the sprint→charge transition threshold — SIGNED (William, 2026-07-25).**
@@ -104,25 +124,28 @@ fires *while the model is moving* simply **resolves** — it does not fumble the
 Getting hit on the way in ≠ getting stopped. Only physical contact interrupts.
 
 **It is still one activation.** The entire sprint-charge is a single activation (the
-attacker's) carrying many reactions inside it: the attacker declares, defenders choose how
-to respond and whether to counter, cascades resolve — and all normal AP, activation, and
-reaction budgets remain fully in force throughout. The clash is the container, not an
-exception to the economy.
+attacker's) carrying many responses inside it: the attacker declares, defenders choose
+how to respond and whether to counter, cascades resolve — and the normal AP and
+activation economy remains fully in force throughout. The clash is the container, not
+an exception to the economy.
 
-## Shields Eat Packets — a reaction, either side
+## Shields Eat Packets — either side
 
-A shield-bearer may spend **1 Reaction** to intercept a packet aimed at an **adjacent
-ally within 1″**, taking the hit on its own armour. This is a **universal reaction, not a
+A shield-bearer may intercept a packet aimed at an **adjacent ally within 1″**, taking
+the hit on its own armour. It **costs nothing**. This is a **universal response, not a
 defender-only ability** — a shield escorting a charging model protects it exactly as a
 shield in a standing line protects its neighbour.
 
-**The Reaction pool is the only cap** (SIGNED, William 2026-07-25; A · IV, B · 12):
-`1 per figure · 2 for a Circle`, refreshed at the start of that figure's **own
-activation**. A spent shield can't intercept again until it activates. There is no
-separate per-clash intercept limiter — nothing caps a shieldman except that he
-**spent his Reaction** and that he **can die eating the hit.** In a clash resolved
-inside a single activation, that reads as "one per model per clash" in practice,
-which is why the sim behaves the way it does.
+**The cap is that he can die** (SIGNED, William 2026-07-25; restated 2026-07-27 with
+the Reaction clause struck). Nothing else limits a shieldman: not a pool, not a
+per-clash counter. He must be **within 1″**, he must **declare before the packet
+resolves**, and **every intercept is a live hit on his own body** — armour rolled,
+wounds landing on him.
+
+> ⚠ **This is the change to watch.** Under the old pool, a shieldman intercepted
+> roughly once per clash and the sim was tuned in that world. He can now hold as long
+> as he can stand it. If it plays badly the fix is **1″ and facing**, not a new pool
+> (B · 9b, ⚠ PROVISIONAL).
 
 ## Emergent Formations
 
@@ -130,7 +153,7 @@ Formations are **never activated as special modes**.
 
 A shield wall, charge, breakthrough, escort, spear hedge, or collapsing line are simply
 emergent battlefield states produced by: positioning · facing · remaining readiness ·
-remaining activations · available reactions · player intent · timing.
+remaining activations · which packets are armed · player intent · timing.
 
 Because every model continues using the same universal rules, formations may consist of
 **any combination of units**. A breakthrough might contain shields, spearmen, swordsmen,

@@ -174,16 +174,21 @@ arm a chosen PACKET*. If Counters are WAITs, then either every figure is
 permanently armed for free — in which case arming means nothing — or WAIT has a
 silent second mode. Both wreck the verb.
 
-**Instead.** Two distinct things, one shared cost:
+**Instead.** Two distinct things, neither of them budgeted:
 
 ```text
-WAIT             player spends AP now to arm a chosen PACKET
+WAIT             player spends AP now to arm a PACKET OF HIS CHOOSING
 Written Trigger  a PACKET carries its own trigger clause; no AP, no arming
                  ↓
-both spend REACTION to resolve
+neither costs anything to resolve. The difference is the AP and the CHOICE.
 ```
 
-Reaction is what unifies them — not a pretence that everything was armed.
+**Amended 2026-07-27.** These two used to be unified by a shared cost — both spent a
+Reaction. With Reaction struck, what distinguishes them is what always actually
+distinguished them: **a WAIT is a decision a player paid for, a Written Trigger is a
+clause the designer wrote.** The AP buys you a *better* answer than the one your
+weapon already carries. That is a cleaner account than the pool ever gave, because
+the pool made a Counter and an Overwatch look like the same purchase.
 
 ### three-verbs-is-not-three-invocations
 **Tempting.** The Kernel has exactly three verbs, so every PACKET resolution must
@@ -211,8 +216,8 @@ cannot fight back. Elegant! Ship it.
 
 **Why not.** It was elegant, and it was also a figure standing in a melee with no
 legal response, forever. That is not a vulnerability, it is a hole in the rules
-wearing a vulnerability's coat. It also fractures the Reaction economy: suddenly
-"every triggered PACKET costs 1 Reaction" needs an asterisk for people who have none.
+wearing a vulnerability's coat. It also puts an asterisk on the one rule that should
+never carry one: *strike a figure in contact and it answers.*
 
 **Instead.** **Fists are standard equipment** — every figure carries a weak melee
 packet with a counter trigger. The shape of the finding survives (a caster in melee
@@ -278,7 +283,7 @@ and be done.
 quietly carrying both:
 
 ```text
-RANK     Circle / Square — a Definition axis. 2 Reactions. Exceptional.
+RANK     Circle / Square — a Definition axis. Faceless, unbreakable. Exceptional.
 CONTROL  played by a person  /  run by the chair.
 ```
 
@@ -330,18 +335,47 @@ one died, on a single activation, with no player decision anywhere in the chain.
 **Instead.** A Counter is a **response**, not a hostile ACTION. It does not draw
 one back. *(Signed: E · counter-loop.)*
 
-### reaction-is-not-agency
-**Tempting.** Reactions come out of the AP pool — it is all just "stuff you can
-do."
+### a-pool-is-not-a-position
+**Tempting.** Answering on someone else's turn is powerful, so meter it: give every
+figure a Reaction pool, charge one per trigger, and the pool caps how often he can
+be overwhelmed. *(CUS did exactly this from 2026-07-25 to 2026-07-27.)*
 
-**Why not.** They answer different questions. AP is *what you do on your turn*;
-Reaction is *what you can still answer with on theirs*. If they shared a pool,
-every point spent attacking would silently lower your defence, and the whole
-pre-contact game — spending your line down before the lines meet — would collapse
-into one number.
+**Why not.** **Position had already answered that question.** B·8/B·9 deny a Counter
+on an engaged Square's unfaced flank or rear — that *is* the anti-overwhelm rule, and
+it is geometric. The pool was a second, numerical answer to a settled question: two
+owners for one job, which is **Law 1**. It also ran against the Kernel's own thesis
+(A·II): *depth comes first from Position — geometry, timing, facing — not from stacks
+of numerical modifiers.*
 
-**Instead.** Two pools, never converted. This is the engine of the commitment
-game: `→ G·the-commitment-economy`.
+The tell was in the Champion. A Circle had **2 Reactions** because a hero should
+answer more attackers — but a Circle is *faceless*, so it already answers from every
+angle. The number was restating the geometry, badly.
+
+**Instead.** Out-of-turn response is **free**, and three things limit it:
+
+```text
+POSITION   contact, facing, range, presence — the geometry has to permit it
+AUTHORING  the clause has to exist, and the striking packet has to provoke it
+DEATH      a corpse answers once, on the way down
+```
+
+**What replaces the cap is the front arc.** Surround a spearman and he does not run
+out of swings — he runs out of *directions*. So the answer to a shield wall stops
+being "spend it down with chaff" and becomes "get around it," which is the answer the
+Kernel keeps wanting to give.
+
+**What it cost, honestly.** Chaff sequencing died — you cannot burn an enemy's
+answers with bodies before landing the real blow, because there is nothing to burn.
+That was a real tactic and it is gone. It was traded for envelopment, deliberately
+(E · `reaction-struck`).
+
+**And the anti-milking job** — the thing a pool quietly does well — passed to
+**once per occurrence**: a trigger fires once per occurrence of its condition, and a
+movement is one occurrence however finely you slice it (A·III, F).
+
+Note what did **not** change: committing still forecloses. Facing one enemy concedes
+the other arcs, exactly as spending your one answer used to. The design's thesis is
+intact — it just runs on geometry now. `→ G·the-commitment-economy`
 
 ### brace-is-not-an-ability
 **Tempting.** Brace is powerful, so it should be a skill some units have and
@@ -355,13 +389,17 @@ formation is emergent geometry.
 varies is whether bracing is a good idea where you are standing.
 
 ### the-commitment-economy
-**Tempting.** These are seven unrelated rules: Reaction, the 3″ threshold,
+**Tempting.** These are six unrelated rules: facing, the 3″ threshold,
 interruption, Brace, Shield, discrete Grades, Disengage.
 
-**Why not.** They are one idea found seven times. Every one of them says:
-**you get one commitment, and committing forecloses something.** One answer per
-round, then you are mute. One clean run, or the charge fumbles on the chaff. Lock
-your facing, concede your flanks. Read one Grade line, lose the others.
+**Why not.** They are one idea found six times. Every one of them says:
+**you get one commitment, and committing forecloses something.** Face one enemy and
+concede the other three arcs. One clean run, or the charge fumbles on the chaff.
+Lock your facing, lose the ability to turn. Read one Grade line, lose the others.
+
+*(This list used to open with **Reaction** — one answer per round, then you are mute.
+Struck 2026-07-27, and the thesis survived it unharmed, which is a decent sign the
+thesis was never resting on the pool. `→ G·a-pool-is-not-a-position`)*
 
 **Instead.** Treat this as the design's thesis and use it as a test. *Does this
 proposal create a commitment with a real foreclosure — or is it just a modifier?*
@@ -502,10 +540,15 @@ rolled for or modified by stats.
 everyone be looking* — it is a camera, pointing attention at the hottest fight
 and keeping both players in the game continuously.
 
-**Instead.** Straight alternation. **But note:** now that Reaction refreshes on a
-figure's own activation, activation order carries real economic weight — when you
-activate decides how long you sit with an empty pool. The camera acquired a
-clock. That is emergent and good; it is not a reason to add initiative.
+**Instead.** Straight alternation. **But note:** activation order still carries real
+weight, because **an armed WAIT expires the moment its figure activates.** Go early
+and you spend the rest of the round holding nothing but what your weapon already
+says; hold back and you keep a better answer primed. The camera has a clock. That is
+emergent and good; it is not a reason to add initiative.
+
+*(Until 2026-07-27 that clock was the Reaction pool refreshing on activation. The
+pool is struck; the clock survived it, which is why this entry did.
+`→ G·a-pool-is-not-a-position`)*
 
 ---
 

@@ -14,8 +14,9 @@ boss fights). Your job: turn the **map and parameters I give you** into a tight,
   **Circle** = a faceless hero (no facing, can't be flanked, hard to break) · **Square** =
   crew (has a **facing**, can be flanked/broken).
 - **Alternating activations** (I-go-you-go). Models spend AP on **MOVE / ACTION / WAIT**.
-  **Reactions are a limited budget (≈1 per model)** — spent on things like a shield
-  intercept or a reach-strike. Attacks are **PACKETs** with a success-grade ladder and
+  **Answering on someone else's turn is free** — a Counter, a shield intercept, a
+  reach-strike. What limits it is **position and facing**, not a budget: a Square
+  answers its front arc and concedes its flanks. Attacks are **PACKETs** with a success-grade ladder and
   armour saves; effects include Wound / Shove / Knockdown / Guard / Cleave.
 - Roles: **Pressure / Anchor / Utility**. Enemy behaviour is driven by **Temperament**
   (Cowardly / Resolute / Aggressive / Protective / Ravenous).

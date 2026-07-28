@@ -277,7 +277,7 @@ below takes something and gives something, because that is what surviving does.
 | `knotted_scar` | Armour worsens one step on the torso… **but** the scar tissue itself is thick: **first Wound each battle is ignored on a 6+.** |
 | `bad_ribs` | Cannot Sprint. **+1 die while Braced** — he fights standing still now. |
 | `dropped_shoulder` | Cannot use a two-handed packet. **+1 die with a shield equipped.** |
-| `stiff_back` | Move −2″. Cannot Brace. **+1 Reaction** — he stopped moving and started watching. |
+| `stiff_back` | Move −2″. Cannot Brace. **+1 die on every Counter he throws** — he stopped moving and started watching. |
 | `short_wind` | Move −2″ · cannot Sprint · −1 Wound. He is old before his time. |
 | `iron_gut` | −1 Wound permanently. **But** he has been opened up and lived: **ignores the first Nerve test of each battle.** |
 | `weak_arm` | −1 die on melee. |
@@ -288,7 +288,7 @@ below takes something and gives something, because that is what surviving does.
 | `weak_grip` | −1 die on melee. Drops his weapon on a natural roll of all 1s. |
 | `claw_hand` | Cannot use a shield. **+1 die on Reach packets** — the hand hooks the haft and never lets go. |
 | `three_fingers` | −1 die on melee. |
-| `one_hand` | One-handed packets only. **+1 Reaction** — nothing to fumble with. |
+| `one_hand` | One-handed packets only. **His Counter is never denied by facing** — flank and rear get answered like the front (B·8). Nothing to fumble with, and nothing gets behind him twice. |
 | `bad_ankle` | Move −1″. Cannot Sprint on ground that is not flat and dry. |
 | `short_stride` | Move −2″. **+1 die while Braced.** He stopped chasing people and learned to hold ground. |
 | `bad_knee` | Move −2″ · cannot Sprint · cannot charge (§B · 3). **+1 die while Braced.** |
@@ -323,7 +323,7 @@ structurally the same object as a grudge (I · 3). No new machinery.
 | Scar | Effect |
 |---|---|
 | `never_again` | **Trigger:** a child — or a thing wearing a child — calls for help. **Effect:** he will not MOVE toward it, and treats it as hostile until something proves otherwise. |
-| `the_last_one` | Nerve worsens by 1 while no ally is within 3″. **But** while he is the last of his Fireteam standing: **+1 die and +1 Reaction.** He has done this before. |
+| `the_last_one` | Nerve worsens by 1 while no ally is within 3″. **But** while he is the last of his Fireteam standing: **+1 die, and he may Brace for free** — 0 AP, and it does not end his activation. He has done this before. |
 | `trusts_slowly` | Cannot be the target of a friendly Shield Intercept. **But** he covers his own line: **+1 die on any Shield Intercept he performs.** |
 | `no_quarter` | **Trigger:** an enemy is Knocked Out within his reach. **Effect:** he finishes it, and he does not ask. Costs him nothing; costs the Caravan its Standing (STORY). |
 | `butcher` | As `no_quarter`, and he will do it to a surrendering foe. **Meaning:** the Caravan is known for it now. |
@@ -331,7 +331,7 @@ structurally the same object as a grudge (I · 3). No new machinery.
 | `the_dark` | Cannot enter enclosed terrain without passing a Nerve test. **But** once inside and Braced: **+1 die.** Cornered is a place he understands. |
 | `oathsick` | **He will not break again. Cannot go Broken.** But he cannot Disengage either — leaving a fight is the thing he cannot make himself do twice. |
 | `cannot_watch` | **Trigger:** a friendly figure within 3″ goes Knocked Out. **Effect:** he must MOVE toward it on his next activation if he legally can. |
-| `trusts_no_one` | Cannot be the target of a friendly Shield Intercept, and cannot be Rallied by another figure. **+1 Reaction** — he watches everybody, all the time. |
+| `trusts_no_one` | Cannot be the target of a friendly Shield Intercept, and cannot be Rallied by another figure. **His armed WAIT does not expire when he activates** — he never stops watching, and he never has to pay to start again. |
 | `thousand_yard` | −1 die on his first ACTION of each battle. **+1 die while no friendly is within 3″.** He works better alone now, which is the problem. |
 | `wont_go_in` | Cannot enter enclosed terrain. Not for an objective, not for a friend, not at all. **+1 die in open ground.** |
 | `craven` | Cannot charge (B · 3), and must Disengage from any fight he legally can while Shaken. **+2″ Move directly away from an enemy.** |
@@ -359,8 +359,8 @@ hollow
 
   LASHES OUT   WRITTEN TRIGGER — when he is Wounded, or when any figure goes
                Knocked Out within 3″, he strikes the NEAREST figure, friend or
-               foe, if he has Reaction remaining. He is Wild in that moment
-               (B · 10) and he does not choose it.
+               foe. Once per occurrence; nothing buys it and nothing stops it.
+               He is Wild in that moment (B · 10) and he does not choose it.
 ```
 
 He is not a villain. He is a man nobody sat with.
@@ -388,7 +388,7 @@ space as the surgeon. That is the intended shape.
 ## 7.9 · How harm reaches Combat without reopening it
 
 ```text
-BODY scar  →  Move · dice · Wounds · Armour · Reaction · a packet he may not use
+BODY scar  →  Move · dice · Wounds · Armour · facing · a packet he may not use
 MIND scar  →  a Temperament procedure modifier, or a Written Trigger
 ```
 
@@ -491,8 +491,14 @@ to pass.
 
 ### 9.1 · Balance pass on §7
 The tables are written and coherent; they are **not** costed. Scars that grant
-`+1 Reaction` or `immune to Terror` need checking against `factions/sim/balance.py`
-before anyone builds a veteran deliberately.
+`immune to Terror`, a **free Brace**, a **non-expiring WAIT**, or a **Counter that
+ignores facing** need checking against `factions/sim/balance.py` before anyone
+builds a veteran deliberately.
+
+*(Four scars previously granted `+1 Reaction`. Rewritten 2026-07-27 when the
+Reaction Resource was struck — `stiff_back`, `one_hand`, `the_last_one`,
+`trusts_no_one`. Each still takes something and gives something; none of them has
+been costed, and this pass still owes them a look.)*
 
 ### 9.2 · The QR payload schema
 What is on the code, what is referenced, versioning. See the §4 constraint.
