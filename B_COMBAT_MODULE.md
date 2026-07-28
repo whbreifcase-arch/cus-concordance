@@ -13,6 +13,13 @@
 > writes, in brackets: `[Position]`, `[PACKET→Grade]`, `[Agency]`, `[State]`.
 > If a mechanic can't cite one, it doesn't belong here (Law 14).
 >
+> **Ranged warfare is extended in [Document K · Firearms](K_FIREARMS.md)** — SIGNED
+> (William, 2026-07-28). Guns, Spray, Blast/Scatter, Ammo/Reload, Misfire, Heat,
+> Overcharge, Pin/Suppress and Evasion are Combat Procedures owned by K (a setting-
+> agnostic engine — flintlock to autogun). B stays the melee-and-clash spine; K cites
+> it. The horde-survival mode and the campaign loop live in
+> **[Document L](L_HORDE_AND_CAMPAIGN.md)**.
+>
 > **Translation.** Combat renames two of the three verbs:
 > `ACTION→Strike/Interact/Cast · WAIT→Brace/Overwatch`.
 > **MOVE stays MOVE** — SIGNED (William, 2026-07-25). The old *Advance* alias is
@@ -560,6 +567,49 @@ Counter:    0 AP  →  whatever the weapon already says, and it fires
 **The two WAITs are the whole of paid out-of-turn capability.** Brace buys a better
 front; Overwatch buys a better answer. Everything else that resolves on someone
 else's activation is a Written Trigger, and Written Triggers are free.
+
+### Overwatch is exhaustible — one WAIT, one shot — SIGNED (William, 2026-07-27)
+An armed Overwatch **fires once and is spent.** The AP bought one shot, not a
+standing zone. This is a **deliberate asymmetry with the Counter**, which is free and
+repeatable:
+
+```text
+Counter    free · repeats · SHORT reach · a facing arc a flanker can leave
+Overwatch  1 AP · ONE shot · long range  · a facing CONE that covers a volume
+```
+
+A ranged facing cone covers a whole volume with **no flank outside it** — there is no
+"get off his face" for a lane the way there is for a spearman's front (§8, §9). If
+Overwatch were free and repeatable the way a Counter is, lanes would become
+**absolute** and screens would be pointless. **Spent-after-firing is exactly what
+makes the screen work:** cheap bodies eat the one shot, and the anchor crosses behind
+them (J · the screen; A·II, *depth comes from Position*). Free is safe for the Counter
+because reach is short and facing is a real constraint; neither is true down a
+firing lane, so the lane pays AP and exhausts. `→ G·overwatch-is-not-free`
+
+### The shot ladder — prior movement prices the shot — SIGNED (William, 2026-07-27)
+*Which* PACKET you may arm on the Overwatch trigger depends on **what the model did
+before it waited.** One model, one lane, one trigger — a completely different threat
+depending on whether the ground was paid for in advance.
+
+```text
+BEFORE it WAITed this turn        →  shot available on the trigger
+  sprinted to the lane            →  QUICK    only   (rushed; snap shot)
+  made a normal move to the lane  →  NORMAL   and below
+  held ground it already owned    →  PRECISE  and below (set, aimed)
+```
+
+- **Quick · Normal · Precise** are three PACKETs (or one PACKET at three Grades'
+  worth of dice/success — the designer's call, A·V); Precise is the better answer,
+  Quick the worse. The ladder is read at the moment of **arming**, from the figure's
+  movement **this turn** (Instance, A·IX), and fixed until the trigger fires.
+- **This is the tempo layer the struck Reaction pool used to supply.** RP's
+  refresh-on-activation created a "hit the tired ones" read (B·12); the shot ladder
+  rebuilds part of that **positionally** — a gun that paid for its position in advance
+  threatens more than one that just arrived — and it **maps to life for free**: the
+  set marksman out-shoots the man who just ran to the window. What is knowingly *not*
+  recovered is the full tired-target read; see the playtest watch-list (E).
+  `→ G·overwatch-is-not-free`
 
 ## Shove — the weapon displacement effect (renamed from "Push")  `[Position]`
 The Grade effect once called **Push** is now **SHOVE**, so "push" is free for ordinary

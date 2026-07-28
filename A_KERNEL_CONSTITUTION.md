@@ -730,6 +730,13 @@ playable, but awaiting absorption. Do not cite H as a domain.
 - **Play is analog.** Miniature, card, dice, pencil. No screen at the table.
 - **Campaign bookkeeping requires the companion application** — SIGNED (William,
   2026-07-25). A deliberate commitment, not a fallback.
+- **The physical component system is discharged in [Document J · The Component
+  Layer](J_COMPONENTS.md)** — SIGNED (William, 2026-07-27). J is Presentation (Ch.
+  IX), not a module: it translates State onto the model, Definition onto the card,
+  and Persistence into the app, and it may not fork a mechanic. Its **Component
+  Law** — *state on the model, capability on the card, campaign in the app; encode
+  the exception, not the default; the base is the measuring instrument* — is the
+  physical face of this commitment.
 
 ## Status
 ```text

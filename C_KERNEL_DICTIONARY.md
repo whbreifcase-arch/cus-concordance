@@ -403,3 +403,80 @@ change what a figure *can do*. **A Knocked Out figure that is hit is killed and
 rolls no Armour** (SIGNED William 2026-07-25) — armour protects the standing only.
 A downed body still occupies its base and participates in the Push cascade.
 `→ G·wounds-are-not-a-track` **Owner:** Combat.
+
+---
+
+## Firearms & ranged warfare (Document K)
+
+### Spray
+The ranged twin of **Cleave**: after a shot, hop to the nearest unhit enemy within
+3″ of the last target, at −1 die, until dice run out. **Reads:** Position (the
+cluster gates it). **Owner:** Combat / K · 4. `→ G·spray-is-ranged-cleave`
+
+### Blast
+An **indirect** area PACKET effect (the one new effect type): a concentric-band
+template (1/2/3″) where distance from center writes bonus dice; each figure under it
+is its own roll. **No line-of-sight required.** **Writes/Reads:** Position.
+**Owner:** Combat / K · 5. `→ G·a-grenade-is-indirect`
+
+### Scatter
+The drift a Blast suffers before landing: N one-inch steps in rolled directions,
+N set by the **shot ladder** (aim), minimum 1. Friendly fire is on. **Owner:**
+Combat / K · 5.
+
+### Pin
+A physical **State** from Grade-1 gunfire: the target loses 1 AP / cannot advance
+toward the shooter next activation. Works on the **fearless**. Applied **per mob**
+(one shared token), never per model. **Writes:** State. **Owner:** Combat / K · 3.
+`→ G·pin-is-per-mob`
+
+### Suppress
+Grade-1 gunfire against **breakable** troops: feeds the existing Nerve/morale track
+(B · 10) — volume of fire breaks men. Not a new system; the same shock the Nerve
+roll handles. **Owner:** Combat / K · 3, B · 10.
+
+### Ammo
+A **Resource**: a ballistic weapon's magazine, a few shooting-activations; when dry,
+**reload = the card going down** (J · 3). Muzzle-loaders are single-shot. The
+squad-wide synchronized reload is the designed terror. **Consumed by:** shooting.
+**Owner:** Combat / K · 6. `→ G·ammo-earns-its-tracker`
+
+### Misfire
+Blackpowder's limiter: a risk roll that, on the bad result, **locks the weapon**
+(card-down to clear). The powder-era twin of **Heat**. **Writes:** State. **Owner:**
+Combat / K · 6. `→ G·misfire-is-heat`
+
+### Heat
+An energy weapon's limiter: pushing the weapon adds heat, it vents when idle, and the
+cap = **OVERHEAT** (weapon locks; plasma "gets hot" = a Wound to the bearer). The
+discipline pressure opposite to Ammo's logistics pressure. **Writes:** State (and a
+Wound on gets-hot). **Owner:** Combat / K · 7. `→ G·misfire-is-heat`
+
+### Overcharge
+A lever: spend the weapon's limiter (extra ammo-step / extra heat / higher misfire)
+for **+1 die or ignore-Armour** on this shot. **Owner:** Combat / K · 8.
+
+### Evasion
+A **dodge save** die that works even against ignore-Armour and Blast — the counter to
+armour-piercing. Roll the **better** of dodge or armour, never both. **Owner:**
+Combat / K · 9, M · 3 (Tau). `→ G·evasion-is-a-dodge`
+
+---
+
+## Horde & campaign (Document L)
+
+### Nest
+A board feature that **spawns** horde models each round and has its own health and
+Position; killing it stops the flow. **Owner:** L · 3 (horde engine, filling the
+reserved AI-director slot).
+
+### Recycle
+The rule that a slain hordeling returns to the spawn pool and re-enters from a nest —
+so the horde is a **faucet, not a bucket**, and killing is time-buying. **Owner:**
+L · 3. `→ G·the-horde-is-a-faucet`
+
+### Sub-faction
+A shared-chassis flavor layer (Marine **Chapter** · Ork **Clan** · Tau **Sept** ·
+Guard **Regiment**): doctrine and minor traits, **never the chassis**. Makes the
+**mirror match** fair and varied. Adds no rule. **Owner:** M (Sci-fi Setting).
+`→ G·the-fair-game-is-a-mirror`

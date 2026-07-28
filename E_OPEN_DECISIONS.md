@@ -186,6 +186,111 @@ and the enemy hasn't and he's ready to push you. God speed."* Form Up is a
 
 ---
 
+## Amendments — fourth batch, signed 2026-07-27 (William)
+
+**One working session: the Overwatch shot, Position as currency, the campaign
+economy, and the physical component layer** — the last opening a new Presentation
+document, **[J · The Component Layer](J_COMPONENTS.md)**. v0.6 stays **closed**;
+these are amendments, not reopened constitutional questions.
+
+| ID | Ruling | In |
+|---|---|---|
+| overwatch-exhaustible | **An armed Overwatch fires once and is spent** — one WAIT, one shot. A deliberate asymmetry with the free, repeatable Counter: a ranged facing *cone* covers a volume with no flank outside it, so a free lane would be absolute and screens pointless. Spent-after-firing is what makes the screen work | B·9b, J·2, G |
+| shot-ladder | **Prior movement prices the Overwatch shot.** Which of **Quick · Normal · Precise** is available on the trigger is set at arming by what the model did this turn: sprinted to the lane → Quick only; held ground it already owned → Precise. Rebuilds *positionally* the tempo layer the struck Reaction refresh used to give | B·9b, G |
+| position-is-currency | **Ground itself has value, so waiting costs you ground.** Lanes and threat projection are the core game; **screens answer lanes** (cheap bodies absorb what is downrange so the anchor crosses). A restatement of A·II — depth comes first from Position — now load-bearing at the table | A·II, B·9b, J·1 |
+| no-lane-exempt-archetype | **No archetype is exempt from the lane.** An assassin must **tank the crossing** (armour that survives is correct), never skip it — teleport, reserve deployment, or an outsized move that makes the lane never apply is illegal design, because it exempts one figure from the game everything else is playing. The ecology (rangers → mobile armoured assassins → overwatched wizard) depends on it | B, factions, SCENARIO_PROMPT, G |
+| entropy-is-the-leveler | **Entropy levels the snowball.** Gear breaks, boosts are temporary, lifestyle creep makes an elite roster unaffordable to sustain. This cleanly solves the mandatory-checklist problem — you cannot hold an optimal set together, so lists diverge on their own | H (economy) |
+| retirement | **Accumulated scars and wounds eventually make a figure a liability** — he retires or dies in the field. The declining individual is a designed outcome, not a failure state | H·7, H·8 |
+| progression-at-institution | **Individuals decline; the institution ascends.** The veteran blacksmith forges blades that break less easily; the settlement accrues what the character cannot keep. **Compatible with `progression-location`:** a Figure's Instance still *owns* its own progression mechanics (Law 1); the institution is simply another entity whose Instance accrues, and the *net economic arc* runs down for figures and up for institutions | H·2, A·X, cf. `progression-location` |
+| component-law | **The six-principle Component Law is signed** (read-test · three homes · subtractive>additive · setup-cheap/play-expensive · encode-the-exception · the base is the instrument). It is the generator behind the card model, the on-model state table, and the base | J·1 |
+| three-homes | **State lives on the model · Capability lives on the card · Campaign lives in the app.** The load-bearing split of the whole physical layer | J·1, J·6 |
+| one-card-per-unit | **One printed card per unit** — front player-facing, back Kernel-grammar packets; **only what varies between figures** goes on the card, universal constants (AP = 3) on the laminated reference sheet. Champions get bespoke cards. Cards hold no runtime state (Law 5) | J·2 |
+| cards-are-hand-management | **Holding the cards IS the activation economy.** Hand thickness = remaining activations; put a card down on activation, pick it up next round; a **facedown card at a model = the WAIT trap** (hidden info, no draw variance — the hand is a status display, not a deck) | J·3 |
+| on-model-state | **The on-model encoding table is signed** — Activation (tall wire flag, present/gone/gone+card), Nerve (swappable flag, **Steady gets none**), Health (model orientation: upright/on-side KO/removed dead), Armour (WYSIWYG sculpt), AP (in your head) | J·4 |
+| base-construction | **Base spec signed** — two recessed magnet wells sculpted as terrain; **boolean one modelled well into every base**; **poka-yoke diameters (2 mm / 1.5 mm)** so a Nerve post cannot enter the Activation hole; socket walls take the torque and the magnet only the lift; chamfered mouths; marked polarity; three-or-four variants | J·5 |
+| base-is-the-instrument | **Nothing may extend the contact perimeter.** The base is the measuring instrument; engagement, Reach, `not_in_contact` and Form Up read base geometry and only base geometry — scenery on the base is decoration to the rim and irrelevant past it | J·5, B·1, B·8, B·11 |
+| multi-area-maps | **Multi-area maps are a requirement, not a preference.** A single decisive point reintroduces the freeze (both sides correctly refuse to move); several places to be dissolves the stall. **Written into the scenario generator's hard constraints** so AI authoring cannot hand back a one-bridge map | SCENARIO_PROMPT, F |
+
+### Why the Overwatch asymmetry
+The Counter is free because its two limits — **short reach** and a **facing arc a
+flanker can leave** — already cap it geometrically (the 2026-07-27 strike). Neither
+limit exists down a firing lane: the cone is long and covers a volume with no flank
+outside it. So the lane is priced and exhausts where the melee arc is free and
+repeats. Same principle (Position caps out-of-turn response), two geometries, two
+prices. → `G·overwatch-is-not-free`
+
+### On progression — no contradiction with `progression-location`
+`progression-location` (second batch) struck *"progression lives in the Caravan"* and
+ruled that **the Figure's Instance owns its progression mechanics.** `progression-at-
+institution` is an **economic** claim, not an ownership one: over a campaign, entropy
+runs the *individual's* net arc **down** while durable gains accrue to *institutions*
+— themselves entities with their own Instances. Both hold. The ownership law is
+unchanged; the economy is the new statement.
+
+---
+
+## Playtest watch-list — ⚠ PROVISIONAL / design-watch (2026-07-27)
+
+> **These do not reopen v0.6.** Every item below is either a **signed rule being
+> watched in play** (⚠ PROVISIONAL) or a **tuning knob resolved by data, not by a
+> constitutional ruling.** No constitutional question is open. The owner marked these
+> *"for the table, not the whiteboard."*
+
+| ID | The watch | If it bites |
+|---|---|---|
+| free-facedown | An **untriggered facedown costs nothing** — waiting and bluffing are both free. Pinning logic softens it (a locked chokepoint just ties up its holders while play resolves elsewhere) | **A facedown stays committed until that figure's next activation** (J·3) |
+| shove-load-bearing | **Shove/Push is now the primary answer** to a face-locked chokepoint defender (B·9b). Its weight went up; it is still ⚠ PROVISIONAL | Retune Shove X/Y or its Grade line (B·9b) |
+| form-up-stress | **Form Up (B·11) is the stress case** for every component decision — eight figures as one body is where loose dice, flags and footprints get tested at once | Simplify the formation handling before the flags |
+| upkeep-curve | **Superlinear vs. proportional upkeep.** Entropy *slows* the snowball; only upkeep that scales **faster than winnings** *reverses* it. The two look identical on a whiteboard and diverge over ~10 sessions. **Intent signed** (upkeep must bend the curve down); the exact curve is a **tuning knob**, resolved by data | Steepen upkeep until the arc bends down in play |
+| champion-wounds | **A Champion with >1 Wound needs somewhere to count it** — the one place a model may need an added counter. They are the figures getting bespoke cards; the count may live on the card | Add a wound track to the Champion card, not the model |
+| lost-tempo-read | RP's refresh-on-activation created a **"hit the tired ones"** read (B·12). The shot ladder recovers *part* of it, not all — watch whether the missing part is missed | Author a movement-based read elsewhere if play wants it |
+
+---
+
+## Amendments — fifth batch, signed 2026-07-28 (William)
+
+**Firearms, the horde-survival mode, four sci-fi factions, and the campaign loop.** A
+working session that added the ranged-warfare engine and switched on the two-module
+campaign cycle. v0.6 stays **closed**; these are amendments. New documents:
+**[K · Firearms](K_FIREARMS.md)**, **[L · Horde & Campaign](L_HORDE_AND_CAMPAIGN.md)**,
+**[M · Sci-fi Setting](M_SCIFI_SETTING.md)**.
+
+| ID | Ruling | In |
+|---|---|---|
+| firearms-are-packets | **A gun is a Ranged PACKET, not a subsystem.** No shooting phase, no new verb. `not_in_contact` + `provokes:false` are automatic; Hybrid = two packets, geometry switches modes. The firearm ENGINE is setting-agnostic — a flintlock and an autogun run the same math | K·1, B·5, B·8 |
+| gun-grade-ladder | **A shot climbs a grade ladder of different effects: Suppress/Pin → Wound → Cripple/Kill.** You may shoot to pin, not just to wound; dice decide how high you climb | K·2, B·6 |
+| pin-and-suppress | **Grade 1 stops the target two ways.** PIN (physical State — loses AP / can't advance) works on the fearless; SUPPRESS feeds the existing Nerve track (B·10) against breakable men. Pin is **per-mob** (one shared token), never per-model | K·3, B·10, J |
+| spray | **Spray = the ranged twin of Cleave.** Walk the blob: each hop → nearest unhit enemy within 3" of the last, −1 die, until dice run out. Dice do triple duty (accuracy + chain + severity); it burns extra ammo | K·4, B·6 |
+| blast-and-scatter | **Blast = the one new PACKET effect type** — an indirect (NO line-of-sight) template with concentric 1/2/3" bands writing bonus dice, each figure its own roll. SCATTER drifts it (shot-ladder-gated, min 1 step); friendly fire is ON | K·5, B·9b |
+| ammo-and-reload | **Ballistic weapons run dry; reload = the card going down (J·3).** Magazine = a few shooting-activations (sci-fi); muzzle-loaders are single-shot (blackpowder). The DELIBERATE terror is the whole squad reloading at once — stagger it | K·6, J·3 |
+| misfire | **Blackpowder's limiter is MISFIRE/fouling** — a risk roll that locks the weapon (card-down to clear). The powder-era twin of Heat: same rule, different skin | K·6 |
+| heat | **Energy weapons run HOT, not dry.** Pushing (overcharge/spray) adds heat; the cap = OVERHEAT (weapon locks) and for plasma "gets hot" = a Wound to the bearer (a Persistence/Doc H scar hook). Ammo pressures logistics, heat pressures discipline; mixed squads self-stagger | K·7, H |
+| overcharge | **A universal lever: spend the limiter for a bigger shot** (+1 die or ignore-Armour), paid in extra ammo-step / extra heat / higher misfire | K·8 |
+| evasion | **Evasion = a DODGE save die** that beats even ignore-Armour and blast — roll the better of dodge-or-armour, never both. The counter to the armour-piercing meta; you must CORNER an evasive figure, not out-gun it | K·9, M·3 |
+| trackers-accepted | **Ammo/heat use play-time trackers, and that is accepted** at this fidelity (William: "at this level it's ok if we use trackers"). The public part stays the card-down; the count is private/light | K·6, K·7, J |
+| horde-engine | **The horde is a FAUCET, not a bucket** — nests spawn, dead hordelings recycle, killing is time-buying. Win = survive / destroy the nests. Scenario dial: endless vs finite pool. This fills the reserved AI-director slot | L·3, L·5, E·kill-ai-director |
+| horde-ai | **A flood needs no director** — hordes run on Temperament=Ravenous + a thin Mission (Law 9). The struck F_AI_DIRECTOR is not resurrected; nest-guardians are Circles | L·4, B·10 |
+| campaign-loop | **The pre-mission STORY session sets the mission.** Story (Doc I, campaign use) → intel/leverage → scenario-generator inputs → Combat → Persistence → the next Story. A·XII at campaign scale, AI as GM. Doc I stays PROPOSED; its campaign USE is wired | L·1, L·2, A·XII, A·XIX, I |
+| setting-split | **One engine, content per era.** The firearm engine is setting-agnostic; FANTASY fields blackpowder, the SCI-FI setting (M) fields autoguns/plasma. You never mix eras in one warband | K·11, M |
+| four-factions | **Four sci-fi factions locked** (archetypes, not tuned prices): Marines (golden elite, no-fear) · Guard (combined arms, artillery, Orders) · Tau (Evasion, kite) · Orks (Mob + berserker, 3 wounds/no shrug). Each = a distinct answer to the horde | M·1–4 |
+| matchups-asymmetric | **PvP is asymmetric, balanced by SCENARIO, not stat symmetry.** Factions hard-counter each other on purpose; the map/objective/points-budget balance a picked matchup. The 50/50 mode is a MIRROR (same faction, different sub-faction/Chapter) | M · matchup philosophy |
+| ork-durability | **Orks get an extra heart (3 Wounds), NO Shrug save** (William, 2026-07-28: "there is no shrug, give em an extra heart"). They tank on raw meat, not a dice gimmick | M·4 |
+
+### On the campaign loop and Story
+The pre-mission strategy session is not new architecture — it is **Document I (Story)**
+in campaign use, the peer module the Kernel already declared (A·XIX). Wiring its
+outcomes into the scenario generator completes the OBSERVE→…→PERSISTENCE loop (A·XII) at
+campaign scale. Story remains **PROPOSED/unsigned** as a module; only its campaign
+*use* is wired (L·2).
+
+### On the setting split
+The firearm engine (K) is Kernel-level and setting-agnostic — Combat is the reference
+implementation, not the definition (Law 12). Blackpowder and autoguns are **content**,
+and content is where a setting lives. The sci-fi factions (M) are a content pack, not a
+change to the fantasy world.
+
+---
+
 ### circle-scope — SIGNED (William, 2026-07-25)
 B·1 previously headed "One Circle per army" and then said "A Banner fields exactly
 one Circle." An Army holds many Banners, so both could not be true.

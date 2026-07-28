@@ -405,6 +405,26 @@ thesis was never resting on the pool. `→ G·a-pool-is-not-a-position`)*
 proposal create a commitment with a real foreclosure — or is it just a modifier?*
 If it is just a modifier, it probably does not belong in CUS.
 
+### overwatch-is-not-free
+**Tempting.** The Reaction pool is struck and the Counter is now free and
+repeatable, so Overwatch should be free too — symmetry.
+
+**Why not.** The Counter is free because two things already cap it: **reach is
+short** and its **facing arc is one a flanker can leave.** Get around the shield and
+the Counter never fires. **Neither cap exists down a firing lane.** A ranged facing
+*cone* is long and covers a *volume* with no flank outside it — there is no "get off
+his face." A free, repeatable overwatch would make lanes **absolute** and screens
+**pointless**, which is the opposite of the game (A·II: depth from Position, not from
+a wall of denial).
+
+**Instead.** Overwatch is **priced (1 AP) and exhausts (one shot).** That is what
+makes a screen work — cheap bodies eat the single shot and the anchor crosses behind
+them. Same principle as the Counter (**Position caps out-of-turn response**), two
+geometries, two prices: the short melee arc is free and repeats; the long lane is
+paid and spent. The **shot ladder** then prices even that one shot by prior movement,
+so a gun that paid for its ground in advance threatens more than one that just
+arrived. `→ G·a-pool-is-not-a-position`
+
 ---
 
 # Space & bodies
@@ -481,6 +501,23 @@ so a rat and a troll die at the same rate.
 figure. **Knocked Out** and **Dead** survive as the two genuine States, entered at
 `wounds_remaining = 0`, because those change what a figure *can do* rather than
 how hurt it is.
+
+### no-lane-exempt-archetype
+**Tempting.** An assassin is elite and slippery, so it should **skip** the killing
+lane — teleport in, deploy from reserve behind the line, or make one outsized move
+that crosses before anyone can shoot.
+
+**Why not.** The lane is the game. Rangers threaten ground, screens absorb it, the
+anchor pays to cross — that whole ecology only exists because **crossing a lane
+costs something.** An archetype that skips the lane is exempt from the one game every
+other figure is playing, and it collapses the rock-paper-scissors (rangers → mobile
+armoured assassins → overwatched wizard) down to "the guy who ignores the rules
+wins."
+
+**Instead.** An assassin must **tank the lane, not skip it.** The correct elite
+answer is **armour that survives the crossing** — it still pays, it just pays in
+durability instead of bodies. Slipperiness that removes the payment entirely is bad
+design wearing a cool coat. `→ G·the-commitment-economy`
 
 ---
 
@@ -585,6 +622,271 @@ was doing double duty, and one of the two meanings is a Kernel Resource.
 **Instead.** **Agency = AP.** What a Square trades is **autonomy** —
 self-determination: locked facing, breakable morale, no independent will once it
 Routs. Say *autonomy* when you mean freedom and *Agency* when you mean points.
+
+---
+
+---
+
+# The component layer
+
+*(Cited from [Document J](J_COMPONENTS.md), the analog interface. Same rule: a
+component never decides a mechanic, it only shows one.)*
+
+### subtractive-beats-additive
+**Tempting.** A richer game needs richer components — more tokens, more trackers,
+more dials — and escalation should *add* them as the fight grows.
+
+**Why not.** Play-time components are the tax you pay every turn, and they compound:
+Zombicide did not drown in the bits that *existed*, it drowned in the bits that
+**moved during play.** A system that adds a token per escalation is at its most
+fiddly exactly when the board is most crowded and the decisions matter most.
+
+**Instead.** Components should **decline** as the game escalates. State that can be
+read off the model (orientation, sculpt) or off your hand (card count) costs nothing
+to escalate. Reserve added hardware for the genuine exception — a Champion's second
+Wound — and let everything else be read, not tracked. `→ G·encode-the-exception`
+
+### encode-the-exception
+**Tempting.** Every figure has a Nerve state, so every figure should carry a Nerve
+marker — uniform, unambiguous.
+
+**Why not.** Most of the board is **Steady** most of the time. A marker for the
+default value pays full price for the null state: you place, carry, and read a token
+whose entire message is "nothing has happened here." Multiply by every figure and the
+table is papered in *no-ops*.
+
+**Instead.** **Encode only the exception.** Steady gets no flag; a flag *appearing*
+is the whole signal. The same logic runs the whole layer — Health is read from
+orientation because *upright* is the default, Armour from the sculpt because it never
+changes. Pay for change, never for the resting state.
+
+### the-hand-is-not-a-deck
+**Tempting.** The units are on cards and you hold them in your hand, so CUS is a
+card game — shuffle, draw, discard, hand size, draw luck.
+
+**Why not.** CUS is **deterministic** (A·XVI, *determinism as trust*). The moment a
+card is *drawn* rather than *chosen*, variance enters the one place the design
+promised there would be none, and "I couldn't act because I didn't draw him" becomes
+a sentence. That is a different game, and a worse one for this engine.
+
+**Instead.** The hand is a **status display, not a deck.** Nothing is shuffled,
+drawn at random, or discarded. Hand thickness *shows* your remaining activations
+(B·12); a card goes down when its figure acts and comes back next round. The card
+handling is the activation economy made physical — no randomness smuggled in.
+
+### the-model-is-the-marker
+**Tempting.** Knocked Out, Dead, and "which way am I hurt" want tokens or a status
+dial next to the model.
+
+**Why not.** A token beside a model is a second copy of a fact the model could carry
+itself — Law 1 at the table — and it drifts, gets knocked, and gets picked up with
+the wrong base.
+
+**Instead.** **The model is the marker.** Upright = fine, on its side = Knocked Out,
+removed = Dead. The prone model *is* the rule that it rolls no Armour if hit again
+(B·7) — the physical state and the mechanic are one fact in one place, which is
+exactly what Law 1 asks for.
+
+### the-base-does-not-lie
+**Tempting.** A dramatic sculpt — outflung cloak, banner pole, a spear crossing the
+rim — should count as part of the figure when you measure engagement and Reach.
+
+**Why not.** The base is the **measuring instrument** (B·1, B·8, B·11). If scenery
+can extend the contact perimeter, then engagement becomes an argument about where the
+cloak ends, and two figures "touch" or don't based on how flashy their basing is.
+The instrument has to be honest or every geometric rule downstream inherits the lie.
+
+**Instead.** The Kernel reads the **base footprint and only the base footprint.**
+Scenery on the base is decoration up to the rim and irrelevant past it; nothing a
+figure carries extends its contact perimeter. Model the magnet wells *into* that
+honest footprint (J·5) and the instrument stays trustworthy across every future
+sculpt.
+
+---
+
+---
+
+# Firearms, hordes & settings
+
+*(Cited from [K · Firearms](K_FIREARMS.md), [L · Horde & Campaign](L_HORDE_AND_CAMPAIGN.md),
+and [M · Sci-fi Setting](M_SCIFI_SETTING.md).)*
+
+### one-engine-any-era
+**Tempting.** Guns are a new thing, so firearms need their own subsystem — a shooting
+phase, a ranged module, a separate set of verbs.
+
+**Why not.** A gun reads and writes the same primitives a bow does — Position (range,
+lane), a PACKET (dice, grades), State (a wound). A "firearms module" would be a second
+combat engine, and a flintlock and an autogun would drift apart for no reason. Law 11:
+translate, don't fork.
+
+**Instead.** One **setting-agnostic engine** (K). A gun is a Ranged PACKET; the setting
+picks the numbers and the skin. A musket and an autogun run identical math — only the
+content differs. `→ G·misfire-is-heat`
+
+### hybrid-is-two-packets
+**Tempting.** A model with a rifle *and* a sword needs a mode: "ranged mode" and "melee
+mode," with a rule to switch.
+
+**Why not.** A mode is state you have to track and a switch is a rule that can be gamed.
+The board already knows which one is legal.
+
+**Instead.** A Hybrid figure just **holds two packets**, one Ranged, one Melee.
+`not_in_contact` turns the gun off the instant a base touches yours — the **geometry**
+does the switch, no rule fires. Sword-and-gun is the native case, not a special one.
+
+### pin-is-per-mob
+**Tempting.** Suppression is per-figure, so each pinned model carries a pin token.
+
+**Why not.** A horde is forty cheap models. A token per pinned body is the exact
+table-clutter the Component Law forbids (J · subtractive beats additive), and it is at
+its worst when the board is most crowded.
+
+**Instead.** Pin the **mob**, not the man — one shared token on the whole suppressed
+unit. You suppress a *formation*, which is also how suppression reads in life.
+
+### spray-is-ranged-cleave
+**Tempting.** An assault rifle mowing a horde needs a new "auto-fire" rule with its own
+targeting and its own cap.
+
+**Why not.** The melee side already solved multi-hit — Cleave. Inventing a parallel
+ranged one is two owners for one idea (Law 1).
+
+**Instead.** Spray **is** Cleave at range: hop to the nearest fresh enemy, one die
+fewer, until the dice run out. It self-terminates, and it only chains through a cluster —
+**Position** caps it, not a number. `→ G·the-commitment-economy`
+
+### a-grenade-is-indirect
+**Tempting.** You should need line-of-sight to the spot you throw a grenade — you can't
+hit what you can't see.
+
+**Why not.** That is backwards. The whole point of a thrown or arcing weapon is that it
+goes **over** the wall and **around** the corner. Demanding LoS turns a grenade into a
+bad rifle.
+
+**Instead.** **Blast is indirect** — target a point in range, no LoS, and let **scatter**
+(K·5) be the price of firing blind. Direct LoS stays on bullets, where it belongs.
+
+### ammo-earns-its-tracker
+**Tempting.** Ammo counting is fiddly bookkeeping, and the Component Law says play-time
+components are expensive — so drop it and let reload be a flat every-few-turns thing.
+
+**Why not.** The **terror is the point**: a whole squad emptying on the same round and
+reloading together as the wave hits. That drama only exists if ammo is **deterministic**
+and trackable, so the failure is *avoidable* by staggering. A random or flat reload
+throws the game away.
+
+**Instead.** Accept **one** small tracker per gun (William signed off at this fidelity),
+kept minimal: 2–4 ticks, the public part is just the card-down, the count is private.
+The tracker earns its place because the reload economy *is* the mode.
+
+### misfire-is-heat
+**Tempting.** Blackpowder and energy weapons are different eras, so they need different
+limiter systems.
+
+**Why not.** They are the same shape — a risk that, on the bad result, **locks the
+weapon** until you clear it. Building two systems doubles the rules for one idea.
+
+**Instead.** **Misfire (blackpowder) and Heat (energy) are one mechanic, two skins.** A
+fouled musket and an overheated plasma coil both go offline the same way (a card-down
+cool-down). Ammo/magazine is the third limiter; a weapon carries whichever its era gives it.
+
+### evasion-is-a-dodge
+**Tempting.** "Hard to hit" should just be always-on cover — raise the shooter's success
+number and move on.
+
+**Why not.** Cover is beaten by volume and does nothing against the armour-piercing that
+defines the gun meta. If Evasion were only cover, the sharpshooter faction would still
+melt to a big enough ignore-Armour gun, and its whole identity ("you can't out-gun me")
+would be a lie.
+
+**Instead.** Evasion is a **dodge save** that works even vs ignore-Armour and blast — the
+one defense bigger guns can't solve. The answer is to **corner** them (deny the escape
+geometry), which is Position capping the fight again. Roll the better of dodge-or-armour,
+never both.
+
+### the-loop-is-the-kernel
+**Tempting.** A campaign needs its own rules — a metagame layer bolted on top of the
+battle game.
+
+**Why not.** The Kernel's decision loop (A·XII: Observe → … → Persistence) already
+*is* the campaign loop; it just usually runs inside one battle. A bolted-on metagame
+would restate structure the Kernel owns.
+
+**Instead.** Run A·XII at **campaign** scale: Story sets the mission, Combat resolves it,
+Persistence scars the squad, the next Story inherits the grudge. Two modules at the
+Figure, no new architecture. `→ G·intel-tilts-the-map-not-the-dice`
+
+### the-horde-is-a-faucet
+**Tempting.** A horde is just a big army — kill enough of it and you win, same as any
+fight.
+
+**Why not.** If killing hordelings were progress, the mode would be a math race against
+spawn rate, and the answer would be "bring more dice" — a numerical solution the Kernel
+keeps refusing.
+
+**Instead.** The horde is a **faucet, not a bucket**: bodies recycle, so kills only buy
+**time**. The real target is the **nest** or the clock — a **Position** problem (reach
+and unmake it, or hold ground), which is the tool the Kernel actually wants.
+
+### a-flood-needs-no-director
+**Tempting.** To make a horde play well you need an AI director — a budget that spends
+enemies, spikes pressure, stages a boss.
+
+**Why not.** That is exactly `F_AI_DIRECTOR`, which was struck (E · kill-ai-director) as
+a second, scripted mind on top of the Temperament the figures already have.
+
+**Instead.** A flood is **emergent**: Temperament=Ravenous + spawn geometry + a thin
+Mission. The pressure comes from the nests and the map, not a director. Nest-guardians
+are Circles — the exception, not the return of the budget.
+
+### attrition-is-the-clock
+**Tempting.** The limiter on a survival mission is ammo — you win by not running out of
+bullets.
+
+**Why not.** Reload is a card-down (K·6), not a bullet count, so ammo never *ends* the
+mission — it just paces a turn. Making ammo the mission clock would drag bullet-counting
+back in.
+
+**Instead.** The clock is **you**: wounds, scars (Doc H), and gear entropy grind the
+squad down. The mission is a race between the nest's pressure and the squad's decay —
+*can you last?* — which is what "survival" means.
+
+### intel-tilts-the-map-not-the-dice
+**Tempting.** Winning the pre-battle Story session should give combat **bonuses** —
++1 to hit, extra wounds, a buff.
+
+**Why not.** Dice bonuses are the stacked numerical modifiers the Kernel avoids (A·II),
+and they make the strategy session a stat-shop.
+
+**Instead.** Intel and leverage are **scenario dials** — revealed lanes, a known enemy
+plan, a starting position, an extra body, a sabotaged nest. They **tilt the map**, not
+the roll, which is where CUS already puts balance (scenario, not stats).
+
+### asymmetry-is-not-imbalance
+**Tempting.** Fair means every faction wins ~50% against every other at equal points —
+anything else is "unbalanced" and broken.
+
+**Why not.** Forbidding hard counters forces every faction toward the middle: Tau can't
+truly kite-or-die, Orks can't truly catch-or-fold, because a counter is an auto-win and
+symmetry bans auto-wins. You would sand off the identities to hit a number.
+
+**Instead.** **Asymmetry is content, not a bug.** Factions hard-counter each other, and
+the **scenario** (map, objective, initiative, points-as-budget) balances a picked
+matchup. This is what CUS already is — PvE-first, scenario-authored. The counter-web is
+the strategy game. `→ G·the-fair-game-is-a-mirror`
+
+### the-fair-game-is-a-mirror
+**Tempting.** For a pure 50/50 skill test, you still need cross-faction balance so a
+neutral match is even.
+
+**Why not.** You never need it — and chasing it re-imposes the symmetry that flattens
+identities (above).
+
+**Instead.** The dead-even game is a **mirror**: both players bring the **same faction,
+different sub-faction** (Chapter · Clan · Sept · Regiment). Identical chassis =
+guaranteed symmetry; doctrine skins = variety that never touches balance. Space Marines
+vs Space Marines, and let the better tactician win.
 
 ---
 

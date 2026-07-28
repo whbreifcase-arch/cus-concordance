@@ -19,6 +19,10 @@ wins.** The old codex is now a **migration input, not authority.**
 | **G** | [Why Not](G_WHY_NOT.md) | The rationale register. Every place CUS says "X is **not** Y," the argument lives here — so A–C can state rules instead of defending them. |
 | **H** | [Persistence](H_PERSISTENCE.md) 🚧 | **HOLDING PEN — not a module.** Persistence is Kernel architecture and William is writing it into **A**. Until then the **harm and aftermath procedures** live here and are playable: the Aftermath rolls, 36 body injuries, 8 mind, 39 scars, and the 5-line battle result. |
 | **I** | [Story](I_STORY.md) ⚠ | **PROPOSED — Combat's peer.** The parley, the bargain, the grudge, the oath, the crowd. Composure, the Retort, Bonds. Unsigned; the Register at its foot is the pen. |
+| **J** | [The Component Layer](J_COMPONENTS.md) | **The analog interface.** How state, capability and campaign live on a real table — the Component Law, one-card-per-unit + hand management, the on-model state table, base construction. Presentation (A·IX), not a module; discharges A·XIX's "play is analog." |
+| **K** | [Firearms & Ranged Warfare](K_FIREARMS.md) | **The universal firearm engine.** Combat Module extension — gun = Ranged PACKET; the grade ladder (Suppress/Pin → Wound → Cripple); Spray, Blast + Scatter, Ammo/Reload + Misfire, Heat, Overcharge, Evasion. Setting-agnostic: a flintlock and an autogun run the same math. |
+| **L** | [Horde & Campaign](L_HORDE_AND_CAMPAIGN.md) | **The horde engine + the campaign loop.** Nests, spawns, recycle (survive/destroy, not out-kill) — fills the reserved AI-director slot — plus the pre-mission Story session feeding the scenario generator (A·XII at campaign scale). |
+| **M** | [The Sci-fi Setting](M_SCIFI_SETTING.md) | **A content pack, not the Kernel.** Four factions (Marines · Guard · Tau · Orks), the asymmetric-+-mirror matchup philosophy, the sub-faction/Chapter flavor layer. Invents no rule; a separate setting sharing the K engine. |
 
 ## The two modules — A · XIX
 
@@ -117,6 +121,80 @@ wait-buys-quality    → WAIT is the only AP-priced out-of-turn capability and i
                        QUALITY, not permission. "Arming is not permission" is struck
 facing-is-the-cap    → what replaced the pool is the front arc: a Square answers what
                        it faces, a faceless Circle answers everyone
+```
+
+## Amendments — 2026-07-27 · fourth batch (William)
+
+One working session: the Overwatch shot, Position as the primary currency, the
+campaign economy, and the **physical component layer** — the last opening a new
+Presentation document, **[J · The Component Layer](J_COMPONENTS.md)**:
+
+```text
+overwatch-exhaustible→ an armed Overwatch fires ONCE and is spent. Asymmetry with the
+                       free repeatable Counter: a ranged cone has no flank, so a free
+                       lane would be absolute and screens pointless
+shot-ladder          → prior movement prices the shot. Sprinted to the lane → Quick
+                       only; held ground you owned → Precise. The tempo layer the
+                       struck Reaction refresh gave, rebuilt positionally
+position-is-currency → ground has value, so waiting costs ground. Lanes + threat
+                       projection are the core game; screens answer lanes
+no-lane-exempt-      → an assassin must TANK the lane, not skip it. No teleport/reserve/
+  archetype            outsized-move that exempts one archetype from the game
+entropy-is-the-      → gear breaks, boosts are temporary, lifestyle creep bites. Entropy
+  leveler              is the leveler and it dissolves the mandatory checklist
+progression-at-      → individuals decline; institutions ascend. Compatible with
+  institution          progression-location — the Figure's Instance still owns its own
+                       mechanics; the institution is just another entity that accrues
+component-law        → six principles: state on the model · capability on the card ·
+                       campaign in the app · subtractive>additive · encode the
+                       exception · the base is the measuring instrument
+cards                → one printed card per unit (front player-facing, back packets);
+                       holding them IS hand management; a facedown at a model = the
+                       WAIT trap, no draw variance
+on-model-state       → activation flag · nerve flag (Steady gets none) · health by
+                       orientation · armour WYSIWYG · AP in your head
+base-construction    → two poka-yoke magnet wells (2mm/1.5mm) booleaned into every
+                       base as terrain; the base may never extend the contact perimeter
+multi-area-maps      → a REQUIREMENT, not a preference — written into the scenario
+                       generator's hard constraints, because one decisive point re-
+                       freezes the board
+
+── playtest watch-list (⚠ PROVISIONAL / tuning, NOT reopened questions) ──
+free-facedown · shove-load-bearing · form-up-stress · upkeep-curve
+(superlinear vs proportional) · champion-wounds · lost-tempo-read
+```
+
+## Amendments — 2026-07-28 · fifth batch (William)
+
+Firearms, the horde-survival mode, four sci-fi factions, and the campaign loop —
+three new documents (**[K · Firearms](K_FIREARMS.md)**, **[L · Horde &
+Campaign](L_HORDE_AND_CAMPAIGN.md)**, **[M · Sci-fi Setting](M_SCIFI_SETTING.md)**):
+
+```text
+firearms-are-packets → a gun is a Ranged PACKET; no shooting phase, no new verb.
+                       not_in_contact + provokes:false are automatic. The engine is
+                       SETTING-AGNOSTIC — a flintlock and an autogun run the same math
+gun-grade-ladder     → a shot climbs Suppress/Pin → Wound → Cripple/Kill; you may shoot
+                       to pin, not just to wound. Dice decide how high you climb
+spray                → the ranged twin of Cleave — walk the blob, -1 die per hop
+blast + scatter      → the one new effect type: an INDIRECT (no LoS) band template that
+                       scatters (shot-ladder-gated); friendly fire on
+ammo / misfire / heat→ three limiters. Ammo (magazine, reload=card-down) · Misfire
+                       (blackpowder) · Heat (energy, "gets hot"). Reloading the whole
+                       squad at once is the designed terror
+overcharge           → spend the limiter for +1 die or ignore-Armour this shot
+evasion              → a DODGE save that beats ignore-Armour/blast — corner them, don't
+                       out-gun them (Tau)
+setting-split        → one engine, content per era. FANTASY = blackpowder; SCI-FI (M) =
+                       autoguns/plasma. Never mix eras in one warband
+horde-engine         → the horde is a FAUCET (nests spawn, dead recycle); win = survive
+                       or kill the nest. Fills the reserved AI-director slot
+campaign-loop        → the pre-mission STORY session (Doc I, campaign use) sets the
+                       mission via the scenario generator. A·XII at campaign scale
+four-factions        → Marines (no-fear elite) · Guard (artillery+Orders) · Tau (Evasion
+                       kite) · Orks (Mob+berserker, 3 wounds/no shrug)
+matchups-asymmetric  → PvP is asymmetric, balanced by SCENARIO not stat symmetry; the
+                       50/50 mode is a MIRROR (same faction, different Chapter)
 ```
 
 **CUS v0.6 is closed** — every decision is signed and **no open questions remain.**

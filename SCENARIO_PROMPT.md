@@ -70,6 +70,13 @@ camp raid · dungeon crawl · boss fight · open clash.**
    Constraints) plus the Temperament each group fights on. Make it *cunning*, not suicidal.
 6. **Respect the clash reality** above when you place forces and objectives (lanes, screens,
    flanks, depth, elevation, room-denial).
+7. **Multi-area maps are mandatory — never a single decisive point.** A map whose whole
+   game is one bridge/door/objective **re-freezes the board**: both sides correctly refuse
+   to move, and play stalls. Give the board **several places worth being** — at least two or
+   three live lanes, objectives, or approaches that pull forces apart — so there is always
+   somewhere else to go and a pin in one place opens a chance in another. If your draft has
+   one decisive chokepoint and nothing else, it is wrong; add a second axis of play before
+   you finish. *(This is a signed CUS constraint — E · `multi-area-maps`, 2026-07-27.)*
 
 ## PRODUCE EXACTLY THIS
 1. **Title & premise** — one vivid paragraph.
