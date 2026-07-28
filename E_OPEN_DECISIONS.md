@@ -34,7 +34,7 @@
 | counter | **Turn-and-face · no cap · dying swing · Circles faceless** | B·9 |
 | counter-loop | **A Counter does not itself draw a Counter** | B·9 |
 | morale-states | **Steady → Shaken → Broken** (Broken = Rout by Temperament) | B·10 |
-| nerve-trigger | **Shock triggers + 3-dice Nerve roll** (delegated → designed) | B·10 |
+| nerve-trigger | **Shock triggers + 3-dice Nerve roll** (delegated → designed) — *reworked into the Mind channel: Nerve is now a **save**, Morale is damage (seventh batch)* | B·10 |
 
 ---
 

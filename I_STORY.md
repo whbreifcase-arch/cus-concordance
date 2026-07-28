@@ -284,8 +284,8 @@ JEER — Presence · Dice 3 · Success 4+ · constraints: [in_presence]
   GRADE 0 — the room hears it fall flat; you lose Standing here
   GRADE 1 — 1 Composure
   GRADE 2 — 1 Composure + answer, or lose Standing before this audience
-  GRADE 3 — Provoke: an Aggressive or Ravenous target takes a Nerve test
-            [OWNED_PROCEDURE → Combat, the Terror pattern — §9]
+  GRADE 3 — Provoke: an Aggressive or Ravenous target takes 1 Morale (Nerve saves)
+            [OWNED_PROCEDURE → Combat's Mind channel — §9, B·10]
 
 FAIR OFFER — Presence · Dice 3 · Success 4+
              constraints: [in_presence, offer_on_table]
@@ -350,8 +350,8 @@ E · `reaction-struck`.)*
 
 ## Nerve — no second morale system, ever — ⚠ PROPOSED
 Social packets resolved **on the battlefield** reach morale through the door
-Combat already built: a Grade Effect **invokes Combat's Nerve test** as an
-OWNED_PROCEDURE — the Terror-Effect pattern (B·10). Composure is a *scene*
+Combat already built: a Grade Effect **deals Morale on Combat's Mind channel** as an
+OWNED_PROCEDURE — Nerve saves it (B·10). Composure is a *scene*
 resource; Nerve is *Combat's* procedure; this module writes neither a copy nor a
 fork (Laws 1, 7). Demand surrender, jeer across the line, talk a rout onto shaken
 men — all of it is social packets firing Combat's own machinery.

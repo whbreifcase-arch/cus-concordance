@@ -156,8 +156,8 @@ untouched and ruined.
 
 ## 7.3 · The Aftermath — how harm is rolled
 
-Both checks use the **same three-dice shape as a Nerve test** (B · 10). Nothing new
-is learned.
+Both checks use the **same three-dice, count-successes shape** as combat's rolls
+(B · 10). Nothing new is learned.
 
 ### BODY — the Care check
 **Every figure that ended the battle Knocked Out** rolls once. *(Dead is dead.
@@ -287,7 +287,7 @@ below takes something and gives something, because that is what surviving does.
 | `dropped_shoulder` | Cannot use a two-handed packet. **+1 die with a shield equipped.** |
 | `stiff_back` | Move −2″. Cannot Brace. **+1 die on every Counter he throws** — he stopped moving and started watching. |
 | `short_wind` | Move −2″ · cannot Sprint · −1 Wound. He is old before his time. |
-| `iron_gut` | −1 Wound permanently. **But** he has been opened up and lived: **ignores the first Nerve test of each battle.** |
+| `iron_gut` | −1 Wound permanently. **But** he has been opened up and lived: **shrugs off the first Morale he would take each battle.** |
 | `weak_arm` | −1 die on melee. |
 | `loose_shoulder` | Cannot use a two-handed packet. **May Shove for free once per battle** — he has learned exactly how to lean. |
 | `crooked_arm` | Shield **or** weapon, never both. |
@@ -318,7 +318,7 @@ Persistence owns what it does to him.
 | One of his own betrayed him | **Suspicious** | cannot be the target of a friendly Shield Intercept — he flinches away | 3 | `trusts_slowly` | `trusts_no_one` |
 | He did a thing that cannot be undone | **Sick with it** | −1 die on melee against anything that resembles what he did it to | 3 | `no_quarter` | `butcher` |
 | He saw something that should not exist | **Unmoored** | Nerve worsens by 1 · cannot Brace | 3 | `has_seen_worse` | `thousand_yard` |
-| He was buried, trapped, or left for dead | **Closed in** | cannot enter enclosed terrain without passing a Nerve test | 2 | `the_dark` | `wont_go_in` |
+| He was buried, trapped, or left for dead | **Closed in** | takes 1 Morale on entering enclosed terrain | 2 | `the_dark` | `wont_go_in` |
 | He broke and ran, and people died for it | **Ashamed** | Nerve worsens by 1 | 2 | `oathsick` | `craven` |
 
 ---
@@ -336,7 +336,7 @@ structurally the same object as a grudge (I · 3). No new machinery.
 | `no_quarter` | **Trigger:** an enemy is Knocked Out within his reach. **Effect:** he finishes it, and he does not ask. Costs him nothing; costs the Caravan its Standing (STORY). |
 | `butcher` | As `no_quarter`, and he will do it to a surrendering foe. **Meaning:** the Caravan is known for it now. |
 | `has_seen_worse` | **Immune to Terror Effects.** Nerve worsens by 1 against ordinary men — he has stopped taking them seriously, and it gets him hurt. |
-| `the_dark` | Cannot enter enclosed terrain without passing a Nerve test. **But** once inside and Braced: **+1 die.** Cornered is a place he understands. |
+| `the_dark` | Takes 1 Morale on entering enclosed terrain. **But** once inside and Braced: **+1 die.** Cornered is a place he understands. |
 | `oathsick` | **He will not break again. Cannot go Broken.** But he cannot Disengage either — leaving a fight is the thing he cannot make himself do twice. |
 | `cannot_watch` | **Trigger:** a friendly figure within 3″ goes Knocked Out. **Effect:** he must MOVE toward it on his next activation if he legally can. |
 | `trusts_no_one` | Cannot be the target of a friendly Shield Intercept, and cannot be Rallied by another figure. **His armed WAIT does not expire when he activates** — he never stops watching, and he never has to pay to start again. |

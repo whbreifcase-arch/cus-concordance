@@ -916,7 +916,7 @@ Recovers on its next activation (the flag refreshes). ~1 round.
 Man · Beast · Spirit · Construct
 ```
 Creature Type governs combat's **morale, mending, and targeting** relationships
-(e.g. who tests Nerve, who can be healed, who never breaks) and decides whether a
+(e.g. who takes Morale, who can be healed, who never breaks) and decides whether a
 downed figure goes **Knocked Out or Dead** (§7) — a Construct is wrecked, a Spirit
 is dispersed, a Man may be dragged off the field. These branches are Combat Module
 procedures, owned here and retunable. Creature Type is **what a figure
