@@ -23,6 +23,7 @@ wins.** The old codex is now a **migration input, not authority.**
 | **K** | [Firearms & Ranged Warfare](K_FIREARMS.md) | **The universal firearm engine.** Combat Module extension — gun = Ranged PACKET; the grade ladder (Suppress/Pin → Wound → Cripple); Spray, Blast + Scatter, Ammo/Reload + Misfire, Heat, Overcharge, Evasion. Setting-agnostic: a flintlock and an autogun run the same math. |
 | **L** | [Horde & Campaign](L_HORDE_AND_CAMPAIGN.md) | **The horde engine + the campaign loop.** Nests, spawns, recycle (survive/destroy, not out-kill) — fills the reserved AI-director slot — plus the pre-mission Story session feeding the scenario generator (A·XII at campaign scale). |
 | **M** | [The Sci-fi Setting](M_SCIFI_SETTING.md) | **A content pack, not the Kernel.** Four factions (Marines · Guard · Tau · Orks), the asymmetric-+-mirror matchup philosophy, the sub-faction/Chapter flavor layer. Invents no rule; a separate setting sharing the K engine. |
+| **N** | [The Digest](N_DIGEST.md) | **The fourth pillar — jurisprudence.** Typed case-law from adversarial play: each discovery judged **DEGENERATE** (remedy it) or **TECH** (promote it), a cheapest-first remedy ladder, and every entry a sim regression policy — *CI for legislation*. Named for Justinian's Digest. |
 
 ## The two modules — A · XIX
 

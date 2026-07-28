@@ -360,6 +360,27 @@ exceptions, you give them named fields.
 
 ---
 
+## Amendments — eighth batch, signed 2026-07-28 (William)
+
+**The fourth pillar: [Document N · The Digest](N_DIGEST.md).** The loop closes —
+legislation (A–M), rulings (E), rationale (G), and now **jurisprudence** from adversarial
+contact. v0.6 stays **closed**.
+
+| ID | Ruling | In |
+|---|---|---|
+| the-digest | **CUS has a jurisprudence register — the Digest.** Discovered play from adversarial contact is recorded as typed, owned entries (Law 15), not FAQ prose. It records and judges; it changes no rule by itself. Named for Justinian's Digest — law with an amendment process is the durable Roman infrastructure | N, README |
+| the-verdict | **Every entry is judged DEGENERATE or TECH** — the one field a tool cannot set (Law 10: a judgment, signed). DEGENERATE (collapses decision-space) → remedy it; TECH (expands it — squelch, the wavedash) → **promote it to canon.** Auto-preventing everything strangers find would sterilise the emergence the system exists to produce. Verdicts can be re-judged | N·2 |
+| remedy-ladder | **A DEGENERATE entry is repaired at the cheapest rung that holds** — (1) authoring constraint (the scenario generator denies the geometry) → (2) price (balance.py) → (3) packet field (data) → (4) constitutional amendment (signature). Each rung is a different layer's tool; most exploits die at 1–2 without the law feeling it | N·3 |
+| ci-for-legislation | **Every Digest entry becomes a sim policy** — a scripted regression test re-run on every future signing. A later amendment that silently re-opens a closed exploit (or deletes a promoted tech) **fails the run.** Extends the existing `scenarios.py` mechanic-assertions. This is how a one-person system survives contact for decades | N·4, factions/sim |
+
+### On closing the loop
+The Digest is A·XII (the Kernel's decision loop) run at the **design** level: legislation
+proposes, rulings decide, rationale defends, and jurisprudence learns from contact and
+feeds all three — a promoted TECH becomes a G-slug, a rung-4 remedy becomes a signed
+amendment here. It turns a thousand strangers into co-authors, one signed verdict at a time.
+
+---
+
 ### circle-scope — SIGNED (William, 2026-07-25)
 B·1 previously headed "One Circle per army" and then said "A Banner fields exactly
 one Circle." An Army holds many Banners, so both could not be true.

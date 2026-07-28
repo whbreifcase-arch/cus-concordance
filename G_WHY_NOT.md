@@ -963,6 +963,46 @@ vs Space Marines, and let the better tactician win.
 
 ---
 
+---
+
+# Jurisprudence — the Digest
+
+*(Cited from [Document N · The Digest](N_DIGEST.md).)*
+
+### the-verdict-is-a-judgment
+**Tempting.** A register of discovered exploits should just **auto-prevent** them — the
+moment a stranger finds a break, the tools patch it. An immune system.
+
+**Why not.** Not everything strangers find is a break. **Squelch** looks like an exploit
+from the wrong angle ("morale-bombing the flank"); a fighting game's **wavedash** was an
+engine glitch that became the skill ceiling. Auto-preventing everything discovered would
+**sterilise the exact emergence the system exists to produce** — you'd kill the depth to
+kill the cheese.
+
+**Instead.** Every entry is **judged** first — **DEGENERATE** (collapses decision-space →
+remedy it) or **TECH** (expands it → *promote* it to canon). The verdict is a **judgment,
+not a fact** (Law 10): a tool can detect, remedy, and regression-test, but the
+DEGENERATE/TECH call needs taste, so it is **signed** like a ruling, and it can be
+re-judged as the standard moves. The register isn't just an immune system; it's how
+discovered play becomes law.
+
+### remedy-at-the-cheapest-rung
+**Tempting.** When play discovers a degenerate line, fix it properly — change the rule.
+The constitution is right there.
+
+**Why not.** Amending the standard for every exploit is how a rules-set ossifies into
+errata soup: the law thrashes, every fix risks a new break, and the document stops being
+stable enough to cite. Most cheese isn't a flaw in the *standard* — it's a flaw in a *map*
+or a *price.*
+
+**Instead.** Repair at the **cheapest rung that holds** — (1) an authoring constraint (the
+scenario generator just stops building the geometry), (2) a price, (3) a packet field, (4)
+and only then a signed constitutional amendment. Each rung is a different layer's tool, and
+most exploits die at rungs one and two **without the law ever feeling it.** *Local repairs,
+rare rewrites of the standard* — the actual Roman maintenance doctrine.
+
+---
+
 ## Housekeeping
 
 New entries go in the section they belong to, slug-cased, in the
