@@ -60,10 +60,11 @@ Line refs are to `cus-kernel-rebuild` @ `first-corpus-v0.6` (`ea79b70`).
 - **Destination:** Second Corpus / Combat (Rally owned by leaders; Sergeant as a leader node); Dictionary strikes the H·212 line.
 
 ## CON-0010 — Can a Circle break?
-**Disposition:** RESOLVED · **Side B is canon (rule removed).**
-- **Ruling:** **Circles can break.** Break is tracked on its **own separate meter**, distinct from a Square's Nerve. **B·41 "never tests Nerve, never breaks" is SUPERSEDED** (the "never breaks" clause is removed; a Circle still has no facing).
-- **Interacts with CON-0001:** the Circle break meter is *not* the tiered Nerve save — it is its own meter.
-- **Destination:** Second Corpus / Combat (Circle break meter).
+**Disposition:** RESOLVED · **revised 2026-07-28.**
+- **Ruling:** **A Circle breaks exactly like a Square — through the standard Mind channel.** It has **Morale**, rolls the **Nerve** tiered save, steps the **Steady→Shaken→Broken** track, Routs, and is Rallied — all identical to a Square. There is **no separate Circle break meter and no break-by-trigger system.** **B·41 "never tests Nerve, never breaks" is SUPERSEDED in full.**
+- **A Circle differs from a Square in exactly three ways:** more **Agency** (3 AP); **faceless** (no facing, never flanked — First Corpus trait, kept); and it **does not move in formation** (CON-0013). Its Mind channel is not one of the differences.
+- **Revision note:** the earlier reading of this ruling ("its own separate meter, breaks by a prewritten trigger") was **wrong**. "A different meter" meant the Mind track — the same one Squares use — not a bespoke trigger. Corrected per William, 2026-07-28.
+- **Destination:** Second Corpus / slice-2 (the Circle uses the standard Mind channel).
 
 ---
 
@@ -80,6 +81,6 @@ Line refs are to `cus-kernel-rebuild` @ `first-corpus-v0.6` (`ea79b70`).
 | CON-0007 Morale | Real | RESOLVED — State, not Resource |
 | CON-0008 Standing | Real | RESOLVED — remnant dropped |
 | CON-0009 Rally | Real | RESOLVED — a leader can Rally; H·212 struck |
-| CON-0010 Circle break | Real | RESOLVED — Circles break on own meter |
+| CON-0010 Circle break | Real | RESOLVED (rev.) — Circles break like Squares (standard Mind channel); differ only by +Agency, faceless, no-formation |
 
 **All 10 resolved. Next step: Wave 2 (ontology · dependency · layering) — launched.**
