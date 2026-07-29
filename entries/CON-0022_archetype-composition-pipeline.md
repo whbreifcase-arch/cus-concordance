@@ -1,5 +1,11 @@
 # CON-0022 — The Archetype composition pipeline
 
+> **⚠ Partially superseded by [CON-0023] (2026-07-29).** The *Archetype layer-status* framing below
+> ("compiled / derived") is corrected there to **Figure-authored / Archetype-rendered (a Presentation
+> view)** — there is no operative Archetype object. The **constructor notation and the pipeline stages
+> (Frame → Signature → Tempo) stand.** This body is preserved as an honest record of how the
+> architecture evolved; read it with CON-0023.
+
 **Disposition:** RESOLVED · ratified 2026-07-29 (William). Closes a real seam the frozen First Corpus
 left open. Concordance ruling; directs the Second Corpus `composition/` layer.
 
