@@ -14,7 +14,7 @@ Line refs are to `cus-kernel-rebuild` @ `first-corpus-v0.6` (`ea79b70`).
 - **Ruling:** Nerve is a **tiered save** ("psychic armour"), rolled per incoming Morale point, as in B·664 and C·453. The old **3-dice Nerve test is SUPERSEDED**.
 - **Loses force:** D·118 (3-dice test presented as SIGNED) and H·161 (aftermath built on the "same three-dice, count-successes shape (B·10)") — both now cite a mechanism that no longer exists.
 - **Destination:** Second Corpus / Combat (Nerve save) + Persistence (rewrite Care/Nerve checks onto the tiered save).
-- **⚠ Confirm:** the note "their nerve tracks to tank … same roll above to pass a nerve check" is read as *Nerve tier scales with the unit the way Armour does (tougher unit → higher Nerve tier), using the same save roll as Armour.* Confirm that reading before it's written as law.
+- **Confirmed (William, 2026-07-28):** Nerve tier scales with the unit the way Armour does (tougher unit → higher Nerve tier), using the same save roll as Armour.
 
 ## CON-0002 — AP on the laminated reference sheet
 **Disposition:** RESOLVED · **Side B is canon.**
@@ -29,10 +29,10 @@ Line refs are to `cus-kernel-rebuild` @ `first-corpus-v0.6` (`ea79b70`).
 - **Destination:** Second Corpus / Firearms; correct the Dictionary entry.
 
 ## CON-0004 — "Charge" means two different things
-**Disposition:** RESOLVED (naming split).
-- **Ruling:** **"Charge" stays the movement term** — the qualified Sprint / 3″ run-up (B, F, G). The **finite Resource kind is RENAMED "Uses"** (was the 🟡 finite "Charge"; skins Ammo / Arrows / Mana).
-- **⚠ Scope flag:** this changes the **Kernel Resource-kind vocabulary in A** (the three kinds become e.g. Agency / **Uses** / Strain), plus C·68 and K·182. Confirm "Uses" is the noun you want engine-wide before it propagates.
-- **Destination:** Second Corpus foundation (Resource kinds) + Firearms + Dictionary.
+**Disposition:** RESOLVED (revised 2026-07-28).
+- **Ruling:** **"Charge" is the finite Resource** — it "remains what it is" (the 🟡 finite kind; skins Ammo / Arrows / Mana). The **movement "charge" is not a defined term**: a qualified Sprint is an **emergent action**, not a primitive; if it needs a label at all, call it **"surge."**
+- **Loses force:** the B / F / G framing of "Charge = a Sprint that qualified" as a named thing — demoted to emergent movement (optional label *surge*). Only one concept keeps the name **Charge** (the Resource), which resolves the collision.
+- **Destination:** Second Corpus / Firearms + Dictionary (one entry for Charge = Resource); Combat notes the surge as emergent, undefined.
 
 ## CON-0005 — Persistence: module or Kernel architecture?
 **Disposition:** RESOLVED · **Side A is canon.**
@@ -50,15 +50,14 @@ Line refs are to `cus-kernel-rebuild` @ `first-corpus-v0.6` (`ea79b70`).
 - **Destination:** Second Corpus foundation (State vs Resource) + Dictionary.
 
 ## CON-0008 — "Standing": Position fact vs Caravan resource
-**Disposition:** UNRESOLVED · **no ruling yet.**
-- **Open question:** Is Standing an unquantified **Position fact** (I·233, "not a meter, no stat") or a **Caravan-level STORY resource degraded by scars** (H·336)? These are incompatible as written.
-- **Needs:** your decision. (This is the only one of the ten still open.)
+**Disposition:** RESOLVED · **remnant dropped (2026-07-28).**
+- **Ruling:** The **Caravan-level "Standing" resource (H·336) is a stale remnant — dropped.** It is not carried into the Second Corpus. If "Standing" appears at all, it is the unquantified **Position fact** framing (I·233, "not a meter, no stat"), which imposes no mechanic.
+- **Destination:** Second Corpus — do not implement a Standing resource; Dictionary marks the Caravan "Standing" resource `REJECTED` (remnant).
 
 ## CON-0009 — Who owns Rally — a leader, or the Sergeant?
-**Disposition:** PROVISIONAL · **both, for now.**
-- **Ruling:** Both a **leader** and the **Sergeant** may Rally, provisionally, pending play.
-- **⚠ Conflict flag:** H·212 says "a **leader cannot** Rally" — that directly contradicts "both." It must be reconciled or struck before this leaves PROVISIONAL.
-- **Destination:** Second Corpus / Combat (Rally ownership) — carry as PROVISIONAL.
+**Disposition:** RESOLVED · **a leader can Rally.**
+- **Ruling:** **A leader can Rally — that is the point of a leader.** The Sergeant supplies it too (C·275). **H·212 ("a leader cannot Rally") is STRUCK.**
+- **Destination:** Second Corpus / Combat (Rally owned by leaders; Sergeant as a leader node); Dictionary strikes the H·212 line.
 
 ## CON-0010 — Can a Circle break?
 **Disposition:** RESOLVED · **Side B is canon (rule removed).**
@@ -72,15 +71,15 @@ Line refs are to `cus-kernel-rebuild` @ `first-corpus-v0.6` (`ea79b70`).
 
 | Case | Verdict | Disposition |
 |---|---|---|
-| CON-0001 Nerve | Real | RESOLVED — tiered save; 3-dice test superseded ⚠confirm |
+| CON-0001 Nerve | Real | RESOLVED — tiered save; 3-dice test superseded (confirmed) |
 | CON-0002 AP sheet | Real | RESOLVED — 2/3 standard; exceptions as named fields |
 | CON-0003 Spray | Real | RESOLVED — full roll + 1 Charge |
-| CON-0004 "Charge" | Real | RESOLVED — Charge=movement; resource→"Uses" ⚠scope |
+| CON-0004 "Charge" | Real | RESOLVED — Charge = Resource; movement is emergent ("surge") |
 | CON-0005 Persistence | Real | RESOLVED — Kernel architecture, not a module |
 | CON-0006 Champion wounds | Real | RESOLVED — stateless card; tokens beside model |
 | CON-0007 Morale | Real | RESOLVED — State, not Resource |
-| CON-0008 Standing | — | **UNRESOLVED — needs decision** |
-| CON-0009 Rally | Real | PROVISIONAL — both, for now ⚠H·212 conflicts |
+| CON-0008 Standing | Real | RESOLVED — remnant dropped |
+| CON-0009 Rally | Real | RESOLVED — a leader can Rally; H·212 struck |
 | CON-0010 Circle break | Real | RESOLVED — Circles break on own meter |
 
-**Next step (Wave 2): not yet chosen.**
+**All 10 resolved. Next step: Wave 2 (ontology · dependency · layering) — launched.**
