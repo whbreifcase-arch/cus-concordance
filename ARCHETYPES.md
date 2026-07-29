@@ -270,7 +270,7 @@ is "no one memorizes anything" carried to the card: read the tags, you know the 
 ```text
 It OWNS       nothing but layered Presentation content (A·VIII/IX). No primitive, no rule.
 It USES       Role/Tool (A·VII, as PRESSURE/Anchor/Utility) · the signed 5 Temperaments
-              (A·VII) · AP=3 universal (A·IV) · base classes (B·1) · Circles (B·10) · the
+              (A·VII) · AP by rank (Square 2 · Circle 3, A·IV) · base classes (B·1) · Circles (B·10) · the
               K signatures (Charge/Strain/Spray/Blast/Suppress) · Care (H).
 It FEEDS      the faction rosters (M · factions/data) — each unit is Chassis + Frame +
               Signature + Temperament + Overlays + Knobs, fully resolved.
