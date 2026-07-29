@@ -211,6 +211,16 @@ activation**. Unless a module says otherwise:
 Named abilities and flavour verbs never create new universal actions; they
 translate to one of the three invariants (Law 11).
 
+**The pool size is a figure's Agency by rank — SIGNED (William, 2026-07-28):**
+```text
+SQUARE  →  2 AP     the ranked figure — less agency
+CIRCLE  →  3 AP     the exceptional figure (hero · champion · leader) — more agency
+```
+A Square gets two acts an activation; a Circle, being the golden child, gets three. The
+figure's **base shape is the tell** — no extra component (J). This is a *correction, not a
+new rule*: the faction data and pricer always used `max_ap = 2` for the rank and file;
+"AP = 3 for all" was drift, and it is struck. `→ G·ap-is-agency-by-rank`
+
 **Agency is the only pool a figure spends to act.** There is no second pool for
 someone else's activation. `→ G·a-pool-is-not-a-position`
 

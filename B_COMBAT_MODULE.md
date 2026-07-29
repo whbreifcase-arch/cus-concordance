@@ -837,6 +837,8 @@ else's activation:
   **Position, authoring and death** (Document A · IV), not by a budget.
 - **A trigger fires once per occurrence of its condition**, and a movement is one
   occurrence however finely the clash slices it (§8, Document F).
+- **The pool is `2` for a Square, `3` for a Circle** — Agency by rank (A·IV, SIGNED
+  2026-07-28); the base shape sets it, no marker needed.
 - **AP refreshes at the start of the figure's own activation.**
 - **An armed WAIT expires** when the figure next activates, at the same moment —
   which is the real reason activation order still carries weight.

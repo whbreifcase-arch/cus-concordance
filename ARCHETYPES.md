@@ -19,6 +19,7 @@ UNIT PROFILE   the fully-resolved unit a card prints
       FRAME         the job  — Role × Tool (one of nine)
       SIGNATURE     the identity — one recognizable decision loop
       TEMPERAMENT   fallback psychology — the signed five (A·VII), chosen independently
+      DOCTRINE      tactical posture — Advance · Hold · Evade · Protect · Hunt (overridable by a Mission)
       OVERLAYS      modifiers, NOT archetypes — Mounted · Emplaced · Massive · Circle · Command · Heroic
       FACTION KNOBS explicit adds / overrides — named, never hidden (Law 15)
 ```
@@ -145,12 +146,12 @@ Large          Square  Large    6    Md   3  varies     plows one class larger (
 Emplacement    Square  Large    0    —    2  Construct  static; crew-served
 ```
 
-**AP is `3` for every figure — signed and universal** (A·IV · J·6 · "one pool" B·12).
-It is *not* a per-chassis value. *(A Square-2 / Circle-3 split was floated in review; it
-contradicts the signed AP=3 one-pool, so it is **parked as a possible E amendment**, not
-adopted here.)* **Nerve** (psychic armour) is likewise a chassis/knob value, independent of
-physical Armour — which is what lets a barefoot fanatic run Heavy Nerve and a plated knight
-run Light.
+**AP is Agency by rank — SIGNED (William, 2026-07-28): `Square = 2 · Circle = 3`** (A·IV).
+The base shape sets it — a ranked figure gets two acts, a golden-child Circle three. *(This
+corrected a doc drift: "AP = 3 universal" had lost the split the faction data always used —
+`max_ap = 2` on the rank and file. Ninth batch, Document E.)* **Nerve** (psychic armour) is
+likewise a chassis/knob value, independent of physical Armour — which is what lets a
+barefoot fanatic run Heavy Nerve and a plated knight run Light.
 
 ---
 
@@ -188,17 +189,20 @@ perfectly coherent.
 
 The first draft leaked *tactical doctrine* into Temperament (Marksman/Assassin/Skirmisher
 all "Cowardly" — really meaning "prefers distance, flanks, disengages"). Those are not
-cowardice. The clean fix, **⚠ PROPOSED (not signed — a real Digest/E question):** a
-separate **DOCTRINE / posture** axis, orthogonal to Temperament:
+cowardice. **SIGNED (William, 2026-07-28):** a separate **DOCTRINE / posture** axis,
+orthogonal to Temperament:
 
 ```text
-TEMPERAMENT (psychology, signed)   Cowardly · Resolute · Aggressive · Protective · Ravenous
-DOCTRINE    (posture, PROPOSED)    Advance · Hold · Evade · Protect · Hunt
+TEMPERAMENT (psychology, the signed five)   Cowardly · Resolute · Aggressive · Protective · Ravenous
+DOCTRINE    (tactical posture)              Advance · Hold · Evade · Protect · Hunt
 ```
 
-A *Resolute* Marksman on an *Evade* doctrine, or a *Cowardly* Bulwark forced to *Hold* by
-Orders, both become expressible — and "Cowardly" stops secretly meaning "shoots from
-range." If it earns its keep in play, it's a signed amendment; until then it's a proposal.
+Temperament is **who he is when cohesion fails** (commit, risk, break-behaviour); Doctrine
+is **how he's inclined to fight** (position, engage-or-kite). Doctrine is a **default the
+Mission can override** (A·XI) — it lives at the Combat/AI layer, **not** a fifth Kernel axis
+(the four axes stay four). A *Resolute* Marksman on an *Evade* doctrine, or a *Cowardly*
+Bulwark forced to *Hold* by Orders, both become expressible — and "Cowardly" stops secretly
+meaning "shoots from range." `→ G·doctrine-is-not-temperament`
 
 ---
 
@@ -241,8 +245,9 @@ you can see exactly which knob a faction turned and where:
 MARINE TACTICAL
    Frame        Pressure × Hybrid — Raider        [Frame]
    Signature    Point-Blank                        [Signature]
-   Chassis      Heavy Infantry (Sq/Med · Mv5 · Hv · 2W · Man · AP3)   [Chassis]
+   Chassis      Heavy Infantry (Sq/Med · Mv5 · Hv · 2W · Man · AP2)   [Chassis]
    Temperament  Resolute                           [Temperament]
+   Doctrine     Advance                            [Doctrine]
    Nerve        Heavy (immune to Stun & Morale)    [Faction: They-Know-No-Fear]
    bolter       Spray + ignore-Armour              [Faction]
 
@@ -251,6 +256,7 @@ ORK BOY
    Signature    Mob                                [Signature]
    Chassis      Line Infantry, but 3 Wounds        [Chassis + Faction override: W 2→3]
    Temperament  Aggressive                         [Temperament]
+   Doctrine     Hunt                               [Doctrine]
    slugga       Spray, high success# (spray-and-pray)   [Faction]
 ```
 

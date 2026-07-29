@@ -252,6 +252,24 @@ one-flag-one-owner  → one stoplight flag (green ready · yellow waiting · gon
 The audit's punchline: the **only** genuinely-new mechanic in the whole gun kit is
 **Blast**, and even it is pure packet-data. That is the exception law working.
 
+## Amendments — 2026-07-28 · eighth & ninth batches (William)
+
+```text
+── eighth: the Digest (Document N) ──
+the-digest        → a jurisprudence register: discovered play, judged DEGENERATE
+                    (remedy at the cheapest rung) or TECH (promote to canon); every
+                    entry a sim regression policy. CI for legislation
+── ninth: a drift caught, an axis split ──
+ap-by-shape       → AP is Agency by rank: Square 2 · Circle 3. A CORRECTION — the data
+                    always used max_ap 2 for the rank and file; "AP=3 universal" was drift
+doctrine-axis     → a tactical DOCTRINE (Advance/Hold/Evade/Protect/Hunt) split off from
+                    Temperament, so "Cowardly" stops secretly meaning "prefers range."
+                    Overridable by a Mission; not a fifth Kernel axis
+```
+The AP fix is the amendment process on display: a review flagged it, the process refused
+to change law on a stranger's say-so and parked it, and the owner's signature — *"the data
+always did this"* — is what moved it.
+
 **CUS v0.6 is closed** — every decision is signed and **no open questions remain.**
 See [Document E · Decision Register](E_OPEN_DECISIONS.md). The next change is an
 amendment, not an open question.

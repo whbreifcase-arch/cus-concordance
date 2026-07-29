@@ -35,9 +35,9 @@ expressed by writing State, Position, or a Resource. **Owner:** Kernel.
 
 ### Agency
 The limited capacity an entity has to act during **its own** activation; carried as
-**AP**. Unless a module says otherwise, **1 AP buys one MOVE, one ACTION, or one
-WAIT.** **Owner:** Kernel. **Consumed by:** the three verbs. One of the exchangeable
-Resources. `→ G·agency-is-not-autonomy`
+**AP**. **1 AP buys one MOVE, one ACTION, or one WAIT**; the **pool is Agency by rank —
+Square 2 · Circle 3** (SIGNED William 2026-07-28, A·IV), read off the base shape.
+**Owner:** Kernel. **Consumed by:** the three verbs. `→ G·ap-is-agency-by-rank`
 
 ### Reaction — ⚰ RETIRED 2026-07-27
 Formerly *"the limited capacity an entity has to act during someone else's
@@ -216,6 +216,13 @@ legal applications exist (when to commit, where to direct Force, what to do when
 cohesion fails). Preference, not capability. **SIGNED (William 2026-07-24):**
 `Cowardly · Resolute · Aggressive · Protective · Ravenous`. Their leaderless and
 break/Rout behaviours are the combat table in **B · 10**.
+
+### Doctrine
+A figure's **tactical posture** — *how it is inclined to fight* (position, engage-or-kite),
+distinct from Temperament's *who it is under stress.* **SIGNED (William 2026-07-28):**
+`Advance · Hold · Evade · Protect · Hunt`. A **default a Mission can override** (A · XI);
+a Combat/AI-layer field, **not** a fifth Kernel axis. **Owner:** Combat (ARCHETYPES, B · 10).
+`→ G·doctrine-is-not-temperament`
 
 ---
 

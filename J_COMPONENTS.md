@@ -75,7 +75,7 @@ BACK    the Kernel grammar — the packets in full: id · dice · success · gra
   table. The companion app is for **downtime and campaign only** (A·XIX) — it never
   sits between two players during a fight.
 - **Only what *varies between figures* goes on the card.** Universal constants —
-  **AP = 3**, the morale track, the Grade procedure — live on the laminated
+  **AP by shape (Square 2 · Circle 3)**, the morale track, the Grade procedure — live on the laminated
   **reference sheet**, printed once, not reprinted on every unit. `→ G·encode-the-exception`
 - **Champions get their own cards** — full abilities, their Circle's break-trigger
   (B·10), fancier art. A Champion is exceptional, so its card is allowed to be.
@@ -123,7 +123,7 @@ Everything an opponent must read on *your* turn is hardware on the model
 | **Nerve** | Small swappable flags, **palette kept OFF green/yellow** (poka-yoke — the two flag families must not misread). **Steady gets NO flag** (Principle 5); a flag appears only for Shaken / Broken. | B·10 |
 | **Health** | **Model orientation.** Upright = fine · on its side = **Knocked Out** · removed = **Dead.** | B·7 |
 | **Armour** | **WYSIWYG from the sculpt.** Tunic/leather reads light, chain reads medium, plate reads heavy. No token. | B·7 |
-| **AP** | **In your head.** Universal 3 (reference sheet), spent in a burst while your hand is on the model. | B·12 |
+| **AP** | **In your head, read off the base:** **Square = 2 · Circle = 3** (A·IV). Spent in a burst while your hand is on the model. | B·12 |
 
 - **One flag, one owner — SIGNED (William, 2026-07-28).** The activation fact lives in a
   **single stoplight flag**, not a flag *and* a card-position. Earlier drafts encoded it
@@ -147,7 +147,7 @@ shape**, never hue alone — the same poka-yoke that keeps the base wells un-con
 (§5): a colour-blind player or a badly-lit table must still tell them apart.
 
 ```text
-🟢 Agency   green · a PIP     renews each activation (mostly in-head; AP = 3)
+🟢 Agency   green · a PIP     renews each activation (in-head; Square 2 · Circle 3)
 🟡 Charge   yellow · a BAR    finite; a small track that empties (skin: ammo / arrows)
 🔴 Strain   red · a WEDGE     accumulates toward a cap (skin: heat / corruption)
 ```
@@ -196,7 +196,7 @@ The card/model/reference-sheet split is one question asked three ways:
 ```text
 VARIES BETWEEN FIGURES   → the CARD          (packets, the four axes, the numbers)
 TRUE RIGHT NOW           → the MODEL          (activation, nerve, health, position)
-TRUE FOR EVERY FIGURE    → the REFERENCE SHEET (AP = 3, the Grade ladder, the tracks)
+TRUE FOR EVERY FIGURE    → the REFERENCE SHEET (AP by shape 2/3, the Grade ladder, the tracks)
 PERSISTS BETWEEN EVENTS  → the APP            (scars, injuries, gear entropy, upkeep)
 ```
 

@@ -102,6 +102,21 @@ in front.
 **Instead.** Read Temperament as the AI fallback and the Rout behaviour (B·10).
 It never modifies a die.
 
+### doctrine-is-not-temperament
+**Tempting.** A unit that keeps its distance is **Cowardly.** One word covers "prefers
+range" and "loses its nerve."
+
+**Why not.** Those are two different things, and one word smuggling both means you can't
+build a **brave sharpshooter who kites** or a **coward ordered to hold the line.** "Cowardly"
+starts secretly meaning "shoots from range," and Temperament stops being psychology.
+
+**Instead.** Split them. **Temperament** is *who a figure is when cohesion fails* — commit,
+risk, target-priority, break-behaviour (the signed five, A·VII). **Doctrine** is *how it is
+inclined to fight* — position, engage-or-kite: `Advance · Hold · Evade · Protect · Hunt`. A
+*Resolute* Marksman on *Evade* keeps his distance out of discipline, not fear. Doctrine is a
+default a **Mission** can override (A·XI); it is not a fifth Kernel axis — the four axes stay
+four. `→ G·temperament-is-preference-not-capability`
+
 ---
 
 # The executable objects
@@ -599,14 +614,33 @@ through `Role · Tempo · Tool · Temperament` and *expressed* by writing State,
 Position, or a Resource. There is no Force stat and there is no Force roll.
 
 ### agency-is-not-autonomy
-**Tempting.** "Squares trade agency for protection," so Squares have fewer AP.
+**Tempting.** A Circle is better than a Square, so fold everything it has more of into
+one word.
 
-**Why not.** They don't. A Square spends exactly the AP a Circle does. The word
-was doing double duty, and one of the two meanings is a Kernel Resource.
+**Why not.** It has more of **two different things**, and collapsing them hides which is
+which. **Agency = AP** (a Resource — how many acts: Square 2, Circle 3). **Autonomy =
+self-determination** (locked facing, breakable morale, no independent will once it Routs).
+A Circle has more Agency *and* more Autonomy — but they are separate axes: an NPC Circle
+has full autonomy yet can be Moved by the chair, while a *played* Square keeps sovereignty
+it doesn't have the Agency to express.
 
-**Instead.** **Agency = AP.** What a Square trades is **autonomy** —
-self-determination: locked facing, breakable morale, no independent will once it
-Routs. Say *autonomy* when you mean freedom and *Agency* when you mean points.
+**Instead.** Say **Agency** when you mean the AP pool and **autonomy** when you mean
+freedom. The golden child outranks the ranked figure on both — that is what "golden child"
+*means* — but keep the words apart. `→ G·ap-is-agency-by-rank`
+
+### ap-is-agency-by-rank
+**Tempting.** AP should be a flat universal — everyone gets 3, one clean number on the
+reference sheet.
+
+**Why not.** It never was. The faction data and the pricer always carried `max_ap = 2` for
+the rank and file; *"AP = 3 for all"* was a sentence in the docs that had drifted off the
+numbers the game actually ran on — a ghost that came back. And flat AP erases the one thing
+a Circle *is:* exceptional. A hero who acts exactly as often as a spearman isn't a hero.
+
+**Instead.** **AP is Agency by rank — Square 2, Circle 3.** A ranked figure gets two acts
+an activation; a golden-child Circle gets three. The base shape is the tell, so it costs no
+component (J). This is a *correction*, not a new rule — it re-aligns the constitution to the
+data (Document E, ninth batch). The one-pool principle (no second reaction pool) is untouched.
 
 ---
 

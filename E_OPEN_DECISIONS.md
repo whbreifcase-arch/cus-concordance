@@ -381,6 +381,29 @@ amendment here. It turns a thousand strangers into co-authors, one signed verdic
 
 ---
 
+## Amendments — ninth batch, signed 2026-07-28 (William)
+
+**A drift caught and an axis split.** Reviewing the archetype reference surfaced two things:
+the docs had lost the AP-by-rank split the *data* always used, and Temperament was secretly
+doing two jobs. v0.6 stays **closed**.
+
+| ID | Ruling | In |
+|---|---|---|
+| ap-by-shape | **AP is Agency by rank: `Square = 2 · Circle = 3`.** A ranked figure gets two acts an activation; a golden-child Circle (hero/champion/leader) gets three. The base shape is the tell — no marker. **A correction, not a new rule:** the faction data + pricer always used `max_ap = 2` for the rank and file; *"AP = 3 universal"* was doc drift, now struck. The one-pool principle (no second reaction pool) is unchanged | A·IV, B·12, J |
+| doctrine-axis | **A tactical DOCTRINE / posture — Advance · Hold · Evade · Protect · Hunt — separate from Temperament.** Temperament is *who a figure is when cohesion fails* (the signed five, unchanged); Doctrine is *how it is inclined to fight* (position, engage-or-kite). It is a **default a Mission can override** (A·XI), lives at the Combat/AI layer, and is **not** a fifth Kernel axis (the four axes stay four). Fixes "Cowardly" secretly meaning "prefers distance" — a Resolute Marksman can now Evade, a Cowardly Bulwark can be ordered to Hold | ARCHETYPES, B·10, A·XI |
+
+### On the AP drift — the review that caught it, and the one it got wrong
+An external review of the archetype doc flagged the AP split. The written canon said *"AP =
+3 universal,"* so the first pass **held to the written law and parked the split** — correctly,
+under the amendment process. The owner then ruled that the *written law had drifted from the
+data*, and the split is restored. That is the system working exactly as designed: the review
+found a real ghost, the process refused to change law on a stranger's say-so, and the owner's
+signature is what moved it. *(The same review also misremembered three canon points — Role is
+**Pressure** not "Force"; the five signed Temperaments stand; AP was the one it had right —
+which is why a verdict is a judgment, N·2, not an auto-apply.)*
+
+---
+
 ### circle-scope — SIGNED (William, 2026-07-25)
 B·1 previously headed "One Circle per army" and then said "A Banner fields exactly
 one Circle." An Army holds many Banners, so both could not be true.
