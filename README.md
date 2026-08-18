@@ -1,5 +1,18 @@
 # CUS — Concordance
 
+> ## SUPERSEDED — 2026-08-17
+>
+> **This repository is closed.** It governed migration into the Second Corpus; both are now
+> closed together. Current CUS canon lives in the rulebook vault at
+> [`TheCampaign`](https://github.com/whbreifcase-arch/TheCampaign).
+>
+> One item was still open when work stopped here: the proposed **CON-0026** (the
+> Charge → Reserve resource rename, raised in `cus-second-corpus` a few hours after this repo's
+> last commit) was never reviewed or ratified. It does not carry forward.
+>
+> Everything below is history. The four-tier authority hierarchy it describes — Second Corpus
+> over Concordance over First Corpus — no longer holds; none of those three governs current CUS.
+
 **Provenance · migration · jurisprudence · interpretation.**
 
 This repository is the mutable record of *why and how* the CUS corpus migrates. It is a fork of
